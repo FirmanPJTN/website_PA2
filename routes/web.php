@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-<<<<<<< HEAD
     return view('admin/dashboard');
 });
 
@@ -32,4 +31,4 @@ Route::get('/ManajemenAset/DataAset/Hapus/{id}', 'ControllerDataAset@destroy');
 Route::get('/ManajemenAset/DataAset/action', 'ControllerDataAset@action')->name('live_search.action');
 
 
-});
+
