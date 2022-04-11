@@ -100,7 +100,10 @@ return [
     'not_in' => 'The selected :attribute is invalid.',
     'not_regex' => 'The :attribute format is invalid.',
     'numeric' => 'The :attribute must be a number.',
+<<<<<<< HEAD
     'password' => 'The password is incorrect.',
+=======
+>>>>>>> c4e0287c61f75fa2f3cd0eb1985a76f14417713f
     'present' => 'The :attribute field must be present.',
     'prohibited' => 'The :attribute field is prohibited.',
     'prohibited_if' => 'The :attribute field is prohibited when :other is :value.',
@@ -126,6 +129,7 @@ return [
     'string' => 'The :attribute must be a string.',
     'timezone' => 'The :attribute must be a valid timezone.',
     'unique' => 'Kode Aset :attribute telah ada',
+
     'uploaded' => 'The :attribute failed to upload.',
     'url' => 'The :attribute must be a valid URL.',
     'uuid' => 'The :attribute must be a valid UUID.',

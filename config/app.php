@@ -168,6 +168,7 @@ return [
          */
         RealRashid\SweetAlert\SweetAlertServiceProvider::class,
 
+
         /*
          * Application Service Providers...
          */
