@@ -1,5 +1,5 @@
 
-$('.delete').click(function() {
+$('.deleteAda').click(function() {
     var id = $(this).attr('data-id');
 
     swal({
@@ -11,7 +11,7 @@ $('.delete').click(function() {
         })
         .then((willDelete) => {
         if (willDelete) {
-            window.location = "PermohonanAset/PeminjamanAset/Hapus/"+id+"";
+            window.location = "PermohonanAset/PengadaanAset/Hapus/"+id+"";
             swal({
                 title: "Data Berhasil Dihapus!",
                 icon: "success",

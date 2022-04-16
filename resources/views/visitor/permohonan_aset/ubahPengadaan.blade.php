@@ -55,48 +55,41 @@
         <nav aria-label="breadcrumb" class="bg-light  mb-5">
             <ol class="breadcrumb mx-3 mt-2" style="color: RGBA(107,107,107,0.75)">
                 <li class="breadcrumb-item"><a href="{{route('visitor-dashboard')}}"><span class="iconify" data-icon="ant-design:home-filled" data-height="20"></span>&nbsp;&nbsp;&nbsp;&nbsp;Dashboard</a></li>
-                <li class="breadcrumb-item"><a href="{{route('visitor-peminjaman')}}"><span class="iconify" data-icon="eos-icons:cluster-management" data-height="20"></span>&nbsp;&nbsp;&nbsp;&nbsp;Permohonan Aset</a></li>
-                <li class="breadcrumb-item active fw-bold text-color" aria-current="page">Peminjaman Aset</li>
+                <li class="breadcrumb-item"><a href="{{route('visitor-pengadaan')}}"><span class="iconify" data-icon="eos-icons:cluster-management" data-height="20"></span>&nbsp;&nbsp;&nbsp;&nbsp;Permohonan Aset</a></li>
+                <li class="breadcrumb-item active fw-bold text-color" aria-current="page">Pengadaan Aset</li>
             </ol>
         </nav>
 
         <div class="shadow p-3 mb-5 bg-body rounded container border">
             
-            <h2 class="mb-5 text-center">UBAH PEMINJAMAN ASET</h2>       
+            <h2 class="mb-5 text-center">UBAH PENGADAAN ASET</h2>       
 
 
-            <form enctype="multipart/form-data" action="/visitor/PermohonanAset/PeminjamanAset/Kirim/{{$peminjaman->id}}" method="post">
+            <form enctype="multipart/form-data" action="/visitor/PermohonanAset/PengadaanAset/Kirim/{{$pengadaan->id}}" method="post">
                 {{ csrf_field() }}
                 <div class="form-group input_fields_wrap">
                     <div class="d-flex justify-content-start mt-4 ">
                         <label class="mx-4 w-100 ">Daftar Barang</label>
                         
                         <label class="ml-5 pl-2">Jenis</label>
-                        <input type="text" name="jenisBarang1" class="form-control mx-4" value="{{ $peminjaman -> jenisBarang1 }}" autofocus autocomplete="off" required>
+                        <input type="text" name="jenisBarang1" class="form-control mx-4" value="{{ $pengadaan -> jenisBarang1 }}" autofocus autocomplete="off" required>
 
                         <label >Tipe</label>
-                        <input type="text" name="tipeBarang1" class="form-control mx-4" value="{{ $peminjaman -> tipeBarang1 }}" autofocus autocomplete="off" required>
+                        <input type="text" name="tipeBarang1" class="form-control mx-4" value="{{ $pengadaan -> tipeBarang1 }}" autofocus autocomplete="off" required>
 
                         <label class="form-label" visibilit>Jumlah</label>
-                        <input type="number" name="jumlahBarang1" class="form-control mx-4" value="{{ $peminjaman -> jumlahBarang1 }}" autofocus autocomplete="off" required size="5">
+                        <input type="number" name="jumlahBarang1" class="form-control mx-4" value="{{ $pengadaan -> jumlahBarang1 }}" autofocus autocomplete="off" required size="5">
                     </div>
                 </div>
 
-                @include('layouts.ifEmptyPeminjaman')
+                @include('layouts.ifEmptyPengadaan')
+
 
 
                 <div class="form-group mt-3">
                     <div class="d-flex justify-content-center">
-                        <label class="mx-4 w-25" >Tanggal Pengembalian</label>
-                        <input type="date" name="tglKembali" class="form-control mx-4"  value="{{ $peminjaman -> tglKembali }}" autofocus autocomplete="off">
-                    </div>
-                </div>
-
-
-                <div class="form-group mt-3">
-                    <div class="d-flex justify-content-center">
-                        <label class="mx-4 w-25">Tujuan Peminjaman</label>
-                        <textarea name="tujuan" class="form-control mx-4" cols="30" rows="10" value="{{ $peminjaman -> tujuan }}" autofocus autocomplete="off">{{ $peminjaman -> tujuan }}</textarea>
+                        <label class="mx-4 w-25">Alasan Pengadaan</label>
+                        <textarea name="alasan" class="form-control mx-4" cols="30" rows="10" value="{{ $pengadaan -> alasan }}" autofocus autocomplete="off">{{ $pengadaan -> alasan }}</textarea>
                     </div>
                 </div>
 

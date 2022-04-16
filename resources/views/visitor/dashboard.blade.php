@@ -66,6 +66,52 @@
         </div>
 
 
+        <h3 class="mb-3 mt-4 fw-bold mx-4 mb-5">PENGADAAN ASET</h3>
+
+        <div class="table-container mx-5 mr-5">
+            <table class="table table-striped table-bordered mb-5 ">
+                <thead>
+                    <tr>
+                    <th scope="col" class="text-center">No</th>
+                    <th scope="col" class="text-center">Jumlah Barang</th>
+                    <th scope="col" class="text-center">Tanggal Pengadaan</th>
+                    <th scope="col" class="text-center">Alasan</th>
+                    <th scope="col" class="text-center">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php $i=1 ?>
+                        @foreach ($pengadaan as $ada)
+
+                        <?php 
+                            $jumlah = ($ada -> jumlahBarang1) + ($ada -> jumlahBarang2) + ($ada -> jumlahBarang3) + ($ada -> jumlahBarang4) + ($ada -> jumlahBarang5)
+                        ?>
+                    <tr>
+                        <td class="text-center">{{$i}}</td>
+                        <td class="text-center">{{$jumlah}}</td>
+                        <td class="text-center">{{$ada -> created_at -> format('Y-m-d')}}</td>
+                        <td>{{Str::limit($ada->alasan, 50, $end=' .....')}}</td>
+                        <td class="text-center">
+                            <div class="d-flex justify-content-around">
+                                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#def<?= $ada->id ?>">Detail</button> &nbsp;
+                                <a href="/visitor/PermohonanAset/PengadaanAset/Ubah/{{$ada -> id}}" class="btn btn-warning">Ubah</a> &nbsp;
+                                <a data-id="{{ $ada->id }}" class="btn btn-danger deleteAda" href="#">Hapus</a>
+                            </div>
+                        </td>
+                    </tr>
+
+
+
+                    <!-- MODAL DETAIL PEMINJAMAN -->
+                    @include('layouts.modalDetailPengadaan')
+
+                    <?php $i++; ?>
+                    @endforeach
+                    
+                </tbody>
+            </table>
+        </div>
+
         <h3 class="mb-3 mt-4 fw-bold mx-4 mb-5">PEMINJAMAN ASET</h3>
 
         <div class="table-container mx-5 mr-5">
@@ -97,7 +143,7 @@
                             <div class="d-flex justify-content-around">
                                 <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#abc<?= $pinjam->id ?>">Detail</button> &nbsp;
                                 <a href="/visitor/PermohonanAset/PeminjamanAset/Ubah/{{$pinjam -> id}}" class="btn btn-warning">Ubah</a> &nbsp;
-                                <a data-id="{{ $pinjam->id }}" class="btn btn-danger delete" href="#">Hapus</a>
+                                <a data-id="{{ $pinjam->id }}" class="btn btn-danger deletePinjam" href="#">Hapus</a>
                             </div>
                         </td>
                     </tr>
@@ -113,6 +159,7 @@
                 </tbody>
             </table>
         </div>
+        
 
             <br><br><br>
             @include('layouts.footer')
@@ -276,7 +323,10 @@
 
      <!-- SWEET ALERT  -->
 
-     <script type="text/javascript" src="../../js/scriptDeleteConfirmVisitor.js"></script>
+     <script type="text/javascript" src="../../js/scriptDeleteConfirmPeminjamanVisitor.js"></script>
+
+     <script type="text/javascript" src="../../js/scriptDeleteConfirmPengadaanVisitor.js"></script>
+
 
     @if(Session::has('success'))
         <script type="text/javascript">
@@ -302,6 +352,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
 
     <script type="text/javascript" src="../js/scriptNavbar.js"></script>
+
+    
 
     <!-- Iconify  -->
     <script src="https://code.iconify.design/2/2.1.0/iconify.min.js"></script>

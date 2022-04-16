@@ -23,4 +23,8 @@ class Visitor extends Model
     public function Peminjaman() {
         return $this->belongsTo(Peminjaman::class, 'id')
     }
+
+    public function Pengadaan() {
+        return $this->belongsTo(Pengadaan::class, 'id')
+    }
 }

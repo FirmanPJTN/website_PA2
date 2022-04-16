@@ -31,9 +31,9 @@ Route::get('/ManajemenAset/DataAset/Hapus/{id}', 'ControllerDataAset@destroy');
 Route::get('/ManajemenAset/DataAset/action', 'ControllerDataAset@action')->name('live_search.action');
 
 
-Route::get('/visitor/dashboard', 'PeminjamanController@index');
+Route::get('/visitor/dashboard', 'PeminjamanController@index')->name('visitor-dashboard');
 
-Route::get('/visitor/PermohonanAset/PeminjamanAset', 'PeminjamanController@create');
+Route::get('/visitor/PermohonanAset/PeminjamanAset', 'PeminjamanController@create')->name('visitor-peminjaman');
 
 Route::post('/visitor/PermohonanAset/PeminjamanAset/Simpan', 'PeminjamanController@store');
 
@@ -43,3 +43,15 @@ Route::post('/visitor/PermohonanAset/PeminjamanAset/Kirim/{id}', 'PeminjamanCont
 
 Route::get('/visitor/PermohonanAset/PeminjamanAset/Hapus/{id}', 'PeminjamanController@destroy');
 
+
+
+
+Route::get('/visitor/PermohonanAset/PengadaanAset', 'PengadaanController@create')->name('visitor-pengadaan');
+
+Route::post('/visitor/PermohonanAset/PengadaanAset/Simpan', 'PengadaanController@store');
+
+Route::get('/visitor/PermohonanAset/PengadaanAset/Ubah/{id}', 'PengadaanController@edit');
+
+Route::post('/visitor/PermohonanAset/PengadaanAset/Kirim/{id}', 'PengadaanController@update');
+
+Route::get('/visitor/PermohonanAset/PengadaanAset/Hapus/{id}', 'PengadaanController@destroy');

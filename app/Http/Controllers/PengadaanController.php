@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Peminjaman;
 use App\Models\Pengadaan;
 use Illuminate\Http\Request;
 
-class PeminjamanController extends Controller
+class PengadaanController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +14,8 @@ class PeminjamanController extends Controller
      */
     public function index()
     {
-        $peminjaman = Peminjaman::paginate(10);
-        $pengadaan = Pengadaan::paginate(10);
-        return view('visitor.dashboard', compact('peminjaman', 'pengadaan'));
+        $pengadaan = Pengadaan::paginate(5);
+        return view('visitor.dashboard', ['pengadaan'=>$pengadaan]);
     }
 
     /**
@@ -27,7 +25,7 @@ class PeminjamanController extends Controller
      */
     public function create()
     {
-        return view('visitor.permohonan_aset.peminjaman');
+        return view('visitor.permohonan_aset.pengadaan');
     }
 
     /**
@@ -42,11 +40,10 @@ class PeminjamanController extends Controller
             'jenisBarang1'  => 'required',
             'tipeBarang1'  => 'required',
             'jumlahBarang1'  => 'required',
-            'tglKembali'  => 'required',
-            'tujuan'  => 'required'
+            'alasan'  => 'required'
         ]);
 
-        Peminjaman::create([
+        Pengadaan::create([
             'jenisBarang1'  => $request-> jenisBarang1,
             'tipeBarang1'  => $request-> tipeBarang1,
             'jumlahBarang1'  => $request-> jumlahBarang1,
@@ -62,20 +59,19 @@ class PeminjamanController extends Controller
             'jenisBarang5'  => $request-> jenisBarang5,
             'tipeBarang5'  => $request-> tipeBarang5,
             'jumlahBarang5'  => $request-> jumlahBarang5,
-            'tglKembali'  => $request-> tglKembali,
-            'tujuan'  => $request-> tujuan,
+            'alasan'  => $request-> alasan,
         ]);
 
-        return redirect('/visitor/dashboard')->with('success', 'Peminjaman Berhasil Ditambahkan!');
+        return redirect('/visitor/dashboard')->with('success', 'Pengadaan Berhasil Ditambahkan!');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Peminjaman  $peminjaman
+     * @param  \App\Models\Pengadaan  $pengadaan
      * @return \Illuminate\Http\Response
      */
-    public function show(Peminjaman $peminjaman)
+    public function show(Pengadaan $pengadaan)
     {
         //
     }
@@ -83,20 +79,20 @@ class PeminjamanController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Peminjaman  $peminjaman
+     * @param  \App\Models\Pengadaan  $pengadaan
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        $peminjaman = Peminjaman::find($id);
-        return view('visitor.permohonan_aset.ubahPeminjaman',['peminjaman'=>$peminjaman]);
+        $pengadaan = Pengadaan::find($id);
+        return view('visitor.permohonan_aset.ubahPengadaan',['pengadaan'=>$pengadaan]);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Peminjaman  $peminjaman
+     * @param  \App\Models\Pengadaan  $pengadaan
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -105,46 +101,44 @@ class PeminjamanController extends Controller
             'jenisBarang1'  => 'required',
             'tipeBarang1'  => 'required',
             'jumlahBarang1'  => 'required',
-            'tglKembali'  => 'required',
-            'tujuan'  => 'required'
+            'alasan'  => 'required'
         ]);
 
-        $peminjaman = Peminjaman::find($id);
-        $peminjaman->id = $request-> id;
-        $peminjaman->jenisBarang1 = $request-> jenisBarang1;
-        $peminjaman->tipeBarang1 = $request-> tipeBarang1;
-        $peminjaman->jumlahBarang1  = $request-> jumlahBarang1;
-        $peminjaman->jenisBarang2 = $request-> jenisBarang2;
-        $peminjaman->tipeBarang2 = $request-> tipeBarang2;
-        $peminjaman->jumlahBarang2  = $request-> jumlahBarang2;
-        $peminjaman->jenisBarang3 = $request-> jenisBarang3;
-        $peminjaman->tipeBarang3 = $request-> tipeBarang3;
-        $peminjaman->jumlahBarang3  = $request-> jumlahBarang3;
-        $peminjaman->jenisBarang4 = $request-> jenisBarang4;
-        $peminjaman->tipeBarang4 = $request-> tipeBarang4;
-        $peminjaman->jumlahBarang4  = $request-> jumlahBarang4;
-        $peminjaman->jenisBarang5 = $request-> jenisBarang5;
-        $peminjaman->tipeBarang5 = $request-> tipeBarang5;
-        $peminjaman->jumlahBarang5  = $request-> jumlahBarang5;
-        $peminjaman->tglKembali  = $request-> tglKembali;
-        $peminjaman->tujuan  = $request-> tujuan;
+        $pengadaan = Pengadaan::find($id);
+        $pengadaan->id = $request-> id;
+        $pengadaan->jenisBarang1 = $request-> jenisBarang1;
+        $pengadaan->tipeBarang1 = $request-> tipeBarang1;
+        $pengadaan->jumlahBarang1  = $request-> jumlahBarang1;
+        $pengadaan->jenisBarang2 = $request-> jenisBarang2;
+        $pengadaan->tipeBarang2 = $request-> tipeBarang2;
+        $pengadaan->jumlahBarang2  = $request-> jumlahBarang2;
+        $pengadaan->jenisBarang3 = $request-> jenisBarang3;
+        $pengadaan->tipeBarang3 = $request-> tipeBarang3;
+        $pengadaan->jumlahBarang3  = $request-> jumlahBarang3;
+        $pengadaan->jenisBarang4 = $request-> jenisBarang4;
+        $pengadaan->tipeBarang4 = $request-> tipeBarang4;
+        $pengadaan->jumlahBarang4  = $request-> jumlahBarang4;
+        $pengadaan->jenisBarang5 = $request-> jenisBarang5;
+        $pengadaan->tipeBarang5 = $request-> tipeBarang5;
+        $pengadaan->jumlahBarang5  = $request-> jumlahBarang5;
+        $pengadaan->alasan  = $request-> alasan;
 
-        $peminjaman->save();
+        $pengadaan->save();
         
         
-        return redirect('/visitor/dashboard')->with('success', 'Data Peminjaman Berhasil Diubah!');
+        return redirect('/visitor/dashboard')->with('success', 'Data Pengadaan Berhasil Diubah!');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Peminjaman  $peminjaman
+     * @param  \App\Models\Pengadaan  $pengadaan
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        $Peminjaman = Peminjaman::find($id);
-        $Peminjaman->delete();
+        $Pengadaan = Pengadaan::find($id);
+        $Pengadaan->delete();
         return redirect('/visitor/dashboard');
     }
 }
