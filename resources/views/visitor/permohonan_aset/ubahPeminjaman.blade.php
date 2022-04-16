@@ -33,7 +33,7 @@
     
 
 
-    <link rel="stylesheet" href="../../css/styleNavbar.css">
+    <link rel="stylesheet" href="../../../../css/styleNavbar.css">
 
 
     <!-- AJAX -->
@@ -62,55 +62,49 @@
 
         <div class="shadow p-3 mb-5 bg-body rounded container border">
             
-            <h2 class="mb-5 text-center">FORM PEMINJAMAN ASET</h2>       
+            <h2 class="mb-5 text-center">UBAH PEMINJAMAN ASET</h2>       
 
 
-            <form enctype="multipart/form-data" action="/visitor/PermohonanAset/PeminjamanAset/Simpan" method="post">
+            <form enctype="multipart/form-data" action="/visitor/PermohonanAset/PeminjamanAset/Kirim/{{$peminjaman->id}}" method="post">
                 {{ csrf_field() }}
                 <div class="form-group input_fields_wrap">
                     <div class="d-flex justify-content-start mt-4 ">
                         <label class="mx-4 w-100 ">Daftar Barang</label>
                         
                         <label class="ml-5 pl-2">Jenis</label>
-                        <input type="text" name="jenisBarang1" class="form-control mx-4" value="{{ old('jenisBarang1') }}" autofocus autocomplete="off" required>
+                        <input type="text" name="jenisBarang1" class="form-control mx-4" value="{{ $peminjaman -> jenisBarang1 }}" autofocus autocomplete="off" required>
 
                         <label >Tipe</label>
-                        <input type="text" name="tipeBarang1" class="form-control mx-4" value="{{ old('tipeBarang1') }}" autofocus autocomplete="off" required>
+                        <input type="text" name="tipeBarang1" class="form-control mx-4" value="{{ $peminjaman -> tipeBarang1 }}" autofocus autocomplete="off" required>
 
                         <label class="form-label" visibilit>Jumlah</label>
-                        <input type="number" name="jumlahBarang1" class="form-control mx-4" value="{{ old('jumlahBarang1') }}" autofocus autocomplete="off" required size="5">
-
-                        <a class="add_field_button"><span class="iconify" data-icon="carbon:add-alt" style="color: #0fa958;" data-height="25"></span></a>
+                        <input type="number" name="jumlahBarang1" class="form-control mx-4" value="{{ $peminjaman -> jumlahBarang1 }}" autofocus autocomplete="off" required size="5">
                     </div>
                 </div>
+
+                @include('layouts.ifEmptyDaftarBarang')
 
 
                 <div class="form-group mt-3">
                     <div class="d-flex justify-content-center">
                         <label class="mx-4 w-25" >Tanggal Pengembalian</label>
-                        <input type="date" name="tglKembali" class="form-control mx-4"  value="{{ old('tglKembali') }}" autofocus autocomplete="off">
+                        <input type="date" name="tglKembali" class="form-control mx-4"  value="{{ $peminjaman -> tglKembali }}" autofocus autocomplete="off">
                     </div>
                 </div>
-                @error('tglKembali')
-                    <div class="alert-danger mt-1">{{$message}}</div>
-                @enderror
 
 
                 <div class="form-group mt-3">
                     <div class="d-flex justify-content-center">
                         <label class="mx-4 w-25">Tujuan Peminjaman</label>
-                        <textarea name="tujuan" class="form-control mx-4" cols="30" rows="10" value="{{ old('tujuan') }}" autofocus autocomplete="off"></textarea>
+                        <textarea name="tujuan" class="form-control mx-4" cols="30" rows="10" value="{{ $peminjaman -> tujuan }}" autofocus autocomplete="off">{{ $peminjaman -> tujuan }}</textarea>
                     </div>
                 </div>
-                @error('tujuan')
-                    <div class="alert-danger mt-1">{{$message}}</div>
-                @enderror
 
 
                 <div class="form-group mt-5">
                     <div class="d-flex justify-content-end">
-                        <a href="/visitor/dashboard" class="btn btn-secondary mx-1">Cancel</a>
-                        <button type="submit" class="btn btn-info mx-1">Kirim</button>
+                        <a href="/visitor/dashboard" class="btn btn-secondary mx-1">Batal</a>
+                        <button type="submit" class="btn btn-warning mx-1">Ubah</button>
                     </div>
                 </div>
             </form>
@@ -125,28 +119,6 @@
     </div>
 
 
-    <script>
-        $(document).ready(function() {
-            var max_fields      = 5; //maximum input boxes allowed
-            var wrapper   		= $(".input_fields_wrap"); //Fields wrapper
-            var add_button      = $(".add_field_button"); //Add button ID
-
-            var x = 2; //initlal text box count
-            $(add_button).click(function(e){ //on add input button click
-            e.preventDefault();
-                if(x <= max_fields){ //max input box allowed
-                    $(wrapper).append('<div class="d-flex justify-content-start mt-4 "><label class="mx-4 w-100 " style="visibility: hidden">Daftar Barang</label><label class="ml-5 pl-2">Jenis</label><input type="text" name="jenisBarang'+x+'" class="form-control mx-4" autofocus autocomplete="off"><label >Tipe</label><input type="text" name="tipeBarang'+x+'" class="form-control mx-4" autofocus autocomplete="off"><label class="form-label" visibilit>Jumlah</label><input type="number" name="jumlahBarang'+x+'" class="form-control mx-4" autofocus autocomplete="off" size="5"><a class=" remove_field"> <span class="iconify" data-icon="ant-design:minus-circle-outlined" style="color: #ff1e1e;" data-height="25"></span></a></div>'); //add input box
-                    x++; //text box increment
-                }
-            });
-
-            $(wrapper).on("click",".remove_field", function(e){ //user click on remove text
-                e.preventDefault(); 
-                $(this).parent('div').remove(); 
-                x--;
-                })
-            });
-    </script>
 
     
 
@@ -159,7 +131,7 @@
     <!-- jQuery Custom Scroller CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
 
-    <script type="text/javascript" src="../../js/scriptNavbar.js"></script>
+    <script type="text/javascript" src="../../../../js/scriptNavbar.js"></script>
 
     <!-- Iconify  -->
     <script src="https://code.iconify.design/2/2.1.0/iconify.min.js"></script>

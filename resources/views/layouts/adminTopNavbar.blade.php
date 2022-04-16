@@ -5,7 +5,7 @@
 
             <form class="form-inline" method="get">
                 <div class="d-flex">
-                    <input class="form-control" type="search" name="cari" value="{{Request::get('cari')}}"  placeholder="Cari di sini..." aria-label="Search" size = 50  >
+                    <input class="form-control" type="search" name="cari" value="{{Request::get('cari')}}"  placeholder="Cari di sini..." aria-label="Search" size = 50  > &nbsp; 
                     <button class="btn btn-outline-light ml-3" type="submit">Cari</button>
                 </div>
             </form>
@@ -18,7 +18,7 @@
 
         <button class="btn mx-4" style="background-color: #ADCFE4;">
             <div class="d-flex">
-                <span class="iconify" data-icon="bxs:user"></span> Admin <span class="iconify" data-icon="ant-design:caret-down-filled"></span>
+                <span class="iconify mt-1" data-icon="bxs:user"></span> Admin <span class="iconify mt-2" data-icon="ant-design:caret-down-filled"></span>
             </div>
         </button>
 

@@ -148,9 +148,6 @@ class ControllerDataAset extends Controller
         $aset->save();
         
         
-        
-        Alert::success('Congrats', 'You\'ve Successfully Registered');
-        
         return redirect('/ManajemenAset/DataAset')->with('success', 'Data Berhasil Diubah!');
     }
 

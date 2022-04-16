@@ -19,4 +19,8 @@ class Visitor extends Model
     public function DataAset() {
         return $this->belongsTo(DataAset::class, 'id')
     }
+
+    public function Peminjaman() {
+        return $this->belongsTo(Peminjaman::class, 'id')
+    }
 }

@@ -52,14 +52,14 @@
         <!-- Page Content  -->
         <div id="content">
 
-            @include('layouts.topNavbar')
+            @include('layouts.adminTopNavbar')
 
 
                 <nav aria-label="breadcrumb" class="bg-light">
                     <ol class="breadcrumb mx-3 mt-2" style="color: RGBA(107,107,107,0.75)">
                         <li class="breadcrumb-item"><a href="#"><span class="iconify" data-icon="ant-design:home-filled" data-height="20"></span>&nbsp;&nbsp;&nbsp;&nbsp;Dashboard</a></li>
                         <li class="breadcrumb-item"><a href="#"><span class="iconify" data-icon="eos-icons:cluster-management" data-height="20"></span>&nbsp;&nbsp;&nbsp;&nbsp;Manajemen Aset</a></li>
-                        <li class="breadcrumb-item active fw-bold text-color" aria-current="page">Data</li>
+                        <li class="breadcrumb-item active fw-bold text-color" aria-current="page">Data Aset</li>
                     </ol>
                 </nav>
 
@@ -117,8 +117,7 @@
                         <td class="text-center">
                             <div class="d-flex">
                             <a href="/ManajemenAset/DataAset/Ubah/{{$aset -> id}}" class="btn btn-warning">Ubah</a> &nbsp;
-                            <!-- <a data-id="{{ $aset->id }}" class="btn btn-danger remove-aset" href="/ManajemenAset/DataAset/Hapus/{{$aset -> id}}">Hapus</a> -->
-                            <a data-id="{{ $aset->id }}" class="btn btn-danger delete" data-id="{{$aset -> id}}" data-kode= "{{$aset -> kodeAset}}"href="#">Hapus</a>
+                            <a data-id="{{ $aset->id }}" class="btn btn-danger delete" data-kode= "{{$aset -> kodeAset}}"href="#">Hapus</a>
                             </div>
                         </td>
                     </tr>

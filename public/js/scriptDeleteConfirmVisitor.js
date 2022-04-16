@@ -11,7 +11,7 @@ $('.delete').click(function() {
         })
         .then((willDelete) => {
         if (willDelete) {
-            window.location = "/ManajemenAset/DataAset/Hapus/"+id+"";
+            window.location = "PermohonanAset/PeminjamanAset/Hapus/"+id+"";
             swal({
                 title: "Data Berhasil Dihapus!",
                 icon: "success",

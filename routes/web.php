@@ -31,4 +31,15 @@ Route::get('/ManajemenAset/DataAset/Hapus/{id}', 'ControllerDataAset@destroy');
 Route::get('/ManajemenAset/DataAset/action', 'ControllerDataAset@action')->name('live_search.action');
 
 
+Route::get('/visitor/dashboard', 'PeminjamanController@index');
+
+Route::get('/visitor/PermohonanAset/PeminjamanAset', 'PeminjamanController@create');
+
+Route::post('/visitor/PermohonanAset/PeminjamanAset/Simpan', 'PeminjamanController@store');
+
+Route::get('/visitor/PermohonanAset/PeminjamanAset/Ubah/{id}', 'PeminjamanController@edit');
+
+Route::post('/visitor/PermohonanAset/PeminjamanAset/Kirim/{id}', 'PeminjamanController@update');
+
+Route::get('/visitor/PermohonanAset/PeminjamanAset/Hapus/{id}', 'PeminjamanController@destroy');
 
