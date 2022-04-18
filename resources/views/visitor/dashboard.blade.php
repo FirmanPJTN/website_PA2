@@ -82,6 +82,7 @@
                 <tbody>
                     <?php $i=1 ?>
                         @foreach ($pengadaan as $ada)
+                        @if($ada->user_id == Auth::user()->id)
 
                         <?php 
                             $jumlah = ($ada -> jumlahBarang1) + ($ada -> jumlahBarang2) + ($ada -> jumlahBarang3) + ($ada -> jumlahBarang4) + ($ada -> jumlahBarang5)
@@ -106,6 +107,7 @@
                     @include('layouts.modalDetailPengadaan')
 
                     <?php $i++; ?>
+                    @endif
                     @endforeach
                     
                 </tbody>
@@ -129,6 +131,7 @@
                 <tbody>
                     <?php $i=1 ?>
                         @foreach ($peminjaman as $pinjam)
+                        @if($pinjam->user_id == Auth::user()->id)
 
                         <?php 
                             $jumlah = ($pinjam -> jumlahBarang1) + ($pinjam -> jumlahBarang2) + ($pinjam -> jumlahBarang3) + ($pinjam -> jumlahBarang4) + ($pinjam -> jumlahBarang5)
@@ -154,11 +157,14 @@
                     @include('layouts.modalDetailPeminjaman')
 
                     <?php $i++; ?>
+                    @endif
                     @endforeach
                     
                 </tbody>
             </table>
         </div>
+
+        <h3 class="mb-3 mt-4 fw-bold mx-4 mb-5">MONITORING ASET</h3>
         
 
             <br><br><br>

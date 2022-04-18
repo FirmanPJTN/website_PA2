@@ -41,13 +41,10 @@
 </head>
 <body>
 <div class="wrapper">
-        <!-- Sidebar Admin Layout -->
+        <!-- Sidebar Visitor Layout -->
         @include('layouts.visitorNavbar')
 
         <!-- Page Content  -->
-        <div id="content">
-
-            <!-- Page Content  -->
         <div id="content">
 
         @include('layouts.visitorTopNavbar')
@@ -106,8 +103,10 @@
                     <div class="alert-danger mt-1">{{$message}}</div>
                 @enderror
 
+                <!-- USER ID REFERENCES -->
+                <input type="number" name="user_id" class="form-control mx-4"  value="{{ Auth::user()->id }}" autofocus autocomplete="off" style="visibility: hidden">
 
-                <div class="form-group mt-5">
+                <div class="form-group">
                     <div class="d-flex justify-content-end">
                         <a href="/visitor/dashboard" class="btn btn-secondary mx-1">Cancel</a>
                         <button type="submit" class="btn btn-info mx-1">Kirim</button>

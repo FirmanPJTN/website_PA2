@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\DataAset;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Alert;
 
@@ -24,22 +25,28 @@ class ControllerDataAset extends Controller
             ->orWhere('penyimpanan', 'LIKE','%'.$request->cari.'%')
             ->orWhere('unit', 'LIKE','%'.$request->cari.'%')
             ->paginate(10);
+            $user = User::paginate(10);
         } elseif($request->has('filterUnit') AND $request->has('filterKategori')) {
             $data = DataAset::where('unit', 'LIKE','%'.$request->filterUnit.'%')
             ->where('kategori', 'LIKE','%'.$request->filterKategori.'%')
             ->paginate(10);
+            $user = User::paginate(10);
         } elseif($request->has('filterKategori')) {
             $data = DataAset::where('kategori', 'LIKE','%'.$request->filterKategori.'%')
             ->paginate(10);
+            $user = User::paginate(10);
         } elseif($request->has('filterUnit')) {
             $data = DataAset::where('unit', 'LIKE','%'.$request->filterUnit.'%')
             ->paginate(10);
+            $user = User::paginate(10);
         } else {
+            $user = User::paginate(10);
             $data = DataAset::paginate(10);
         }
 
-        return view('admin.manajemen_aset.dataAset', ['data'=>$data]);
+        return view('admin.manajemen_aset.dataAset', compact('data','user'));
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -49,6 +56,7 @@ class ControllerDataAset extends Controller
     public function create()
     {
         //
+        $user = User::all();
         return view('admin.manajemen_aset.tambahDataAset');
     }
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Peminjaman;
 use App\Models\Pengadaan;
 use Illuminate\Http\Request;
+use app\Models\User;
 
 class PeminjamanController extends Controller
 {
@@ -20,6 +21,13 @@ class PeminjamanController extends Controller
         return view('visitor.dashboard', compact('peminjaman', 'pengadaan'));
     }
 
+    public function indexPeminjaman()
+    {
+        $peminjaman = Peminjaman::paginate(10);
+        $user = User::paginate(10);
+        return view('admin.manajemen_aset.peminjaman', compact('peminjaman','user'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -27,7 +35,9 @@ class PeminjamanController extends Controller
      */
     public function create()
     {
-        return view('visitor.permohonan_aset.peminjaman');
+        $user = User::all();
+        $pinjam = Peminjaman::all();
+        return view('visitor.permohonan_aset.peminjaman', compact('user', 'pinjam'));
     }
 
     /**
@@ -64,6 +74,7 @@ class PeminjamanController extends Controller
             'jumlahBarang5'  => $request-> jumlahBarang5,
             'tglKembali'  => $request-> tglKembali,
             'tujuan'  => $request-> tujuan,
+            'user_id' => $request-> user_id
         ]);
 
         return redirect('/visitor/dashboard')->with('success', 'Peminjaman Berhasil Ditambahkan!');
@@ -146,5 +157,21 @@ class PeminjamanController extends Controller
         $Peminjaman = Peminjaman::find($id);
         $Peminjaman->delete();
         return redirect('/visitor/dashboard');
+    }
+
+    public function statusSetuju($id) 
+    {
+        $peminjaman = Peminjaman::find($id);
+        $peminjaman->status = "setuju";
+        $peminjaman->save();
+        return redirect('/ManajemenAset/PeminjamanAset')->with('success', 'Peminjaman Berhasil Disetujui');
+    }
+
+    public function statusTolak($id) 
+    {
+        $peminjaman = Peminjaman::find($id);
+        $peminjaman->status = "tolak";
+        $peminjaman->save();
+        return redirect('/ManajemenAset/PeminjamanAset')->with('success', 'Peminjaman Telah Ditolak');
     }
 }

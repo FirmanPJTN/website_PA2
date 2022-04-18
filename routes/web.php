@@ -12,9 +12,34 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
 Route::get('/', function () {
-    return view('admin/dashboard');
-});
+    return view('auth.login');
+})->name('login');
+
+Route::get('/daftar', function () {
+    return view('auth.register');
+})->name('daftar');
+
+Route::post('/daftar/simpan',  [App\Http\Controllers\Auth\RegisterController::class, 'create'])->name('simpan-daftar');
+
+
+Route::get('/restricted', [App\Http\Controllers\HomeController::class, 'restricted'])->middleware(['role']);
+
+
+Auth::routes();
+
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+
+// Route::get('/', function () {
+//     return view('admin/dashboard');
+// });
+
+Route::group(['middleware' => 'auth','isAdmin:administrator'],function(){
+
+Route::get('/dashboard', 'ControllerDataAset@index');
 
 Route::get('/ManajemenAset/DataAset', 'ControllerDataAset@index');
 
@@ -28,8 +53,18 @@ Route::post('/ManajemenAset/DataAset/Kirim/{id}', 'ControllerDataAset@update');
 
 Route::get('/ManajemenAset/DataAset/Hapus/{id}', 'ControllerDataAset@destroy');
 
-Route::get('/ManajemenAset/DataAset/action', 'ControllerDataAset@action')->name('live_search.action');
 
+Route::get('/ManajemenAset/PeminjamanAset', 'PeminjamanController@indexPeminjaman');
+
+Route::get('/visitor/PermohonanAset/PeminjamanAset/Setujui/{id}', 'PeminjamanController@statusSetuju');
+
+Route::get('/visitor/PermohonanAset/PeminjamanAset/Tolak/{id}', 'PeminjamanController@statusTolak');
+
+
+});
+
+
+Route::group(['middleware' => 'auth','isAdmin:visitor'],function(){
 
 Route::get('/visitor/dashboard', 'PeminjamanController@index')->name('visitor-dashboard');
 
@@ -55,3 +90,6 @@ Route::get('/visitor/PermohonanAset/PengadaanAset/Ubah/{id}', 'PengadaanControll
 Route::post('/visitor/PermohonanAset/PengadaanAset/Kirim/{id}', 'PengadaanController@update');
 
 Route::get('/visitor/PermohonanAset/PengadaanAset/Hapus/{id}', 'PengadaanController@destroy');
+
+});
+

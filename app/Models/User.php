@@ -17,11 +17,12 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
+
+    protected $table = 'users';
+
+    protected $fillable = ['nama', 'unit', 'email', 'password', 'role'];
+
+    protected $primaryKey = 'id';
 
     /**
      * The attributes that should be hidden for serialization.
@@ -41,4 +42,18 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function DataAset() {
+        return $this->belongsTo(DataAset::class, 'id');
+    }
+
+    public function Peminjaman() {
+        return $this->belongsTo(Peminjaman::class, 'id');
+    }
+
+    public function Pengadaan() {
+        return $this->belongsTo(Pengadaan::class, 'id');
+    }
+
+   
 }

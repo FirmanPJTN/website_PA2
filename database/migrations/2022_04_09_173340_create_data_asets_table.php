@@ -26,15 +26,9 @@ return new class extends Migration
             $table->boolean('isInternal')->default(1);
             $table->string('status')->default("kosong");
 
-            $table->unsignedInteger('visitor_id')->nullable();
-            $table->unsignedInteger('administrator_id')->nullable();
-            $table->unsignedInteger('approver_id')->nullable();
-            $table->unsignedInteger('transactor_id')->nullable();
+            $table->unsignedInteger('user_id')->nullable();
 
-            $table->foreign('visitor_id')->references('id')->on('visitors')->onDelete('cascade');
-            $table->foreign('administrator_id')->references('id')->on('administrators')->onDelete('cascade');
-            $table->foreign('approver_id')->references('id')->on('approvers')->onDelete('cascade');
-            $table->foreign('transactor_id')->references('id')->on('transactors')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 
             $table->timestamps();
         });

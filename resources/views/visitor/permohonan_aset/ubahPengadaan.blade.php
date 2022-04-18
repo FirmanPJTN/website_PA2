@@ -41,13 +41,10 @@
 </head>
 <body>
 <div class="wrapper">
-        <!-- Sidebar Admin Layout -->
+        <!-- Sidebar Visitor Layout -->
         @include('layouts.visitorNavbar')
 
         <!-- Page Content  -->
-        <div id="content">
-
-            <!-- Page Content  -->
         <div id="content">
 
         @include('layouts.visitorTopNavbar')

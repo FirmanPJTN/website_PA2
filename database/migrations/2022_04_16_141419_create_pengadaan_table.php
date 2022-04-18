@@ -31,12 +31,11 @@ return new class extends Migration
             $table->text('tipeBarang5')->nullable();
             $table->integer('jumlahBarang5')->nullable();
             $table->text('alasan');
+            $table->string('status')->nullable();
 
-            $table->unsignedInteger('visitor_id')->nullable();
-            $table->unsignedInteger('administrator_id')->nullable();
+            $table->unsignedInteger('user_id')->nullable();
 
-            $table->foreign('visitor_id')->references('id')->on('visitors')->onDelete('cascade');
-            $table->foreign('administrator_id')->references('id')->on('administrators')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 
             $table->timestamps();
         });

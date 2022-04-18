@@ -19,10 +19,10 @@
                     <a href="/ManajemenAset/DataAset">Data Aset</a>
                 </li>
                 <li>
-                    <a href="#">Pengadaan Aset</a>
+                    <a href="/ManajemenAset/PengadaanAset">Pengadaan Aset</a>
                 </li>
                 <li>
-                    <a href="#">Peminjaman Aset</a>
+                    <a href="/ManajemenAset/PeminjamanAset">Peminjaman Aset</a>
                 </li>
             </ul>
         </li>

@@ -11,13 +11,10 @@ class Peminjaman extends Model
 
     protected $table = 'peminjaman';
     
-    protected $fillable = ['jenisBarang1','tipeBarang1','jumlahBarang1','jenisBarang2','tipeBarang2','jumlahBarang2','jenisBarang3','tipeBarang3','jumlahBarang3','jenisBarang4','tipeBarang4','jumlahBarang4','jenisBarang5','tipeBarang5','jumlahBarang5','tglKembali','tujuan'];
+    protected $fillable = ['jenisBarang1','tipeBarang1','jumlahBarang1','jenisBarang2','tipeBarang2','jumlahBarang2','jenisBarang3','tipeBarang3','jumlahBarang3','jenisBarang4','tipeBarang4','jumlahBarang4','jenisBarang5','tipeBarang5','jumlahBarang5','tglKembali','tujuan','user_id','status'];
 
-    public function Visitor() {
-        return $this->hasMany(Visitor::class);
+    public function User() {
+        return $this->belongsTo(User::class, 'id');
     }
 
-    public function Administrator() {
-        return $this->hasMany(Administrator::class);
-    }
 }

@@ -14,8 +14,8 @@ class DataAset extends Model
 
     protected $primaryKey = 'id';
 
-    public function Visitor() {
-        return $this->hasMany(Visitor::class);
+    public function User() {
+        return $this->hasMany(User::class);
     }
 
 }

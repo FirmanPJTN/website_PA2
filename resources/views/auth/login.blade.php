@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Laravel</title>
+    <title>Login</title>
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
@@ -31,93 +31,93 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
     <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.19.1/dist/bootstrap-table.min.css">
     
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap');
 
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: #fafafa;
+        }
+    </style>
 
-    <link rel="stylesheet" href="../../../../css/styleNavbar.css">
-
-
-    <!-- AJAX -->
-    <script src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 </head>
 <body>
-<div class="wrapper">
-        <!-- Sidebar Visitor Layout -->
-        @include('layouts.visitorNavbar')
+    <div class="container">
+        <div class="row justify-content-center">
 
-        <!-- Page Content  -->
-        <div id="content">
+            <div class="col-md-8">
+                <div class="card mt-5">
 
-        @include('layouts.visitorTopNavbar')
+                    <div class="card-body">
+                        <div class="titleCard fw-bold mb-5"><h2>Masuk</h2></div>
 
-        <nav aria-label="breadcrumb" class="bg-light  mb-5">
-            <ol class="breadcrumb mx-3 mt-2" style="color: RGBA(107,107,107,0.75)">
-                <li class="breadcrumb-item"><a href="{{route('visitor-dashboard')}}"><span class="iconify" data-icon="ant-design:home-filled" data-height="20"></span>&nbsp;&nbsp;&nbsp;&nbsp;Dashboard</a></li>
-                <li class="breadcrumb-item"><a href="{{route('visitor-peminjaman')}}"><span class="iconify" data-icon="eos-icons:cluster-management" data-height="20"></span>&nbsp;&nbsp;&nbsp;&nbsp;Permohonan Aset</a></li>
-                <li class="breadcrumb-item active fw-bold text-color" aria-current="page">Peminjaman Aset</li>
-            </ol>
-        </nav>
+                        <form method="POST" action="{{ route('login') }}">
+                            @csrf
 
-        <div class="shadow p-3 mb-5 bg-body rounded container border">
-            
-            <h2 class="mb-5 text-center">UBAH PEMINJAMAN ASET</h2>       
+                            <div class="row mb-3">
+                                
+                                <div class="col-md-8">
+                                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="Masukkan email Anda">
+
+                                    @error('email')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+
+                                <div class="col-md-8">
+                                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" placeholder="Masukkan password Anda">
+
+                                    @error('password')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+
+                                        <label class="form-check-label" for="remember">
+                                            Ingat saya
+                                        </label>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-4 mr-3">
+                                    @if (Route::has('password.request'))
+                                            <a class="btn btn-link" href="{{ route('password.request') }}">
+                                                Lupa password ?
+                                            </a>
+                                    @endif
+                                </div>
+                            </div>
+
+                            <div class="mt-2">
+                                <button type="submit" class="btn btn-primary mr-4">
+                                    Masuk
+                                </button>
+
+                                <a href="{{ route('daftar') }}" class="btn btn-outline-secondary ml-4">
+                                    Daftar
+                                </a>
+                            </div>
 
 
-            <form enctype="multipart/form-data" action="/visitor/PermohonanAset/PeminjamanAset/Kirim/{{$peminjaman->id}}" method="post">
-                {{ csrf_field() }}
-                <div class="form-group input_fields_wrap">
-                    <div class="d-flex justify-content-start mt-4 ">
-                        <label class="mx-4 w-100 ">Daftar Barang</label>
-                        
-                        <label class="ml-5 pl-2">Jenis</label>
-                        <input type="text" name="jenisBarang1" class="form-control mx-4" value="{{ $peminjaman -> jenisBarang1 }}" autofocus autocomplete="off" required>
-
-                        <label >Tipe</label>
-                        <input type="text" name="tipeBarang1" class="form-control mx-4" value="{{ $peminjaman -> tipeBarang1 }}" autofocus autocomplete="off" required>
-
-                        <label class="form-label" visibilit>Jumlah</label>
-                        <input type="number" name="jumlahBarang1" class="form-control mx-4" value="{{ $peminjaman -> jumlahBarang1 }}" autofocus autocomplete="off" required size="5">
+                        </form>
                     </div>
                 </div>
-
-                @include('layouts.ifEmptyPeminjaman')
-
-
-                <div class="form-group mt-3">
-                    <div class="d-flex justify-content-center">
-                        <label class="mx-4 w-25" >Tanggal Pengembalian</label>
-                        <input type="date" name="tglKembali" class="form-control mx-4"  value="{{ $peminjaman -> tglKembali }}" autofocus autocomplete="off">
-                    </div>
-                </div>
-
-
-                <div class="form-group mt-3">
-                    <div class="d-flex justify-content-center">
-                        <label class="mx-4 w-25">Tujuan Peminjaman</label>
-                        <textarea name="tujuan" class="form-control mx-4" cols="30" rows="10" value="{{ $peminjaman -> tujuan }}" autofocus autocomplete="off">{{ $peminjaman -> tujuan }}</textarea>
-                    </div>
-                </div>
-
-
-                <div class="form-group mt-5">
-                    <div class="d-flex justify-content-end">
-                        <a href="/visitor/dashboard" class="btn btn-secondary mx-1">Batal</a>
-                        <button type="submit" class="btn btn-warning mx-1">Ubah</button>
-                    </div>
-                </div>
-            </form>
-
-        </div>
-
-
-            <br><br><br>
-            @include('layouts.footer')
-
+            </div>
         </div>
     </div>
 
-
-
-    
 
     <!-- jQuery CDN - Slim version (=without AJAX) -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -128,7 +128,6 @@
     <!-- jQuery Custom Scroller CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
 
-    <script type="text/javascript" src="../../../../js/scriptNavbar.js"></script>
 
     <!-- Iconify  -->
     <script src="https://code.iconify.design/2/2.1.0/iconify.min.js"></script>
@@ -145,3 +144,6 @@
     -->
 </body>
 </html>
+
+
+
