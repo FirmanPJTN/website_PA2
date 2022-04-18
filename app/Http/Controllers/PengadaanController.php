@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pengadaan;
+use app\Models\User;
 use Illuminate\Http\Request;
 
 class PengadaanController extends Controller
@@ -16,6 +17,13 @@ class PengadaanController extends Controller
     {
         $pengadaan = Pengadaan::paginate(5);
         return view('visitor.dashboard', ['pengadaan'=>$pengadaan]);
+    }
+
+    public function indexPengadaan()
+    {
+        $pengadaan = Pengadaan::paginate(10);
+        $user = User::paginate(10);
+        return view('admin.manajemen_aset.pengadaan', compact('pengadaan','user'));
     }
 
     /**
@@ -60,6 +68,7 @@ class PengadaanController extends Controller
             'tipeBarang5'  => $request-> tipeBarang5,
             'jumlahBarang5'  => $request-> jumlahBarang5,
             'alasan'  => $request-> alasan,
+            'user_id'  => $request-> user_id,
         ]);
 
         return redirect('/visitor/dashboard')->with('success', 'Pengadaan Berhasil Ditambahkan!');
@@ -140,5 +149,21 @@ class PengadaanController extends Controller
         $Pengadaan = Pengadaan::find($id);
         $Pengadaan->delete();
         return redirect('/visitor/dashboard');
+    }
+
+    public function statusSetuju($id) 
+    {
+        $pengadaan = Pengadaan::find($id);
+        $pengadaan->status = "setuju";
+        $pengadaan->save();
+        return redirect('/ManajemenAset/PengadaanAset')->with('success', 'Pengadaan Berhasil Disetujui');
+    }
+
+    public function statusTolak($id) 
+    {
+        $pengadaan = Pengadaan::find($id);
+        $pengadaan->status = "tolak";
+        $pengadaan->save();
+        return redirect('/ManajemenAset/PengadaanAset')->with('success', 'Pengadaan Telah Ditolak');
     }
 }

@@ -53,61 +53,59 @@
             <ol class="breadcrumb mx-3 mt-2" style="color: RGBA(107,107,107,0.75)">
                 <li class="breadcrumb-item"><a href="#"><span class="iconify" data-icon="ant-design:home-filled" data-height="20"></span>&nbsp;&nbsp;&nbsp;&nbsp;Dashboard</a></li>
                 <li class="breadcrumb-item"><a href="#"><span class="iconify" data-icon="eos-icons:cluster-management" data-height="20"></span>&nbsp;&nbsp;&nbsp;&nbsp;Manajemen Aset</a></li>
-                <li class="breadcrumb-item active fw-bold text-color" aria-current="page">Peminjaman Aset</li>
+                <li class="breadcrumb-item active fw-bold text-color" aria-current="page">Pengadaan Aset</li>
             </ol>
         </nav>
 
-            
-            <h2 class="mb-5 mt-5 fw-bold">DAFTAR PEMINJAMAN ASET</h2>       
 
 
-        <div class="table-container mr-5">
+        <h2 class="mb-5 mt-5 fw-bold">DAFTAR PENGADAAN ASET</h2>
+
+        <div class="table-container mx-5 mr-5">
             <table class="table table-striped table-bordered mb-5 ">
                 <thead>
                     <tr>
                     <th scope="col" class="text-center">No</th>
-                    <th scope="col" class="text-center">Peminjam</th>
+                    <th scope="col" class="text-center">Pemohon</th>
                     <th scope="col" class="text-center">Unit</th>
                     <th scope="col" class="text-center">Jumlah Barang</th>
-                    <th scope="col" class="text-center">Tanggal Peminjaman</th>
-                    <th scope="col" class="text-center">Rencana Pengembalian</th>
-                    <th scope="col" class="text-center">Tujuan</th>
+                    <th scope="col" class="text-center">Tanggal Pengadaan</th>
+                    <th scope="col" class="text-center">Alasan</th>
                     <th scope="col" class="text-center">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php $i=1 ?>
-                        @foreach ($peminjaman as $pinjam)
+                        @foreach ($pengadaan as $ada)
 
-                        @if($pinjam->status == null)
+                        @if($ada->status == null)
 
-                        <?php $users = DB::table('users')->select('nama','unit')->where('id',$pinjam->user_id)->get(); ?>
+                        <?php $users = DB::table('users')->select('nama','unit')->where('id',$ada->user_id)->get(); ?>
 
                         @foreach ($users as $user)
 
                         <?php 
-                            $jumlah = ($pinjam -> jumlahBarang1) + ($pinjam -> jumlahBarang2) + ($pinjam -> jumlahBarang3) + ($pinjam -> jumlahBarang4) + ($pinjam -> jumlahBarang5)
+                            $jumlah = ($ada -> jumlahBarang1) + ($ada -> jumlahBarang2) + ($ada -> jumlahBarang3) + ($ada -> jumlahBarang4) + ($ada -> jumlahBarang5)
                         ?>
                     <tr>
                         <td class="text-center">{{$i}}</td>
                         <td class="text-center">{{$user->nama}}</td>
                         <td class="text-center">{{$user->unit}}</td>
                         <td class="text-center">{{$jumlah}}</td>
-                        <td class="text-center">{{$pinjam -> created_at -> format('Y-m-d')}}</td>
-                        <td class="text-center">{{$pinjam -> tglKembali}}</td>
-                        <td>{{Str::limit($pinjam->tujuan, 50, $end=' .....')}}</td>
+                        <td class="text-center">{{$ada -> created_at -> format('Y-m-d')}}</td>
+                        <td>{{Str::limit($ada->alasan, 50, $end=' .....')}}</td>
                         <td class="text-center">
                             <div class="d-flex justify-content-around">
-                                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#abc<?= $pinjam->id ?>">Detail</button> &nbsp;
-                                <a href="/visitor/PermohonanAset/PeminjamanAset/Setujui/{{$pinjam -> id}}" class="btn btn-success">Setujui</a>
+                                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#def<?= $ada->id ?>">Detail</button> &nbsp;
+                                <a href="/visitor/PermohonanAset/PengadaanAset/Setujui/{{$ada -> id}}" class="btn btn-success">Setujui</a>
                             </div>
                         </td>
                     </tr>
 
 
 
-                    <!-- MODAL DETAIL PEMINJAMAN -->
-                    @include('layouts.modalDetailPeminjamanAdmin')
+                    <!-- MODAL DETAIL PENGADAAN -->
+                    @include('layouts.modalDetailPengadaanAdmin')
 
                     <?php $i++; ?>
                     @endforeach
@@ -118,52 +116,56 @@
             </table>
         </div>
 
-        <?php $data = DB::table('peminjaman')->select('id')->whereNotNull('id')->first(); ?>
+
+
+        
+        <?php $data = DB::table('pengadaan')->select('id')->whereNotNull('id')->first(); ?>
 
         @foreach($data as $datum)
 
-            <h3 class="mb-5 mt-5 fw-bold">RIWAYAT PEMINJAMAN ASET</h3> 
+            <h3 class="mb-5 mt-5 fw-bold">RIWAYAT PENGADAAN ASET</h3> 
 
-            <div class="table-container mr-5">
-                <table class="table table-striped table-bordered mb-5 " >
+            <div class="table-container mx-5 mr-5">
+                <table class="table table-striped table-bordered mb-5 ">
                     <thead>
                         <tr>
                         <th scope="col" class="text-center">No</th>
-                        <th scope="col" class="text-center">Peminjam</th>
+                        <th scope="col" class="text-center">Pemohon</th>
                         <th scope="col" class="text-center">Unit</th>
                         <th scope="col" class="text-center">Jumlah Barang</th>
-                        <th scope="col" class="text-center">Tanggal Peminjaman</th>
-                        <th scope="col" class="text-center">Rencana Pengembalian</th>
-                        <th scope="col" class="text-center">Tujuan</th>
+                        <th scope="col" class="text-center">Tanggal Pengadaan</th>
+                        <th scope="col" class="text-center">Alasan</th>
                         <th scope="col" class="text-center">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php $i=1 ?>
-                            @foreach ($peminjaman as $pinjam)
+                            @foreach ($pengadaan as $ada)
 
-                            @if($pinjam->status != null) 
-                            <?php $users = DB::table('users')->select('nama','unit')->where('id',$pinjam->user_id)->get(); ?>
+                            @if($ada->status != null) 
+                            <?php $users = DB::table('users')->select('nama','unit')->where('id',$ada->user_id)->get(); ?>
+
+                            <?php $users = DB::table('users')->select('nama','unit')->where('id',$ada->user_id)->get(); ?>
 
                             @foreach ($users as $user)
+
                             <?php 
-                                $jumlah = ($pinjam -> jumlahBarang1) + ($pinjam -> jumlahBarang2) + ($pinjam -> jumlahBarang3) + ($pinjam -> jumlahBarang4) + ($pinjam -> jumlahBarang5)
+                                $jumlah = ($ada -> jumlahBarang1) + ($ada -> jumlahBarang2) + ($ada -> jumlahBarang3) + ($ada -> jumlahBarang4) + ($ada -> jumlahBarang5)
                             ?>
                         <tr>
                             <td class="text-center">{{$i}}</td>
                             <td class="text-center">{{$user->nama}}</td>
                             <td class="text-center">{{$user->unit}}</td>
                             <td class="text-center">{{$jumlah}}</td>
-                            <td class="text-center">{{$pinjam -> created_at -> format('Y-m-d')}}</td>
-                            <td class="text-center">{{$pinjam -> tglKembali}}</td>
-                            <td>{{Str::limit($pinjam->tujuan, 50, $end=' .....')}}</td>
+                            <td class="text-center">{{$ada -> created_at -> format('Y-m-d')}}</td>
+                            <td>{{Str::limit($ada->alasan, 50, $end=' .....')}}</td>
                             <td class="text-center">
                                 <div class="d-flex justify-content-around">
-                                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#abc<?= $pinjam->id ?>">Detail</button> &nbsp;
-                                    @if($pinjam->status == 'setuju') 
+                                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#def<?= $ada->id ?>">Detail</button> &nbsp;
+                                    @if($ada->status == 'setuju') 
                                     <a href="#" class="btn btn-success disabled">Disetujui</a>
                                     @endif
-                                    @if($pinjam->status == 'tolak') 
+                                    @if($ada->status == 'tolak') 
                                     <a href="#" class="btn btn-danger disabled">Ditolak</a>
                                     @endif
                                 </div>
@@ -172,8 +174,9 @@
 
 
 
-                        <!-- MODAL DETAIL PEMINJAMAN -->
-                        @include('layouts.modalDetailPeminjamanAdminRiwayat')
+                        <!-- MODAL DETAIL PENGADAAN -->
+                        @include('layouts.modalDetailPengadaanAdminRiwayat')
+                        
 
                         <?php $i++; ?>
                         @endforeach

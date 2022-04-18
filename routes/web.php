@@ -37,59 +37,95 @@ Auth::routes();
 //     return view('admin/dashboard');
 // });
 
+
+// ADMIN
+
 Route::group(['middleware' => 'auth','isAdmin:administrator'],function(){
 
-Route::get('/dashboard', 'ControllerDataAset@index');
-
-Route::get('/ManajemenAset/DataAset', 'ControllerDataAset@index');
-
-Route::get('/ManajemenAset/DataAset/Tambah', 'ControllerDataAset@create');
-
-Route::post('/ManajemenAset/DataAset/Simpan', 'ControllerDataAset@store');
-
-Route::get('/ManajemenAset/DataAset/Ubah/{id}', 'ControllerDataAset@edit');
-
-Route::post('/ManajemenAset/DataAset/Kirim/{id}', 'ControllerDataAset@update');
-
-Route::get('/ManajemenAset/DataAset/Hapus/{id}', 'ControllerDataAset@destroy');
+    Route::get('/admin', function () {
+        return view('admin/dashboard');
+    });
 
 
-Route::get('/ManajemenAset/PeminjamanAset', 'PeminjamanController@indexPeminjaman');
+    // Manajemen Data Aset
 
-Route::get('/visitor/PermohonanAset/PeminjamanAset/Setujui/{id}', 'PeminjamanController@statusSetuju');
+    // Data Aset
 
-Route::get('/visitor/PermohonanAset/PeminjamanAset/Tolak/{id}', 'PeminjamanController@statusTolak');
+    Route::get('/dashboard', 'ControllerDataAset@index');
 
+    Route::get('/ManajemenAset/DataAset', 'ControllerDataAset@index');
+
+    Route::get('/ManajemenAset/DataAset/Tambah', 'ControllerDataAset@create');
+
+    Route::post('/ManajemenAset/DataAset/Simpan', 'ControllerDataAset@store');
+
+    Route::get('/ManajemenAset/DataAset/Ubah/{id}', 'ControllerDataAset@edit');
+
+    Route::post('/ManajemenAset/DataAset/Kirim/{id}', 'ControllerDataAset@update');
+
+    Route::get('/ManajemenAset/DataAset/Hapus/{id}', 'ControllerDataAset@destroy');
+
+    // Peminjaman Aset
+
+    Route::get('/ManajemenAset/PeminjamanAset', 'PeminjamanController@indexPeminjaman');
+
+    Route::get('/ManajemenAset/PengadaanAset', 'PengadaanController@indexPengadaan');
+
+    Route::get('/visitor/PermohonanAset/PeminjamanAset/Setujui/{id}', 'PeminjamanController@statusSetuju');
+
+    Route::get('/visitor/PermohonanAset/PeminjamanAset/Tolak/{id}', 'PeminjamanController@statusTolak');
+
+    Route::get('/visitor/PermohonanAset/PengadaanAset/Setujui/{id}', 'PengadaanController@statusSetuju');
+
+    Route::get('/visitor/PermohonanAset/PengadaanAset/Tolak/{id}', 'PengadaanController@statusTolak');
+
+
+    // Kelola Pengguna
+    Route::get('/KelolaPengguna', 'UserController@index');
+
+    Route::get('/KelolaPengguna/Tambah', 'UserController@create');
+
+    Route::post('/KelolaPengguna/Simpan', 'UserController@store');
+
+    Route::get('/KelolaPengguna/Ubah/{id}', 'UserController@edit');
+
+    Route::post('/KelolaPengguna/Kirim/{id}', 'UserController@update');
+
+    Route::get('/KelolaPengguna/Hapus/{id}', 'UserController@destroy');
 
 });
 
 
+// VISITOR
 Route::group(['middleware' => 'auth','isAdmin:visitor'],function(){
 
-Route::get('/visitor/dashboard', 'PeminjamanController@index')->name('visitor-dashboard');
+    //  DASHBOARD 
+    Route::get('/visitor/dashboard', 'PeminjamanController@index')->name('visitor-dashboard');
 
-Route::get('/visitor/PermohonanAset/PeminjamanAset', 'PeminjamanController@create')->name('visitor-peminjaman');
+    // PERMOHONAN ASET
 
-Route::post('/visitor/PermohonanAset/PeminjamanAset/Simpan', 'PeminjamanController@store');
+    // PEMINJAMAN ASET
+    Route::get('/visitor/PermohonanAset/PeminjamanAset', 'PeminjamanController@create')->name('visitor-peminjaman');
 
-Route::get('/visitor/PermohonanAset/PeminjamanAset/Ubah/{id}', 'PeminjamanController@edit');
+    Route::post('/visitor/PermohonanAset/PeminjamanAset/Simpan', 'PeminjamanController@store');
 
-Route::post('/visitor/PermohonanAset/PeminjamanAset/Kirim/{id}', 'PeminjamanController@update');
+    Route::get('/visitor/PermohonanAset/PeminjamanAset/Ubah/{id}', 'PeminjamanController@edit');
 
-Route::get('/visitor/PermohonanAset/PeminjamanAset/Hapus/{id}', 'PeminjamanController@destroy');
+    Route::post('/visitor/PermohonanAset/PeminjamanAset/Kirim/{id}', 'PeminjamanController@update');
+
+    Route::get('/visitor/PermohonanAset/PeminjamanAset/Hapus/{id}', 'PeminjamanController@destroy');
 
 
+    // PENGADAAAN ASET
+    Route::get('/visitor/PermohonanAset/PengadaanAset', 'PengadaanController@create')->name('visitor-pengadaan');
 
+    Route::post('/visitor/PermohonanAset/PengadaanAset/Simpan', 'PengadaanController@store');
 
-Route::get('/visitor/PermohonanAset/PengadaanAset', 'PengadaanController@create')->name('visitor-pengadaan');
+    Route::get('/visitor/PermohonanAset/PengadaanAset/Ubah/{id}', 'PengadaanController@edit');
 
-Route::post('/visitor/PermohonanAset/PengadaanAset/Simpan', 'PengadaanController@store');
+    Route::post('/visitor/PermohonanAset/PengadaanAset/Kirim/{id}', 'PengadaanController@update');
 
-Route::get('/visitor/PermohonanAset/PengadaanAset/Ubah/{id}', 'PengadaanController@edit');
-
-Route::post('/visitor/PermohonanAset/PengadaanAset/Kirim/{id}', 'PengadaanController@update');
-
-Route::get('/visitor/PermohonanAset/PengadaanAset/Hapus/{id}', 'PengadaanController@destroy');
+    Route::get('/visitor/PermohonanAset/PengadaanAset/Hapus/{id}', 'PengadaanController@destroy');
 
 });
 

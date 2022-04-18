@@ -138,8 +138,8 @@
 
             </div>
             <div class="modal-footer text-center">
-            <button style="width: 45%" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-            <a style="width: 45%" type="button" class="btn btn-danger  mr-4" href="/visitor/PermohonanAset/PeminjamanAset/Tolak/{{$pinjam -> id}}">Tolak</a>
+                <button style="width: 45%" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                <a style="width: 45%" type="button" class="btn btn-danger  mr-4" href="/visitor/PermohonanAset/PeminjamanAset/Tolak/{{$pinjam -> id}}">Tolak</a>
             </div>
         </div>
     </div>

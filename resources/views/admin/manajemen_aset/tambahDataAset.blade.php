@@ -181,7 +181,7 @@
 
                     <div class="form-group mt-5">
                         <div class="d-flex justify-content-end">
-                            <a href="/ManajemenAset/DataAset" class="btn btn-secondary mx-1">Cancel</a>
+                            <a href="/ManajemenAset/DataAset" class="btn btn-secondary mx-1">Batal</a>
                             <button type="submit" class="btn btn-info mx-1">Kirim</button>
                         </div>
                     </div>

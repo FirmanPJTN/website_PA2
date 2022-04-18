@@ -94,9 +94,7 @@
                 @enderror
 
                  <!-- USER ID REFERENCES -->
-                 @foreach ($user as $us)
-                <input type="number" name="user_id" class="form-control mx-4"  value="{{$us->id}}" autofocus autocomplete="off" style="visibility: hidden">
-                @endforeach
+                <input type="number" name="user_id" class="form-control mx-4"  value="{{Auth::user()->id}}" autofocus autocomplete="off" style="visibility: hidden">
 
                 <div class="form-group">
                     <div class="d-flex justify-content-end">
