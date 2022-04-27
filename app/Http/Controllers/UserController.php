@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Unit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -27,7 +28,9 @@ class UserController extends Controller
     public function create()
     {
         //
-        return view('admin.kelola_pengguna.tambahPengguna');
+        $users = User::all();
+        $units = Unit::all();
+        return view('admin.kelola_pengguna.tambahPengguna', compact('users', 'units'));
         
     }
 
@@ -81,7 +84,8 @@ class UserController extends Controller
     {
         //
         $user = User::find($id);
-        return view('admin.kelola_pengguna.ubahPengguna',['user'=>$user]);
+        $units = Unit::all();
+        return view('admin.kelola_pengguna.ubahPengguna',compact('user','units'));
     }
 
     /**

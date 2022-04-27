@@ -35,156 +35,79 @@
 
     <link rel="stylesheet" href="../../css/styleNavbar.css">
 
-
     <!-- AJAX -->
     <script src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 </head>
 <body>
 <div class="wrapper">
-        <!-- Sidebar Admin Layout -->
-        @include('layouts.adminNavbar')
+        <!-- Sidebar Visitor Layout -->
+        @include('layouts.visitorNavbar')
 
         <!-- Page Content  -->
         <div id="content">
 
-        @include('layouts.adminTopNavbar')
+        @include('layouts.visitorTopNavbar')
 
-        <nav aria-label="breadcrumb" class="bg-light">
+        <nav aria-label="breadcrumb" class="bg-light  mb-5">
             <ol class="breadcrumb mx-3 mt-2" style="color: RGBA(107,107,107,0.75)">
-                <li class="breadcrumb-item"><a href="{{route('dashboard')}}"><span class="iconify" data-icon="ant-design:home-filled" data-height="20"></span>&nbsp;&nbsp;&nbsp;&nbsp;Dashboard</a></li>
-                <li class="breadcrumb-item"><a href="#"><span class="iconify" data-icon="eos-icons:cluster-management" data-height="20"></span>&nbsp;&nbsp;&nbsp;&nbsp;Manajemen Aset</a></li>
-                <li class="breadcrumb-item active fw-bold text-color" aria-current="page">Pengadaan Aset</li>
+                <li class="breadcrumb-item"><a href="{{route('visitor-dashboard')}}"><span class="iconify" data-icon="ant-design:home-filled" data-height="20"></span>&nbsp;&nbsp;&nbsp;&nbsp;Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="/visitor/MonitoringAset"><span class="iconify" data-icon="eos-icons:cluster-management" data-height="20"></span>&nbsp;&nbsp;&nbsp;&nbsp;Monitoring Aset</a></li>
+                <li class="breadcrumb-item active fw-bold text-color" aria-current="page">Perbaikan Aset</li>
             </ol>
         </nav>
 
-
-
-        <h2 class="mb-5 mt-5 fw-bold">DAFTAR PENGADAAN ASET</h2>
-
-        <div class="table-container mx-5 mr-5">
-            <table class="table table-striped table-bordered mb-5 ">
-                <thead>
-                    <tr>
-                    <th scope="col" class="text-center">No</th>
-                    <th scope="col" class="text-center">Pemohon</th>
-                    <th scope="col" class="text-center">Unit</th>
-                    <th scope="col" class="text-center">Jumlah Barang</th>
-                    <th scope="col" class="text-center">Tanggal Pengadaan</th>
-                    <th scope="col" class="text-center">Alasan</th>
-                    <th scope="col" class="text-center">Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php $i=1 ?>
-                        @foreach ($pengadaan as $ada)
-
-                        @if($ada->status == null)
-
-                        <?php $users = DB::table('users')->select('nama','unit')->where('id',$ada->user_id)->get(); ?>
-
-                        @foreach ($users as $user)
-
-                        <?php 
-                            $jumlah = ($ada -> jumlahBarang1) + ($ada -> jumlahBarang2) + ($ada -> jumlahBarang3) + ($ada -> jumlahBarang4) + ($ada -> jumlahBarang5)
-                        ?>
-                    <tr>
-                        <td class="text-center">{{$i}}</td>
-                        <td class="text-center">{{$user->nama}}</td>
-                        <td class="text-center">{{$user->unit}}</td>
-                        <td class="text-center">{{$jumlah}}</td>
-                        <td class="text-center">{{$ada -> created_at -> format('Y-m-d')}}</td>
-                        <td>{{Str::limit($ada->alasan, 50, $end=' .....')}}</td>
-                        <td class="text-center">
-                            <div class="d-flex justify-content-around">
-                                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#def<?= $ada->id ?>">Detail</button> &nbsp;
-                                <a href="/visitor/PermohonanAset/PengadaanAset/Setujui/{{$ada -> id}}" class="btn btn-success">Setujui</a>
-                            </div>
-                        </td>
-                    </tr>
-
-
-
-                    <!-- MODAL DETAIL PENGADAAN -->
-                    @include('layouts.modalDetailPengadaanAdmin')
-
-                    <?php $i++; ?>
-                    @endforeach
-                    @endif
-                    @endforeach
-                    
-                </tbody>
-            </table>
-        </div>
-
-
-
-        
-
-            <h3 class="mb-5 mt-5 fw-bold">RIWAYAT PENGADAAN ASET</h3> 
+        <div class="shadow p-3 mb-5 bg-body rounded container border">
+            
+            <h2 class="mb-5 fw-bold text-center">DAFTAR MONITORING ASET</h2>       
 
             <div class="table-container mx-5 mr-5">
                 <table class="table table-striped table-bordered mb-5 ">
                     <thead>
                         <tr>
                         <th scope="col" class="text-center">No</th>
-                        <th scope="col" class="text-center">Pemohon</th>
-                        <th scope="col" class="text-center">Unit</th>
+                        <th scope="col" class="text-center">Kode Monitoring</th>
                         <th scope="col" class="text-center">Jumlah Barang</th>
-                        <th scope="col" class="text-center">Tanggal Pengadaan</th>
-                        <th scope="col" class="text-center">Status</th>
-                        <th scope="col" class="text-center">Alasan</th>
+                        <th scope="col" class="text-center">Tanggal Monitoring</th>
                         <th scope="col" class="text-center">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php $i=1 ?>
-                            @foreach ($pengadaan as $ada)
-
-                            @if($ada->status != null) 
-                            <?php $users = DB::table('users')->select('nama','unit')->where('id',$ada->user_id)->get(); ?>
-
-                            <?php $users = DB::table('users')->select('nama','unit')->where('id',$ada->user_id)->get(); ?>
-
-                            @foreach ($users as $user)
+                            @foreach ($monitoring as $monitor)
+                            @if($monitor->user_id == Auth::user()->id)
 
                             <?php 
-                                $jumlah = ($ada -> jumlahBarang1) + ($ada -> jumlahBarang2) + ($ada -> jumlahBarang3) + ($ada -> jumlahBarang4) + ($ada -> jumlahBarang5)
+                                $jumlah = ($monitor -> jumlahBarang1) + ($monitor -> jumlahBarang2) + ($monitor -> jumlahBarang3) + ($monitor -> jumlahBarang4) + ($monitor -> jumlahBarang5)
                             ?>
                         <tr>
                             <td class="text-center">{{$i}}</td>
-                            <td class="text-center">{{$user->nama}}</td>
-                            <td class="text-center">{{$user->unit}}</td>
+                            <td class="text-center">MNTR{{$i.$monitor -> created_at -> format('Y.m.d')}}</td>
                             <td class="text-center">{{$jumlah}}</td>
-                            <td class="text-center">{{$ada -> created_at -> format('Y-m-d')}}</td>
-                            @if($ada->status == 'setuju') 
-                                <td class="text-center text-success fw-bold">Disetujui</td>
-                            @endif
-                            @if($ada->status == 'tolak') 
-                               <td class="text-center text-danger fw-bold">Ditolak</td>
-                            @endif
-                            <td>{{Str::limit($ada->alasan, 50, $end=' .....')}}</td>
+                            <td class="text-center">{{$monitor -> created_at -> format('Y-m-d')}}</td>
+                            <td>{{Str::limit($monitor->alasan, 50, $end=' .....')}}</td>
                             <td class="text-center">
                                 <div class="d-flex justify-content-around">
-                                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#def<?= $ada->id ?>">Detail</button> &nbsp;
-                                    <a data-id="{{ $ada->id }}" class="btn btn-danger deleteAda" href="#">Hapus</a>
+                                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#def<?= $monitor->id ?>">Detail</button> &nbsp;
+                                    <a href="/visitor/PermohonanAset/PengadaanAset/Ubah/{{$monitor -> id}}" class="btn btn-warning">Ubah</a> &nbsp;
+                                    <a data-id="{{ $monitor->id }}" class="btn btn-danger deleteAda" href="#">Hapus</a>
                                 </div>
                             </td>
                         </tr>
 
 
 
-                        <!-- MODAL DETAIL PENGADAAN -->
-                        @include('layouts.modalDetailPengadaanAdminRiwayat')
-                        
+                        <!-- MODAL DETAIL PEMINJAMAN -->
+                        @include('layouts.modalDetailPengadaan')
 
                         <?php $i++; ?>
-                        @endforeach
                         @endif
                         @endforeach
                         
                     </tbody>
                 </table>
             </div>
+
+        </div>
 
 
             <br><br><br>
@@ -217,21 +140,7 @@
             });
     </script>
 
-    @if(Session::has('success'))
-    <script type="text/javascript">
-        swal({
-                title:'Berhasil',
-                text:"{{Session::get('success')}}",
-                timer:2000,
-                icon: "success",
-                type:'success'
-            }).then((value) => {
-            //location.reload();
-        }).catch(swal.noop);
-    </script>
-    @endif
-
-    <script type="text/javascript" src="../../js/scriptDeleteConfirmPengadaanAdmin.js"></script>
+    
 
     <!-- jQuery CDN - Slim version (=without AJAX) -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

@@ -49,8 +49,8 @@
 
             <nav aria-label="breadcrumb" class="bg-light mb-5">
                 <ol class="breadcrumb mx-3 mt-2" style="color: RGBA(107,107,107,0.75)">
-                    <li class="breadcrumb-item"><a href="#"><span class="iconify" data-icon="ant-design:home-filled" data-height="20"></span>&nbsp;&nbsp;&nbsp;&nbsp;Dashboard</a></li>
-                    <li class="breadcrumb-item"><a href="#"><span class="iconify" data-icon="eos-icons:cluster-management" data-height="20"></span>&nbsp;&nbsp;&nbsp;&nbsp;Manajemen Aset</a></li>
+                    <li class="breadcrumb-item"><a href="{{route('dashboard')}}"><span class="iconify" data-icon="ant-design:home-filled" data-height="20"></span>&nbsp;&nbsp;&nbsp;&nbsp;Dashboard</a></li>
+                    <li class="breadcrumb-item"><a href="/ManajemenAset/DataAset"><span class="iconify" data-icon="eos-icons:cluster-management" data-height="20"></span>&nbsp;&nbsp;&nbsp;&nbsp;Manajemen Aset</a></li>
                     <li class="breadcrumb-item" aria-current="page"><a href="/ManajemenAset/DataAset">Data Aset</a></li>
                     <li class="breadcrumb-item active fw-bold text-color" aria-current="page">Ubah Data Aset</li>
                 </ol>
@@ -128,14 +128,11 @@
                     <div class="form-group mt-3">
                         <div class="d-flex justify-content-center">
                             <label class="mx-4 w-25">Unit</label>
-                            <select class="form-control custom-select mx-4" name="unit" id="unit" value="{{$aset -> unit}}">
-                                <option value="{{$aset -> unit}}">▼ {{$aset -> unit}} (Ganti unit)</option>
-                                <option value="Duktek">Duktek</option>
-                                <option value="Inventaris">Inventaris</option>
-                                <option value="WR3">WR3</option>
-                                <option value="TE">TE</option>
-                                <option value="Alat Loundry">Alat Loundry</option>
-                                <option value="Klinik">Klinik</option>
+                            <select class="form-control custom-select mx-4" name="unit" id="unit">
+                                <option value="{{$aset->unit}}">▼ {{$aset->unit}} (Ganti Unit)</option>
+                                @foreach($units as $unit)
+                                <option value="{{$unit->unit}}" <?php if (old('{{$unit->unit}}') == '{{$unit->unit}}') {?>selected="selected"<?php } ?>>{{$unit->unit}}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>

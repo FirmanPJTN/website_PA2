@@ -74,13 +74,20 @@
                                 <label for="unit" class="col-md-4 col-form-label">Unit</label>
 
                                 <div class="col-md-6">
-                                    <input id="unit" type="text" class="form-control @error('unit') is-invalid @enderror" name="unit" value="{{ old('unit') }}" required autocomplete="unit">
-
+                                    <select class="form-control custom-select" name="unit" id="unit">
+                                        <option value="">▼ pilih unit</option>
+                                        {{$units = DB::table('unit')->select('unit')->get();}} 
+                                        @foreach($units as $unit)
+                                        <option value="{{$unit->unit}}" <?php if (old('{{$unit->unit}}') == '{{$unit->unit}}') {?>selected="selected"<?php } ?>>{{$unit->unit}}</option>
+                                        @endforeach
+                                    </select>
+                                    
                                     @error('unit')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
+                                
                                 </div>
                             </div>
 

@@ -1,7 +1,7 @@
 <!-- Sidebar  -->
 <nav id="sidebar">
     <div id="dismiss">
-        <i class="fas fa-arrow-left"></i>
+        <span class="iconify" data-icon="bx:arrow-to-left" data-height=25></span>
     </div>
 
     <div class="sidebar-header">
@@ -24,7 +24,7 @@
             </ul>
         </li>
         <li>
-            <a href="#pageSubmenu" ><span class="iconify" data-icon="bi:eye-fill" data-height="25"></span>&nbsp;&nbsp;&nbsp;&nbsp;Monitoring Aset</a>
+            <a href="/visitor/MonitoringAset" ><span class="iconify" data-icon="bi:eye-fill" data-height="25"></span>&nbsp;&nbsp;&nbsp;&nbsp;Monitoring Aset</a>
             
         </li>
     </ul>

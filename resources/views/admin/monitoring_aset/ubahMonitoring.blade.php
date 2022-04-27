@@ -36,9 +36,10 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
     <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.19.1/dist/bootstrap-table.min.css">
 
-    <link rel="stylesheet" href="../../css/styleNavbar.css">
+    <link rel="stylesheet" href="../../../css/styleNavbar.css">
 </head>
 <body>
+@include('sweetalert::alert')
 
 
 <div class="wrapper">
@@ -51,62 +52,29 @@
             @include('layouts.adminTopNavbar')
 
 
-            <nav aria-label="breadcrumb" class="bg-light">
+            <nav aria-label="breadcrumb" class="bg-light  mb-5">
             <ol class="breadcrumb mx-3 mt-2" style="color: RGBA(107,107,107,0.75)">
                 <li class="breadcrumb-item"><a href="{{route('dashboard')}}"><span class="iconify" data-icon="ant-design:home-filled" data-height="20"></span>&nbsp;&nbsp;&nbsp;&nbsp;Dashboard</a></li>
-                <li class="breadcrumb-item" aria-current="page"><a href="/KelolaPengguna"><span class="iconify" data-icon="bxs:user-rectangle" data-height="20"></span> Kelola Pengguna</a></li>
-                <li class="breadcrumb-item active fw-bold text-color" aria-current="page">Tambah Pengguna</li>
+                <li class="breadcrumb-item"><a href="{{route('perencanaan-monitoring')}}"><span class="iconify" data-icon="eos-icons:cluster-management" data-height="20"></span>&nbsp;&nbsp;&nbsp;&nbsp;Monitoring Aset</a></li>
+                <li class="breadcrumb-item" aria-current="page"><a href="{{route('perencanaan-monitoring')}}">Perencanaan Monitoring</a></li>
+                <li class="breadcrumb-item active fw-bold text-color" aria-current="page">Ubah Perencanaan</li>
             </ol>
         </nav>
 
-            <div class="shadow p-3 mb-5 bg-body rounded container border mt-5">
+            <div class="shadow p-3 mb-5 bg-body rounded container border">
             
-                <h2 class="mb-5 text-center">TAMBAH PENGGUNA</h2>       
+                <h2 class="mb-5 text-center fw-bold">UBAH PERENCANAAN</h2>       
 
 
-                <form enctype="multipart/form-data" action="/KelolaPengguna/Simpan" method="post">
+                <form enctype="multipart/form-data" action="/MonitoringAset/PerencanaanMonitoring/Kirim/{{$monitoring->id}}" method="post">
                     {{ csrf_field() }}
-                    <div class="form-group ">
-                        <div class="d-flex justify-content-center">
-                            <label class="mx-4 w-25">Nama</label>
-                            <input type="text" name="nama" class="form-control mx-4" value="{{ old('nama') }}" autofocus autocomplete="off">
-                        </div>
-                    </div>
-                    @error('nama')
-                        <div class="alert-danger mt-1">{{$message}}</div>
-                    @enderror
-
-                    <div class="form-group ">
-                        <div class="d-flex justify-content-center">
-                            <label class="mx-4 w-25">Email</label>
-                            <input type="text" name="email" class="form-control mx-4" value="{{ old('email') }}" autofocus autocomplete="off">
-                        </div>
-                    </div>
-                    @error('email')
-                        <div class="alert-danger mt-1">{{$message}}</div>
-                    @enderror
-
-                    <div class="form-group mt-3">
-                        <div class="d-flex justify-content-center">
-                            <label class="mx-4 w-25">Role</label>
-                            <select class="form-control custom-select mx-4" name="role" id="role">
-                                <option value="">▼ pilih role</option>
-                                <option value="administrator" <?php if (old('role') == 'administrator') {?>selected="selected"<?php } ?>>Administrator</option>
-                                <option value="visitor" <?php if (old('role') == 'visitor') {?>selected="selected"<?php } ?>> Visitor</option>
-                                <option value="approver" <?php if (old('role') == 'approver') {?>selected="selected"<?php } ?>>Approver</option>
-                                <option value="transactor" <?php if (old('role') == 'transactor') {?>selected="selected"<?php } ?>>Transactor</option>
-                            </select>
-                        </div>
-                    </div>
-                    @error('role')
-                        <div class="alert-danger mt-1">{{$message}}</div>
-                    @enderror
-
+                    <input type="text" name="kodeMonitoring" value="MNTR-{{date('Y.m.d-h.i.s')}}" style="visibility: hidden">
+                    
                     <div class="form-group mt-3">
                         <div class="d-flex justify-content-center">
                             <label class="mx-4 w-25">Unit</label>
                             <select class="form-control custom-select mx-4" name="unit" id="unit">
-                                <option value="">▼ pilih unit</option>
+                                <option value="{{$monitoring->unit}}">▼ {{$monitoring->unit}} (Ganti Unit)</option>
                                 @foreach($units as $unit)
                                 <option value="{{$unit->unit}}" <?php if (old('{{$unit->unit}}') == '{{$unit->unit}}') {?>selected="selected"<?php } ?>>{{$unit->unit}}</option>
                                 @endforeach
@@ -117,27 +85,40 @@
                         <div class="alert-danger mt-1">{{$message}}</div>
                     @enderror
 
-                    <div class="form-group mt-3">
-                       <div class="d-flex justify-content-center">
-                            <label class="mx-4 w-25">Password</label>
-                            <input type="password" name="password" class="form-control mx-4" autofocus autocomplete="off" required autocomplete="new-password">
+                    <div class="form-group input_fields_wrap">
+                        <div class="d-flex justify-content-start mt-4 ">
+                            <label class="mx-4 w-100 ">Daftar Barang</label>
+
+                            <label class="ml-5 pl-2">Jenis</label>
+                            <input type="text" name="jenisBarang1" class="form-control mx-4" value="{{ $monitoring->jenisBarang1 }}" autofocus autocomplete="off" required>
+
+                            <label >Tipe</label>
+                            <input type="text" name="tipeBarang1" class="form-control mx-4" value="{{ $monitoring->tipeBarang1 }}" autofocus autocomplete="off" required>
+
+                            <label class="form-label" visibilit>Jumlah</label>
+                            <input type="number" name="jumlahBarang1" class="form-control mx-4" value="{{ $monitoring->jumlahBarang1 }}" autofocus autocomplete="off" required size="5">
+
+                            <a class="add_field_button"><span class="iconify" data-icon="carbon:add-alt" style="color: #0fa958;" data-height="25"></span></a>
                         </div>
                     </div>
-                    @error('password')
+
+                    @include('layouts.ifEmptyMonitoring')
+
+
+                    <div class="form-group mt-3">
+                       <div class="d-flex justify-content-center">
+                            <label class="mx-4 w-25" >Tanggal Monitoring</label>
+                            <input type="date" name="waktuMonitoring" class="form-control mx-4"  value="{{ $monitoring->waktuMonitoring }}" autofocus autocomplete="off">
+                        </div>
+                    </div>
+                    @error('waktuMonitoring')
                         <div class="alert-danger mt-1">{{$message}}</div>
                     @enderror
 
-                    <div class="form-group mt-3">
-                       <div class="d-flex justify-content-center">
-                            <label class="mx-4 w-25">Konfirmasi Password</label>
-                            <input id="password-confirm" type="password" class="form-control mx-4" name="password_confirmation" required autocomplete="new-password">
-                        </div>
-                    </div>
 
-                    
                     <div class="form-group mt-5">
                         <div class="d-flex justify-content-end">
-                            <a href="/KelolaPengguna" class="btn btn-secondary mx-1">Batal</a>
+                            <a href="/MonitoringAset/PerencanaanMonitoring" class="btn btn-secondary mx-1">Batal</a>
                             <button type="submit" class="btn btn-info mx-1">Kirim</button>
                         </div>
                     </div>
@@ -152,7 +133,6 @@
     </div>
     
 
-
     <!-- jQuery CDN - Slim version (=without AJAX) -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <!-- Popper.JS -->
@@ -162,7 +142,7 @@
     <!-- jQuery Custom Scroller CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
 
-    <script type="text/javascript" src="../../js/scriptNavbar.js"></script>
+    <script type="text/javascript" src="../../../js/scriptNavbar.js"></script>
 
     <!-- Iconify  -->
     <script src="https://code.iconify.design/2/2.1.0/iconify.min.js"></script>

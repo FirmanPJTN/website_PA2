@@ -39,6 +39,7 @@
     <link rel="stylesheet" href="../../css/styleNavbar.css">
 </head>
 <body>
+@include('sweetalert::alert')
 
 
 <div class="wrapper">
@@ -51,57 +52,24 @@
             @include('layouts.adminTopNavbar')
 
 
-            <nav aria-label="breadcrumb" class="bg-light">
+            <nav aria-label="breadcrumb" class="bg-light  mb-5">
             <ol class="breadcrumb mx-3 mt-2" style="color: RGBA(107,107,107,0.75)">
                 <li class="breadcrumb-item"><a href="{{route('dashboard')}}"><span class="iconify" data-icon="ant-design:home-filled" data-height="20"></span>&nbsp;&nbsp;&nbsp;&nbsp;Dashboard</a></li>
-                <li class="breadcrumb-item" aria-current="page"><a href="/KelolaPengguna"><span class="iconify" data-icon="bxs:user-rectangle" data-height="20"></span> Kelola Pengguna</a></li>
-                <li class="breadcrumb-item active fw-bold text-color" aria-current="page">Tambah Pengguna</li>
+                <li class="breadcrumb-item"><a href="{{route('perencanaan-monitoring')}}"><span class="iconify" data-icon="eos-icons:cluster-management" data-height="20"></span>&nbsp;&nbsp;&nbsp;&nbsp;Monitoring Aset</a></li>
+                <li class="breadcrumb-item" aria-current="page"><a href="{{route('perencanaan-monitoring')}}">Perencanaan Monitoring</a></li>
+                <li class="breadcrumb-item active fw-bold text-color" aria-current="page">Tambah Perencanaan</li>
             </ol>
         </nav>
 
-            <div class="shadow p-3 mb-5 bg-body rounded container border mt-5">
+            <div class="shadow p-3 mb-5 bg-body rounded container border">
             
-                <h2 class="mb-5 text-center">TAMBAH PENGGUNA</h2>       
+                <h2 class="mb-5 text-center fw-bold">TAMBAH PERENCANAAN</h2>       
 
 
-                <form enctype="multipart/form-data" action="/KelolaPengguna/Simpan" method="post">
+                <form enctype="multipart/form-data" action="/MonitoringAset/PerencanaanMonitoring/Simpan" method="post">
                     {{ csrf_field() }}
-                    <div class="form-group ">
-                        <div class="d-flex justify-content-center">
-                            <label class="mx-4 w-25">Nama</label>
-                            <input type="text" name="nama" class="form-control mx-4" value="{{ old('nama') }}" autofocus autocomplete="off">
-                        </div>
-                    </div>
-                    @error('nama')
-                        <div class="alert-danger mt-1">{{$message}}</div>
-                    @enderror
-
-                    <div class="form-group ">
-                        <div class="d-flex justify-content-center">
-                            <label class="mx-4 w-25">Email</label>
-                            <input type="text" name="email" class="form-control mx-4" value="{{ old('email') }}" autofocus autocomplete="off">
-                        </div>
-                    </div>
-                    @error('email')
-                        <div class="alert-danger mt-1">{{$message}}</div>
-                    @enderror
-
-                    <div class="form-group mt-3">
-                        <div class="d-flex justify-content-center">
-                            <label class="mx-4 w-25">Role</label>
-                            <select class="form-control custom-select mx-4" name="role" id="role">
-                                <option value="">▼ pilih role</option>
-                                <option value="administrator" <?php if (old('role') == 'administrator') {?>selected="selected"<?php } ?>>Administrator</option>
-                                <option value="visitor" <?php if (old('role') == 'visitor') {?>selected="selected"<?php } ?>> Visitor</option>
-                                <option value="approver" <?php if (old('role') == 'approver') {?>selected="selected"<?php } ?>>Approver</option>
-                                <option value="transactor" <?php if (old('role') == 'transactor') {?>selected="selected"<?php } ?>>Transactor</option>
-                            </select>
-                        </div>
-                    </div>
-                    @error('role')
-                        <div class="alert-danger mt-1">{{$message}}</div>
-                    @enderror
-
+                    <input type="text" name="kodeMonitoring" value="MNTR-{{date('Y.m.d-h.i.s')}}" style="visibility: hidden">
+                    
                     <div class="form-group mt-3">
                         <div class="d-flex justify-content-center">
                             <label class="mx-4 w-25">Unit</label>
@@ -117,27 +85,37 @@
                         <div class="alert-danger mt-1">{{$message}}</div>
                     @enderror
 
-                    <div class="form-group mt-3">
-                       <div class="d-flex justify-content-center">
-                            <label class="mx-4 w-25">Password</label>
-                            <input type="password" name="password" class="form-control mx-4" autofocus autocomplete="off" required autocomplete="new-password">
+                    <div class="form-group input_fields_wrap">
+                        <div class="d-flex justify-content-start mt-4 ">
+                            <label class="mx-4 w-100 ">Daftar Barang</label>
+
+                            <label class="ml-5 pl-2">Jenis</label>
+                            <input type="text" name="jenisBarang1" class="form-control mx-4" value="{{ old('jenisBarang1') }}" autofocus autocomplete="off" required>
+
+                            <label >Tipe</label>
+                            <input type="text" name="tipeBarang1" class="form-control mx-4" value="{{ old('tipeBarang1') }}" autofocus autocomplete="off" required>
+
+                            <label class="form-label" visibilit>Jumlah</label>
+                            <input type="number" name="jumlahBarang1" class="form-control mx-4" value="{{ old('jumlahBarang1') }}" autofocus autocomplete="off" required size="5">
+
+                            <a class="add_field_button"><span class="iconify" data-icon="carbon:add-alt" style="color: #0fa958;" data-height="25"></span></a>
                         </div>
                     </div>
-                    @error('password')
+
+                    <div class="form-group mt-3">
+                       <div class="d-flex justify-content-center">
+                            <label class="mx-4 w-25" >Tanggal Monitoring</label>
+                            <input type="date" name="waktuMonitoring" class="form-control mx-4"  value="{{ old('waktuMonitoring') }}" autofocus autocomplete="off">
+                        </div>
+                    </div>
+                    @error('waktuMonitoring')
                         <div class="alert-danger mt-1">{{$message}}</div>
                     @enderror
 
-                    <div class="form-group mt-3">
-                       <div class="d-flex justify-content-center">
-                            <label class="mx-4 w-25">Konfirmasi Password</label>
-                            <input id="password-confirm" type="password" class="form-control mx-4" name="password_confirmation" required autocomplete="new-password">
-                        </div>
-                    </div>
 
-                    
                     <div class="form-group mt-5">
                         <div class="d-flex justify-content-end">
-                            <a href="/KelolaPengguna" class="btn btn-secondary mx-1">Batal</a>
+                            <a href="/MonitoringAset/PerencanaanMonitoring" class="btn btn-secondary mx-1">Batal</a>
                             <button type="submit" class="btn btn-info mx-1">Kirim</button>
                         </div>
                     </div>
@@ -151,6 +129,29 @@
         </div>
     </div>
     
+
+    <script>
+        $(document).ready(function() {
+            var max_fields      = 5; //maximum input boxes allowed
+            var wrapper   		= $(".input_fields_wrap"); //Fields wrapper
+            var add_button      = $(".add_field_button"); //Add button ID
+
+            var x = 2; //initlal text box count
+            $(add_button).click(function(e){ //on add input button click
+            e.preventDefault();
+                if(x <= max_fields){ //max input box allowed
+                    $(wrapper).append('<div class="d-flex justify-content-start mt-4 "><label class="mx-4 w-100 " style="visibility: hidden">Daftar Barang</label><label class="ml-5 pl-2">Jenis</label><input type="text" name="jenisBarang'+x+'" class="form-control mx-4" autofocus autocomplete="off"><label >Tipe</label><input type="text" name="tipeBarang'+x+'" class="form-control mx-4" autofocus autocomplete="off"><label class="form-label" visibilit>Jumlah</label><input type="number" name="jumlahBarang'+x+'" class="form-control mx-4" autofocus autocomplete="off" size="5"><a class=" remove_field"> <span class="iconify" data-icon="ant-design:minus-circle-outlined" style="color: #ff1e1e;" data-height="25"></span></a></div>'); //add input box
+                    x++; //text box increment
+                }
+            });
+
+            $(wrapper).on("click",".remove_field", function(e){ //user click on remove text
+                e.preventDefault(); 
+                $(this).parent('div').remove(); 
+                x--;
+                })
+            });
+    </script>
 
 
     <!-- jQuery CDN - Slim version (=without AJAX) -->

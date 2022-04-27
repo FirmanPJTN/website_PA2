@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Monitoring;
 use App\Models\Peminjaman;
 use App\Models\Pengadaan;
 use Illuminate\Http\Request;
@@ -18,7 +19,9 @@ class PeminjamanController extends Controller
     {
         $peminjaman = Peminjaman::paginate(5);
         $pengadaan = Pengadaan::paginate(5);
-        return view('visitor.dashboard', compact('peminjaman', 'pengadaan'));
+        $monitoring = Monitoring::paginate(5);
+
+        return view('visitor.dashboard', compact('peminjaman', 'pengadaan','monitoring'));
     }
 
     public function indexPeminjaman()
@@ -157,6 +160,13 @@ class PeminjamanController extends Controller
         $Peminjaman = Peminjaman::find($id);
         $Peminjaman->delete();
         return redirect('/visitor/dashboard');
+    }
+
+    public function destroyAdmin($id)
+    {
+        $Peminjaman = Peminjaman::find($id);
+        $Peminjaman->delete();
+        return redirect('/ManajemenAset/PeminjamanAset');
     }
 
     public function statusSetuju($id) 

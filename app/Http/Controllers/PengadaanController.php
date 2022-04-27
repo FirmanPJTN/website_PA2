@@ -151,6 +151,13 @@ class PengadaanController extends Controller
         return redirect('/visitor/dashboard');
     }
 
+    public function destroyAdmin($id)
+    {
+        $Pengadaan = Pengadaan::find($id);
+        $Pengadaan->delete();
+        return redirect('/ManajemenAset/PengadaanAset');
+    }
+
     public function statusSetuju($id) 
     {
         $pengadaan = Pengadaan::find($id);

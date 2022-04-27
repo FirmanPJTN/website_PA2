@@ -23,6 +23,10 @@ return new class extends Migration
             $table->string("unit");
             $table->rememberToken();
             $table->timestamps();
+
+            $table->unsignedInteger('unit_id')->nullable();
+
+            $table->foreign('unit_id')->references('id')->on('unit')->onDelete('cascade');
         });
     }
 

@@ -39,7 +39,6 @@
     <link rel="stylesheet" href="../../css/styleNavbar.css">
 </head>
 <body>
-@include('sweetalert::alert')
 
 
 <div class="wrapper">
@@ -54,13 +53,13 @@
 
             <nav aria-label="breadcrumb" class="bg-light">
             <ol class="breadcrumb mx-3 mt-2" style="color: RGBA(107,107,107,0.75)">
-                <li class="breadcrumb-item"><a href="/dashboard"><span class="iconify" data-icon="ant-design:home-filled" data-height="20"></span>&nbsp;&nbsp;&nbsp;&nbsp;Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="{{route('dashboard')}}"><span class="iconify" data-icon="ant-design:home-filled" data-height="20"></span>&nbsp;&nbsp;&nbsp;&nbsp;Dashboard</a></li>
                 <li class="breadcrumb-item" aria-current="page"><a href="/KelolaPengguna"><span class="iconify" data-icon="bxs:user-rectangle" data-height="20"></span> Kelola Pengguna</a></li>
                 <li class="breadcrumb-item active fw-bold text-color" aria-current="page">Ubah Pengguna</li>
             </ol>
         </nav>
 
-            <div class="shadow p-3 mb-5 bg-body rounded container border">
+            <div class="shadow p-3 mb-5 bg-body rounded container border mt-5">
             
                 <h2 class="mb-5 text-center">UBAH PENGGUNA</h2>       
 
@@ -106,7 +105,12 @@
                     <div class="form-group mt-3">
                         <div class="d-flex justify-content-center">
                             <label class="mx-4 w-25">Unit</label>
-                            <input type="text" name="unit" class="form-control mx-4"  value="{{ $user->unit }}" autofocus autocomplete="off">
+                            <select class="form-control custom-select mx-4" name="unit" id="unit">
+                                <option value="{{$user->unit}}">▼ {{$user->unit}} (Ganti Unit)</option>
+                                @foreach($units as $unit)
+                                <option value="{{$unit->unit}}" <?php if (old('{{$unit->unit}}') == '{{$unit->unit}}') {?>selected="selected"<?php } ?>>{{$unit->unit}}</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
                     @error('unit')

@@ -18,4 +18,8 @@ class DataAset extends Model
         return $this->hasMany(User::class);
     }
 
+    public function Unit() {
+        return $this->belongsTo(Unit::class, 'id');
+    }
+
 }

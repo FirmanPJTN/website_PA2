@@ -9,15 +9,9 @@
             <select class="form-control filter mr-3" name="filterUnit" id="filterUnit"  value="{{ old('filterUnit') }}">
                 <option value="">▼ Pilih Unit</option>
             <!-- {{$data2 = DB::table('data_asets')->select('unit')->distinct()->get();}} -->
-            {{$data2 = DB::table('data_asets')->select('id')->take(1)->get();}}
-            @foreach ($data2 as $aset)
-                <option value="Duktek" <?php if (old('filterUnit') == 'Duktek') {?>selected<?php } ?>>Duktek</option>
-                <option value="Inventaris" <?php if (old('filterUnit') == 'Inventaris') {?>selected<?php } ?>>Inventaris</option>
-                <option value="WR3" <?php if (old('filterUnit') == 'WR3') {?>selected<?php } ?>>WR3</option>
-                <option value="TE" <?php if (old('filterUnit') == 'TE') {?>selected<?php } ?>>TE</option>
-                <option value="Alat Loundry" <?php if (old('filterUnit') == 'Alat Loundry') {?>selected<?php } ?>>Alat Loundry</option>
-                <option value="Klinik" <?php if (old('filterUnit') == 'Klinik') {?>selected<?php } ?>>Klinik</option>
-            @endforeach
+                @foreach($units as $unit)
+                <option value="{{$unit->unit}}" <?php if (old('{{$unit->unit}}') == '{{$unit->unit}}') {?>selected="selected"<?php } ?>>{{$unit->unit}}</option>
+                @endforeach
             </select>
 
             <p class="ml-5 mt-1 mr-3" style="color:white">Kategori</p>

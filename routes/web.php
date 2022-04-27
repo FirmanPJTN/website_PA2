@@ -51,7 +51,7 @@ Route::group(['middleware' => 'auth','isAdmin:administrator'],function(){
 
     // Data Aset
 
-    Route::get('/dashboard', 'ControllerDataAset@index');
+    Route::get('/dashboard', 'ControllerDataAset@index')->name('dashboard');
 
     Route::get('/ManajemenAset/DataAset', 'ControllerDataAset@index');
 
@@ -71,13 +71,37 @@ Route::group(['middleware' => 'auth','isAdmin:administrator'],function(){
 
     Route::get('/ManajemenAset/PengadaanAset', 'PengadaanController@indexPengadaan');
 
+
     Route::get('/visitor/PermohonanAset/PeminjamanAset/Setujui/{id}', 'PeminjamanController@statusSetuju');
 
     Route::get('/visitor/PermohonanAset/PeminjamanAset/Tolak/{id}', 'PeminjamanController@statusTolak');
 
+    Route::get('/ManajemenAset/PeminjamanAset/Hapus/{id}', 'PeminjamanController@destroyAdmin');
+
+
     Route::get('/visitor/PermohonanAset/PengadaanAset/Setujui/{id}', 'PengadaanController@statusSetuju');
 
     Route::get('/visitor/PermohonanAset/PengadaanAset/Tolak/{id}', 'PengadaanController@statusTolak');
+
+    Route::get('/ManajemenAset/PengadaanAset/Hapus/{id}', 'PengadaanController@destroyAdmin');
+
+
+    // MONITORING ASET
+
+    // PERENCANAAN MONITORING
+    Route::get('/MonitoringAset/PerencanaanMonitoring', 'MonitoringController@index')->name('perencanaan-monitoring');
+
+    Route::get('/MonitoringAset/PerencanaanMonitoring/Tambah', 'MonitoringController@create')->name('tambah-perencanaan-monitoring');
+
+    Route::post('/MonitoringAset/PerencanaanMonitoring/Simpan', 'MonitoringController@store');
+
+    Route::get('/MonitoringAset/PerencanaanMonitoring/Simpan', 'MonitoringController@store');
+
+    Route::get('/MonitoringAset/PerencanaanMonitoring/Ubah/{id}', 'MonitoringController@edit');
+
+    Route::post('/MonitoringAset/PerencanaanMonitoring/Kirim/{id}', 'MonitoringController@update');
+
+    Route::get('/MonitoringAset/PerencanaanMonitoring/Hapus/{id}', 'MonitoringController@destroy');
 
 
     // Kelola Pengguna
@@ -92,6 +116,15 @@ Route::group(['middleware' => 'auth','isAdmin:administrator'],function(){
     Route::post('/KelolaPengguna/Kirim/{id}', 'UserController@update');
 
     Route::get('/KelolaPengguna/Hapus/{id}', 'UserController@destroy');
+
+    // Kelola Unit
+    Route::get('/KelolaPengguna/KelolaUnit', 'UnitController@index')->name('kelola-unit');
+
+    Route::post('/KelolaPengguna/KelolaUnit/Simpan', 'UnitController@store');
+
+    Route::post('/KelolaPengguna/KelolaUnit/Kirim/{id}', 'UnitController@update');
+
+    Route::get('/KelolaPengguna/KelolaUnit/Hapus/{id}', 'UnitController@destroy');
 
 });
 
@@ -126,6 +159,16 @@ Route::group(['middleware' => 'auth','isAdmin:visitor'],function(){
     Route::post('/visitor/PermohonanAset/PengadaanAset/Kirim/{id}', 'PengadaanController@update');
 
     Route::get('/visitor/PermohonanAset/PengadaanAset/Hapus/{id}', 'PengadaanController@destroy');
+
+
+    // MONITORING ASET
+    Route::get('/visitor/MonitoringAset', 'MonitoringController@indexVisitor')->name('monitoring-aset');
+
+    Route::get('/visitor/MonitoringAset/PersetujuanMonitoring/{id}', 'MonitoringController@persetujuan');
+
+    Route::post('/MonitoringAset/PersetujuanMonitoring/Kirim/{id}', 'MonitoringController@updatePersetujuan');
+
+
 
 });
 

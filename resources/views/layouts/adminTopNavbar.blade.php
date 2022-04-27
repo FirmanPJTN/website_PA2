@@ -1,7 +1,7 @@
 <nav class="navbar navbar-light rounded-pill" style="background-color: #135589;">
     <div class="d-flex justify-content-between">
             <button type="button" id="sidebarCollapse" class="btn mx-4" style="background-color: #2A93D5;">
-            <i class="fas fa-align-left"></i></button>
+            <span class="iconify" data-icon="gg:menu" data-height=20></span></button>
 
             <form class="form-inline" method="get">
                 <div class="d-flex">

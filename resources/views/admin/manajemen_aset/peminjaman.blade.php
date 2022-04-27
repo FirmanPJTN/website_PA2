@@ -51,7 +51,7 @@
 
         <nav aria-label="breadcrumb" class="bg-light">
             <ol class="breadcrumb mx-3 mt-2" style="color: RGBA(107,107,107,0.75)">
-                <li class="breadcrumb-item"><a href="#"><span class="iconify" data-icon="ant-design:home-filled" data-height="20"></span>&nbsp;&nbsp;&nbsp;&nbsp;Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="{{route('dashboard')}}"><span class="iconify" data-icon="ant-design:home-filled" data-height="20"></span>&nbsp;&nbsp;&nbsp;&nbsp;Dashboard</a></li>
                 <li class="breadcrumb-item"><a href="#"><span class="iconify" data-icon="eos-icons:cluster-management" data-height="20"></span>&nbsp;&nbsp;&nbsp;&nbsp;Manajemen Aset</a></li>
                 <li class="breadcrumb-item active fw-bold text-color" aria-current="page">Peminjaman Aset</li>
             </ol>
@@ -118,9 +118,6 @@
             </table>
         </div>
 
-        <?php $data = DB::table('peminjaman')->select('id')->whereNotNull('id')->first(); ?>
-
-        @foreach($data as $datum)
 
             <h3 class="mb-5 mt-5 fw-bold">RIWAYAT PEMINJAMAN ASET</h3> 
 
@@ -134,6 +131,7 @@
                         <th scope="col" class="text-center">Jumlah Barang</th>
                         <th scope="col" class="text-center">Tanggal Peminjaman</th>
                         <th scope="col" class="text-center">Rencana Pengembalian</th>
+                        <th scope="col" class="text-center">Status</th>
                         <th scope="col" class="text-center">Tujuan</th>
                         <th scope="col" class="text-center">Aksi</th>
                         </tr>
@@ -156,16 +154,17 @@
                             <td class="text-center">{{$jumlah}}</td>
                             <td class="text-center">{{$pinjam -> created_at -> format('Y-m-d')}}</td>
                             <td class="text-center">{{$pinjam -> tglKembali}}</td>
+                            @if($pinjam->status == 'setuju') 
+                                <td class="text-center text-success fw-bold">Disetujui</td>
+                            @endif
+                            @if($pinjam->status == 'tolak') 
+                                <td class="text-center text-danger fw-bold">Ditolak</td>
+                            @endif
                             <td>{{Str::limit($pinjam->tujuan, 50, $end=' .....')}}</td>
                             <td class="text-center">
                                 <div class="d-flex justify-content-around">
                                     <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#abc<?= $pinjam->id ?>">Detail</button> &nbsp;
-                                    @if($pinjam->status == 'setuju') 
-                                    <a href="#" class="btn btn-success disabled">Disetujui</a>
-                                    @endif
-                                    @if($pinjam->status == 'tolak') 
-                                    <a href="#" class="btn btn-danger disabled">Ditolak</a>
-                                    @endif
+                                    <a data-id="{{ $pinjam->id }}" class="btn btn-danger deletePinjam" href="#">Hapus</a>
                                 </div>
                             </td>
                         </tr>
@@ -184,7 +183,6 @@
                 </table>
             </div>
             
-        @endforeach
 
 
             <br><br><br>
@@ -230,6 +228,8 @@
         }).catch(swal.noop);
     </script>
     @endif
+
+    <script type="text/javascript" src="../../js/scriptDeleteConfirmPeminjamanAdmin.js"></script>
 
     
 

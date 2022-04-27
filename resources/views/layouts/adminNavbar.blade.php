@@ -1,7 +1,7 @@
 <!-- Sidebar  -->
 <nav id="sidebar">
     <div id="dismiss">
-        <i class="fas fa-arrow-left"></i>
+        <span class="iconify" data-icon="bx:arrow-to-left" data-height=25></span>
     </div>
 
     <div class="sidebar-header">
@@ -30,7 +30,7 @@
             <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><span class="iconify" data-icon="bi:eye-fill" data-height="25"></span>&nbsp;&nbsp;&nbsp;&nbsp;Monitoring Aset</a>
             <ul class="collapse list-unstyled" id="pageSubmenu">
                 <li>
-                    <a href="#">Perencanaan Monitoring</a>
+                    <a href="/MonitoringAset/PerencanaanMonitoring">Perencanaan Monitoring</a>
                 </li>
                 <li>
                     <a href="#">Pemusnahan Aset</a>

@@ -1,6 +1,6 @@
 @if (!empty($peminjaman -> jenisBarang2)) 
 
-    <div class="form-group input_fields_wrap">
+    <div class="form-group input_fields_wrap mr-4">
         <div class="d-flex justify-content-start mt-4 ">
             <label class="mx-4 w-100 " style="visibility: hidden">Daftar Barang</label>
             
@@ -17,7 +17,7 @@
 
     @if (!empty($peminjaman -> jenisBarang3))
 
-    <div class="form-group input_fields_wrap">
+    <div class="form-group input_fields_wrap mr-4">
         <div class="d-flex justify-content-start mt-4 ">
             <label class="mx-4 w-100 " style="visibility: hidden">Daftar Barang</label>
             
@@ -35,7 +35,7 @@
 
     @if (!empty($peminjaman -> jenisBarang4))
 
-    <div class="form-group input_fields_wrap">
+    <div class="form-group input_fields_wrap mr-4">
         <div class="d-flex justify-content-start mt-4 ">
             <label class="mx-4 w-100 " style="visibility: hidden">Daftar Barang</label>
             
@@ -52,7 +52,7 @@
 
     @if (!empty($peminjaman -> jenisBarang5))
 
-    <div class="form-group input_fields_wrap">
+    <div class="form-group input_fields_wrap mr-4">
         <div class="d-flex justify-content-start mt-4 ">
             <label class="mx-4 w-100 " style="visibility: hidden">Daftar Barang</label>
             

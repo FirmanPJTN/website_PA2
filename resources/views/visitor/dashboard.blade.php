@@ -65,6 +65,34 @@
             <h2 class="text-secondary"><div id="clock"> &nbsp;</div></h2>
         </div>
 
+        <div class="container mb-5">
+            <div class="d-flex">
+                <?php $jumlahpengadaan = DB::table('pengadaan')->count(); ?>
+                @if($jumlahpengadaan != 0)
+                <div class="box" style="background-color: #00D1B8; padding: 30px; padding-left: 35px; padding-right: 35px; border-radius: 10px; font-size: 2em; color: white; font-weight: bold; text-align: center">
+                {{$jumlahpengadaan}} <br>
+                    <span style="font-size: 0.7em;">Jumlah Pengadaan</span>
+                </div>
+                @endif
+
+                <?php $jumlahpeminjaman = DB::table('peminjaman')->count(); ?>
+                @if($jumlahpeminjaman != 0)
+                <div class="box" style="background-color: #32A9FF; padding: 30px; padding-left: 35px; padding-right: 35px; border-radius: 10px; font-size: 2em; color: white; font-weight: bold; text-align: center">
+                    {{$jumlahpeminjaman}} <br>
+                    <span style="font-size: 0.7em;">Jumlah Peminjaman</span>
+                </div>
+                @endif
+
+                <?php $jumlahmonitoring = DB::table('monitoring')->count(); ?>
+                @if($jumlahmonitoring != 0)
+                <div class="box" style="background-color: #947AFF; padding: 30px; padding-left: 35px; padding-right: 35px; border-radius: 10px; font-size: 2em; color: white; font-weight: bold; text-align: center">
+                {{$jumlahmonitoring}} <br>
+                    <span style="font-size: 0.7em;">Jumlah Monitoring</span>
+                </div>
+                @endif
+
+            </div>
+        </div>
 
         <h3 class="mb-3 mt-4 fw-bold mx-4 mb-5">PENGADAAN ASET</h3>
 
@@ -165,6 +193,54 @@
         </div>
 
         <h3 class="mb-3 mt-4 fw-bold mx-4 mb-5">MONITORING ASET</h3>
+
+        <div class="table-container mx-5 mr-5">
+            <table class="table table-striped table-bordered mb-5">
+                <thead>
+                    <tr>
+                    <th scope="col" class="text-center">No</th>
+                    <th scope="col" class="text-center">Kode Monitoring</th>
+                    <th scope="col" class="text-center">Jumlah Barang</th>
+                    <th scope="col" class="text-center">Unit</th>
+                    <th scope="col" class="text-center">Tanggal Monitoring</th>
+                    <th scope="col" class="text-center">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php $i=1 ?>
+                        @foreach ($monitoring as $monitor)
+                        @if(($monitor->unit == Auth::user()->unit)&&($monitor->status == NULL))
+
+                        <?php 
+                            $jumlah = ($monitor -> jumlahBarang1) + ($monitor -> jumlahBarang2) + ($monitor -> jumlahBarang3) + ($monitor -> jumlahBarang4) + ($monitor -> jumlahBarang5)
+                        ?>
+                    <tr>
+                        <td class="text-center">{{$i}}</td>
+                        <td class="text-center">{{$monitor->kodeMonitoring}}</td>
+                        <td class="text-center">{{$monitor ->unit}}</td>
+                        <td class="text-center">{{$jumlah}}</td>
+                        <td class="text-center">{{$monitor -> waktuMonitoring}}</td>
+                        <!-- <td>{{Str::limit($monitor->alasan, 50, $end=' .....')}}</td> -->
+                        <td class="text-center">
+                            <div class="d-flex justify-content-around">
+                                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#xyz<?= $monitor->id ?>">Detail</button> &nbsp;
+                                <a href="/visitor/MonitoringAset/PersetujuanMonitoring/{{$monitor -> id}}" class="btn btn-success">Setujui</a> &nbsp;
+                            </div>
+                        </td>
+                    </tr>
+
+
+
+                    <!-- MODAL DETAIL PEMINJAMAN -->
+                    @include('layouts.modalDetailMonitoringAdmin')
+
+                    <?php $i++; ?>
+                    @endif
+                    @endforeach
+                    
+                </tbody>
+            </table>
+        </div>
         
 
             <br><br><br>
