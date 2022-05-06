@@ -108,7 +108,7 @@
 
                 <div class="form-group">
                     <div class="d-flex justify-content-end">
-                        <a href="/visitor/dashboard" class="btn btn-secondary mx-1">Cancel</a>
+                        <a href="/visitor/dashboard" class="btn btn-secondary mx-1">Batal</a>
                         <button type="submit" class="btn btn-info mx-1">Kirim</button>
                     </div>
                 </div>

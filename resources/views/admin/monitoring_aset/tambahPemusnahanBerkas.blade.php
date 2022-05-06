@@ -17,6 +17,11 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap" rel="stylesheet">
 
+     <!-- Font Quicksand -->
+     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap" rel="stylesheet">
+
      <!-- Font Awesome -->
      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -30,10 +35,12 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
     <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.19.1/dist/bootstrap-table.min.css">
-    
-    <link rel="stylesheet" href="css/styleNavbar.css">
+
+    <link rel="stylesheet" href="../../css/styleNavbar.css">
 </head>
 <body>
+
+
 <div class="wrapper">
         <!-- Sidebar Admin Layout -->
         @include('layouts.adminNavbar')
@@ -41,105 +48,78 @@
         <!-- Page Content  -->
         <div id="content">
 
-            <!-- Page Content  -->
-        <div id="content">
+            @include('layouts.adminTopNavbar')
 
-        @include('layouts.adminTopNavbar')
 
-        <nav aria-label="breadcrumb" class="bg-light">
+            <nav aria-label="breadcrumb" class="bg-light  mb-5">
             <ol class="breadcrumb mx-3 mt-2" style="color: RGBA(107,107,107,0.75)">
                 <li class="breadcrumb-item"><a href="{{route('dashboard')}}"><span class="iconify" data-icon="ant-design:home-filled" data-height="20"></span>&nbsp;&nbsp;&nbsp;&nbsp;Dashboard</a></li>
-                <li class="breadcrumb-item active fw-bold" aria-current="page"><a href="#"><span class="iconify" data-icon="bxs:user-rectangle" data-height="20"></span> Kelola Pengguna</a></li>
+                <li class="breadcrumb-item"><a href="{{route('perencanaan-monitoring')}}"><span class="iconify" data-icon="eos-icons:cluster-management" data-height="20"></span>&nbsp;&nbsp;&nbsp;&nbsp;Monitoring Aset</a></li>
+                <li class="breadcrumb-item" aria-current="page"><a href="{{route('musnah-berkas')}}">Pemusnahan Berkas</a></li>
+                <li class="breadcrumb-item active fw-bold text-color" aria-current="page">Tambah Pemusnahan Berkas</li>
             </ol>
         </nav>
 
-
-        <h2 class="mb-3 mt-4 fw-bold mx-4 mb-5 mt-5">DAFTAR PENGGUNA</h2>
-
-        <div class="d-flex mt-4 ml-4 justify-content-start">
-        
-            <a href="/KelolaPengguna/Tambah" class="btn btn-primary mx-2">Tambah Data</a>
-
-            <a href="/KelolaPengguna/KelolaUnit" class="btn btn-info mx-4">Kelola Unit</a>
-        </div>
-
-            <div class="d-flex mt-4 ml-4 justify-content-start">
-                <p>Tampilkan 
-                    <select name="rowNum" id="rowNum" onchange="getSelectedValue();">
-                    <?php $numRow=1 ?>
-                    @foreach ($users as $user)
-                        <option value="{{$numRow*5}}">{{$numRow*5}}</option>
-                    <?php $numRow++; ?>
-                    @endforeach
-                    </select>
-                </p>
-            </div>
-
-            <div class="container float-left mb-5">
-            <table class="table table-striped table-bordered mb-5">
-                <thead>
-                    <tr>
-                        <th scope="col" class="text-center">No</th>
-                        <th scope="col" class="text-center">Nama</th>
-                        <th scope="col" class="text-center">Email</th>
-                        <th scope="col" class="text-center">Role</th>
-                        <th scope="col" class="text-center">Unit</th>
-                        <th scope="col" class="text-center">Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php $i=1 ?>
-                        @foreach ($users as $user)
-                    <tr>
-                        <td>{{$i}}</td>
-                        <td>{{$user->nama}}</td>
-                        <td>{{$user -> email}}</td>
-                        <td>{{$user -> role}}</td>
-                        <td>{{$user -> unit}}</td>
-                        <td class="text-center">
-                            <div class="d-flex">
-                            <a href="/KelolaPengguna/Ubah/{{$user -> id}}" class="btn btn-warning">Ubah</a> &nbsp;
-                            <a data-id="{{ $user->id }}" class="btn btn-danger delete" data-kode= "{{$user -> id}}"href="#">Hapus</a>
-                            </div>
-                        </td>
-                    </tr>
-                    
-                    <?php $i++;?>
-                    @endforeach
-                    
-                </tbody>
-            </table>
-            </div>
+            <div class="shadow p-3 mb-5 bg-body rounded container border">
             
-            @if(!empty($data))
-            <div class="pagination">
-                {{ $data->links() }}
+                <h2 class="mb-5 text-center fw-bold mt-3">TAMBAH PEMUSNAHAN BERKAS</h2>       
+
+
+                <form enctype="multipart/form-data" action="/MonitoringAset/PemusnahanBerkas/Simpan" method="post">
+                    {{ csrf_field() }}
+                    <input type="text" name="kodePemusnahan" value="PMNB-{{date('Y.m.d-h.i.s')}}" style="visibility: hidden">
+
+                    <input type="text" name="status" value="Diproses" style="visibility: hidden">
+
+                    
+                    <?php $approvers =  DB::table('users')->where('role','=','approver')->get() ?>
+                    @foreach($approvers as $approver)
+                    <input type="text" name="role" value="{{$approver->role}}" style="visibility: hidden">
+                    @endforeach
+                    
+
+                    <div class="form-group mt-3">
+                       <div class="d-flex justify-content-center">
+                            <label class="mx-4 w-25" >Waktu Pemusnahan</label>
+                            <input type="datetime-local" name="waktuPemusnahan" class="form-control mx-4"  value="{{ old('waktuPemusnahan') }}" autofocus autocomplete="off">
+                        </div>
+                    </div>
+                    @error('waktuPemusnahan')
+                        <div class="alert-danger mt-1">{{$message}}</div>
+                    @enderror
+
+                    <div class="form-group mt-3">
+                        <div class="d-flex justify-content-center">
+                            <label class="mx-4 w-25">Deskripsi Berkas</label>
+                            <textarea name="deskripsi" class="form-control mx-4" cols="30" rows="10" value="{{ old('deskripsi') }}" autofocus autocomplete="off"></textarea>
+                        </div>
+                    </div>
+                    @error('deskripsi')
+                        <div class="alert-danger mt-1">{{$message}}</div>
+                    @enderror
+
+                    
+                    <input type="text" name="deskripsiNotif" value="kode pemusnahan PMNB-{{date('Y.m.d-h.i.s')}} telah dibuat !" style="visibility: hidden">
+                    
+                    
+
+                    <div class="form-group mt-5">
+                        <div class="d-flex justify-content-end">
+                            <a href="{{route('musnah-berkas')}}" class="btn btn-secondary mx-1">Batal</a>
+                            <button type="submit" class="btn btn-info mx-1">Kirim</button>
+                        </div>
+                    </div>
+                </form>
+
             </div>
-            @endif
 
             <br><br><br>
-
             @include('layouts.footer')
 
         </div>
     </div>
+    
 
-
-    <script type="text/javascript" src="../../js/scriptDeleteConfirmPengguna.js"></script>
-
-    @if(Session::has('success'))
-    <script type="text/javascript">
-        swal({
-                title:'Berhasil',
-                text:"{{Session::get('success')}}",
-                timer:2000,
-                icon: "success",
-                type:'success'
-            }).then((value) => {
-            //location.reload();
-        }).catch(swal.noop);
-    </script>
-    @endif
 
     <!-- jQuery CDN - Slim version (=without AJAX) -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -150,7 +130,7 @@
     <!-- jQuery Custom Scroller CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
 
-    <script type="text/javascript" src="/js/scriptNavbar.js"></script>
+    <script type="text/javascript" src="../../js/scriptNavbar.js"></script>
 
     <!-- Iconify  -->
     <script src="https://code.iconify.design/2/2.1.0/iconify.min.js"></script>

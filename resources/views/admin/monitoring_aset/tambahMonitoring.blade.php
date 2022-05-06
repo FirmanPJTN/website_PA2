@@ -39,7 +39,6 @@
     <link rel="stylesheet" href="../../css/styleNavbar.css">
 </head>
 <body>
-@include('sweetalert::alert')
 
 
 <div class="wrapper">
@@ -63,7 +62,7 @@
 
             <div class="shadow p-3 mb-5 bg-body rounded container border">
             
-                <h2 class="mb-5 text-center fw-bold">TAMBAH PERENCANAAN</h2>       
+                <h2 class="mb-5 text-center fw-bold mt-3">TAMBAH PERENCANAAN</h2>       
 
 
                 <form enctype="multipart/form-data" action="/MonitoringAset/PerencanaanMonitoring/Simpan" method="post">
@@ -73,7 +72,7 @@
                     <div class="form-group mt-3">
                         <div class="d-flex justify-content-center">
                             <label class="mx-4 w-25">Unit</label>
-                            <select class="form-control custom-select mx-4" name="unit" id="unit">
+                            <select class="selectVal form-control custom-select mx-4" name="unit" id="unit">
                                 <option value="">▼ pilih unit</option>
                                 @foreach($units as $unit)
                                 <option value="{{$unit->unit}}" <?php if (old('{{$unit->unit}}') == '{{$unit->unit}}') {?>selected="selected"<?php } ?>>{{$unit->unit}}</option>
@@ -84,6 +83,7 @@
                     @error('unit')
                         <div class="alert-danger mt-1">{{$message}}</div>
                     @enderror
+
 
                     <div class="form-group input_fields_wrap">
                         <div class="d-flex justify-content-start mt-4 ">
@@ -112,6 +112,10 @@
                         <div class="alert-danger mt-1">{{$message}}</div>
                     @enderror
 
+                    
+                    <input type="text" name="deskripsi" value="kode monitoring MNTR-{{date('Y.m.d-h.i.s')}} telah dibuat !" style="visibility: hidden">
+                    
+                    
 
                     <div class="form-group mt-5">
                         <div class="d-flex justify-content-end">

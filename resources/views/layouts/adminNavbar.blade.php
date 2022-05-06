@@ -33,10 +33,10 @@
                     <a href="/MonitoringAset/PerencanaanMonitoring">Perencanaan Monitoring</a>
                 </li>
                 <li>
-                    <a href="#">Pemusnahan Aset</a>
+                    <a href="{{route('musnah-aset')}}">Pemusnahan Aset</a>
                 </li>
                 <li>
-                    <a href="#">Pemusnahan Berkas</a>
+                    <a href="{{route('musnah-berkas')}}">Pemusnahan Berkas</a>
                 </li>
             </ul>
         </li>

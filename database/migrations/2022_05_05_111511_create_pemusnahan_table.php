@@ -13,13 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('monitoring', function (Blueprint $table) {
+        Schema::create('pemusnahan', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('kodeMonitoring')->unique();
-            $table->string('unit');
-            $table->string('jenisBarang1');
-            $table->text('tipeBarang1');
-            $table->integer('jumlahBarang1');
+            $table->string('kodePemusnahan')->unique();
+            $table->string('role')->nullable();
+            $table->string('unit')->nullable();
+            $table->text('gambar')->nullable();
+            $table->string('jenisBarang1')->nullable();
+            $table->text('tipeBarang1')->nullable();
+            $table->integer('jumlahBarang1')->nullable();
             $table->string('gambarBarang1')->nullable();
             $table->string('jenisBarang2')->nullable();
             $table->text('tipeBarang2')->nullable();
@@ -37,8 +39,9 @@ return new class extends Migration
             $table->text('tipeBarang5')->nullable();
             $table->integer('jumlahBarang5')->nullable();
             $table->string('gambarBarang5')->nullable();
-            $table->date('waktuMonitoring')->nullable();
-            $table->string('deskripsi')->nullable();
+            $table->datetime('waktuPemusnahan')->nullable();
+            $table->text('alasan')->nullable();
+            $table->text('deskripsi')->nullable();
             $table->string('status')->nullable();
 
             $table->unsignedInteger('user_id')->nullable();
@@ -46,6 +49,7 @@ return new class extends Migration
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('unit_id')->references('id')->on('unit')->onDelete('cascade');
+
 
             $table->timestamps();
         });
@@ -58,6 +62,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('monitoring');
+        Schema::dropIfExists('pemusnahan');
     }
 };

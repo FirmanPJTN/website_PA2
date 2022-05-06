@@ -6,6 +6,7 @@ use App\Models\Monitoring;
 use app\Models\User;
 use App\Models\Unit;
 use App\Models\DataAset;
+use App\Models\Notifikasi;
 use Illuminate\Http\Request;
 
 class MonitoringController extends Controller
@@ -17,15 +18,15 @@ class MonitoringController extends Controller
      */
     public function index()
     {
-        $monitoring = Monitoring::paginate(5);
-        $user = User::paginate(5);
+        $monitoring = Monitoring::paginate(10);
+        $user = User::paginate(10);
         return view('admin.monitoring_aset.monitoring', compact('monitoring', 'user'));
     }
 
     public function indexVisitor()
     {
-        $monitoring = Monitoring::paginate(5);
-        $user = User::paginate(5);
+        $monitoring = Monitoring::paginate(10);
+        $user = User::paginate(10);
         return view('visitor.monitoring_aset.monitoring', compact('monitoring', 'user'));
     }
 
@@ -60,6 +61,9 @@ class MonitoringController extends Controller
             'unit'  => 'required'
         ]);
 
+        $unit = Unit::where('unit',$request->unit)->get('id');
+
+        foreach($unit as $unt)
         Monitoring::create([
             'kodeMonitoring'  => $request-> kodeMonitoring,
             'jenisBarang1'  => $request-> jenisBarang1,
@@ -78,10 +82,21 @@ class MonitoringController extends Controller
             'tipeBarang5'  => $request-> tipeBarang5,
             'jumlahBarang5'  => $request-> jumlahBarang5,
             'waktuMonitoring'  => $request-> waktuMonitoring,
-            'unit'  => $request-> unit
+            'unit'  => $request-> unit,
+            'unit_id'  => $unt->id
         ]);
 
-        return redirect('/MonitoringAset/PerencanaanMonitoring')->with('success', 'Peminjaman Berhasil Ditambahkan!');
+
+        foreach($unit as $unts)
+        Notifikasi::create([
+            'deskripsi' => $request-> deskripsi,
+            'unit' => $request->unit,
+            'kodeMonitoring'  => $request-> kodeMonitoring,
+            'unit_id' => $unts->id,
+        ]);
+        
+
+        return redirect('/MonitoringAset/PerencanaanMonitoring')->with('success', 'Monitoring Berhasil Ditambahkan!');
     }
 
     /**
@@ -105,7 +120,8 @@ class MonitoringController extends Controller
     {
         $monitoring = Monitoring::find($id);
         $units = Unit::all();
-        return view('admin.monitoring_aset.ubahMonitoring',compact('monitoring','units'));
+        $notifikasi = Notifikasi::all();
+        return view('admin.monitoring_aset.ubahMonitoring',compact('monitoring','units','notifikasi'));
     }
 
     public function persetujuan($id)
@@ -132,8 +148,9 @@ class MonitoringController extends Controller
             'unit'  => 'required'
         ]);
 
+        $unit = Unit::where('unit',$request->unit)->get('id');
+
         $monitoring =  Monitoring::find($id);
-        $monitoring-> kodeMonitoring  = $request-> kodeMonitoring;
         $monitoring-> jenisBarang1  = $request-> jenisBarang1;
         $monitoring-> tipeBarang1  = $request-> tipeBarang1;
         $monitoring-> jumlahBarang1  = $request-> jumlahBarang1;
@@ -152,20 +169,48 @@ class MonitoringController extends Controller
         $monitoring->  waktuMonitoring  = $request-> waktuMonitoring;
         $monitoring-> unit  = $request-> unit;
 
+        foreach($unit as $unt) 
+            $monitoring-> unit_id = $unt->id;
+        
+
+        $notifikasi = Notifikasi::where('kodeMonitoring',$monitoring-> kodeMonitoring )->first();
+
+        
+        $notifikasi->unit =  $monitoring-> unit;
+
+        foreach($unit as $unt) 
+            $notifikasi-> unit_id = $unt->id;
+        
+
+        $notifikasi->save();
+
         $monitoring->save();
 
-        return redirect('/MonitoringAset/PerencanaanMonitoring')->with('success', 'Peminjaman Berhasil Diubah!');
+
+        return redirect('/MonitoringAset/PerencanaanMonitoring')->with('success', 'Monitoring Berhasil Diubah!');
     }
 
     public function updatePersetujuan(Request $request, $id)
     {
         //
+        $unit = Unit::where('unit',$request->unit)->get('id');
 
         $monitoring =  Monitoring::find($id);
         $monitoring-> deskripsi  = $request-> deskripsi;
         $monitoring-> status  = $request-> status;
+        foreach($unit as $unt) 
+            $monitoring-> unit_id = $unt->id;
 
         $monitoring->save();
+
+        foreach($unit as $unts)
+        Notifikasi::create([
+            'deskripsi' => $request-> deskripsiNotif,
+            'unit' => $request->unit,
+            'kodeMonitoring'  => $monitoring-> kodeMonitoring,
+            'unit_id' => $unts->id,
+        ]);
+
 
         return redirect('/visitor/MonitoringAset/')->with('success', 'Persetujuan Berhasil Dikirim!');
     }

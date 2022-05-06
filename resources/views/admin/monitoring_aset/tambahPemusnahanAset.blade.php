@@ -36,7 +36,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
     <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.19.1/dist/bootstrap-table.min.css">
 
-    <link rel="stylesheet" href="../../../css/styleNavbar.css">
+    <link rel="stylesheet" href="../../css/styleNavbar.css">
 </head>
 <body>
 
@@ -55,72 +55,73 @@
             <ol class="breadcrumb mx-3 mt-2" style="color: RGBA(107,107,107,0.75)">
                 <li class="breadcrumb-item"><a href="{{route('dashboard')}}"><span class="iconify" data-icon="ant-design:home-filled" data-height="20"></span>&nbsp;&nbsp;&nbsp;&nbsp;Dashboard</a></li>
                 <li class="breadcrumb-item"><a href="{{route('perencanaan-monitoring')}}"><span class="iconify" data-icon="eos-icons:cluster-management" data-height="20"></span>&nbsp;&nbsp;&nbsp;&nbsp;Monitoring Aset</a></li>
-                <li class="breadcrumb-item" aria-current="page"><a href="{{route('perencanaan-monitoring')}}">Perencanaan Monitoring</a></li>
-                <li class="breadcrumb-item active fw-bold text-color" aria-current="page">Ubah Perencanaan</li>
+                <li class="breadcrumb-item" aria-current="page"><a href="{{route('musnah-berkas')}}">Pemusnahan Berkas</a></li>
+                <li class="breadcrumb-item active fw-bold text-color" aria-current="page">Tambah Pemusnahan Berkas</li>
             </ol>
         </nav>
 
             <div class="shadow p-3 mb-5 bg-body rounded container border">
             
-                <h2 class="mb-5 text-center fw-bold">UBAH PERENCANAAN</h2>       
+                <h2 class="mb-5 text-center fw-bold mt-3">TAMBAH PEMUSNAHAN ASET</h2>       
 
 
-                <form enctype="multipart/form-data" action="/MonitoringAset/PerencanaanMonitoring/Kirim/{{$monitoring->id}}" method="post">
+                <form enctype="multipart/form-data" action="/MonitoringAset/PemusnahanAset/Simpan" method="post">
                     {{ csrf_field() }}
-                    <input type="text" name="kodeMonitoring" value="MNTR-{{date('Y.m.d-h.i.s')}}" style="visibility: hidden">
-                    
-                    <div class="form-group mt-3">
-                        <div class="d-flex justify-content-center">
-                            <label class="mx-4 w-25">Unit</label>
-                            <select class="form-control custom-select mx-4" name="unit" id="unit">
-                                <option value="{{$monitoring->unit}}">▼ {{$monitoring->unit}} (Ganti Unit)</option>
-                                @foreach($units as $unit)
-                                <option value="{{$unit->unit}}" <?php if (old('{{$unit->unit}}') == '{{$unit->unit}}') {?>selected="selected"<?php } ?>>{{$unit->unit}}</option>
-                                <?php $unitsABC = DB::table('unit')->where('unit',$unit->unit)->first(); ?>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                    @error('unit')
-                        <div class="alert-danger mt-1">{{$message}}</div>
-                    @enderror
+                    <input type="text" name="kodePemusnahan" value="PMNA-{{date('Y.m.d-h.i.s')}}" style="visibility: hidden">
+
+                    <input type="text" name="status" value="Diproses" style="visibility: hidden">
 
                     <div class="form-group input_fields_wrap">
                         <div class="d-flex justify-content-start mt-4 ">
                             <label class="mx-4 w-100 ">Daftar Barang</label>
 
                             <label class="ml-5 pl-2">Jenis</label>
-                            <input type="text" name="jenisBarang1" class="form-control mx-4" value="{{ $monitoring->jenisBarang1 }}" autofocus autocomplete="off" required>
+                            <input type="text" name="jenisBarang1" class="form-control mx-4" value="{{ old('jenisBarang1') }}" autofocus autocomplete="off" required>
 
                             <label >Tipe</label>
-                            <input type="text" name="tipeBarang1" class="form-control mx-4" value="{{ $monitoring->tipeBarang1 }}" autofocus autocomplete="off" required>
+                            <input type="text" name="tipeBarang1" class="form-control mx-4" value="{{ old('tipeBarang1') }}" autofocus autocomplete="off" required>
 
                             <label class="form-label" visibilit>Jumlah</label>
-                            <input type="number" name="jumlahBarang1" class="form-control mx-4" value="{{ $monitoring->jumlahBarang1 }}" autofocus autocomplete="off" required size="5">
+                            <input type="number" name="jumlahBarang1" class="form-control mx-4" value="{{ old('jumlahBarang1') }}" autofocus autocomplete="off" required size="5">
 
                             <a class="add_field_button"><span class="iconify" data-icon="carbon:add-alt" style="color: #0fa958;" data-height="25"></span></a>
                         </div>
                     </div>
-
-                    @include('layouts.ifEmptyMonitoring')
-
+                    
+                    <?php $approvers =  DB::table('users')->where('role','=','approver')->get() ?>
+                    @foreach($approvers as $approver)
+                    <input type="text" name="role" value="{{$approver->role}}" style="visibility: hidden">
+                    @endforeach
+                    
 
                     <div class="form-group mt-3">
                        <div class="d-flex justify-content-center">
-                            <label class="mx-4 w-25" >Tanggal Monitoring</label>
-                            <input type="date" name="waktuMonitoring" class="form-control mx-4"  value="{{ $monitoring->waktuMonitoring }}" autofocus autocomplete="off">
+                            <label class="mx-4 w-25" >Waktu Pemusnahan</label>
+                            <input type="datetime-local" name="waktuPemusnahan" class="form-control mx-4"  value="{{ old('waktuPemusnahan') }}" autofocus autocomplete="off">
                         </div>
                     </div>
-                    @error('waktuMonitoring')
+                    @error('waktuPemusnahan')
                         <div class="alert-danger mt-1">{{$message}}</div>
                     @enderror
 
-                        <input type="number" name="unit_id" value="{{$unitsABC->id}}" style="visibility: hidden">
+                    <div class="form-group mt-3">
+                        <div class="d-flex justify-content-center">
+                            <label class="mx-4 w-25">Deskripsi Aset</label>
+                            <textarea name="deskripsi" class="form-control mx-4" cols="30" rows="10" value="{{ old('deskripsi') }}" autofocus autocomplete="off"></textarea>
+                        </div>
+                    </div>
+                    @error('deskripsi')
+                        <div class="alert-danger mt-1">{{$message}}</div>
+                    @enderror
 
+                    
+                    <input type="text" name="deskripsiNotif" value="kode pemusnahan PMNA-{{date('Y.m.d-h.i.s')}} telah dibuat !" style="visibility: hidden">
+                    
+                    
 
                     <div class="form-group mt-5">
                         <div class="d-flex justify-content-end">
-                            <a href="/MonitoringAset/PerencanaanMonitoring" class="btn btn-secondary mx-1">Batal</a>
+                            <a href="{{route('musnah-berkas')}}" class="btn btn-secondary mx-1">Batal</a>
                             <button type="submit" class="btn btn-info mx-1">Kirim</button>
                         </div>
                     </div>
@@ -135,6 +136,30 @@
     </div>
     
 
+    <script>
+        $(document).ready(function() {
+            var max_fields      = 5; //maximum input boxes allowed
+            var wrapper   		= $(".input_fields_wrap"); //Fields wrapper
+            var add_button      = $(".add_field_button"); //Add button ID
+
+            var x = 2; //initlal text box count
+            $(add_button).click(function(e){ //on add input button click
+            e.preventDefault();
+                if(x <= max_fields){ //max input box allowed
+                    $(wrapper).append('<div class="d-flex justify-content-start mt-4 "><label class="mx-4 w-100 " style="visibility: hidden">Daftar Barang</label><label class="ml-5 pl-2">Jenis</label><input type="text" name="jenisBarang'+x+'" class="form-control mx-4" autofocus autocomplete="off"><label >Tipe</label><input type="text" name="tipeBarang'+x+'" class="form-control mx-4" autofocus autocomplete="off"><label class="form-label" visibilit>Jumlah</label><input type="number" name="jumlahBarang'+x+'" class="form-control mx-4" autofocus autocomplete="off" size="5"><a class=" remove_field"> <span class="iconify" data-icon="ant-design:minus-circle-outlined" style="color: #ff1e1e;" data-height="25"></span></a></div>'); //add input box
+                    x++; //text box increment
+                }
+            });
+
+            $(wrapper).on("click",".remove_field", function(e){ //user click on remove text
+                e.preventDefault(); 
+                $(this).parent('div').remove(); 
+                x--;
+                })
+            });
+    </script>
+
+
     <!-- jQuery CDN - Slim version (=without AJAX) -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <!-- Popper.JS -->
@@ -144,7 +169,7 @@
     <!-- jQuery Custom Scroller CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
 
-    <script type="text/javascript" src="../../../js/scriptNavbar.js"></script>
+    <script type="text/javascript" src="../../js/scriptNavbar.js"></script>
 
     <!-- Iconify  -->
     <script src="https://code.iconify.design/2/2.1.0/iconify.min.js"></script>

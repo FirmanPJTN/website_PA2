@@ -39,7 +39,6 @@
     <link rel="stylesheet" href="../../../css/styleNavbar.css">
 </head>
 <body>
-@include('sweetalert::alert')
 
 
 <div class="wrapper">
@@ -90,7 +89,7 @@
                         </div>
                     </div>
 
-                    @include('layouts.ifEmptyMonitoring')
+                    @include('layouts.ifEmptyMonitoringSetuju')
 
 
                     <div class="form-group mt-3">
@@ -110,9 +109,16 @@
 
                     <input type="text" name="status" value="setuju" style="visibility: hidden">
 
+                    <input type="text" name="deskripsiNotif" value="kode monitoring {{ $monitoring->kodeMonitoring }} telah disetujui" style="visibility: hidden">
+
+                    <?php $admins =  DB::table('users')->where('role','=','administrator')->get() ?>
+                    @foreach($admins as $admin)
+                    <input type="text" name="unit" value="{{$admin->unit}}" style="visibility: hidden">
+                    @endforeach
+
                     <div class="form-group mt-5">
                         <div class="d-flex justify-content-end">
-                            <a href="/MonitoringAset/PerencanaanMonitoring" class="btn btn-secondary mx-1">Batal</a>
+                            <a href="/visitor/MonitoringAset" class="btn btn-secondary mx-1">Batal</a>
                             <button type="submit" class="btn btn-info mx-1">Kirim</button>
                         </div>
                     </div>

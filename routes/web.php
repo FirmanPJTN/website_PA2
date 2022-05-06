@@ -95,8 +95,6 @@ Route::group(['middleware' => 'auth','isAdmin:administrator'],function(){
 
     Route::post('/MonitoringAset/PerencanaanMonitoring/Simpan', 'MonitoringController@store');
 
-    Route::get('/MonitoringAset/PerencanaanMonitoring/Simpan', 'MonitoringController@store');
-
     Route::get('/MonitoringAset/PerencanaanMonitoring/Ubah/{id}', 'MonitoringController@edit');
 
     Route::post('/MonitoringAset/PerencanaanMonitoring/Kirim/{id}', 'MonitoringController@update');
@@ -125,6 +123,36 @@ Route::group(['middleware' => 'auth','isAdmin:administrator'],function(){
     Route::post('/KelolaPengguna/KelolaUnit/Kirim/{id}', 'UnitController@update');
 
     Route::get('/KelolaPengguna/KelolaUnit/Hapus/{id}', 'UnitController@destroy');
+
+    // PEMUSNAHAN BERKAS
+    Route::get('/MonitoringAset/PemusnahanBerkas', 'PemusnahanController@indexBerkas')->name('musnah-berkas');
+
+    Route::get('/MonitoringAset/PemusnahanBerkas/Tambah', 'PemusnahanController@createBerkas')->name('tambah-musnah-berkas');
+
+    Route::post('/MonitoringAset/PemusnahanBerkas/Simpan', 'PemusnahanController@storeBerkas');
+
+    Route::get('/MonitoringAset/PemusnahanBerkas/Ubah/{id}', 'PemusnahanController@editBerkas')->name('ubah-musnah-berkas');
+
+    Route::post('/MonitoringAset/PemusnahanBerkas/Kirim/{id}', 'PemusnahanController@updateBerkas');
+
+    Route::get('/MonitoringAset/PemusnahanBerkas/Hapus/{id}', 'PemusnahanController@destroyBerkas');
+
+    Route::post('/MonitoringAset/PemusnahanBerkas/Bukti/{id}', 'PemusnahanController@tambahBuktiBerkas');
+
+    // PEMUSNAHAN ASET
+    Route::get('/MonitoringAset/PemusnahanAset', 'PemusnahanController@indexAset')->name('musnah-aset');
+
+    Route::get('/MonitoringAset/PemusnahanAset/Tambah', 'PemusnahanController@createAset')->name('tambah-musnah-aset');
+
+    Route::post('/MonitoringAset/PemusnahanAset/Simpan', 'PemusnahanController@storeAset');
+
+    Route::get('/MonitoringAset/PemusnahanAset/Ubah/{id}', 'PemusnahanController@editAset')->name('ubah-musnah-Aset');
+
+    Route::post('/MonitoringAset/PemusnahanAset/Kirim/{id}', 'PemusnahanController@updateAset');
+
+    Route::get('/MonitoringAset/PemusnahanAset/Hapus/{id}', 'PemusnahanController@destroyAset');
+
+    Route::post('/MonitoringAset/PemusnahanAset/Bukti/{id}', 'PemusnahanController@tambahBuktiAset');
 
 });
 
@@ -168,7 +196,29 @@ Route::group(['middleware' => 'auth','isAdmin:visitor'],function(){
 
     Route::post('/MonitoringAset/PersetujuanMonitoring/Kirim/{id}', 'MonitoringController@updatePersetujuan');
 
+    // NOTIFIKASI
+    Route::get('/notifikasi/{id}','NotifikasiController@destroy')->name('telah-dibaca');
+
+    Route::get('/notifikasiUnit/{unit}','NotifikasiController@destroyInUnit');
+    
 
 
 });
+
+// APPROVER
+Route::group(['middleware' => 'auth','isAdmin:approver'],function(){
+    Route::get('/approver/dashboard', function () {
+        return view('approver.dashboard');
+    });
+
+    Route::get('/approver/Persetujuan/PemusnahanBerkas', 'PemusnahanController@indexBerkasApprover')->name('musnah-berkas-approver');
+
+    Route::get('/approver/Persetujuan/PemusnahanAset', 'PemusnahanController@indexAsetApprover')->name('musnah-aset-approver');
+
+    Route::post('/approver/Persetujuan/PemusnahanBerkas/Simpan/{id}', 'PemusnahanController@prosesPemusnahanBerkas');
+
+
+    Route::post('/approver/Persetujuan/PemusnahanAset/Simpan/{id}', 'PemusnahanController@prosesPemusnahanAset');
+});
+
 

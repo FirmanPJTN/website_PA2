@@ -248,9 +248,42 @@ table.table-bordered{
     border:1px solid black; 
     margin-top:20px; 
   } 
+
 table.table-bordered > thead > tr > th{ 
     border:1px solid black; 
 } 
+
 table.table-bordered > tbody > tr > td{ 
     border:1px solid black; 
 }
+
+.my-dropdown-toggle::after {
+    content: none;
+}
+
+.my-dropdown-toggle:visited {
+    background-color: #135589;
+}
+
+
+.dropdown .notify-menu {
+    width: 280px;
+}
+
+.dropdown .notify-menu li a {
+    white-space: pre-wrap;
+}
+
+
+.dropdown .notify-menu li a .dropdown-item:hover {
+    background-color: rgba(239, 239, 239, 0.552);
+}
+
+a .sudahBaca:hover {
+    background-color: rgb(255, 255, 255);
+}
+
+.notify-menu {
+    max-height:350px;
+    overflow:scroll; 
+ }

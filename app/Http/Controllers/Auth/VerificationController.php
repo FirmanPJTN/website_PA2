@@ -33,6 +33,8 @@ class VerificationController extends Controller
             $redirectTo = RouteServiceProvider::VISITOR;
         } else if(auth()->user()->role=='administrator') {
             $redirectTo = RouteServiceProvider::HOME;
+        } else if(auth()->user()->role=='approver') {
+            $redirectTo = RouteServiceProvider::APPROVER;
         } 
         return $redirectTo;
     }
