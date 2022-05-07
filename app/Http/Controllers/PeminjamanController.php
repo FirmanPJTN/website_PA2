@@ -6,6 +6,7 @@ use App\Models\Monitoring;
 use App\Models\Peminjaman;
 use App\Models\Pengadaan;
 use Illuminate\Http\Request;
+use App\Models\Notifikasi;
 use app\Models\User;
 
 class PeminjamanController extends Controller
@@ -26,9 +27,16 @@ class PeminjamanController extends Controller
 
     public function indexPeminjaman()
     {
-        $peminjaman = Peminjaman::paginate(10);
+        $peminjaman = Peminjaman::where('status','!=','tolak')->paginate(10);
         $user = User::paginate(10);
         return view('admin.manajemen_aset.peminjaman', compact('peminjaman','user'));
+    }
+
+    public function indexApprover()
+    {
+        $peminjaman = Peminjaman::paginate(10);
+        $user = User::paginate(10);
+        return view('approver.persetujuan.peminjamanAset', compact('peminjaman','user'));
     }
 
     /**
@@ -59,7 +67,10 @@ class PeminjamanController extends Controller
             'tujuan'  => 'required'
         ]);
 
+        $users = User::where('role',$request->role)->get();
+
         Peminjaman::create([
+            'kodePeminjaman'  => $request-> kodePeminjaman,
             'jenisBarang1'  => $request-> jenisBarang1,
             'tipeBarang1'  => $request-> tipeBarang1,
             'jumlahBarang1'  => $request-> jumlahBarang1,
@@ -77,8 +88,18 @@ class PeminjamanController extends Controller
             'jumlahBarang5'  => $request-> jumlahBarang5,
             'tglKembali'  => $request-> tglKembali,
             'tujuan'  => $request-> tujuan,
+            'status'  => $request-> status,
             'user_id' => $request-> user_id
         ]);
+
+ 
+        foreach($users->take(1) as $user) {
+            Notifikasi::create([
+                'deskripsi' => $request-> deskripsiNotif,
+                'role' => $user->role,
+                'kodePeminjaman'  => $request-> kodePeminjaman
+            ]);
+        }
 
         return redirect('/visitor/dashboard')->with('success', 'Peminjaman Berhasil Ditambahkan!');
     }
@@ -174,7 +195,7 @@ class PeminjamanController extends Controller
         $peminjaman = Peminjaman::find($id);
         $peminjaman->status = "setuju";
         $peminjaman->save();
-        return redirect('/ManajemenAset/PeminjamanAset')->with('success', 'Peminjaman Berhasil Disetujui');
+        return redirect(route('pinjam-aset-approver'))->with('success', 'Peminjaman Berhasil Disetujui');
     }
 
     public function statusTolak($id) 
@@ -182,6 +203,82 @@ class PeminjamanController extends Controller
         $peminjaman = Peminjaman::find($id);
         $peminjaman->status = "tolak";
         $peminjaman->save();
-        return redirect('/ManajemenAset/PeminjamanAset')->with('success', 'Peminjaman Telah Ditolak');
+        return redirect(route('pinjam-aset-approver'))->with('success', 'Peminjaman Telah Ditolak');
+    }
+
+    public function prosesPengembalianPeminjaman(Request $request, $id) 
+    {
+        $request->validate([
+            'waktuPengembalian'  => 'required',
+        ]);
+
+        $peminjaman = Peminjaman::find($id);
+
+        $visitors = User::where('id',$request->idVisitor)->get();
+        
+        $peminjaman->status = $request->statusKembali;
+        $peminjaman->waktuPengembalian = $request->waktuPengembalian;
+        $peminjaman->catatan = $request->catatan;
+        $peminjaman->save();
+
+        foreach($visitors as $visitor)
+        Notifikasi::create([
+            'deskripsi' => $request-> deskripsiNotifKembali,
+            'status' => $request->statusNotifKembali,
+            'kodePeminjaman'  => $request-> kodePeminjaman,
+            'user_id' => $visitor->idVisitor
+        ]);
+
+        return redirect(route('pinjam-aset-admin'))->with('success', 'Peminjaman berhasil dikembalikan');
+    }
+
+
+
+    public function prosesPeminjamanAset(Request $request, $id)
+    {
+        //
+        $admins = User::where('role',$request->role)->get();
+
+        $visitors = User::where('id',$request->idVisitor)->get();
+
+        $peminjaman = Peminjaman::find($id);
+
+        if($request->get('btnSubmit') == 'tolak') {
+            $peminjaman-> status = $request->statusTolak;
+        } else if($request->get('btnSubmit') == 'setuju') {
+            $peminjaman-> status = $request->statusSetuju;
+        }
+
+        $peminjaman->alasan = $request->alasan;
+        $peminjaman->save();
+
+        if($request->get('btnSubmit') == 'tolak') {
+            foreach($admins->take(1) as $admin) {
+                foreach($visitors->take(1) as $visitor) 
+                Notifikasi::create([
+                    'deskripsi' => $request-> deskripsiNotifTolak,
+                    'role' => $admin->role,
+                    'status' => $admin->statusNotifTolak,
+                    'kodePeminjaman'  => $request-> kodePeminjaman,
+                    'user_id' => $visitor->id
+                ]);
+            }
+        } else if($request->get('btnSubmit') == 'setuju') {
+            foreach($admins->take(1) as $admin) {
+                
+                foreach($visitors->take(1) as $visitor) 
+                Notifikasi::create([
+                    'deskripsi' => $request-> deskripsiNotifSetuju,
+                    'role' => $admin->role,
+                    'status' => $admin->statusNotifSetuju,
+                    'kodePeminjaman'  => $request-> kodePeminjaman,
+                    'user_id' => $visitor->id,
+                    
+                ]);
+            }
+        }
+        
+
+        return redirect(route('pinjam-aset-approver'))->with('success', 'Peminjaman Berhasil Diproses!');
     }
 }

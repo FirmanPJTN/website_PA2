@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('peminjaman', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('kodePeminjaman')->unique();
             $table->string('jenisBarang1');
             $table->text('tipeBarang1');
             $table->integer('jumlahBarang1');
@@ -32,7 +33,12 @@ return new class extends Migration
             $table->integer('jumlahBarang5')->nullable();
             $table->date('tglKembali');
             $table->text('tujuan');
+            $table->string('role')->nullable();
+            $table->string('unit')->nullable();
             $table->string('status')->nullable();
+            $table->text('alasan')->nullable();
+            $table->datetime('waktuPengembalian')->nullable();
+            $table->text('catatan')->nullable();
 
             $table->unsignedInteger('user_id')->nullable();
 

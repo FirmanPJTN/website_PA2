@@ -149,10 +149,11 @@
                 <thead>
                     <tr>
                     <th scope="col" class="text-center">No</th>
+                    <th scope="col" class="text-center">Kode Peminjaman</th>
                     <th scope="col" class="text-center">Jumlah Barang</th>
                     <th scope="col" class="text-center">Tanggal Peminjaman</th>
                     <th scope="col" class="text-center">Rencana Pengembalian</th>
-                    <th scope="col" class="text-center">Tujuan</th>
+                    <th scope="col" class="text-center">Status</th>
                     <th scope="col" class="text-center">Aksi</th>
                     </tr>
                 </thead>
@@ -166,15 +167,34 @@
                         ?>
                     <tr>
                         <td class="text-center">{{$i}}</td>
+                        <td class="text-center">{{$pinjam -> kodePeminjaman}}</td>
                         <td class="text-center">{{$jumlah}}</td>
                         <td class="text-center">{{$pinjam -> created_at -> format('Y-m-d')}}</td>
                         <td class="text-center">{{$pinjam -> tglKembali}}</td>
-                        <td>{{Str::limit($pinjam->tujuan, 50, $end=' .....')}}</td>
+                        <td class="text-center">
+                        @if($pinjam->status == 'proses') 
+                            <button class="btn btn-warning" disabled><span class="iconify" data-icon="mdi:progress-alert" data-height="20"></span> Diproses</button>
+                        @endif
+                        @if($pinjam->status == 'tolak') 
+                            <button class="btn btn-danger" disabled><span class="iconify" data-icon="mdi:progress-close" data-height="20"></span> Ditolak</button>
+                        @endif
+                        @if($pinjam->status == 'setuju') 
+                            <button class="btn btn-success" disabled><span class="iconify" data-icon="mdi:progress-check" data-height="20"></span> Disetujui</button>
+                        @endif
+                        @if($pinjam->status == 'kembali') 
+                            <button class="btn btn-secondary" disabled><span class="iconify" data-icon="mdi:progress-check" data-height="20"></span> Dikembalikan</button>
+                        @endif
+                        </td>
                         <td class="text-center">
                             <div class="d-flex justify-content-around">
-                                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#abc<?= $pinjam->id ?>">Detail</button> &nbsp;
+                                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#abc<?= $pinjam->id ?>">Detail</button> 
+                                @if($pinjam->status == 'proses')
+                                &nbsp;
                                 <a href="/visitor/PermohonanAset/PeminjamanAset/Ubah/{{$pinjam -> id}}" class="btn btn-warning">Ubah</a> &nbsp;
+                                @endif
+                                @if($pinjam->status != 'setuju')
                                 <a data-id="{{ $pinjam->id }}" class="btn btn-danger deletePinjam" href="#">Hapus</a>
+                                @endif
                             </div>
                         </td>
                     </tr>

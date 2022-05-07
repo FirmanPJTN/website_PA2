@@ -152,7 +152,7 @@ class PemusnahanController extends Controller
         ]);
 
 
-        foreach($users as $user)
+        foreach($users->take(1) as $user)
         Notifikasi::create([
             'deskripsi' => $request-> deskripsiNotif,
             'role' => $request->role,

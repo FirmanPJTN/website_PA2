@@ -1,10 +1,24 @@
 <div class="modal fade" id="abc<?= $pinjam->id ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
     <div class="modal-content">
         <div class="modal-header">
         <h2 class="modal-title fw-bold text-center" id="exampleModalLabel">DETAIL PEMINJAMAN ASET</h2>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
+
+        @if($pinjam->status == 'proses') 
+            <button class="btn form-control btn-warning" disabled><span class="iconify" data-icon="mdi:progress-alert" data-height="20"></span> Diproses</button>
+        @endif
+        @if($pinjam->status == 'tolak') 
+            <button class="btn form-control btn-danger" disabled><span class="iconify" data-icon="mdi:progress-close" data-height="20"></span> Ditolak</button>
+        @endif
+        @if($pinjam->status == 'setuju') 
+            <button class="btn form-control btn-success" disabled><span class="iconify" data-icon="mdi:progress-check" data-height="20"></span> Disetujui</button>
+        @endif
+        @if($pinjam->status == 'kembali') 
+            <button class="btn form-control btn-secondary" disabled><span class="iconify" data-icon="mdi:progress-check" data-height="20"></span> Dikembalikan</button>
+        @endif
+        
         <div class="modal-body row">
             <div class="form-group input_fields_wrap">
                 <div class="d-flex justify-content-start mt-4 ">

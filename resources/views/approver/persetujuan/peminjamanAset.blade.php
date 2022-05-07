@@ -41,24 +41,94 @@
 </head>
 <body>
 <div class="wrapper">
-        <!-- Sidebar Admin Layout -->
-        @include('layouts.adminNavbar')
+        <!-- Sidebar Approver Layout -->
+        @include('layouts.approverNavbar')
 
         <!-- Page Content  -->
         <div id="content">
 
-        @include('layouts.adminTopNavbar')
+        @include('layouts.approverTopNavbar')
 
-        <nav aria-label="breadcrumb" class="bg-light">
+        <nav aria-label="breadcrumb" class="bg-light  mb-5">
             <ol class="breadcrumb mx-3 mt-2" style="color: RGBA(107,107,107,0.75)">
-                <li class="breadcrumb-item"><a href="{{route('dashboard')}}"><span class="iconify" data-icon="ant-design:home-filled" data-height="20"></span>&nbsp;&nbsp;&nbsp;&nbsp;Dashboard</a></li>
-                <li class="breadcrumb-item"><a href="#"><span class="iconify" data-icon="eos-icons:cluster-management" data-height="20"></span>&nbsp;&nbsp;&nbsp;&nbsp;Manajemen Aset</a></li>
+                <li class="breadcrumb-item"><a href="{{route('dashboard')}}"><span class="iconify" data-icon="ant-design:home-filled" data-height="20"></span>&nbsp;&nbsp;&nbsp;Dashboard</a></li>
+                <li class="breadcrumb-item "><a href="#"><span class="iconify" data-icon="healthicons:i-documents-accepted" data-height="25"></span>&nbsp;&nbsp;Persetujuan</a></li>
                 <li class="breadcrumb-item active fw-bold text-color" aria-current="page">Peminjaman Aset</li>
             </ol>
         </nav>
 
             
             <h2 class="mb-5 mt-5 fw-bold">DAFTAR PEMINJAMAN ASET</h2>       
+
+
+        <div class="table-container mr-5">
+            <table class="table table-striped table-bordered mb-5 ">
+                <thead>
+                    <tr>
+                    <th scope="col" class="text-center">No</th>
+                    <th scope="col" class="text-center">Kode Peminjaman</th>
+                    <th scope="col" class="text-center">Peminjam</th>
+                    <th scope="col" class="text-center">Unit</th>
+                    <th scope="col" class="text-center">Jumlah Barang</th>
+                    <th scope="col" class="text-center">Tanggal Peminjaman</th>
+                    <th scope="col" class="text-center">Rencana Pengembalian</th>
+                    <th scope="col" class="text-center">Status</th>
+                    <th scope="col" class="text-center">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php $i=1 ?>
+                        @foreach ($peminjaman as $pinjam)
+
+                        @if($pinjam->status == 'proses')
+
+                        <?php $users = DB::table('users')->select('nama','unit')->where('id',$pinjam->user_id)->get(); ?>
+
+                        @foreach ($users as $user)
+
+                        <?php 
+                            $jumlah = ($pinjam -> jumlahBarang1) + ($pinjam -> jumlahBarang2) + ($pinjam -> jumlahBarang3) + ($pinjam -> jumlahBarang4) + ($pinjam -> jumlahBarang5)
+                        ?>
+                    <tr>
+                        <td class="text-center">{{$i}}</td>
+                        <td class="text-center">{{$pinjam->kodePeminjaman}}</td>
+                        <td class="text-center">{{$user->nama}}</td>
+                        <td class="text-center">{{$user->unit}}</td>
+                        <td class="text-center">{{$jumlah}}</td>
+                        <td class="text-center">{{$pinjam -> created_at -> format('Y-m-d')}}</td>
+                        <td class="text-center">{{$pinjam -> tglKembali}}</td>
+                        @if($pinjam->status == 'proses') 
+                            <td class="text-center"> <button class="btn btn-warning" disabled><span class="iconify" data-icon="mdi:progress-alert" data-height="20"></span> Diproses</button></td>
+                        @endif
+
+                        <td class="text-center">
+                            <div class="d-flex justify-content-around">
+                                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#abc<?= $pinjam->id ?>">Detail</button> &nbsp;
+                                <a href="" data-bs-toggle="modal" data-bs-target="#jkl<?= $pinjam->id ?>" class="btn btn-info">Proses</a>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <!-- /visitor/PermohonanAset/PeminjamanAset/Setujui/{{$pinjam -> id}} -->
+
+                    <!-- MODAL DETAIL PEMINJAMAN -->
+                    @include('layouts.modalDetailPeminjamanAdmin')
+
+
+                     <!-- MODAL PERSETUJUAN -->
+                    @include('layouts.modalPersetujuanPeminjaman')
+
+                    <?php $i++; ?>
+                    @endforeach
+                    @endif
+                    @endforeach
+                    
+                </tbody>
+            </table>
+        </div>
+
+
+            <h3 class="mb-5 mt-5 fw-bold">RIWAYAT PEMINJAMAN ASET</h3> 
 
             <div class="table-container mr-5">
                 <table class="table table-striped table-bordered mb-5 " >
@@ -79,7 +149,7 @@
                         <?php $i=1 ?>
                             @foreach ($peminjaman as $pinjam)
 
-                            @if($pinjam->status != null && $pinjam->status != 'proses') 
+                            @if($pinjam->status != 'proses') 
                             <?php $users = DB::table('users')->select('nama','unit')->where('id',$pinjam->user_id)->get(); ?>
 
                             @foreach ($users as $user)
@@ -94,19 +164,17 @@
                             <td class="text-center">{{$jumlah}}</td>
                             <td class="text-center">{{$pinjam -> created_at -> format('Y-m-d')}}</td>
                             <td class="text-center">{{$pinjam -> tglKembali}}</td>
-                            @if($pinjam->status == 'setuju') 
-                                <td class="text-center"> <button class="btn btn-secondary" disabled><span class="iconify" data-icon="mdi:progress-clock" data-height="20"></span> Dipinjam</button></td>
+                            @if($pinjam->status == 'setuju' || $pinjam->status == 'kembali') 
+                                <td class="text-center"> <button class="btn btn-success" disabled><span class="iconify" data-icon="mdi:progress-check" data-height="20"></span> Disetujui</button></td>
                             @endif
-                            @if($pinjam->status == 'kembali') 
-                                <td class="text-center"><button class="btn btn-success" disabled><span class="iconify" data-icon="mdi:progress-check" data-height="20"></span> Dikembalikan</button></td>
+                            @if($pinjam->status == 'tolak') 
+                                <td class="text-center"><button class="btn btn-danger" disabled><span class="iconify" data-icon="mdi:progress-close" data-height="20"></span> Ditolak</button></td>
                             @endif
                             <td class="text-center">
                                 <div class="d-flex justify-content-around">
                                     <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#abc<?= $pinjam->id ?>">Detail</button> 
-                                    @if($pinjam -> waktuPengembalian == NULL)
-                                    &nbsp;
-                                    <a data-bs-toggle="modal" data-bs-target="#rst<?= $pinjam->id ?>" class="btn btn-info" href="#">Proses</a>
-                                    @endif
+                                    <!-- &nbsp;
+                                    <a data-id="{{ $pinjam->id }}" class="btn btn-danger deletePinjam" href="#">Hapus</a> -->
                                 </div>
                             </td>
                         </tr>
@@ -114,11 +182,7 @@
 
 
                         <!-- MODAL DETAIL PEMINJAMAN -->
-                        @include('layouts.modalDetailPeminjamanAdmin')
-
-
-                        <!-- MODAL PENGEMBALIAN PEMINJAMAN -->
-                        @include('layouts.modalPengembalianPeminjaman')
+                        @include('layouts.modalDetailPeminjamanAdminRiwayat')
 
                         <?php $i++; ?>
                         @endforeach

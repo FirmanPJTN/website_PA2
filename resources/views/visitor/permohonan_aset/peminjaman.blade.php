@@ -64,10 +64,11 @@
 
             <form enctype="multipart/form-data" action="/visitor/PermohonanAset/PeminjamanAset/Simpan" method="post">
                 {{ csrf_field() }}
+
                 <div class="form-group input_fields_wrap">
                     <div class="d-flex justify-content-start mt-4 ">
                         <label class="mx-4 w-100 ">Daftar Barang</label>
-                        
+
                         <label class="ml-5 pl-2">Jenis</label>
                         <input type="text" name="jenisBarang1" class="form-control mx-4" value="{{ old('jenisBarang1') }}" autofocus autocomplete="off" required>
 
@@ -105,6 +106,18 @@
 
                 <!-- USER ID REFERENCES -->
                 <input type="number" name="user_id" class="form-control mx-4"  value="{{ Auth::user()->id }}" autofocus autocomplete="off" style="visibility: hidden">
+
+                
+                <input type="text" name="kodePeminjaman" value="PMJN-{{date('Y.m.d-h.i.s')}}" style="visibility: hidden">
+
+                <?php $approvers =  DB::table('users')->where('role','=','approver')->get() ?>
+                    @foreach($approvers as $approver)
+                    <input type="text" name="role" value="{{$approver->role}}" style="visibility: hidden">
+                    @endforeach
+
+                <input type="text" name="deskripsiNotif" value="kode peminjaman PMJN-{{date('Y.m.d-h.i.s')}} telah dibuat !" style="visibility: hidden">
+
+                <input type="text" name="status" value="proses" style="visibility: hidden">
 
                 <div class="form-group">
                     <div class="d-flex justify-content-end">

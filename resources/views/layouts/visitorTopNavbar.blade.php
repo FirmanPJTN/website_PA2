@@ -14,20 +14,33 @@
 
     <div class="d-flex justify-content-end mr-3">
                 
+       
 
         <div class="dropdown mr-2">
             <a href="#" class="mx-4 dropdown-toggle my-dropdown-toggle" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                 <span class="iconify" data-icon="akar-icons:bell" data-height="25" style="color: #fff"></span>
                 <?php $numNotif = DB::table('notifikasi')->where('unit',Auth::user()->unit)->count(); ?>
+
+                <?php $numNotifUser = DB::table('notifikasi')->where('user_id',Auth::user()->id)->count(); ?>
+
+
                 @if($numNotif!=0)
                 <span class="badge" style="color: white; background-color:red;  height: 18px;width: 18px;border-radius: 50%;display: inline-block; ">{{ $numNotif }}</span>
+                @endif
+
+                @if($numNotifUser!=0)
+                <span class="badge" style="color: white; background-color:red;  height: 18px;width: 18px;border-radius: 50%;display: inline-block; ">{{ $numNotifUser }}</span>
                 @endif
             </a>
             
             
             <?php 
-            $data = DB::table('notifikasi')->where('unit',Auth::user()->unit)->get(); 
+            $data = DB::table('notifikasi')->where('unit',Auth::user()->unit)->get(); ?>
 
+            <?php 
+            $dataUser = DB::table('notifikasi')->where('user_id',Auth::user()->id)->get(); ?>
+
+            <?php
             function secondsToTime($inputSeconds) {
                 $secondsInAMinute = 60;
                 $secondsInAnHour = 60 * $secondsInAMinute;
@@ -66,6 +79,7 @@
                 return implode(', ', $timeParts);
             }
             ?>
+        
 
 
             <ul class="dropdown-menu dropdown-menu-right notify-menu mt-2" aria-labelledby="dropdownMenuLink">
@@ -84,6 +98,25 @@
                             <a class="dropdown-item" id="notifyDesc" href="#"><span class="iconify" data-icon="carbon:view-filled" data-height=25></span> {{$ntf->deskripsi}}</a>
                             <a href="/notifikasi/{{$ntf->id}}"  class="delete-notifikasi" title="Telah dibaca"><span class="iconify sudahBaca" data-icon="emojione-v1:cross-mark" style="color: #f24e1e; margin-right: 10px; font-size: 14px"></span></a>
                             <!-- <button class="btn btn-danger btn-delete" style="font-size: 0.8em;" id="deleteNotify" data-id="{{ $ntf->id }}" >
+                            Delete
+                            </button> -->
+                        </div>    
+                    </li>
+                @endforeach
+
+                @foreach($dataUser as $ntfUser)
+                    <li class="mt-3">
+                        <?php 
+                            $now = Carbon::now();
+                            $created_at = Carbon::parse($ntfUser->created_at);
+                            $diffMinutes = $created_at->diffInMinutes($now);
+                            $second = $diffMinutes*60;
+                        ?>
+                        <h6 class="text-right mr-3" style="color: #888; font-size: 14px"><span class="iconify" data-icon="ant-design:field-time-outlined"></span>{{secondsToTime($second)}}</h6>
+                        <div class="d-flex">
+                            <a class="dropdown-item" id="notifyDesc" href="#"><span class="iconify" data-icon="carbon:view-filled" data-height=25></span> {{$ntfUser->deskripsi}}</a>
+                            <a href="/notifikasi/{{$ntfUser->id}}"  class="delete-notifikasi" title="Telah dibaca"><span class="iconify sudahBaca" data-icon="emojione-v1:cross-mark" style="color: #f24e1e; margin-right: 10px; font-size: 14px"></span></a>
+                            <!-- <button class="btn btn-danger btn-delete" style="font-size: 0.8em;" id="deleteNotify" data-id="{{ $ntfUser->id }}" >
                             Delete
                             </button> -->
                         </div>    

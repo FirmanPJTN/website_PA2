@@ -17,7 +17,7 @@
     <div class="dropdown mr-2">
             <a href="#" class="mx-4 dropdown-toggle my-dropdown-toggle" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                 <span class="iconify" data-icon="akar-icons:bell" data-height="25" style="color: #fff"></span>
-                <?php $numNotif = DB::table('notifikasi')->where('role',Auth::user()->role)->count(); ?>
+                <?php $numNotif = DB::table('notifikasi')->where('role',Auth::user()->role)->where('status','NOT LIKE',"%tolak%")->count(); ?>
                 @if($numNotif!=0)
                 <span class="badge" style="color: white; background-color:red;  height: 18px;width: 18px;border-radius: 50%;display: inline-block; ">{{ $numNotif }}</span>
                 @endif
@@ -25,7 +25,7 @@
             
             
             <?php 
-            $data = DB::table('notifikasi')->where('role',Auth::user()->role)->get(); 
+            $data = DB::table('notifikasi')->where('role',Auth::user()->role)->where('status','NOT LIKE',"%tolak%")->get(); 
 
             function secondsToTime($inputSeconds) {
                 $secondsInAMinute = 60;

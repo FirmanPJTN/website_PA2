@@ -19,7 +19,7 @@
                     <a href="#">Pengadaan Eksternal</a>
                 </li>
                 <li>
-                    <a href="#">Peminjaman Aset</a>
+                    <a href="{{route('pinjam-aset-approver')}}">Peminjaman Aset</a>
                 </li>
                 <li>
                     <a href="{{route('musnah-aset-approver')}}">Pemusnahan Aset</a>

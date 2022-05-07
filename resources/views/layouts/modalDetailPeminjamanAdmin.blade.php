@@ -1,9 +1,31 @@
 <div class="modal fade" id="abc<?= $pinjam->id ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
     <div class="modal-content">
         <div class="modal-header">
         <h2 class="modal-title fw-bold text-center" id="exampleModalLabel">DETAIL PEMINJAMAN ASET</h2>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <div class="form-group mt-3 mx-4">
+            @if($pinjam->status == 'proses')
+            <button class="btn form-control btn-warning" disabled><span class="iconify" data-icon="mdi:progress-alert" data-height="20"></span> Diproses</button>
+            @endif
+
+            @if($pinjam->status == 'setuju')
+
+            @if(Auth::user()->role == 'administrator')
+            <button class="btn form-control btn-secondary" disabled><span class="iconify" data-icon="mdi:progress-clock" data-height="20"></span> Dipinjam</button>
+            @endif
+            
+            @if(Auth::user()->role != 'administrator')
+            <button class="btn form-control btn-success" disabled><span class="iconify" data-icon="mdi:progress-check" data-height="20"></span> Disetujui </button>
+            @endif
+
+            @endif
+  
+            @if($pinjam->status == 'tolak')
+            <button class="btn form-control btn-danger" disabled><span class="iconify" data-icon="mdi:progress-close" data-height="20"></span> Ditolak</button>
+            @endif
         </div>
 
         <div class="form-group ml-2 mt-3">
@@ -121,6 +143,8 @@
                 </div>
             </div>
 
+            @if($pinjam->waktuPengembalian == NULL)
+
             <div class="form-group mt-3">
                 <div class="d-flex justify-content-center">
                     <label class="mx-4 w-25" >Tanggal Pengembalian</label>
@@ -136,10 +160,28 @@
                 </div>
             </div>
 
+            @endif
+
+            @if($pinjam->waktuPengembalian != NULL)
+            <div class="form-group mt-3">
+                <div class="d-flex justify-content-center">
+                    <label class="mx-4 w-25" >Waktu Pengembalian</label>
+                    <input type="text" name="waktuPengembalian" class="form-control mx-4" value="{{ $pinjam -> waktuPengembalian }}" autofocus autocomplete="off">
+                </div>
+            </div>
+
+            <div class="form-group mt-3">
+                <div class="d-flex justify-content-center">
+                    <label class="mx-4 w-25">Catatan Tambahan</label>
+                    <textarea name="tujuan" class="form-control mx-4" cols="30" rows="10" value="{{ $pinjam-> catatan }}" autofocus autocomplete="off" disabled>{{ $pinjam -> catatan }}</textarea>
+                </div>
+            </div>
+            @endif
+
             </div>
             <div class="modal-footer text-center">
-                <button style="width: 45%" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                <a style="width: 45%" type="button" class="btn btn-danger  mr-4" href="/visitor/PermohonanAset/PeminjamanAset/Tolak/{{$pinjam -> id}}">Tolak</a>
+                <button style="width: 100%" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                <!-- <a style="width: 45%" type="button" class="btn btn-danger  mr-4" href="/visitor/PermohonanAset/PeminjamanAset/Tolak/{{$pinjam -> id}}">Tolak</a> -->
             </div>
         </div>
     </div>

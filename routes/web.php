@@ -67,17 +67,18 @@ Route::group(['middleware' => 'auth','isAdmin:administrator'],function(){
 
     // Peminjaman Aset
 
-    Route::get('/ManajemenAset/PeminjamanAset', 'PeminjamanController@indexPeminjaman');
+    Route::get('/ManajemenAset/PeminjamanAset', 'PeminjamanController@indexPeminjaman')->name('pinjam-aset-admin');
 
     Route::get('/ManajemenAset/PengadaanAset', 'PengadaanController@indexPengadaan');
 
 
-    Route::get('/visitor/PermohonanAset/PeminjamanAset/Setujui/{id}', 'PeminjamanController@statusSetuju');
-
-    Route::get('/visitor/PermohonanAset/PeminjamanAset/Tolak/{id}', 'PeminjamanController@statusTolak');
-
     Route::get('/ManajemenAset/PeminjamanAset/Hapus/{id}', 'PeminjamanController@destroyAdmin');
 
+    
+    Route::post('ManajemenAset/PeminjamanAset/Pengembalian/Simpan/{id}', 'PeminjamanController@prosesPengembalianPeminjaman');
+
+
+      // Pengadaan Aset
 
     Route::get('/visitor/PermohonanAset/PengadaanAset/Setujui/{id}', 'PengadaanController@statusSetuju');
 
@@ -85,6 +86,8 @@ Route::group(['middleware' => 'auth','isAdmin:administrator'],function(){
 
     Route::get('/ManajemenAset/PengadaanAset/Hapus/{id}', 'PengadaanController@destroyAdmin');
 
+
+  
 
     // MONITORING ASET
 
@@ -211,14 +214,26 @@ Route::group(['middleware' => 'auth','isAdmin:approver'],function(){
         return view('approver.dashboard');
     });
 
+    // PEMUSNAHAN 
     Route::get('/approver/Persetujuan/PemusnahanBerkas', 'PemusnahanController@indexBerkasApprover')->name('musnah-berkas-approver');
 
     Route::get('/approver/Persetujuan/PemusnahanAset', 'PemusnahanController@indexAsetApprover')->name('musnah-aset-approver');
 
+    Route::get('/approver/Persetujuan/PeminjamanAset', 'PeminjamanController@indexApprover')->name('pinjam-aset-approver');
+
     Route::post('/approver/Persetujuan/PemusnahanBerkas/Simpan/{id}', 'PemusnahanController@prosesPemusnahanBerkas');
 
-
     Route::post('/approver/Persetujuan/PemusnahanAset/Simpan/{id}', 'PemusnahanController@prosesPemusnahanAset');
+
+
+    // PEMINJAMAN
+    
+    Route::get('/approver/Persetujuan/PeminjamanAset/Setujui/{id}', 'PeminjamanController@statusSetuju');
+
+    Route::get('/approver/Persetujuan/PeminjamanAset/Tolak/{id}', 'PeminjamanController@statusTolak');
+
+    Route::post('/approver/Persetujuan/PeminjamanAset/Simpan/{id}', 'PeminjamanController@prosesPeminjamanAset');
+
 });
 
 
