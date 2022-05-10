@@ -101,9 +101,10 @@
                 <thead>
                     <tr>
                     <th scope="col" class="text-center">No</th>
+                    <th scope="col" class="text-center">Kode Pengadaan</th>
                     <th scope="col" class="text-center">Jumlah Barang</th>
                     <th scope="col" class="text-center">Tanggal Pengadaan</th>
-                    <th scope="col" class="text-center">Alasan</th>
+                    <th scope="col" class="text-center">Status</th>
                     <th scope="col" class="text-center">Aksi</th>
                     </tr>
                 </thead>
@@ -117,21 +118,38 @@
                         ?>
                     <tr>
                         <td class="text-center">{{$i}}</td>
+                        <td class="text-center">{{$ada -> kodePengadaan}}</td>
                         <td class="text-center">{{$jumlah}}</td>
                         <td class="text-center">{{$ada -> created_at -> format('Y-m-d')}}</td>
-                        <td>{{Str::limit($ada->alasan, 50, $end=' .....')}}</td>
+                        <td class="text-center">
+                            @if($ada->status == 'proses' || $ada->status == 'proses-PR' || $ada->status == 'proses-PO' || $ada->status == 'setuju-PO' || $ada->status == 'setuju-PR') 
+                                <button class="btn btn-warning" disabled><span class="iconify" data-icon="mdi:progress-alert" data-height="20"></span> Diproses</button>
+                            @endif
+                            @if($ada->status == 'tolak') 
+                                <button class="btn btn-danger" disabled><span class="iconify" data-icon="mdi:progress-close" data-height="20"></span> Ditolak</button>
+                            @endif
+                            @if($ada->status == 'setuju') 
+                                <button class="btn btn-success" disabled><span class="iconify" data-icon="mdi:progress-check" data-height="20"></span> Disetujui</button>
+                            @endif
+                        </td>
                         <td class="text-center">
                             <div class="d-flex justify-content-around">
-                                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#def<?= $ada->id ?>">Detail</button> &nbsp;
-                                <a href="/visitor/PermohonanAset/PengadaanAset/Ubah/{{$ada -> id}}" class="btn btn-warning">Ubah</a> &nbsp;
+                                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#def<?= $ada->id ?>">Detail</button> 
+                                @if($ada->status == 'proses')
+                                &nbsp;
+                                <a href="/visitor/PermohonanAset/PengadaanAset/Ubah/{{$ada -> id}}" class="btn btn-warning">Ubah</a>
+                                @endif 
+                                @if($ada->status == 'proses' || $ada->status == 'tolak')
+                                &nbsp;
                                 <a data-id="{{ $ada->id }}" class="btn btn-danger deleteAda" href="#">Hapus</a>
+                                @endif
                             </div>
                         </td>
                     </tr>
 
 
 
-                    <!-- MODAL DETAIL PEMINJAMAN -->
+                    <!-- MODAL DETAIL PENGADAAN -->
                     @include('layouts.modalDetailPengadaan')
 
                     <?php $i++; ?>
@@ -223,13 +241,14 @@
                     <th scope="col" class="text-center">Jumlah Barang</th>
                     <th scope="col" class="text-center">Unit</th>
                     <th scope="col" class="text-center">Tanggal Monitoring</th>
+                    <th scope="col" class="text-center">Status</th>
                     <th scope="col" class="text-center">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php $i=1 ?>
                         @foreach ($monitoring as $monitor)
-                        @if(($monitor->unit == Auth::user()->unit)&&($monitor->status == NULL))
+                        @if(($monitor->unit == Auth::user()->unit)&&($monitor->status == 'proses'))
 
                         <?php 
                             $jumlah = ($monitor -> jumlahBarang1) + ($monitor -> jumlahBarang2) + ($monitor -> jumlahBarang3) + ($monitor -> jumlahBarang4) + ($monitor -> jumlahBarang5)
@@ -240,11 +259,22 @@
                         <td class="text-center">{{$monitor ->unit}}</td>
                         <td class="text-center">{{$jumlah}}</td>
                         <td class="text-center">{{$monitor -> waktuMonitoring}}</td>
+                        <td class="text-center">
+                            @if($monitor->status == 'proses') 
+                                <button class="btn btn-warning" disabled><span class="iconify" data-icon="mdi:progress-alert" data-height="20"></span> Diproses</button>
+                            @endif
+                            @if($monitor->status == 'tolak') 
+                                <button class="btn btn-danger" disabled><span class="iconify" data-icon="mdi:progress-close" data-height="20"></span> Ditolak</button>
+                            @endif
+                            @if($monitor->status == 'setuju') 
+                                <button class="btn btn-success" disabled><span class="iconify" data-icon="mdi:progress-check" data-height="20"></span> Disetujui</button>
+                            @endif
+                        </td>
                         <!-- <td>{{Str::limit($monitor->alasan, 50, $end=' .....')}}</td> -->
                         <td class="text-center">
                             <div class="d-flex justify-content-around">
                                 <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#xyz<?= $monitor->id ?>">Detail</button> &nbsp;
-                                <a href="/visitor/MonitoringAset/PersetujuanMonitoring/{{$monitor -> id}}" class="btn btn-success">Setujui</a> &nbsp;
+                                <a href="" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#opq<?= $monitor->id ?>">Proses</a>
                             </div>
                         </td>
                     </tr>
@@ -253,6 +283,9 @@
 
                     <!-- MODAL DETAIL PEMINJAMAN -->
                     @include('layouts.modalDetailMonitoringAdmin')
+
+                    <!-- MODAL PERSETUJUAN MONITORING -->
+                    @include('layouts.modalPersetujuanMonitoring')
 
                     <?php $i++; ?>
                     @endif

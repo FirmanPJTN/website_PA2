@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('kodePeminjaman')->nullable();
             $table->string('kodePemusnahan')->nullable();
             $table->string('kodeMonitoring')->nullable();
+            $table->string('kodePengadaan')->nullable();
             $table->string('status')->nullable();
             $table->unsignedInteger('user_id')->nullable();
             $table->unsignedInteger('unit_id')->nullable();

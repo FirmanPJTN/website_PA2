@@ -39,6 +39,8 @@ class RegisterController extends Controller
             $redirectTo = RouteServiceProvider::HOME;
         } else if(auth()->user()->role=='approver') {
             $redirectTo = RouteServiceProvider::APPROVER;
+        } else if(auth()->user()->role=='transactor') {
+            $redirectTo = RouteServiceProvider::TRANSACTOR;
         } 
         return $redirectTo;
     }

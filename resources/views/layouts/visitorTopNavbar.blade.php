@@ -24,11 +24,15 @@
                 <?php $numNotifUser = DB::table('notifikasi')->where('user_id',Auth::user()->id)->count(); ?>
 
 
-                @if($numNotif!=0)
+                @if($numNotifUser!=0 && $numNotif!=0)
+                <span class="badge" style="color: white; background-color:red;  height: 18px;width: 18px;border-radius: 50%;display: inline-block; ">{{ $numNotifUser + $numNotif }}</span>
+                @endif
+
+                @if($numNotif!=0 && $numNotifUser==0)
                 <span class="badge" style="color: white; background-color:red;  height: 18px;width: 18px;border-radius: 50%;display: inline-block; ">{{ $numNotif }}</span>
                 @endif
 
-                @if($numNotifUser!=0)
+                @if($numNotifUser!=0 && $numNotif==0)
                 <span class="badge" style="color: white; background-color:red;  height: 18px;width: 18px;border-radius: 50%;display: inline-block; ">{{ $numNotifUser }}</span>
                 @endif
             </a>

@@ -19,8 +19,8 @@ class RouteServiceProvider extends ServiceProvider
      */
     public const HOME = '/ManajemenAset/DataAset';
     public const VISITOR = '/visitor/dashboard';
-    public const TRANSACTOR = '/transactor/dashboard';
     public const APPROVER = '/approver/dashboard';
+    public const TRANSACTOR = '/transactor/dashboard';
     protected $namespace = 'App\\Http\\Controllers';
 
     /**

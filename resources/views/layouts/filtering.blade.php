@@ -1,5 +1,5 @@
 <div class="d-flex justify-content-start mb-4 pt-2 bg-dark rounded">
-    <p class="ml-5 mt-1 bg-light fw-bold pl-2 rounded-start" style="color:black">FILTERING&nbsp;</p>
+    <p class="ml-5 mt-1 bg-light fw-bold pl-2 rounded-start" style="color:black">SELEKSI&nbsp;</p>
     <p class="mt-1 mr-3 bg-light fw-bold pr-2 mr-5 rounded-end" style="color:black">DATA</p>
 
     <form class="form-inline" method="get">

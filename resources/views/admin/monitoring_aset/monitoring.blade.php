@@ -73,6 +73,7 @@
                         <th scope="col" class="text-center">Unit</th>
                         <th scope="col" class="text-center">Jumlah Barang</th>
                         <th scope="col" class="text-center">Tanggal Monitoring</th>
+                        <th scope="col" class="text-center">Status</th>
                         <th scope="col" class="text-center">Aksi</th>
                         </tr>
                     </thead>
@@ -89,6 +90,17 @@
                             <td class="text-center">{{$monitor ->unit}}</td>
                             <td class="text-center">{{$jumlah}}</td>
                             <td class="text-center">{{$monitor -> waktuMonitoring}}</td>
+                            <td class="text-center">
+                                @if($monitor->status == 'proses') 
+                                    <button class="btn btn-warning" disabled><span class="iconify" data-icon="mdi:progress-alert" data-height="20"></span> Diproses</button>
+                                @endif
+                                @if($monitor->status == 'tolak') 
+                                    <button class="btn btn-danger" disabled><span class="iconify" data-icon="mdi:progress-close" data-height="20"></span> Ditolak</button>
+                                @endif
+                                @if($monitor->status == 'setuju') 
+                                    <button class="btn btn-success" disabled><span class="iconify" data-icon="mdi:progress-check" data-height="20"></span> Disetujui</button>
+                                @endif
+                            </td>
                             <td class="text-center">
                                 <div class="d-flex justify-content-around">
                                     <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#xyz<?= $monitor->id ?>">Detail</button> &nbsp;

@@ -7,6 +7,17 @@
         </div>
         <div class="modal-body row">
 
+            @if($monitor->status == 'proses') 
+                <button class="btn form-control btn-warning" disabled><span class="iconify" data-icon="mdi:progress-alert" data-height="20"></span> Diproses</button>
+            @endif
+            @if($monitor->status == 'tolak') 
+                <button class="btn form-control btn-danger" disabled><span class="iconify" data-icon="mdi:progress-close" data-height="20"></span> Ditolak</button>
+            @endif
+            @if($monitor->status == 'setuju') 
+                <button class="btn form-control btn-success" disabled><span class="iconify" data-icon="mdi:progress-check" data-height="20"></span> Disetujui</button>
+            @endif
+        
+
             <div class="form-group mt-3">
                 <div class="d-flex justify-content-center">
                     <label class="mx-4 w-25" >Kode Monitoring</label>
@@ -121,6 +132,15 @@
                     <input type="date" name="waktuMonitoring" class="form-control mx-4" id="waktuMonitoring<?= $monitor->id ?>" value="{{ $monitor -> waktuMonitoring }}" autofocus autocomplete="off">
                 </div>
             </div>
+
+            @if($monitor -> deskripsi != NULL)
+            <div class="form-group mt-3">
+                <div class="d-flex justify-content-center">
+                    <label class="mx-4 w-25" >Alasan Disetujui / Ditolak</label>
+                    <textarea name="deskripsi" class="form-control mx-4" id="deskripsi" cols="30" rows="10" value="{{ $monitor -> deskripsi }}">{{ $monitor -> deskripsi }}</textarea>
+                </div>
+            </div>
+            @endif
 
 
         </div>

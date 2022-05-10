@@ -62,16 +62,17 @@
                         <tr>
                         <th scope="col" class="text-center">No</th>
                         <th scope="col" class="text-center">Kode Monitoring</th>
-                        <th scope="col" class="text-center">Jumlah Barang</th>
                         <th scope="col" class="text-center">Unit</th>
+                        <th scope="col" class="text-center">Jumlah Barang</th>
                         <th scope="col" class="text-center">Tanggal Monitoring</th>
+                        <th scope="col" class="text-center">Status</th>
                         <th scope="col" class="text-center">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php $i=1 ?>
                             @foreach ($monitoring as $monitor)
-                            @if(($monitor->unit == Auth::user()->unit)&&($monitor->status == NULL))
+                            @if(($monitor->unit == Auth::user()->unit)&&($monitor->status == 'proses'))
 
                             <?php 
                                 $jumlah = ($monitor -> jumlahBarang1) + ($monitor -> jumlahBarang2) + ($monitor -> jumlahBarang3) + ($monitor -> jumlahBarang4) + ($monitor -> jumlahBarang5)
@@ -82,19 +83,35 @@
                             <td class="text-center">{{$monitor ->unit}}</td>
                             <td class="text-center">{{$jumlah}}</td>
                             <td class="text-center">{{$monitor -> waktuMonitoring}}</td>
+                            <td class="text-center">
+                                @if($monitor->status == 'proses') 
+                                    <button class="btn btn-warning" disabled><span class="iconify" data-icon="mdi:progress-alert" data-height="20"></span> Diproses</button>
+                                @endif
+                                @if($monitor->status == 'tolak') 
+                                    <button class="btn btn-danger" disabled><span class="iconify" data-icon="mdi:progress-close" data-height="20"></span> Ditolak</button>
+                                @endif
+                                @if($monitor->status == 'setuju') 
+                                    <button class="btn btn-success" disabled><span class="iconify" data-icon="mdi:progress-check" data-height="20"></span> Disetujui</button>
+                                @endif
+                            </td>
                             <!-- <td>{{Str::limit($monitor->alasan, 50, $end=' .....')}}</td> -->
                             <td class="text-center">
                                 <div class="d-flex justify-content-around">
                                     <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#xyz<?= $monitor->id ?>">Detail</button> &nbsp;
-                                    <a href="/visitor/MonitoringAset/PersetujuanMonitoring/{{$monitor -> id}}" class="btn btn-success">Setujui</a> &nbsp;
+                                    <a href="" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#opq<?= $monitor->id ?>">Proses</a>
                                 </div>
                             </td>
                         </tr>
 
+                        <!-- /visitor/MonitoringAset/PersetujuanMonitoring/{{$monitor -> id}} -->
 
 
-                        <!-- MODAL DETAIL PEMINJAMAN -->
+
+                        <!-- MODAL DETAIL MONITORING -->
                         @include('layouts.modalDetailMonitoringAdmin')
+
+                        <!-- MODAL PERSETUJUAN MONITORING -->
+                        @include('layouts.modalPersetujuanMonitoring')
 
                         <?php $i++; ?>
                         @endif
@@ -114,8 +131,8 @@
                         <tr>
                         <th scope="col" class="text-center">No</th>
                         <th scope="col" class="text-center">Kode Monitoring</th>
-                        <th scope="col" class="text-center">Jumlah Barang</th>
                         <th scope="col" class="text-center">Unit</th>
+                        <th scope="col" class="text-center">Jumlah Barang</th>
                         <th scope="col" class="text-center">Tanggal Monitoring</th>
                         <th scope="col" class="text-center">Status</th>
                         <th scope="col" class="text-center">Aksi</th>
@@ -124,7 +141,7 @@
                     <tbody>
                         <?php $i=1 ?>
                             @foreach ($monitoring as $monitor)
-                            @if(($monitor->unit == Auth::user()->unit)&&($monitor->status == 'setuju'))
+                            @if(($monitor->unit == Auth::user()->unit)&&($monitor->status != 'proses'))
 
                             <?php 
                                 $jumlah = ($monitor -> jumlahBarang1) + ($monitor -> jumlahBarang2) + ($monitor -> jumlahBarang3) + ($monitor -> jumlahBarang4) + ($monitor -> jumlahBarang5)
@@ -135,12 +152,20 @@
                             <td class="text-center">{{$monitor ->unit}}</td>
                             <td class="text-center">{{$jumlah}}</td>
                             <td class="text-center">{{$monitor -> waktuMonitoring}}</td>
-                            @if ($monitor -> status == 'setuju')
-                            <td class="text-center text-success fw-bold">Disetujui</td>
-                            @endif
+                            <td class="text-center">
+                                @if($monitor->status == 'proses') 
+                                    <button class="btn btn-warning" disabled><span class="iconify" data-icon="mdi:progress-alert" data-height="20"></span> Diproses</button>
+                                @endif
+                                @if($monitor->status == 'tolak') 
+                                    <button class="btn btn-danger" disabled><span class="iconify" data-icon="mdi:progress-close" data-height="20"></span> Ditolak</button>
+                                @endif
+                                @if($monitor->status == 'setuju') 
+                                    <button class="btn btn-success" disabled><span class="iconify" data-icon="mdi:progress-check" data-height="20"></span> Disetujui</button>
+                                @endif
+                            </td>
                             <td class="text-center">
                                 <div class="d-flex justify-content-around">
-                                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#abc<?= $monitor->id ?>">Detail</button>
+                                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#xyz<?= $monitor->id ?>">Detail</button>
                                 </div>
                             </td>
                         </tr>
@@ -148,7 +173,7 @@
 
 
                         <!-- MODAL DETAIL PEMINJAMAN -->
-                        @include('layouts.modalDetailMonitoringSetujuAdmin')
+                        @include('layouts.modalDetailMonitoringAdmin')
 
                         <?php $i++; ?>
                         @endif
@@ -165,7 +190,19 @@
         </div>
     </div>
 
-
+    @if(Session::has('success'))
+    <script type="text/javascript">
+        swal({
+                title:'Berhasil',
+                text:"{{Session::get('success')}}",
+                timer:2000,
+                icon: "success",
+                type:'success'
+            }).then((value) => {
+            //location.reload();
+        }).catch(swal.noop);
+    </script>
+    @endif
     
     <script>
         $(document).ready(function() {

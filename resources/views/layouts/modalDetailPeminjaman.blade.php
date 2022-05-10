@@ -5,6 +5,8 @@
         <h2 class="modal-title fw-bold text-center" id="exampleModalLabel">DETAIL PEMINJAMAN ASET</h2>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
+        
+        <div class="modal-body row">
 
         @if($pinjam->status == 'proses') 
             <button class="btn form-control btn-warning" disabled><span class="iconify" data-icon="mdi:progress-alert" data-height="20"></span> Diproses</button>
@@ -19,7 +21,6 @@
             <button class="btn form-control btn-secondary" disabled><span class="iconify" data-icon="mdi:progress-check" data-height="20"></span> Dikembalikan</button>
         @endif
         
-        <div class="modal-body row">
             <div class="form-group input_fields_wrap">
                 <div class="d-flex justify-content-start mt-4 ">
                     <label class="mx-4 w-100 ">Daftar Barang</label>

@@ -55,5 +55,9 @@ class User extends Authenticatable
         return $this->belongsTo(Pengadaan::class, 'id');
     }
 
+    public function Pembelian() {
+        return $this->belongsTo(Pembelian::class, 'id');
+    }
+
    
 }

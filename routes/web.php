@@ -69,8 +69,6 @@ Route::group(['middleware' => 'auth','isAdmin:administrator'],function(){
 
     Route::get('/ManajemenAset/PeminjamanAset', 'PeminjamanController@indexPeminjaman')->name('pinjam-aset-admin');
 
-    Route::get('/ManajemenAset/PengadaanAset', 'PengadaanController@indexPengadaan');
-
 
     Route::get('/ManajemenAset/PeminjamanAset/Hapus/{id}', 'PeminjamanController@destroyAdmin');
 
@@ -80,12 +78,18 @@ Route::group(['middleware' => 'auth','isAdmin:administrator'],function(){
 
       // Pengadaan Aset
 
+      
+    Route::get('/ManajemenAset/PengadaanAset', 'PengadaanController@indexPengadaan');
+
     Route::get('/visitor/PermohonanAset/PengadaanAset/Setujui/{id}', 'PengadaanController@statusSetuju');
 
     Route::get('/visitor/PermohonanAset/PengadaanAset/Tolak/{id}', 'PengadaanController@statusTolak');
 
     Route::get('/ManajemenAset/PengadaanAset/Hapus/{id}', 'PengadaanController@destroyAdmin');
 
+    Route::post('/MonitoringAset/PengadaanAset/ProsesPR/Simpan/{id}', 'PengadaanController@prosesPR');
+
+    Route::post('/MonitoringAset/PengadaanAset/ProsesPO/Simpan/{id}', 'PengadaanController@prosesPO');
 
   
 
@@ -190,14 +194,13 @@ Route::group(['middleware' => 'auth','isAdmin:visitor'],function(){
     Route::post('/visitor/PermohonanAset/PengadaanAset/Kirim/{id}', 'PengadaanController@update');
 
     Route::get('/visitor/PermohonanAset/PengadaanAset/Hapus/{id}', 'PengadaanController@destroy');
+    
 
 
     // MONITORING ASET
     Route::get('/visitor/MonitoringAset', 'MonitoringController@indexVisitor')->name('monitoring-aset');
 
-    Route::get('/visitor/MonitoringAset/PersetujuanMonitoring/{id}', 'MonitoringController@persetujuan');
-
-    Route::post('/MonitoringAset/PersetujuanMonitoring/Kirim/{id}', 'MonitoringController@updatePersetujuan');
+    Route::post('/visitor/MonitoringAset/PersetujuanMonitoring/Simpan/{id}', 'MonitoringController@prosesPersetujuanMonitoring');
 
     // NOTIFIKASI
     Route::get('/notifikasi/{id}','NotifikasiController@destroy')->name('telah-dibaca');
@@ -226,6 +229,15 @@ Route::group(['middleware' => 'auth','isAdmin:approver'],function(){
     Route::post('/approver/Persetujuan/PemusnahanAset/Simpan/{id}', 'PemusnahanController@prosesPemusnahanAset');
 
 
+    // PENGADAAN
+    Route::get('/approver/Persetujuan/PegadaanAset', 'PembelianController@indexApprover')->name('index-beli-approver');
+
+    Route::post('/approver/Persetujuan/PegadaanAset/InternalPR/Simpan/{id}', 'PembelianController@prosesPersetujuanInternalPR');
+
+    Route::post('/approver/Persetujuan/PegadaanAset/InternalPO/Simpan/{id}', 'PembelianController@prosesPersetujuanInternalPO');
+
+
+
     // PEMINJAMAN
     
     Route::get('/approver/Persetujuan/PeminjamanAset/Setujui/{id}', 'PeminjamanController@statusSetuju');
@@ -236,4 +248,16 @@ Route::group(['middleware' => 'auth','isAdmin:approver'],function(){
 
 });
 
+// TRANSACTOR
 
+Route::group(['middleware' => 'auth','isAdmin:transactor'],function(){
+
+    Route::get('/transactor/dashboard', function () {
+        return view('transactor.dashboard');
+    });
+
+    Route::get('/transactor/PembelianAset/Internal', 'PembelianController@indexInternal')->name('index-internal');
+
+    Route::post('/transactor/PembelianAset/Internal/Proses/Simpan/{id}', 'PembelianController@prosesPembelianInternal');
+
+});

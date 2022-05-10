@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('pengadaan', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('kodePengadaan')->unique();
             $table->string('jenisBarang1');
             $table->text('tipeBarang1');
             $table->integer('jumlahBarang1');
@@ -30,12 +31,16 @@ return new class extends Migration
             $table->string('jenisBarang5')->nullable();
             $table->text('tipeBarang5')->nullable();
             $table->integer('jumlahBarang5')->nullable();
+            $table->string('kategori')->nullable();
             $table->text('alasan');
             $table->string('status')->nullable();
+            $table->string('role')->nullable();
 
             $table->unsignedInteger('user_id')->nullable();
+            $table->unsignedInteger('pembelian_id')->nullable();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('pembelian_id')->references('id')->on('pembelian')->onDelete('cascade');
 
             $table->timestamps();
         });

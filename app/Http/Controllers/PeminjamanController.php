@@ -221,7 +221,7 @@ class PeminjamanController extends Controller
         $peminjaman->catatan = $request->catatan;
         $peminjaman->save();
 
-        foreach($visitors as $visitor)
+        foreach($visitors->take(1) as $visitor)
         Notifikasi::create([
             'deskripsi' => $request-> deskripsiNotifKembali,
             'status' => $request->statusNotifKembali,

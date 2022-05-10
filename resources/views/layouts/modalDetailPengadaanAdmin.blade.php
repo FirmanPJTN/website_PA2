@@ -1,10 +1,20 @@
 <div class="modal fade" id="def<?= $ada->id ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
     <div class="modal-content">
         <div class="modal-header">
         <h2 class="modal-title fw-bold text-center" id="exampleModalLabel">DETAIL PENGADAAN ASET</h2>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
+
+           @if($ada->status == 'proses' || $ada->status == 'proses-PR' || $ada->status == 'proses-PO' || $ada->status == 'setuju-PO' || $ada->status == 'setuju-PR') 
+                <button class="btn form-control btn-warning" disabled><span class="iconify" data-icon="mdi:progress-alert" data-height="20"></span> Diproses</button>
+            @endif
+            @if($ada->status == 'tolak') 
+                <button class="btn form-control btn-danger" disabled><span class="iconify" data-icon="mdi:progress-close" data-height="20"></span> Ditolak</button>
+            @endif
+            @if($ada->status == 'setuju') 
+                <button class="btn form-control btn-success" disabled><span class="iconify" data-icon="mdi:progress-check" data-height="20"></span> Disetujui</button>
+            @endif
 
         <div class="form-group ml-2 mt-3">
             <div class="d-flex justify-content-center">
@@ -131,8 +141,7 @@
 
         </div>
         <div class="modal-footer">
-             <button style="width: 45%" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-            <a style="width: 45%" type="button" class="btn btn-danger  mr-4" href="/visitor/PermohonanAset/PengadaanAset/Tolak/{{$ada -> id}}">Tolak</a>
+             <button style="width: 100%" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
         </div>
     </div>
     </div>

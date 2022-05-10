@@ -16,7 +16,7 @@
             <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><span class="iconify" data-icon="healthicons:i-documents-accepted" data-height="30"></span>&nbsp;&nbsp;&nbsp;&nbsp;Persetujuan</a>
             <ul class="collapse list-unstyled" id="homeSubmenu">
                 <li>
-                    <a href="#">Pengadaan Eksternal</a>
+                    <a href="{{route('index-beli-approver')}}">Pengadaan Aset</a>
                 </li>
                 <li>
                     <a href="{{route('pinjam-aset-approver')}}">Peminjaman Aset</a>

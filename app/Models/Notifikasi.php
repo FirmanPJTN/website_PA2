@@ -11,5 +11,5 @@ class Notifikasi extends Model
 
     protected $table = 'notifikasi';
     
-    protected $fillable = ['deskripsi','user_id','aset_id','peminjaman_id','pengadaan_id','unit_id','status', 'unit','kodeMonitoring','kodePemusnahan','kodePeminjaman','role'];
+    protected $fillable = ['deskripsi','user_id','aset_id','peminjaman_id','pengadaan_id','unit_id','status', 'unit','kodeMonitoring','kodePemusnahan','kodePeminjaman','role','kodePengadaan'];
 }

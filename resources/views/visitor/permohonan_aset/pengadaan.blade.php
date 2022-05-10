@@ -82,6 +82,19 @@
                 </div>
 
 
+                <div class="form-group mt-3">
+                    <div class="d-flex justify-content-center">
+                        <label class="mx-4 w-25">Kategori</label>
+                        <select class="form-control custom-select mx-4" name="kategori" id="kategori">
+                            <option value="">▼ pilih kategori</option>
+                            <option value="eksternal" <?php if (old('kategori') == 'eksternal') {?>selected="selected"<?php } ?>>Barang Tidak Habis (Eksternal)</option>
+                            <option value="internal" <?php if (old('kategori') == 'internal') {?>selected="selected"<?php } ?>>Barang Habis (Internal)</option>
+                        </select>
+                    </div>
+                </div>
+                @error('kategori')
+                    <div class="alert-danger mt-1">{{$message}}</div>
+                @enderror
 
                 <div class="form-group mt-3">
                     <div class="d-flex justify-content-center">
@@ -95,6 +108,17 @@
 
                  <!-- USER ID REFERENCES -->
                 <input type="number" name="user_id" class="form-control mx-4"  value="{{Auth::user()->id}}" autofocus autocomplete="off" style="visibility: hidden">
+
+                <input type="text" name="kodePengadaan" value="PGDN-{{date('Y.m.d-h.i.s')}}" style="visibility: hidden">
+
+                <input type="text" name="status" value="proses" style="visibility: hidden">
+
+                <input type="text" name="deskripsiNotif" value="kode pengadaan PGDN-{{date('Y.m.d-h.i.s')}} telah dibuat !" style="visibility: hidden">
+
+                <?php $admins =  DB::table('users')->where('role','=','administrator')->get() ?>
+                    @foreach($admins as $admin)
+                    <input type="text" name="role" value="{{$admin->role}}" style="visibility: hidden">
+                    @endforeach
 
                 <div class="form-group">
                     <div class="d-flex justify-content-end">
@@ -124,7 +148,7 @@
             $(add_button).click(function(e){ //on add input button click
             e.preventDefault();
                 if(x <= max_fields){ //max input box allowed
-                    $(wrapper).append('<div class="d-flex justify-content-start mt-4 "><label class="mx-4 w-100 " style="visibility: hidden">Daftar Barang</label><label class="ml-5 pl-2">Jenis</label><input type="text" name="jenisBarang'+x+'" class="form-control mx-4" autofocus autocomplete="off"><label >Tipe</label><input type="text" name="tipeBarang'+x+'" class="form-control mx-4" autofocus autocomplete="off" required><label class="form-label" visibilit>Jumlah</label><input type="number" name="jumlahBarang'+x+'" class="form-control mx-4" autofocus autocomplete="off" size="5" required><a class=" remove_field"> <span class="iconify" data-icon="ant-design:minus-circle-outlined" style="color: #ff1e1e;" data-height="25"></span></a></div>'); //add input box
+                    $(wrapper).append('<div class="d-flex justify-content-start mt-4"><label class="mx-4 w-100 " style="visibility: hidden">Daftar Barang</label><label class="ml-5 pl-2">Jenis</label><input type="text" name="jenisBarang'+x+'" class="form-control mx-4" autofocus autocomplete="off"><label >Tipe</label><input type="text" name="tipeBarang'+x+'" class="form-control mx-4" autofocus autocomplete="off" required><label class="form-label" visibilit>Jumlah</label><input type="number" name="jumlahBarang'+x+'" class="form-control mx-4" autofocus autocomplete="off" size="5" required><a class=" remove_field"> <span class="iconify" data-icon="ant-design:minus-circle-outlined" style="color: #ff1e1e;" data-height="25"></span></a></div>'); //add input box
                     x++; //text box increment
                 }
             });

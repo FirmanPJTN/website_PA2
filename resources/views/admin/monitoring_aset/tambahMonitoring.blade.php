@@ -115,6 +115,7 @@
                     
                     <input type="text" name="deskripsi" value="kode monitoring MNTR-{{date('Y.m.d-h.i.s')}} telah dibuat !" style="visibility: hidden">
                     
+                    <input type="text" name="status" value="proses" style="visibility: hidden">
                     
 
                     <div class="form-group mt-5">

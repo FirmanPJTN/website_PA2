@@ -83,6 +83,7 @@ class MonitoringController extends Controller
             'jumlahBarang5'  => $request-> jumlahBarang5,
             'waktuMonitoring'  => $request-> waktuMonitoring,
             'unit'  => $request-> unit,
+            'status'  => $request-> status,
             'unit_id'  => $unt->id
         ]);
 
@@ -93,6 +94,7 @@ class MonitoringController extends Controller
             'unit' => $request->unit,
             'kodeMonitoring'  => $request-> kodeMonitoring,
             'unit_id' => $unts->id,
+            'status'  => $request-> status
         ]);
         
 
@@ -124,11 +126,6 @@ class MonitoringController extends Controller
         return view('admin.monitoring_aset.ubahMonitoring',compact('monitoring','units','notifikasi'));
     }
 
-    public function persetujuan($id)
-    {
-        $monitoring = Monitoring::find($id);
-        return view('visitor.monitoring_aset.persetujuanMonitoring',['monitoring'=>$monitoring]);
-    }
 
     /**
      * Update the specified resource in storage.
@@ -190,30 +187,43 @@ class MonitoringController extends Controller
         return redirect('/MonitoringAset/PerencanaanMonitoring')->with('success', 'Monitoring Berhasil Diubah!');
     }
 
-    public function updatePersetujuan(Request $request, $id)
+    
+    public function prosesPersetujuanMonitoring(Request $request, $id)
     {
         //
-        $unit = Unit::where('unit',$request->unit)->get('id');
 
-        $monitoring =  Monitoring::find($id);
-        $monitoring-> deskripsi  = $request-> deskripsi;
-        $monitoring-> status  = $request-> status;
-        foreach($unit as $unt) 
-            $monitoring-> unit_id = $unt->id;
+        $monitoring = Monitoring::find($id);
 
+        if($request->get('btnSubmit') == 'tolak') {
+        $monitoring->status = $request->statusTolak;
+        } 
+        elseif($request->get('btnSubmit') == 'setuju') {
+        $monitoring->status = $request->statusSetuju;
+        }
+        $monitoring->deskripsi = $request->deskripsi;
         $monitoring->save();
 
-        foreach($unit as $unts)
-        Notifikasi::create([
-            'deskripsi' => $request-> deskripsiNotif,
-            'unit' => $request->unit,
-            'kodeMonitoring'  => $monitoring-> kodeMonitoring,
-            'unit_id' => $unts->id,
-        ]);
+        if($request->get('btnSubmit') == 'tolak') {
+            Notifikasi::create([
+                'deskripsi' => $request-> deskripsiNotifTolak,
+                'status' => $request->statusNotifTolak,
+                'kodeMonitoring'  => $request-> kodeMonitoring,
+                'role' => $request->role
+            ]);
+        } 
+        elseif($request->get('btnSubmit') == 'setuju') {
+            Notifikasi::create([
+                'deskripsi' => $request-> deskripsiNotifSetuju,
+                'status' => $request->statusNotifSetuju,
+                'kodeMonitoring'  => $request-> kodeMonitoring,
+                'role' => $request->role
+            ]);
+        }
 
 
-        return redirect('/visitor/MonitoringAset/')->with('success', 'Persetujuan Berhasil Dikirim!');
+        return redirect('/visitor/MonitoringAset/')->with('success', 'Monitoring berhasil diproses!');
     }
+
 
     /**
      * Remove the specified resource from storage.

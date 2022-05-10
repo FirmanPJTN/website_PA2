@@ -49,7 +49,7 @@
 
                     <div class="card-body">
 
-                    <div class="titleCard fw-bold mb-5"><h2>DAFTAR KUYY</h2></div>
+                    <div class="titleCard fw-bold mb-5"><h2>DAFTAR</h2></div>
 
 
                         <form method="POST" action="{{ route('register') }}">

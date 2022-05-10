@@ -66,11 +66,12 @@
                 <thead>
                     <tr>
                     <th scope="col" class="text-center">No</th>
+                    <th scope="col" class="text-center">Kode Pengadaan</th>
                     <th scope="col" class="text-center">Pemohon</th>
                     <th scope="col" class="text-center">Unit</th>
                     <th scope="col" class="text-center">Jumlah Barang</th>
                     <th scope="col" class="text-center">Tanggal Pengadaan</th>
-                    <th scope="col" class="text-center">Alasan</th>
+                    <th scope="col" class="text-center">Status</th>
                     <th scope="col" class="text-center">Aksi</th>
                     </tr>
                 </thead>
@@ -78,7 +79,7 @@
                     <?php $i=1 ?>
                         @foreach ($pengadaan as $ada)
 
-                        @if($ada->status == null)
+                        @if($ada->status != null && $ada->status == 'proses') 
 
                         <?php $users = DB::table('users')->select('nama','unit')->where('id',$ada->user_id)->get(); ?>
 
@@ -89,23 +90,38 @@
                         ?>
                     <tr>
                         <td class="text-center">{{$i}}</td>
+                        <td class="text-center">{{$ada -> kodePengadaan}}</td>
                         <td class="text-center">{{$user->nama}}</td>
                         <td class="text-center">{{$user->unit}}</td>
                         <td class="text-center">{{$jumlah}}</td>
                         <td class="text-center">{{$ada -> created_at -> format('Y-m-d')}}</td>
-                        <td>{{Str::limit($ada->alasan, 50, $end=' .....')}}</td>
+                        <td class="text-center">
+                            @if($ada->status == 'proses') 
+                                <button class="btn btn-warning" disabled><span class="iconify" data-icon="mdi:progress-alert" data-height="20"></span> Diproses</button>
+                            @endif
+                            @if($ada->status == 'tolak') 
+                                <button class="btn btn-danger" disabled><span class="iconify" data-icon="mdi:progress-close" data-height="20"></span> Ditolak</button>
+                            @endif
+                            @if($ada->status == 'setuju') 
+                                <button class="btn btn-success" disabled><span class="iconify" data-icon="mdi:progress-check" data-height="20"></span> Disetujui</button>
+                            @endif
+                        </td>
                         <td class="text-center">
                             <div class="d-flex justify-content-around">
                                 <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#def<?= $ada->id ?>">Detail</button> &nbsp;
-                                <a href="/visitor/PermohonanAset/PengadaanAset/Setujui/{{$ada -> id}}" class="btn btn-success">Setujui</a>
+                                <a href="#" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#lmn<?= $ada->id ?>">Proses PR</a>
                             </div>
                         </td>
                     </tr>
 
+                    <!-- /visitor/PermohonanAset/PengadaanAset/Setujui/{{$ada -> id}} -->
 
 
                     <!-- MODAL DETAIL PENGADAAN -->
                     @include('layouts.modalDetailPengadaanAdmin')
+
+                     <!-- MODAL PROSES PENGADAAN -->
+                     @include('layouts.modalProsesPR')
 
                     <?php $i++; ?>
                     @endforeach
@@ -127,12 +143,12 @@
                     <thead>
                         <tr>
                         <th scope="col" class="text-center">No</th>
+                        <th scope="col" class="text-center">Kode Pengadaan</th>
                         <th scope="col" class="text-center">Pemohon</th>
                         <th scope="col" class="text-center">Unit</th>
                         <th scope="col" class="text-center">Jumlah Barang</th>
                         <th scope="col" class="text-center">Tanggal Pengadaan</th>
                         <th scope="col" class="text-center">Status</th>
-                        <th scope="col" class="text-center">Alasan</th>
                         <th scope="col" class="text-center">Aksi</th>
                         </tr>
                     </thead>
@@ -140,7 +156,7 @@
                         <?php $i=1 ?>
                             @foreach ($pengadaan as $ada)
 
-                            @if($ada->status != null) 
+                            @if($ada->status != null && $ada->status != 'proses') 
                             <?php $users = DB::table('users')->select('nama','unit')->where('id',$ada->user_id)->get(); ?>
 
                             <?php $users = DB::table('users')->select('nama','unit')->where('id',$ada->user_id)->get(); ?>
@@ -152,21 +168,42 @@
                             ?>
                         <tr>
                             <td class="text-center">{{$i}}</td>
+                            <td class="text-center">{{$ada -> kodePengadaan}}</td>
                             <td class="text-center">{{$user->nama}}</td>
                             <td class="text-center">{{$user->unit}}</td>
                             <td class="text-center">{{$jumlah}}</td>
                             <td class="text-center">{{$ada -> created_at -> format('Y-m-d')}}</td>
-                            @if($ada->status == 'setuju') 
-                                <td class="text-center text-success fw-bold">Disetujui</td>
-                            @endif
-                            @if($ada->status == 'tolak') 
-                               <td class="text-center text-danger fw-bold">Ditolak</td>
-                            @endif
-                            <td>{{Str::limit($ada->alasan, 50, $end=' .....')}}</td>
+                            <td class="text-center">
+                                @if($ada->status == 'tolak') 
+                                    <button class="btn btn-danger" disabled><span class="iconify" data-icon="mdi:progress-close" data-height="20"></span> Ditolak</button>
+                                @endif
+                                @if($ada->status == 'setuju') 
+                                    <button class="btn btn-success" disabled><span class="iconify" data-icon="mdi:progress-check" data-height="20"></span> Disetujui</button>
+                                @endif
+                                @if($ada->status == 'setuju-PR') 
+                                    <button class="btn btn-info" disabled><span class="iconify" data-icon="mdi:progress-check" data-height="20"></span> PR disetujui</button>
+                                @endif
+                                @if($ada->status == 'proses-PR') 
+                                   <button class="btn btn-secondary" disabled><span class="iconify" data-icon="mdi:progress-alert" data-height="20"></span> PR diproses</button>
+                                @endif
+                                @if($ada->status == 'proses-PO') 
+                                   <button class="btn btn-warning" disabled><span class="iconify" data-icon="mdi:progress-alert" data-height="20"></span> PO diproses</button>
+                                @endif
+                                @if($ada->status == 'setuju-PO') 
+                                    <button class="btn btn-secondary" disabled><span class="iconify" data-icon="mdi:progress-check" data-height="20"></span> PO disetujui</button>
+                                @endif
+                            </td>
                             <td class="text-center">
                                 <div class="d-flex justify-content-around">
-                                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#def<?= $ada->id ?>">Detail</button> &nbsp;
+                                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#def<?= $ada->id ?>">Detail</button> 
+                                    @if($ada->status == 'setuju' || $ada->status == 'tolak')
+                                    &nbsp;
                                     <a data-id="{{ $ada->id }}" class="btn btn-danger deleteAda" href="#">Hapus</a>
+                                    @endif
+                                    
+                                    @if($ada->status == 'setuju-PR') 
+                                      <a href="#" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#rst<?= $ada->id ?>">Proses PO</a>
+                                   @endif
                                 </div>
                             </td>
                         </tr>
@@ -175,6 +212,9 @@
 
                         <!-- MODAL DETAIL PENGADAAN -->
                         @include('layouts.modalDetailPengadaanAdminRiwayat')
+
+                        <!-- MODAL PROSES PO -->
+                        @include('layouts.modalProsesPO')
                         
 
                         <?php $i++; ?>
@@ -197,14 +237,14 @@
     <script>
         $(document).ready(function() {
             var max_fields      = 5; //maximum input boxes allowed
-            var wrapper   		= $(".input_fields_wrap"); //Fields wrapper
-            var add_button      = $(".add_field_button"); //Add button ID
+            var wrapper   		= $(".input_fields_wrap2"); //Fields wrapper
+            var add_button      = $(".add_field_button2"); //Add button ID
 
             var x = 2; //initlal text box count
             $(add_button).click(function(e){ //on add input button click
             e.preventDefault();
                 if(x <= max_fields){ //max input box allowed
-                    $(wrapper).append('<div class="d-flex justify-content-start mt-4 "><label class="mx-4 w-100 " style="visibility: hidden">Daftar Barang</label><label class="ml-5 pl-2">Jenis</label><input type="text" name="jenisBarang'+x+'" class="form-control mx-4" autofocus autocomplete="off"><label >Tipe</label><input type="text" name="tipeBarang'+x+'" class="form-control mx-4" autofocus autocomplete="off"><label class="form-label" visibilit>Jumlah</label><input type="number" name="jumlahBarang'+x+'" class="form-control mx-4" autofocus autocomplete="off" size="5"><a class=" remove_field"> <span class="iconify" data-icon="ant-design:minus-circle-outlined" style="color: #ff1e1e;" data-height="25"></span></a></div>'); //add input box
+                    $(wrapper).append('<div class="d-flex justify-content-start mt-3 "><label class="mx-4 w-100 " style="visibility: hidden">Daftar Barang</label><label class="ml-5 pl-2">Jenis</label><input type="text" name="jenisBarang'+x+'" class="form-control mx-4" autofocus autocomplete="off"><label >Tipe</label><input type="text" name="tipeBarang'+x+'" class="form-control mx-4" autofocus autocomplete="off"><label class="form-label" visibilit>Jumlah</label><input type="number" name="jumlahBarang'+x+'" class="form-control mx-4" autofocus autocomplete="off" size="5"><a class=" remove_field"> <span class="iconify" data-icon="ant-design:minus-circle-outlined" style="color: #ff1e1e;" data-height="25"></span></a></div>'); //add input box
                     x++; //text box increment
                 }
             });
@@ -230,6 +270,8 @@
         }).catch(swal.noop);
     </script>
     @endif
+
+
 
     <script type="text/javascript" src="../../js/scriptDeleteConfirmPengadaanAdmin.js"></script>
 
