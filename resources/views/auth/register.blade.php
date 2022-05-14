@@ -36,136 +36,183 @@
 
         body {
             font-family: 'Quicksand', sans-serif;
-            background: #fafafa;
+            background: url("background/register.png") no-repeat center center fixed;
+            background-size: 100% 100% ;
         }
+        
     </style>
 </head>
 <body>
     
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card mt-5">
+    <div class="d-flex justify-content-between">
 
-                    <div class="card-body">
+        <div class="mt-2 ml-5">
+            <div class="row justify-content-center">
+                <div class="col-md-12 ml-5">
+                    <div class="card mt-2" style="width:850px; height:720px">
 
-                    <div class="titleCard fw-bold mb-5"><h2>DAFTAR</h2></div>
+                        <div class="card-body">
+
+                        <div class="titleCard fw-bold mb-3 text-center">
+                            <h1>Senang melihat Anda di sini!</h1>
+                            <h5 style="color: #757575">Mari siapkan akun Anda hanya dalam <br>beberapa langkah.</h5>
+                        </div>
 
 
-                        <form method="POST" action="{{ route('register') }}">
-                            @csrf
+                            <form method="POST" action="{{ route('register') }}">
+                                @csrf
 
-                            <div class="row mb-3">
-                                <label for="nama" class="col-md-4 col-form-label">Nama</label>
+                                <div class="row mb-1 mr-5">
 
-                                <div class="col-md-6">
-                                    <input id="nama" type="text" class="form-control @error('nama') is-invalid @enderror" name="nama" value="{{ old('nama') }}" required autocomplete="nama" autofocus>
-
+                                    <div class="col-md-6">
+                                        <label for="nama" class="col-md-4 col-form-label">Nama</label>
+                                    </div>
+                                    
+                                    <div class="col-md-12">
+                                        <input id="nama" type="text" class="form-control @error('nama') is-invalid @enderror ml-3" name="nama" value="{{ old('nama') }}" required autocomplete="nama" autofocus>
+                                    </div>
                                     @error('nama')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
                                     @enderror
                                 </div>
-                            </div>
+
+                                
 
 
-                            <div class="row mb-3">
-                                <label for="unit" class="col-md-4 col-form-label">Unit</label>
+                                <div class="row mb-1 mr-5">
 
-                                <div class="col-md-6">
-                                    <select class="form-control custom-select" name="unit" id="unit">
-                                        <option value="">▼ pilih unit</option>
-                                        {{$units = DB::table('unit')->select('unit')->get();}} 
-                                        @foreach($units as $unit)
-                                        <option value="{{$unit->unit}}" <?php if (old('{{$unit->unit}}') == '{{$unit->unit}}') {?>selected="selected"<?php } ?>>{{$unit->unit}}</option>
-                                        @endforeach
-                                    </select>
+                                    <div class="col-md-6">
+                                        
+                                        <label for="unit" class="col-md-4 col-form-label">Unit</label>
+                                    
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        
+                                        <select class="form-control custom-select ml-3" name="unit" id="unit">
+                                            <option value="">▼ pilih unit</option>
+                                            {{$units = DB::table('unit')->select('unit')->get();}} 
+                                            @foreach($units as $unit)
+                                            <option value="{{$unit->unit}}" <?php if (old('{{$unit->unit}}') == '{{$unit->unit}}') {?>selected="selected"<?php } ?>>{{$unit->unit}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
                                     
                                     @error('unit')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
-                                
                                 </div>
-                            </div>
 
 
-                            <div class="row mb-3">
-                                <label for="email" class="col-md-4 col-form-label">Email</label>
+                                <div class="row mb-1 mr-5">
 
-                                <div class="col-md-6">
-                                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
+                                    <div class="col-md-6">
+                                        
+                                        <label for="email" class="col-md-4 col-form-label">Email</label>
+                                    </div>
 
+                                    <div class="col-md-12">
+                                        <input id="email" type="email" class="form-control @error('email') is-invalid @enderror ml-3" name="email" value="{{ old('email') }}" required autocomplete="email">
+                                    </div>
+
+                                    
                                     @error('email')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
+
                                 </div>
-                            </div>
 
-                            <div class="row mb-3">
-                                <label for="role" class="col-md-4 col-form-label">Role</label>
+                                <div class="row mb-1 mr-5">
 
-                                <div class="col-md-6">
+                                    <div class="col-md-6">
+                                        <label for="role" class="col-md-4 col-form-label">Role</label>
+                                    </div>
 
-                                    <select class="form-control custom-select @error('role') is-invalid @enderror" name="role" id="role" value="{{ old('role') }}">
-                                        <option value="visitor" <?php if (old('role') == 'visitor') {?>selected="selected"<?php } ?>>Visitor</option>
-                                        <option value="approver" <?php if (old('role') == 'approver') {?>selected="selected"<?php } ?>>Approver</option>
-                                        <option value="transactor" <?php if (old('role') == 'transactor') {?>selected="selected"<?php } ?>>Transactor</option>
-                                    </select>
+                                    <div class="col-md-12">
+                                        
+                                        <select class="form-control custom-select @error('role') is-invalid @enderror ml-3" name="role" id="role" value="{{ old('role') }}">
+                                            <option value="visitor" <?php if (old('role') == 'visitor') {?>selected="selected"<?php } ?>>Visitor</option>
+                                            <option value="approver" <?php if (old('role') == 'approver') {?>selected="selected"<?php } ?>>Approver</option>
+                                            <option value="transactor" <?php if (old('role') == 'transactor') {?>selected="selected"<?php } ?>>Transactor</option>
+                                        </select>
+                                    </div>
+
 
                                     @error('role')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
+
                                 </div>
-                            </div>
 
-                            <div class="row mb-3">
-                                <label for="password" class="col-md-4 col-form-label">Password</label>
+                                <div class="row mb-1 mr-5">
 
-                                <div class="col-md-6">
-                                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+                                    <div class="col-md-6">
+                                        <label for="password" class="col-md-4 col-form-label">Password</label>
+                                    </div>
 
+                                    <div class="col-md-12">
+                                        <input id="password" type="password" class="form-control @error('password') is-invalid @enderror ml-3" name="password" required autocomplete="new-password">
+                                    </div>
+
+                                    
                                     @error('password')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
+
                                 </div>
-                            </div>
 
-                            <div class="row mb-3">
-                                <label for="password-confirm" class="col-md-4 col-form-label">Konfirmasi Password</label>
+                                <div class="row mb-1 mr-5">
 
-                                <div class="col-md-6">
-                                    <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                                    <div class="col-md-6">
+                                        <label for="password-confirm" class="col-md-8 col-form-label">Konfirmasi Password</label>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <input id="password-confirm" type="password" class="form-control ml-3" name="password_confirmation" required autocomplete="new-password">
+                                    </div>
                                 </div>
-                            </div>
 
 
-                            <div class="mt-2">
-                                <button type="submit" class="btn btn-primary mr-4" >
-                                    Daftar
-                                </button>
+                                <div class="mt-5">
+                                    <div class="d-flex justify-content-center">
+                                        <button type="submit" class="btn btn-primary mr-4" >
+                                            Daftar
+                                        </button>
 
-                                <a href="{{ route('login') }}" class="btn btn-outline-secondary ml-4">
-                                    Masuk
-                                </a>
-                            </div>
+                                        <a href="{{ route('login') }}" class="btn btn-outline-secondary ml-4">
+                                            Masuk
+                                        </a>
+                                    </div>
+                                </div>
 
 
-                        </form>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+
+        <div class="ml-5">
+            <img src="background/logoV2.png" class="mt-4" alt="" width="300" style="margin-left: 150px">
+            <br>
+            <img src="/background/registerImage.png" class=" mr-4" alt="" width="500" style="padding-top: 100px">
+        </div>
+
     </div>
 
+    
 
     <script>
         function showPassword() {

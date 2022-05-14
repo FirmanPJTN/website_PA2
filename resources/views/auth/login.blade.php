@@ -36,87 +36,101 @@
 
         body {
             font-family: 'Quicksand', sans-serif;
-            background: #fafafa;
+            background: url("background/login.png") no-repeat center center fixed;
+            background-size: 100% 100% ;
         }
+        
     </style>
 
 </head>
 <body>
-    <div class="container">
-        <div class="row justify-content-center">
 
-            <div class="col-md-8">
-                <div class="card mt-5">
 
-                    <div class="card-body">
-                        <div class="titleCard fw-bold mb-5"><h2>Masuk</h2></div>
+        <div class="d-flex justify-content-end">
+            <img src="background/logoV1.jpeg" class="mt-4 mr-4"alt="" width="300">
+        </div>
 
-                        <form method="POST" action="{{ route('login') }}">
-                            @csrf
 
-                            <div class="row mb-3">
-                                
-                                <div class="col-md-8">
-                                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="Masukkan email Anda">
+        <div class="d-flex ">
+            <div class="container ml-5" style="margin-top: 80px">
+                <img src="/background/loginImage.png" class=" mr-4"alt="" width="500">
+                <h2 class="text-light mt-5" style="padding: 20px" >“ Pengelolaan aset menjadi <br>lebih mudah dan efisien</h2>
+            </div>
 
-                                    @error('email')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                            </div>
+            <div class="container mt-5 ml-5" style="margin-top: 150px">
+                <div class="row justify-content-center mt-5">
 
-                            <div class="row mb-3">
+                    <div class="col-md-8 mt-3">
 
-                                <div class="col-md-8">
-                                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" placeholder="Masukkan password Anda">
+         
+                                <div class="titleCard fw-bold mb-5"><h1 style="font-size: 50px">Masuk</h1></div>
 
-                                    @error('password')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                            </div>
+                                <form method="POST" action="{{ route('login') }}">
+                                    @csrf
 
-                            <div class="row mb-3">
-                                <div class="col-md-4">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+                                    <div class="row mb-3">
+                                        
+                                        <div class="col-md-12">
+                                            <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="Masukkan email Anda">
 
-                                        <label class="form-check-label" for="remember">
-                                            Ingat saya
-                                        </label>
+                                            @error('email')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
                                     </div>
-                                </div>
-                                
-                                <div class="col-md-4 mr-3">
-                                    @if (Route::has('password.request'))
-                                            <a class="btn btn-link" href="{{ route('password.request') }}">
-                                                Lupa password ?
-                                            </a>
-                                    @endif
-                                </div>
-                            </div>
 
-                            <div class="mt-2">
-                                <button type="submit" class="btn btn-primary mr-4">
-                                    Masuk
-                                </button>
+                                    <div class="row mb-3 mt-4">
 
-                                <a href="{{ route('daftar') }}" class="btn btn-outline-secondary ml-4">
-                                    Daftar
-                                </a>
-                            </div>
+                                        <div class="col-md-12">
+                                            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" placeholder="Masukkan password Anda">
+
+                                            @error('password')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+
+                                                <label class="form-check-label" for="remember">
+                                                    Ingat saya
+                                                </label>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-md-6">
+                                            @if (Route::has('password.request'))
+                                                    <a class="btn btn-link" href="{{ route('password.request') }}">
+                                                        Lupa password ?
+                                                    </a>
+                                            @endif
+                                        </div>
+                                    </div>
+
+                                    <div class="mt-2">
+                                        <button type="submit" class="btn btn-primary mr-4">
+                                            Masuk
+                                        </button>
+
+                                        <a href="{{ route('daftar') }}" class="btn btn-outline-secondary ml-4">
+                                            Daftar
+                                        </a>
+                                    </div>
 
 
-                        </form>
+                                </form>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    
 
 
     <!-- jQuery CDN - Slim version (=without AJAX) -->
