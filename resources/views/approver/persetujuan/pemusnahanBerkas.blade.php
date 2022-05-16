@@ -59,17 +59,15 @@
 
             <h2 class="mb-5 fw-bold text-center">DAFTAR PEMUSNAHAN BERKAS</h2>       
 
-
-
             <div class="table-container mx-5 mr-5">
                 <table class="table table-striped table-bordered mb-5 ">
                     <thead>
                         <tr>
                         <th scope="col" class="text-center">No</th>
                         <th scope="col" class="text-center">Kode Pemusnahan</th>
-                        <th scope="col" class="text-center">Status</th>
                         <th scope="col" class="text-center">Waktu Pemusnahan</th>
                         <th scope="col" class="text-center">Deskripsi Berkas</th>
+                        <th scope="col" class="text-center">Status</th>
                         <th scope="col" class="text-center">Aksi</th>
                         </tr>
                     </thead>
@@ -79,6 +77,8 @@
                         <tr>
                             <td class="text-center">{{$i}}</td>
                             <td class="text-center">{{$musnah ->kodePemusnahan}}</td>
+                            <td class="text-center">{{$musnah ->waktuPemusnahan}}</td>
+                            <td>{{Str::limit($musnah->deskripsi, 50, $end=' .....')}}</td>
                             <td class="text-center">
                                 @if($musnah->status == 'Diproses')
                                 <button class="btn btn-warning" disabled><span class="iconify" data-icon="mdi:progress-alert" data-height="20"></span> {{$musnah->status}}</button>
@@ -93,8 +93,6 @@
                                 @endif
                             
                             </td>
-                            <td class="text-center">{{$musnah ->waktuPemusnahan}}</td>
-                            <td>{{Str::limit($musnah->deskripsi, 50, $end=' .....')}}</td>
                             <td class="text-center">
                                 <div class="d-flex justify-content-around">
                                     <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#abc<?= $musnah->id ?>">Detail</button>
@@ -119,9 +117,9 @@
                 </table>
             </div>
 
-            @if(!empty($monitoring))
+            @if(!empty($pemusnahan))
             <div class="pagination">
-                {{ $monitoring->links() }}
+                {{ $pemusnahan->links() }}
             </div>
             @endif
 

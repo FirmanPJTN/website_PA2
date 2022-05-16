@@ -107,13 +107,11 @@
                 <span class="iconify" data-icon="bxs:user"></span> {{ Auth::user()->nama }} &nbsp;&nbsp;&nbsp;&nbsp;</span>
             </button>
             <ul class="dropdown-menu  mt-2" aria-labelledby="dropdownMenuButton1">
-                <li><a class="dropdown-item" href="#">Profil</a></li>
-                <li><a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">Keluar</a></li>
+                <li><a class="dropdown-item" href="/profil"><span class="iconify" data-icon="bx:user-pin" data-height="22"></span>&nbsp;Profil</a></li>
+                <li><a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();"><span class="iconify" data-icon="charm:sign-out"></span>&nbsp;Keluar</a></li>
             </form>
             </ul>
         </div>
-
-
     </div>
 
 

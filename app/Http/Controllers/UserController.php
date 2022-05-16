@@ -118,6 +118,45 @@ class UserController extends Controller
         return redirect('/KelolaPengguna')->with('success', 'Pengguna Berhasil Diubah!');
     }
 
+    public function updateProfil(Request $request, $id)
+    {
+        //
+        $request->validate([
+            'nama' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255'],
+            'unit' => ['required', 'string', 'max:255']
+        ]);
+
+        $user = User::find($id);
+
+        $user->nama  = $request-> nama;
+        $user->email  = $request-> email;
+        $user->unit  = $request-> unit;
+
+        $user->save();
+            
+
+        return back()->with('success', 'Profil Berhasil Diubah!');
+    }
+
+    public function updatePassword(Request $request, $id)
+    {
+        //
+        $request->validate([
+            'password' => ['required', 'string', 'min:8', 'confirmed']
+        ]);
+
+        $user = User::find($id);
+
+        $user->password  = Hash::make($request-> password);
+
+        $user->save();
+            
+
+        return back()->with('success', 'Password Berhasil Diubah!');
+    }
+
+
     /**
      * Remove the specified resource from storage.
      *

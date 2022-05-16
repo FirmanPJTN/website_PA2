@@ -31,12 +31,13 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
     <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.19.1/dist/bootstrap-table.min.css">
     
-    <link rel="stylesheet" href="css/styleNavbar.css">
+    <link rel="stylesheet" href="../css/styleNavbar.css">
 </head>
 <body>
+@include('sweetalert::alert')
 <div class="wrapper">
         <!-- Sidebar Admin Layout -->
-        @include('layouts.adminNavbar')
+        @include('layouts.approverNavbar')
 
         <!-- Page Content  -->
         <div id="content">
@@ -44,43 +45,92 @@
             <!-- Page Content  -->
         <div id="content">
 
-        @include('layouts.adminTopNavbar')
+        @include('layouts.approverTopNavbar')
 
         <nav aria-label="breadcrumb" class="bg-light">
             <ol class="breadcrumb mx-3 mt-2" style="color: RGBA(107,107,107,0.75)">
-                <li class="breadcrumb-item active fw-bold "><a href="#"><span class="iconify" data-icon="ant-design:home-filled" data-height="20"></span>&nbsp;&nbsp;&nbsp;&nbsp;Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="{{route('dashboard')}}"><span class="iconify" data-icon="ant-design:home-filled" data-height="20"></span>&nbsp;&nbsp;&nbsp;&nbsp;Dashboard</a></li>
+                <li class="breadcrumb-item" aria-current="page"><a href="#">&nbsp;&nbsp;&nbsp;<span class="iconify" data-icon="bx:user-pin" data-height="25"></span>&nbsp;&nbsp; Profil</a></li>
             </ol>
         </nav>
 
-            <h2>Collapsible Sidebar Using Bootstrap 4</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 
-            <div class="line"></div>
+        <h2 class="mb-3 mt-4 fw-bold mx-4 mb-5 mt-5">PROFIL PENGGUNA</h2>
 
-            <h2>Lorem Ipsum Dolor</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 
-            <div class="line"></div>
+        <form action="/approver/profil/{{ Auth::user()->id }}" method="post" enctype="multipart/form-data">
+        {{ csrf_field() }}
 
-            <h2>Lorem Ipsum Dolor</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        <div class="container float-left">
+        <div class="form-group mt-3">
+                <div class="d-flex justify-content-center">
+                    <label class="mx-4 w-10" >Nama </label>
+                    <input type="text" name="nama" class="form-control mx-4" value="{{ Auth::user()->nama }}" autofocus autocomplete="off">
+                </div>
+                @error('nama')
+                    <div class="alert-danger mt-1">{{$message}}</div>
+                @enderror
+            </div>
 
-            <div class="line"></div>
 
-            <h3>Lorem Ipsum Dolor</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            <div class="form-group mt-3">
+                <div class="d-flex justify-content-center">
+                    <label class="mx-4 w-10" >Email</label>
+                    <input type="text" name="email" class="form-control mx-4" value="{{ Auth::user()->email }}" autofocus autocomplete="off">
+                </div>
+                @error('email')
+                    <div class="alert-danger mt-1">{{$message}}</div>
+                @enderror
+            </div>
 
+
+            <div class="form-group mt-3">
+                <div class="d-flex justify-content-center">
+                    <label class="mx-4 w-10" >Unit&nbsp;&nbsp;</label>
+                    <select class="form-control custom-select mx-4" name="unit" id="unit">
+                        <option value="{{ Auth::user()->unit }}">{{ Auth::user()->unit }}</option>
+                        {{$units = DB::table('unit')->select('unit')->get();}} 
+                        @foreach($units as $unit)
+                        <option value="{{$unit->unit}}" <?php if (old('{{$unit->unit}}') == '{{$unit->unit}}') {?>selected="selected"<?php } ?>>{{$unit->unit}}</option>
+                        @endforeach
+                    </select>
+                </div>
+                @error('unit')
+                    <div class="alert-danger mt-1">{{$message}}</div>
+                @enderror
+            </div>
+
+            <div class="form-group mt-3">
+                <div class="d-flex justify-content-center">
+                    <label class="mx-4 w-10" >Role&nbsp;</label>
+                    <input type="text" name="role" class="form-control mx-4" value="{{ Auth::user()->role }}" autofocus autocomplete="off" disabled>
+                </div>
+                @error('role')
+                    <div class="alert-danger mt-1">{{$message}}</div>
+                @enderror
+            </div>
+
+            <div class="flex justify-content-center mt-5 ml-3">
+                <button type="submit" class="btn btn-success mr-3">Simpan Perubahan</button>
+                <a href="#" data-bs-toggle="modal" data-bs-target="#password" class="btn btn-info">Ubah Password</a>
+            </div>
+
+        </div>
+
+        </form>
+
+        @include('layouts.modalPassword')
+
+    
 
             <br><br><br>
+
             @include('layouts.footer')
 
         </div>
     </div>
 
-    <div class="overlay"></div>
 
-    
 
     <!-- jQuery CDN - Slim version (=without AJAX) -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -91,7 +141,7 @@
     <!-- jQuery Custom Scroller CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
 
-    <script type="text/javascript" src="/js/scriptNavbar.js"></script>
+    <script type="text/javascript" src="../js/scriptNavbar.js"></script>
 
     <!-- Iconify  -->
     <script src="https://code.iconify.design/2/2.1.0/iconify.min.js"></script>

@@ -65,7 +65,194 @@
             <h2 class="text-secondary"><div id="clock"> &nbsp;</div></h2>
         </div>
 
+        <div class="container mb-5">
+            <div class="d-flex">
+                <?php $jumlahpengadaanEks = DB::table('pengadaan')->where('kategori','=','eksternal')->count(); ?>
+                @if($jumlahpengadaanEks != 0)
+                <div class="box mx-2" style="background-color: #00D1B8; padding: 30px; padding-left: 35px; padding-right: 35px; border-radius: 10px; font-size: 2em; color: white; font-weight: bold; text-align: center">
+                {{$jumlahpengadaanEks}} <br>
+                    <span style="font-size: 0.7em;">Jumlah Pengadaan Eksternal</span>
+                </div>
+                @endif
+
+                <?php $jumlahpengadaanInt = DB::table('pengadaan')->where('kategori','=','internal')->count(); ?>
+                @if($jumlahpengadaanInt != 0)
+                <div class="box mx-2" style="background-color: #32A9FF; padding: 30px; padding-left: 35px; padding-right: 35px; border-radius: 10px; font-size: 2em; color: white; font-weight: bold; text-align: center">
+                {{$jumlahpengadaanInt}} <br>
+                    <span style="font-size: 0.7em;">Jumlah Pengadaan Internal</span>
+                </div>
+                @endif
+
+                
+
+
+            </div>
+        </div>
+
+        <h2 class="mb-5 mt-5 ml-3 fw-bold">PENGADAAN EKSTERNAL</h2>
+
+        <div class="table-container mx-5 mr-5 ml-3">
+            <table class="table table-striped table-bordered mb-5 ">
+                <thead>
+                    <tr>
+                    <th scope="col" class="text-center">No</th>
+                    <th scope="col" class="text-center">Kode Pengadaan</th>
+                    <th scope="col" class="text-center">Jumlah Barang</th>
+                    <th scope="col" class="text-center">Tanggal Pengajuan</th>
+                    <th scope="col" class="text-center">Status</th>
+                    <th scope="col" class="text-center">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php $i=1 ?>
+                        <?php $eksternal = DB::table('pengadaan')->where('kategori','=','eksternal')->count() ?>
+                        @if($eksternal!=0)
+                        @foreach ($pembelian as $beli)
+
+                        @if($beli->status == 'setuju-PO' || $beli->status == 'setuju') 
+
+                        <?php $pengadaanEks = DB::table('pengadaan')->where('id','=',$beli->pengadaan_id)->get() ?>
+
+                        @foreach($pengadaanEks as $adaEks)
+
+                        <?php 
+                            $jumlah = ($beli -> jumlahBarang1) + ($beli -> jumlahBarang2) + ($beli -> jumlahBarang3) + ($beli -> jumlahBarang4) + ($beli -> jumlahBarang5)
+                        ?>
+                    <tr>
+                        <td class="text-center">{{$i}}</td>
+                        <td class="text-center">{{$adaEks -> kodePengadaan}}</td>
+                        <td class="text-center">{{$jumlah}}</td>
+                        <td class="text-center">{{$beli -> created_at -> format('Y-m-d')}}</td>
+                        <td class="text-center">
+                                @if($adaEks->status == 'setuju') 
+                                    <button class="btn btn-success" disabled><span class="iconify" data-icon="mdi:progress-check" data-height="20"></span> Disetujui</button>
+                                @endif
+                                @if($adaEks->status == 'setuju-PO') 
+                                    <button class="btn btn-secondary" disabled><span class="iconify" data-icon="mdi:progress-check" data-height="20"></span> PO disetujui</button>
+                                @endif
+                        </td>
+                        <td class="text-center">
+                            <div class="d-flex justify-content-around">
+                                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#abc<?= $beli->id ?>">Detail</button>
+                                @if($beli->status == 'setuju-PO')
+                                &nbsp;
+                                <a href="#" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#def<?= $beli->id ?>">Proses Beli</a>
+                                @endif
+                            </div>
+                        </td>
+                    </tr>
+
+
+
+                    <!-- MODAL DETAIL PENGADAAN-->
+                    @include('layouts.modalDetailPembelianInternal') 
+
+                    <!-- MODAL PROSES PENGADAAN  -->
+                    @include('layouts.modalProsesPembelianInternal') 
+
+                    @if(!empty($pembelian))
+                    <div class="pagination">
+                        {{ $pembelian->links() }}
+                    </div>
+                    @endif
+                    
+
+
+                    <?php $i++; ?>
+                    @endforeach
+                    @endif
+                    @endforeach
+                    @endif
+                    
+                </tbody>
+            </table>
+        </div>
         
+        @if(!empty($pembelian))
+            <div class="pagination">
+                {{ $pembelian->links() }}
+            </div>
+        @endif
+
+
+        <h2 class="mb-5 mt-5 ml-3 fw-bold">PENGADAAN INTERNAL</h2>
+
+        <div class="table-container mx-5 mr-5 ml-3">
+            <table class="table table-striped table-bordered mb-5 ">
+                <thead>
+                    <tr>
+                    <th scope="col" class="text-center">No</th>
+                    <th scope="col" class="text-center">Kode Pengadaan</th>
+                    <th scope="col" class="text-center">Jumlah Barang</th>
+                    <th scope="col" class="text-center">Tanggal Pengajuan</th>
+                    <th scope="col" class="text-center">Status</th>
+                    <th scope="col" class="text-center">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php $i=1 ?>
+                        <?php $internal = DB::table('pengadaan')->where('kategori','=','internal')->count() ?>
+                        @if($internal!=0)
+                        @foreach ($pembelian as $beli)
+
+                        @if($beli->status == 'setuju-PO' || $beli->status == 'setuju') 
+
+                        <?php $pengadaan = DB::table('pengadaan')->where('id','=',$beli->pengadaan_id)->get() ?>
+
+                        @foreach($pengadaan as $ada)
+
+                        <?php 
+                            $jumlah = ($beli -> jumlahBarang1) + ($beli -> jumlahBarang2) + ($beli -> jumlahBarang3) + ($beli -> jumlahBarang4) + ($beli -> jumlahBarang5)
+                        ?>
+                    <tr>
+                        <td class="text-center">{{$i}}</td>
+                        <td class="text-center">{{$ada -> kodePengadaan}}</td>
+                        <td class="text-center">{{$jumlah}}</td>
+                        <td class="text-center">{{$beli -> created_at -> format('Y-m-d')}}</td>
+                        <td class="text-center">
+                                @if($ada->status == 'setuju') 
+                                    <button class="btn btn-success" disabled><span class="iconify" data-icon="mdi:progress-check" data-height="20"></span> Disetujui</button>
+                                @endif
+                                @if($ada->status == 'setuju-PO') 
+                                    <button class="btn btn-secondary" disabled><span class="iconify" data-icon="mdi:progress-check" data-height="20"></span> PO disetujui</button>
+                                @endif
+                        </td>
+                        <td class="text-center">
+                            <div class="d-flex justify-content-around">
+                                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#abc<?= $beli->id ?>">Detail</button>
+                                @if($beli->status == 'setuju-PO')
+                                &nbsp;
+                                <a href="#" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#def<?= $beli->id ?>">Proses Beli</a>
+                                @endif
+                            </div>
+                        </td>
+                    </tr>
+
+
+
+                    <!-- MODAL DETAIL PENGADAAN-->
+                    @include('layouts.modalDetailPembelianInternal') 
+
+                    <!-- MODAL PROSES PENGADAAN  -->
+                    @include('layouts.modalProsesPembelianInternal') 
+
+                    @if(!empty($pembelian))
+                    <div class="pagination">
+                        {{ $pembelian->links() }}
+                    </div>
+                    @endif
+
+
+                    <?php $i++; ?>
+                    @endforeach
+                    @endif
+                    @endforeach
+                    @endif
+                    
+                </tbody>
+            </table>
+        </div>
+
 
             <br><br><br>
             @include('layouts.footer')

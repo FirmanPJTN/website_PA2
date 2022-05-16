@@ -161,6 +161,16 @@ Route::group(['middleware' => 'auth','isAdmin:administrator'],function(){
 
     Route::post('/MonitoringAset/PemusnahanAset/Bukti/{id}', 'PemusnahanController@tambahBuktiAset');
 
+    
+    // PROFIL 
+    Route::get('/profil', function () {
+        return view('admin.profil');
+    });
+
+    Route::post('/profil/{id}', 'UserController@updateProfil');
+
+    Route::post('/profil/password/{id}', 'UserController@updatePassword');
+
 });
 
 
@@ -206,8 +216,16 @@ Route::group(['middleware' => 'auth','isAdmin:visitor'],function(){
     Route::get('/notifikasi/{id}','NotifikasiController@destroy')->name('telah-dibaca');
 
     Route::get('/notifikasiUnit/{unit}','NotifikasiController@destroyInUnit');
-    
 
+    
+    // PROFIL 
+    Route::get('/visitor/profil', function () {
+        return view('visitor.profil');
+    });
+
+    Route::post('/visitor/profil/{id}', 'UserController@updateProfil');
+
+    Route::post('/profil/password/{id}', 'UserController@updatePassword');
 
 });
 
@@ -246,6 +264,19 @@ Route::group(['middleware' => 'auth','isAdmin:approver'],function(){
 
     Route::post('/approver/Persetujuan/PeminjamanAset/Simpan/{id}', 'PeminjamanController@prosesPeminjamanAset');
 
+    // PROFIL 
+    Route::get('/approver/profil', function () {
+        return view('approver.profil');
+    });
+
+    Route::post('/approver/profil/{id}', 'UserController@updateProfil');
+
+    Route::post('/profil/password/{id}', 'UserController@updatePassword');
+
+
+    // DASHBOARD
+    Route::get('/approver/dashboard', 'PengadaanController@dashboardApprover')->name('index-approver');
+
 });
 
 // TRANSACTOR
@@ -258,6 +289,20 @@ Route::group(['middleware' => 'auth','isAdmin:transactor'],function(){
 
     Route::get('/transactor/PembelianAset/Internal', 'PembelianController@indexInternal')->name('index-internal');
 
+    Route::get('/transactor/PembelianAset/Eksternal', 'PembelianController@indexEksternal')->name('index-eksternal');
+
     Route::post('/transactor/PembelianAset/Internal/Proses/Simpan/{id}', 'PembelianController@prosesPembelianInternal');
+
+    // PROFIL 
+    Route::get('/transactor/profil', function () {
+        return view('transactor.profil');
+    });
+
+    Route::post('/transactor/profil/{id}', 'UserController@updateProfil');
+
+    Route::post('/profil/password/{id}', 'UserController@updatePassword');
+
+     // DASHBOARD
+     Route::get('/transactor/dashboard', 'PengadaanController@dashboardTransactor')->name('index-transactor');
 
 });

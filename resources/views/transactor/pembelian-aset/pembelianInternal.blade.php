@@ -62,7 +62,7 @@
 
 
        
-        <h2 class="mb-5 mt-5 fw-bold">DAFTAR PENGADAAN ASET</h2>
+        <h2 class="mb-5 mt-5 fw-bold">DAFTAR PENGADAAN INTERNAL</h2>
 
         <div class="table-container mx-5 mr-5">
             <table class="table table-striped table-bordered mb-5 ">
@@ -78,6 +78,8 @@
                 </thead>
                 <tbody>
                     <?php $i=1 ?>
+                        <?php $internal = DB::table('pengadaan')->where('kategori','=','internal')->count() ?>
+                        @if($internal!=0)
                         @foreach ($pembelian as $beli)
 
                         @if($beli->status == 'setuju-PO' || $beli->status == 'setuju') 
@@ -121,10 +123,18 @@
                     <!-- MODAL PROSES PENGADAAN  -->
                     @include('layouts.modalProsesPembelianInternal') 
 
+                    @if(!empty($pembelian))
+                    <div class="pagination">
+                        {{ $pembelian->links() }}
+                    </div>
+                    @endif
+
+
                     <?php $i++; ?>
                     @endforeach
                     @endif
                     @endforeach
+                    @endif
                     
                 </tbody>
             </table>

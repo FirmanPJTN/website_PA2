@@ -193,6 +193,11 @@
                 </table>
             </div>
             
+            @if(!empty($peminjaman))
+            <div class="pagination">
+                {{ $peminjaman->links() }}
+            </div>
+            @endif
 
 
             <br><br><br>

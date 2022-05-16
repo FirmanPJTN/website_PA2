@@ -65,6 +65,342 @@
             <h2 class="text-secondary"><div id="clock"> &nbsp;</div></h2>
         </div>
 
+        <div class="container mb-5">
+            <div class="d-flex">
+                <?php $jumlahpengadaan = DB::table('pengadaan')->count(); ?>
+                @if($jumlahpengadaan != 0)
+                <div class="box mx-2" style="background-color: #00D1B8; padding: 30px; padding-left: 35px; padding-right: 35px; border-radius: 10px; font-size: 2em; color: white; font-weight: bold; text-align: center">
+                {{$jumlahpengadaan}} <br>
+                    <span style="font-size: 0.7em;">Jumlah Pengadaan</span>
+                </div>
+                @endif
+
+                
+                <?php $jumlahpeminjaman = DB::table('peminjaman')->count(); ?>
+                @if($jumlahpeminjaman != 0)
+                <div class="box mx-2" style="background-color: #32A9FF; padding: 30px; padding-left: 35px; padding-right: 35px; border-radius: 10px; font-size: 2em; color: white; font-weight: bold; text-align: center">
+                    {{$jumlahpeminjaman}} <br>
+                    <span style="font-size: 0.7em;">Jumlah Peminjaman</span>
+                </div>
+                @endif
+
+                <?php $jumlahpemusnahan = DB::table('pemusnahan')->count(); ?>
+                @if($jumlahpemusnahan != 0)
+                <div class="box mx-2" style="background-color: #947AFF; padding: 30px; padding-left: 35px; padding-right: 35px; border-radius: 10px; font-size: 2em; color: white; font-weight: bold; text-align: center">
+                    {{$jumlahpemusnahan}} <br>
+                    <span style="font-size: 0.7em;">Jumlah Pemusnahan</span>
+                </div>
+                @endif
+
+
+            </div>
+        </div>
+
+
+        <h2 class="mb-5 mt-5 fw-bold ml-3">PENGADAAN ASET</h2>       
+
+            <div class="table-container ml-3 mr-5">
+                <table class="table table-striped table-bordered mb-5 ">
+                <thead>
+                    <tr>
+                    <th scope="col" class="text-center">No</th>
+                    <th scope="col" class="text-center">Kode Pengadaan</th>
+                    <th scope="col" class="text-center">Jumlah Barang</th>
+                    <th scope="col" class="text-center">Tanggal Pengajuan</th>
+                    <th scope="col" class="text-center">Status</th>
+                    <th scope="col" class="text-center">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php $i=1 ?>
+                        @foreach ($pembelian as $beli)
+
+                        @if($beli->status != 'proses' ) 
+
+                        <?php $pengadaan = DB::table('pengadaan')->where('id','=',$beli->pengadaan_id)->get() ?>
+
+                        @foreach($pengadaan as $ada)
+
+                        <?php 
+                            $jumlah = ($beli -> jumlahBarang1) + ($beli -> jumlahBarang2) + ($beli -> jumlahBarang3) + ($beli -> jumlahBarang4) + ($beli -> jumlahBarang5)
+                        ?>
+                    <tr>
+                        <td class="text-center">{{$i}}</td>
+                        <td class="text-center">{{$ada -> kodePengadaan}}</td>
+                        <td class="text-center">{{$jumlah}}</td>
+                        <td class="text-center">{{$beli -> created_at -> format('Y-m-d')}}</td>
+                        <td class="text-center">
+                            @if($ada->status == 'tolak') 
+                                    <button class="btn btn-danger" disabled><span class="iconify" data-icon="mdi:progress-close" data-height="20"></span> Ditolak</button>
+                                @endif
+                                @if($ada->status == 'setuju') 
+                                    <button class="btn btn-success" disabled><span class="iconify" data-icon="mdi:progress-check" data-height="20"></span> Disetujui</button>
+                                @endif
+                                @if($ada->status == 'setuju-PR') 
+                                    <button class="btn btn-info" disabled><span class="iconify" data-icon="mdi:progress-check" data-height="20"></span> PR disetujui</button>
+                                @endif
+                                @if($ada->status == 'proses-PR') 
+                                <button class="btn btn-secondary" disabled><span class="iconify" data-icon="mdi:progress-alert" data-height="20"></span> PR diproses</button>
+                                @endif
+                                @if($ada->status == 'proses-PO') 
+                                <button class="btn btn-warning" disabled><span class="iconify" data-icon="mdi:progress-alert" data-height="20"></span> PO diproses</button>
+                                @endif
+                                @if($ada->status == 'setuju-PO') 
+                                    <button class="btn btn-secondary" disabled><span class="iconify" data-icon="mdi:progress-check" data-height="20"></span> PO disetujui</button>
+                                @endif
+                        </td>
+                        <td class="text-center">
+                            <div class="d-flex justify-content-around">
+                                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#abc<?= $beli->id ?>">Detail</button> 
+                                @if($ada->status == 'proses-PR') 
+                                &nbsp;
+                                <a href="#" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#def<?= $beli->id ?>">Proses PR</a>
+                                @endif
+                                @if($ada->status == 'proses-PO') 
+                                &nbsp;
+                                <a href="#" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#tuf{{ $beli->id }}">Proses PO</a>
+                                @endif
+                            </div>
+                        </td>
+                    </tr>
+
+                    <!-- MODAL PROSES PERSETUJUAN PO  -->
+                    @include('layouts.modalProsesPersetujuanPO') 
+
+                    <!-- MODAL DETAIL PENGADAAN-->
+                    @include('layouts.modalDetailPembelianInternal') 
+
+                    <!-- MODAL PROSES PERSETUJUAN PR  -->
+                    @include('layouts.modalProsesPersetujuanPR')
+
+                    
+
+                    
+
+                    <?php $i++; ?>
+                    @endforeach
+                    @endif
+                    @endforeach
+
+                        
+                    </tbody>
+                </table>
+            </div>
+
+            @if(!empty($pembelian))
+            <div class="pagination">
+                {{ $pembelian->links() }}
+            </div>
+            @endif
+
+
+            <h2 class="mb-5 mt-5 fw-bold ml-3">PEMINJAMAN ASET</h2>       
+
+            <div class="table-container ml-3 mr-5 mb-5">
+                <table class="table table-striped table-bordered mb-5 ">
+                <thead>
+                    <tr>
+                    <th scope="col" class="text-center">No</th>
+                    <th scope="col" class="text-center">Kode Peminjaman</th>
+                    <th scope="col" class="text-center">Peminjam</th>
+                    <th scope="col" class="text-center">Unit</th>
+                    <th scope="col" class="text-center">Jumlah Barang</th>
+                    <th scope="col" class="text-center">Tanggal Peminjaman</th>
+                    <th scope="col" class="text-center">Rencana Pengembalian</th>
+                    <th scope="col" class="text-center">Status</th>
+                    <th scope="col" class="text-center">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php $i=1 ?>
+                        @foreach ($peminjaman as $pinjam)
+
+                        @if($pinjam->status == 'proses')
+
+                        <?php $users = DB::table('users')->select('nama','unit')->where('id',$pinjam->user_id)->get(); ?>
+
+                        @foreach ($users as $user)
+
+                        <?php 
+                            $jumlah = ($pinjam -> jumlahBarang1) + ($pinjam -> jumlahBarang2) + ($pinjam -> jumlahBarang3) + ($pinjam -> jumlahBarang4) + ($pinjam -> jumlahBarang5)
+                        ?>
+                    <tr>
+                        <td class="text-center">{{$i}}</td>
+                        <td class="text-center">{{$pinjam->kodePeminjaman}}</td>
+                        <td class="text-center">{{$user->nama}}</td>
+                        <td class="text-center">{{$user->unit}}</td>
+                        <td class="text-center">{{$jumlah}}</td>
+                        <td class="text-center">{{$pinjam -> created_at -> format('Y-m-d')}}</td>
+                        <td class="text-center">{{$pinjam -> tglKembali}}</td>
+                        @if($pinjam->status == 'proses') 
+                            <td class="text-center"> <button class="btn btn-warning" disabled><span class="iconify" data-icon="mdi:progress-alert" data-height="20"></span> Diproses</button></td>
+                        @endif
+
+                        <td class="text-center">
+                            <div class="d-flex justify-content-around">
+                                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#abc<?= $pinjam->id ?>">Detail</button> &nbsp;
+                                <a href="" data-bs-toggle="modal" data-bs-target="#jkl<?= $pinjam->id ?>" class="btn btn-info">Proses</a>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <!-- /visitor/PermohonanAset/PeminjamanAset/Setujui/{{$pinjam -> id}} -->
+
+                    <!-- MODAL DETAIL PEMINJAMAN -->
+                    @include('layouts.modalDetailPeminjamanAdmin')
+
+
+                     <!-- MODAL PERSETUJUAN -->
+                    @include('layouts.modalPersetujuanPeminjaman')
+
+                    <?php $i++; ?>
+                    @endforeach
+                    @endif
+                    @endforeach
+                    
+                </tbody>
+            </table>
+        </div>
+
+        <br>
+
+        <h2 class="mb-5 mt-5 fw-bold ml-3">PEMUSNAHAN ASET</h2>       
+
+        <div class="table-container ml-3 mr-5">
+            <table class="table table-striped table-bordered mb-5 ">
+                <thead>
+                    <tr>
+                    <th scope="col" class="text-center">No</th>
+                    <th scope="col" class="text-center">Kode Pemusnahan</th>
+                    <th scope="col" class="text-center">Waktu Pemusnahan</th>
+                    <th scope="col" class="text-center">Deskripsi Berkas</th>
+                    <th scope="col" class="text-center">Status</th>
+                    <th scope="col" class="text-center">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php $i=1 ?>
+                        @foreach ($pemusnahan as $musnah)
+                        @if($musnah-> jenisBarang1 != NULL )
+                    <tr>
+                        <td class="text-center">{{$i}}</td>
+                        <td class="text-center">{{$musnah ->kodePemusnahan}}</td>
+                        <td class="text-center">{{$musnah ->waktuPemusnahan}}</td>
+                        <td>{{Str::limit($musnah->deskripsi, 50, $end=' .....')}}</td>
+                        <td class="text-center">
+                            @if($musnah->status == 'Diproses')
+                            <button class="btn btn-warning" disabled><span class="iconify" data-icon="mdi:progress-alert" data-height="20"></span> {{$musnah->status}}</button>
+                            @endif
+
+                            @if($musnah->status == 'Disetujui')
+                            <button class="btn btn-success" disabled><span class="iconify" data-icon="mdi:progress-check" data-height="20"></span> {{$musnah->status}}</button>
+                            @endif
+
+                            @if($musnah->status == 'Ditolak')
+                            <button class="btn btn-danger" disabled><span class="iconify" data-icon="mdi:progress-close" data-height="20"></span> {{$musnah->status}}</button>
+                            @endif
+                        
+                        </td>
+                        <td class="text-center">
+                            <div class="d-flex justify-content-around">
+                                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#abc<?= $musnah->id ?>">Detail</button>
+                                @if($musnah->status == 'Diproses')
+                                &nbsp;<a href="#" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#def<?= $musnah->id ?>">Proses</a>
+                                @endif
+                            </div>
+                        </td>
+                    </tr>
+
+
+
+                    <!-- MODAL DETAIL PEMUSNAHAN BERKAS -->
+                    @include('layouts.modalDetailPemusnahanAsetAdmin')
+
+                    @include('layouts.modalPersetujuanPemusnahanAset')
+
+                    <?php $i++; ?>
+                    @endif
+                    @endforeach
+                    
+                </tbody>
+            </table>
+        </div>
+
+        @if(!empty($pemusnahan))
+        <div class="pagination">
+            {{ $pemusnahan->links() }}
+        </div>
+        @endif
+
+
+        <h2 class="mb-5 mt-5 fw-bold ml-3">PEMUSNAHAN BERKAS</h2>       
+            
+            <div class="table-container ml-3 mr-5">
+                <table class="table table-striped table-bordered mb-5 ">
+                    <thead>
+                        <tr>
+                        <th scope="col" class="text-center">No</th>
+                        <th scope="col" class="text-center">Kode Pemusnahan</th>
+                        <th scope="col" class="text-center">Waktu Pemusnahan</th>
+                        <th scope="col" class="text-center">Deskripsi Berkas</th>
+                        <th scope="col" class="text-center">Status</th>
+                        <th scope="col" class="text-center">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php $i=1 ?>
+                            @foreach ($pemusnahan as $musnah)
+                            @if($musnah-> jenisBarang1 == NULL )
+                        <tr>
+                            <td class="text-center">{{$i}}</td>
+                            <td class="text-center">{{$musnah ->kodePemusnahan}}</td>
+                            <td class="text-center">{{$musnah ->waktuPemusnahan}}</td>
+                            <td>{{Str::limit($musnah->deskripsi, 50, $end=' .....')}}</td>
+                            <td class="text-center">
+                                @if($musnah->status == 'Diproses')
+                                <button class="btn btn-warning" disabled><span class="iconify" data-icon="mdi:progress-alert" data-height="20"></span> {{$musnah->status}}</button>
+                                @endif
+
+                                @if($musnah->status == 'Disetujui')
+                                <button class="btn btn-success" disabled><span class="iconify" data-icon="mdi:progress-check" data-height="20"></span> {{$musnah->status}}</button>
+                                @endif
+
+                                @if($musnah->status == 'Ditolak')
+                                <button class="btn btn-danger" disabled><span class="iconify" data-icon="mdi:progress-close" data-height="20"></span> {{$musnah->status}}</button>
+                                @endif
+                            
+                            </td>
+                            <td class="text-center">
+                                <div class="d-flex justify-content-around">
+                                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#berkas<?= $musnah->id ?>">Detail</button>
+                                    @if($musnah->status == 'Diproses')
+                                    &nbsp;<a href="#" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#def<?= $musnah->id ?>">Proses</a>
+                                    @endif
+                                </div>
+                            </td>
+                        </tr>
+
+
+
+                        <!-- MODAL DETAIL PEMUSNAHAN BERKAS -->
+                        @include('layouts.modalDetailPemusnahanBerkasAdmin')
+
+                        @include('layouts.modalPersetujuanPemusnahanBerkas')
+
+                        <?php $i++; ?>
+                        @endif
+                        @endforeach
+                        
+                    </tbody>
+                </table>
+            </div>
+
+            @if(!empty($pemusnahan))
+            <div class="pagination">
+                {{ $pemusnahan->links() }}
+            </div>
+            @endif
+
         
 
             <br><br><br>

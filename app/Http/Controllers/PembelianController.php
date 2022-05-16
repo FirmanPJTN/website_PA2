@@ -26,6 +26,13 @@ class PembelianController extends Controller
         return view('transactor.pembelian-aset.pembelianInternal', compact('pembelian', 'pengadaan'));
     }
 
+    public function indexEksternal()
+    {
+        $pembelian = Pembelian::paginate(10);
+        $pengadaan = Pengadaan::paginate(10);
+        return view('transactor.pembelian-aset.pembelianEksternal', compact('pembelian', 'pengadaan'));
+    }
+
     public function indexApprover()
     {
         $pembelian = Pembelian::paginate(10);

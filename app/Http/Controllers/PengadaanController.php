@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Pengadaan;
 use App\Models\Pembelian;
+use App\Models\Peminjaman;
+use App\Models\Pemusnahan;
 use app\Models\User;
 use App\Models\Notifikasi;
 use Illuminate\Http\Request;
@@ -322,5 +324,33 @@ class PengadaanController extends Controller
 
         
         return redirect('/ManajemenAset/PengadaanAset')->with('success', 'Product Order Berhasil Diproses!');
+    }
+
+    public function dashboardApprover()
+    {
+        $peminjaman = Peminjaman::paginate(5);
+        $pengadaan = Pengadaan::paginate(5);
+        $pemusnahan = Pemusnahan::paginate(5);
+        $pembelian = Pembelian::paginate(5);
+
+        return view('approver.dashboard', compact('peminjaman', 'pengadaan','pemusnahan','pembelian'));
+    }
+
+    public function dashboardTransactor()
+    {
+        $pengadaan = Pengadaan::paginate(5);
+        $pembelian = Pembelian::paginate(5);
+
+        return view('transactor.dashboard', compact('pengadaan','pembelian'));
+    }
+
+    public function dashboardAdmin()
+    {
+        $peminjaman = Peminjaman::paginate(5);
+        $pengadaan = Pengadaan::paginate(5);
+        $monitoring = Monitoring::paginate(5);
+        $pemusnahan = Pemusnahan::paginate(5);
+
+        return view('admin.dashboard', compact('peminjaman', 'pengadaan','monitoring', 'pemusnahan'));
     }
 }
