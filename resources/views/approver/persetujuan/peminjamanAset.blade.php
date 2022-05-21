@@ -79,7 +79,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php $i=1 ?>
+                    <?php $i=0 ?>
                         @foreach ($peminjaman as $pinjam)
 
                         @if($pinjam->status == 'proses')
@@ -92,7 +92,7 @@
                             $jumlah = ($pinjam -> jumlahBarang1) + ($pinjam -> jumlahBarang2) + ($pinjam -> jumlahBarang3) + ($pinjam -> jumlahBarang4) + ($pinjam -> jumlahBarang5)
                         ?>
                     <tr>
-                        <td class="text-center">{{$i}}</td>
+                        <td class="text-center">{{$peminjaman->firstItem() + $i}}</td>
                         <td class="text-center">{{$pinjam->kodePeminjaman}}</td>
                         <td class="text-center">{{$user->nama}}</td>
                         <td class="text-center">{{$user->unit}}</td>
@@ -127,6 +127,11 @@
                     
                 </tbody>
             </table>
+            @if(!empty($peminjaman))
+            <div class="pagination">
+                {{ $peminjaman->links() }}
+            </div>
+            @endif
         </div>
 
 
@@ -148,7 +153,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php $i=1 ?>
+                        <?php $i=0 ?>
                             @foreach ($peminjaman as $pinjam)
 
                             @if($pinjam->status != 'proses') 
@@ -159,7 +164,7 @@
                                 $jumlah = ($pinjam -> jumlahBarang1) + ($pinjam -> jumlahBarang2) + ($pinjam -> jumlahBarang3) + ($pinjam -> jumlahBarang4) + ($pinjam -> jumlahBarang5)
                             ?>
                         <tr>
-                            <td class="text-center">{{$i}}</td>
+                            <td class="text-center">{{$peminjaman->firstItem() + $i}}</td>
                             <td class="text-center">{{$pinjam->kodePeminjaman}}</td>
                             <td class="text-center">{{$user->nama}}</td>
                             <td class="text-center">{{$user->unit}}</td>
@@ -193,14 +198,13 @@
                         
                     </tbody>
                 </table>
+                @if(!empty($peminjaman))
+                <div class="pagination">
+                    {{ $peminjaman->links() }}
+                </div>
+                @endif
             </div>
             
-            @if(!empty($peminjaman))
-            <div class="pagination">
-                {{ $peminjaman->links() }}
-            </div>
-            @endif
-
 
             <br><br><br>
             @include('layouts.footer')

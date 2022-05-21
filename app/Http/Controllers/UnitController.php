@@ -14,7 +14,7 @@ class UnitController extends Controller
      */
     public function index()
     {
-        $unit = Unit::paginate(20);
+        $unit = Unit::paginate(10);
         return view('admin.kelola_pengguna.kelolaUnit', ['unit'=>$unit]);
     }
 

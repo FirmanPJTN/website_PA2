@@ -70,7 +70,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php $i=1 ?>
+                        <?php $i=0 ?>
                             @foreach ($monitoring as $monitor)
                             @if(($monitor->unit == Auth::user()->unit)&&($monitor->status == 'proses'))
 
@@ -78,7 +78,7 @@
                                 $jumlah = ($monitor -> jumlahBarang1) + ($monitor -> jumlahBarang2) + ($monitor -> jumlahBarang3) + ($monitor -> jumlahBarang4) + ($monitor -> jumlahBarang5)
                             ?>
                         <tr>
-                            <td class="text-center">{{$i}}</td>
+                            <td class="text-center">{{$monitoring->firstItem() + $i}}</td>
                             <td class="text-center">{{$monitor->kodeMonitoring}}</td>
                             <td class="text-center">{{$monitor ->unit}}</td>
                             <td class="text-center">{{$jumlah}}</td>
@@ -119,6 +119,12 @@
                         
                     </tbody>
                 </table>
+                
+                @if(!empty($monitoring))
+                <div class="pagination">
+                    {{ $monitoring->links() }}
+                </div>
+                @endif
             </div>
 
             
@@ -139,7 +145,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php $i=1 ?>
+                        <?php $i=0 ?>
                             @foreach ($monitoring as $monitor)
                             @if(($monitor->unit == Auth::user()->unit)&&($monitor->status != 'proses'))
 
@@ -147,7 +153,7 @@
                                 $jumlah = ($monitor -> jumlahBarang1) + ($monitor -> jumlahBarang2) + ($monitor -> jumlahBarang3) + ($monitor -> jumlahBarang4) + ($monitor -> jumlahBarang5)
                             ?>
                         <tr>
-                            <td class="text-center">{{$i}}</td>
+                            <td class="text-center">{{$monitoring->firstItem() + $i}}</td>
                             <td class="text-center">{{$monitor->kodeMonitoring}}</td>
                             <td class="text-center">{{$monitor ->unit}}</td>
                             <td class="text-center">{{$jumlah}}</td>
@@ -171,7 +177,6 @@
                         </tr>
 
 
-
                         <!-- MODAL DETAIL PEMINJAMAN -->
                         @include('layouts.modalDetailMonitoringAdmin')
 
@@ -181,6 +186,12 @@
                         
                     </tbody>
                 </table>
+                
+                @if(!empty($monitoring))
+                    <div class="pagination">
+                        {{ $monitoring->links() }}
+                    </div>
+                @endif
             </div>
 
 

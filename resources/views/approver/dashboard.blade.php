@@ -41,6 +41,7 @@
     <script src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 </head>
 <body>
+@include('sweetalert::alert')
 <div class="wrapper">
         <!-- Sidebar Approver Layout -->
         @include('layouts.approverNavbar')
@@ -113,7 +114,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php $i=1 ?>
+                    <?php $i=0 ?>
                         @foreach ($pembelian as $beli)
 
                         @if($beli->status != 'proses' ) 
@@ -126,7 +127,7 @@
                             $jumlah = ($beli -> jumlahBarang1) + ($beli -> jumlahBarang2) + ($beli -> jumlahBarang3) + ($beli -> jumlahBarang4) + ($beli -> jumlahBarang5)
                         ?>
                     <tr>
-                        <td class="text-center">{{$i}}</td>
+                        <td class="text-center">{{$pengadaan->firstItem() + $i}}</td>
                         <td class="text-center">{{$ada -> kodePengadaan}}</td>
                         <td class="text-center">{{$jumlah}}</td>
                         <td class="text-center">{{$beli -> created_at -> format('Y-m-d')}}</td>
@@ -186,13 +187,14 @@
                         
                     </tbody>
                 </table>
+                @if(!empty($pembelian))
+                <div class="pagination">
+                    {{ $pembelian->links() }}
+                </div>
+                @endif
             </div>
 
-            @if(!empty($pembelian))
-            <div class="pagination">
-                {{ $pembelian->links() }}
-            </div>
-            @endif
+            
 
 
             <h2 class="mb-5 mt-5 fw-bold ml-3">PEMINJAMAN ASET</h2>       
@@ -213,7 +215,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php $i=1 ?>
+                    <?php $i=0 ?>
                         @foreach ($peminjaman as $pinjam)
 
                         @if($pinjam->status == 'proses')
@@ -226,7 +228,7 @@
                             $jumlah = ($pinjam -> jumlahBarang1) + ($pinjam -> jumlahBarang2) + ($pinjam -> jumlahBarang3) + ($pinjam -> jumlahBarang4) + ($pinjam -> jumlahBarang5)
                         ?>
                     <tr>
-                        <td class="text-center">{{$i}}</td>
+                        <td class="text-center">{{$peminjaman->firstItem() + $i}}</td>
                         <td class="text-center">{{$pinjam->kodePeminjaman}}</td>
                         <td class="text-center">{{$user->nama}}</td>
                         <td class="text-center">{{$user->unit}}</td>
@@ -261,6 +263,11 @@
                     
                 </tbody>
             </table>
+            @if(!empty($peminjaman))
+            <div class="pagination">
+                {{ $peminjaman->links() }}
+            </div>
+            @endif
         </div>
 
         <br>
@@ -280,11 +287,11 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php $i=1 ?>
+                    <?php $i=0 ?>
                         @foreach ($pemusnahan as $musnah)
                         @if($musnah-> jenisBarang1 != NULL )
                     <tr>
-                        <td class="text-center">{{$i}}</td>
+                        <td class="text-center">{{$pemusnahan->firstItem() + $i}}</td>
                         <td class="text-center">{{$musnah ->kodePemusnahan}}</td>
                         <td class="text-center">{{$musnah ->waktuPemusnahan}}</td>
                         <td>{{Str::limit($musnah->deskripsi, 50, $end=' .....')}}</td>
@@ -325,13 +332,12 @@
                     
                 </tbody>
             </table>
+            @if(!empty($pemusnahan))
+            <div class="pagination">
+                {{ $pemusnahan->links() }}
+            </div>
+            @endif
         </div>
-
-        @if(!empty($pemusnahan))
-        <div class="pagination">
-            {{ $pemusnahan->links() }}
-        </div>
-        @endif
 
 
         <h2 class="mb-5 mt-5 fw-bold ml-3">PEMUSNAHAN BERKAS</h2>       
@@ -349,11 +355,11 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php $i=1 ?>
+                        <?php $i=0 ?>
                             @foreach ($pemusnahan as $musnah)
                             @if($musnah-> jenisBarang1 == NULL )
                         <tr>
-                            <td class="text-center">{{$i}}</td>
+                            <td class="text-center">{{$pemusnahan->firstItem() + $i}}</td>
                             <td class="text-center">{{$musnah ->kodePemusnahan}}</td>
                             <td class="text-center">{{$musnah ->waktuPemusnahan}}</td>
                             <td>{{Str::limit($musnah->deskripsi, 50, $end=' .....')}}</td>
@@ -394,13 +400,13 @@
                         
                     </tbody>
                 </table>
-            </div>
+                @if(!empty($pemusnahan))
+                <div class="pagination">
+                    {{ $pemusnahan->links() }}
+                </div>
+                @endif
 
-            @if(!empty($pemusnahan))
-            <div class="pagination">
-                {{ $pemusnahan->links() }}
             </div>
-            @endif
 
         
 
@@ -410,20 +416,6 @@
         </div>
     </div>
 
-
-   @if(Session::has('success'))
-    <script type="text/javascript">
-        swal({
-                title:'Berhasil',
-                text:"{{Session::get('success')}}",
-                timer:2000,
-                icon: "success",
-                type:'success'
-            }).then((value) => {
-            //location.reload();
-        }).catch(swal.noop);
-    </script>
-    @endif
 
     <!-- GET CURRENT DATE AND TIME INDONESIA -->
 
@@ -570,20 +562,6 @@
 
      <script type="text/javascript" src="../../js/scriptDeleteConfirmPengadaanVisitor.js"></script>
 
-
-    @if(Session::has('success'))
-        <script type="text/javascript">
-            swal({
-                    title:'Berhasil',
-                    text:"{{Session::get('success')}}",
-                    timer:2000,
-                    icon: "success",
-                    type:'success'
-                }).then((value) => {
-                //location.reload();
-            }).catch(swal.noop);
-        </script>
-    @endif
 
     <!-- jQuery CDN - Slim version (=without AJAX) -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

@@ -73,7 +73,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php $i=1 ?>
+                        <?php $i=0 ?>
                             @foreach ($monitoring as $monitor)
                             @if($monitor->user_id == Auth::user()->id)
 
@@ -81,7 +81,7 @@
                                 $jumlah = ($monitor -> jumlahBarang1) + ($monitor -> jumlahBarang2) + ($monitor -> jumlahBarang3) + ($monitor -> jumlahBarang4) + ($monitor -> jumlahBarang5)
                             ?>
                         <tr>
-                            <td class="text-center">{{$i}}</td>
+                            <td class="text-center">{{$monitoring->firstItem() + $i}}</td>
                             <td class="text-center">MNTR{{$i.$monitor -> created_at -> format('Y.m.d')}}</td>
                             <td class="text-center">{{$jumlah}}</td>
                             <td class="text-center">{{$monitor -> created_at -> format('Y-m-d')}}</td>
@@ -106,6 +106,12 @@
                         
                     </tbody>
                 </table>
+                
+                    @if(!empty($monitoring))
+                        <div class="pagination">
+                            {{ $monitoring->links() }}
+                        </div>
+                    @endif
             </div>
 
         </div>

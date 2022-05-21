@@ -77,7 +77,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php $i=1 ?>
+                    <?php $i=0 ?>
                         @foreach ($pengadaan as $ada)
 
                         @if($ada->status != null && $ada->status == 'proses') 
@@ -90,7 +90,7 @@
                             $jumlah = ($ada -> jumlahBarang1) + ($ada -> jumlahBarang2) + ($ada -> jumlahBarang3) + ($ada -> jumlahBarang4) + ($ada -> jumlahBarang5)
                         ?>
                     <tr>
-                        <td class="text-center">{{$i}}</td>
+                        <td class="text-center">{{$pengadaan->firstItem() +$i}}</td>
                         <td class="text-center">{{$ada -> kodePengadaan}}</td>
                         <td class="text-center">{{$user->nama}}</td>
                         <td class="text-center">{{$user->unit}}</td>
@@ -131,11 +131,13 @@
                     
                 </tbody>
             </table>
+
+            @if(!empty($pengadaan))
+            <div class="pagination">
+                {{ $data->links() }}
+            </div>
+            @endif
         </div>
-
-
-
-        
 
             <h3 class="mb-5 mt-5 fw-bold">RIWAYAT PENGADAAN ASET</h3> 
 
@@ -154,7 +156,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php $i=1 ?>
+                        <?php $i=0 ?>
                             @foreach ($pengadaan as $ada)
 
                             @if($ada->status != null && $ada->status != 'proses') 
@@ -168,7 +170,7 @@
                                 $jumlah = ($ada -> jumlahBarang1) + ($ada -> jumlahBarang2) + ($ada -> jumlahBarang3) + ($ada -> jumlahBarang4) + ($ada -> jumlahBarang5)
                             ?>
                         <tr>
-                            <td class="text-center">{{$i}}</td>
+                            <td class="text-center">{{$pengadaan->firstItem() + $i}}</td>
                             <td class="text-center">{{$ada -> kodePengadaan}}</td>
                             <td class="text-center">{{$user->nama}}</td>
                             <td class="text-center">{{$user->unit}}</td>
@@ -225,6 +227,12 @@
                         
                     </tbody>
                 </table>
+
+                @if(!empty($pengadaan))
+                <div class="pagination">
+                    {{ $pengadaan->links() }}
+                </div>
+                @endif
             </div>
 
 

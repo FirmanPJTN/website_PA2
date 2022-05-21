@@ -97,10 +97,10 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php $i=1 ?>
+                    <?php $i=0 ?>
                         @foreach ($data as $aset)
                     <tr>
-                        <td>{{$i}}</td>
+                        <td>{{$data->firstItem() +$i}}</td>
                         <td>{{$aset->kodeAset}}</td>
                         <td>{{$aset -> jenisBarang}}</td>
                         <td>{{$aset -> tipeBarang}}</td>

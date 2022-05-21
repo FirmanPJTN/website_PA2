@@ -18,9 +18,9 @@ class PeminjamanController extends Controller
      */
     public function index()
     {
-        $peminjaman = Peminjaman::paginate(5);
-        $pengadaan = Pengadaan::paginate(5);
-        $monitoring = Monitoring::paginate(5);
+        $peminjaman = Peminjaman::paginate(10);
+        $pengadaan = Pengadaan::paginate(10);
+        $monitoring = Monitoring::paginate(10);
 
         return view('visitor.dashboard', compact('peminjaman', 'pengadaan','monitoring'));
     }

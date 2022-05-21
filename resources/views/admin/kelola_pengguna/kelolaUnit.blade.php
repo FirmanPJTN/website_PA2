@@ -35,6 +35,7 @@
     <link rel="stylesheet" href="../css/styleNavbar.css">
 </head>
 <body>
+@include('sweetalert::alert')
 <div class="wrapper">
         <!-- Sidebar Admin Layout -->
         @include('layouts.adminNavbar')
@@ -80,10 +81,10 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php $i=1 ?>
+                    <?php $i=0 ?>
                         @foreach ($unit as $unt)
                     <tr>
-                        <td>{{$i}}</td>
+                        <td>{{$unit->firstItem()+$i}}</td>
                         <td>{{$unt->unit}}</td>
                         <td class="text-center">
                             <div class="d-flex">
@@ -102,15 +103,14 @@
                     
                 </tbody>
             </table>
-        </div>
 
-        
-            
-            @if(!empty($data))
+                 
+            @if(!empty($unit))
             <div class="pagination">
-                {{ $data->links() }}
+                {{ $unit->links() }}
             </div>
             @endif
+        </div>
 
             <br><br><br>
 
@@ -122,19 +122,6 @@
 
     <script type="text/javascript" src="../../js/scriptDeleteConfirmUnit.js"></script>
 
-    @if(Session::has('success'))
-    <script type="text/javascript">
-        swal({
-                title:'Berhasil',
-                text:"{{Session::get('success')}}",
-                timer:2000,
-                icon: "success",
-                type:'success'
-            }).then((value) => {
-            //location.reload();
-        }).catch(swal.noop);
-    </script>
-    @endif
 
     <!-- jQuery CDN - Slim version (=without AJAX) -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

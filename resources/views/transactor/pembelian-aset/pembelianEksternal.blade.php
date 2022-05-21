@@ -79,7 +79,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php $i=1 ?>
+                    <?php $i=0 ?>
                         <?php $eksternal = DB::table('pengadaan')->where('kategori','=','eksternal')->count() ?>
                         @if($eksternal!=0)
                         @foreach ($pembelian as $beli)
@@ -94,7 +94,7 @@
                             $jumlah = ($beli -> jumlahBarang1) + ($beli -> jumlahBarang2) + ($beli -> jumlahBarang3) + ($beli -> jumlahBarang4) + ($beli -> jumlahBarang5)
                         ?>
                     <tr>
-                        <td class="text-center">{{$i}}</td>
+                        <td class="text-center">{{$pembelian->firstItem() + $i}}</td>
                         <td class="text-center">{{$ada -> kodePengadaan}}</td>
                         <td class="text-center">{{$jumlah}}</td>
                         <td class="text-center">{{$beli -> created_at -> format('Y-m-d')}}</td>
@@ -125,13 +125,6 @@
                     <!-- MODAL PROSES PENGADAAN  -->
                     @include('layouts.modalProsesPembelianInternal') 
 
-                    @if(!empty($pembelian))
-                    <div class="pagination">
-                        {{ $pembelian->links() }}
-                    </div>
-                    @endif
-
-
                     <?php $i++; ?>
                     @endforeach
                     @endif
@@ -140,13 +133,13 @@
                     
                 </tbody>
             </table>
+                @if(!empty($pembelian))
+                <div class="pagination">
+                    {{ $pembelian->links() }}
+                </div>
+                @endif
         </div>
-        
-        @if(!empty($pembelian))
-            <div class="pagination">
-                {{ $pembelian->links() }}
-            </div>
-        @endif
+    
 
             <br><br><br>
             @include('layouts.footer')

@@ -78,10 +78,10 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php $i=1 ?>
+                    <?php $i=0 ?>
                         @foreach ($users as $user)
                     <tr>
-                        <td>{{$i}}</td>
+                        <td>{{$users->firstItem() + $i}}</td>
                         <td>{{$user->nama}}</td>
                         <td>{{$user -> email}}</td>
                         <td>{{$user -> role}}</td>
@@ -99,13 +99,14 @@
                     
                 </tbody>
             </table>
-            </div>
             
-            @if(!empty($data))
+            @if(!empty($users))
             <div class="pagination">
-                {{ $data->links() }}
+                {{ $users->links() }}
             </div>
             @endif
+
+            </div>
 
             <br><br><br>
 

@@ -41,6 +41,7 @@
     <script src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 </head>
 <body>
+@include('sweetalert::alert')
 <div class="wrapper">
         <!-- Sidebar Transactor Layout -->
         @include('layouts.transactorNavbar')
@@ -105,7 +106,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php $i=1 ?>
+                    <?php $i=0 ?>
                         <?php $eksternal = DB::table('pengadaan')->where('kategori','=','eksternal')->count() ?>
                         @if($eksternal!=0)
                         @foreach ($pembelian as $beli)
@@ -120,7 +121,7 @@
                             $jumlah = ($beli -> jumlahBarang1) + ($beli -> jumlahBarang2) + ($beli -> jumlahBarang3) + ($beli -> jumlahBarang4) + ($beli -> jumlahBarang5)
                         ?>
                     <tr>
-                        <td class="text-center">{{$i}}</td>
+                        <td class="text-center">{{$pembelian->firstItem() + $i}}</td>
                         <td class="text-center">{{$adaEks -> kodePengadaan}}</td>
                         <td class="text-center">{{$jumlah}}</td>
                         <td class="text-center">{{$beli -> created_at -> format('Y-m-d')}}</td>
@@ -151,13 +152,6 @@
                     <!-- MODAL PROSES PENGADAAN  -->
                     @include('layouts.modalProsesPembelianInternal') 
 
-                    @if(!empty($pembelian))
-                    <div class="pagination">
-                        {{ $pembelian->links() }}
-                    </div>
-                    @endif
-                    
-
 
                     <?php $i++; ?>
                     @endforeach
@@ -167,13 +161,14 @@
                     
                 </tbody>
             </table>
+            
+            @if(!empty($pembelian))
+                <div class="pagination">
+                    {{ $pembelian->links() }}
+                </div>
+            @endif
         </div>
         
-        @if(!empty($pembelian))
-            <div class="pagination">
-                {{ $pembelian->links() }}
-            </div>
-        @endif
 
 
         <h2 class="mb-5 mt-5 ml-3 fw-bold">PENGADAAN INTERNAL</h2>
@@ -191,7 +186,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php $i=1 ?>
+                    <?php $i=0 ?>
                         <?php $internal = DB::table('pengadaan')->where('kategori','=','internal')->count() ?>
                         @if($internal!=0)
                         @foreach ($pembelian as $beli)
@@ -206,7 +201,7 @@
                             $jumlah = ($beli -> jumlahBarang1) + ($beli -> jumlahBarang2) + ($beli -> jumlahBarang3) + ($beli -> jumlahBarang4) + ($beli -> jumlahBarang5)
                         ?>
                     <tr>
-                        <td class="text-center">{{$i}}</td>
+                        <td class="text-center">{{$pembelian->firstItem() + $i}}</td>
                         <td class="text-center">{{$ada -> kodePengadaan}}</td>
                         <td class="text-center">{{$jumlah}}</td>
                         <td class="text-center">{{$beli -> created_at -> format('Y-m-d')}}</td>
@@ -230,18 +225,11 @@
                     </tr>
 
 
-
                     <!-- MODAL DETAIL PENGADAAN-->
                     @include('layouts.modalDetailPembelianInternal') 
 
                     <!-- MODAL PROSES PENGADAAN  -->
                     @include('layouts.modalProsesPembelianInternal') 
-
-                    @if(!empty($pembelian))
-                    <div class="pagination">
-                        {{ $pembelian->links() }}
-                    </div>
-                    @endif
 
 
                     <?php $i++; ?>
@@ -252,6 +240,12 @@
                     
                 </tbody>
             </table>
+            
+                @if(!empty($pembelian))
+                <div class="pagination">
+                    {{ $pembelian->links() }}
+                </div>
+                @endif
         </div>
 
 
@@ -405,20 +399,6 @@
      <!-- SWEET ALERT  -->
 
 
-
-    @if(Session::has('success'))
-        <script type="text/javascript">
-            swal({
-                    title:'Berhasil',
-                    text:"{{Session::get('success')}}",
-                    timer:2000,
-                    icon: "success",
-                    type:'success'
-                }).then((value) => {
-                //location.reload();
-            }).catch(swal.noop);
-        </script>
-    @endif
 
     <!-- jQuery CDN - Slim version (=without AJAX) -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

@@ -78,10 +78,10 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php $i=1 ?>
+                        <?php $i=0 ?>
                             @foreach ($pemusnahan as $musnah)
                         <tr>
-                            <td class="text-center">{{$i}}</td>
+                            <td class="text-center">{{$pemusnahan->firstItem() +$i}}</td>
                             <td class="text-center">{{$musnah ->kodePemusnahan}}</td>
                             <td class="text-center">
                                 @if($musnah->status == 'Diproses')
@@ -124,6 +124,12 @@
                         
                     </tbody>
                 </table>
+
+                @if(!empty($pemusnahan))
+                <div class="pagination">
+                    {{ $pemusnahan->links() }}
+                </div>
+                @endif
             </div>
 
             @foreach ($pemusnahan as $musnah)
@@ -131,11 +137,6 @@
                 @include('layouts.modalPemusnahanBerkasBukti')
             @endforeach
 
-            @if(!empty($monitoring))
-            <div class="pagination">
-                {{ $monitoring->links() }}
-            </div>
-            @endif
 
             <br><br><br>
             @include('layouts.footer')

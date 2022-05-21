@@ -78,7 +78,7 @@
                         <?php $i=1 ?>
                             @foreach ($pemusnahan as $musnah)
                         <tr>
-                            <td class="text-center">{{$i}}</td>
+                            <td class="text-center">{{$pemusnahan->firstItem() + $i}}</td>
                             <td class="text-center">{{$musnah ->kodePemusnahan}}</td>
                             <td class="text-center">{{$musnah ->waktuPemusnahan}}</td>
                             <td>{{Str::limit($musnah->deskripsi, 50, $end=' .....')}}</td>
@@ -118,14 +118,13 @@
                         
                     </tbody>
                 </table>
-            </div>
+                @if(!empty($pemusnahan))
+                <div class="pagination">
+                    {{ $pemusnahan->links() }}
+                </div>
+                @endif
 
-            @if(!empty($pemusnahan))
-            <div class="pagination">
-                {{ $pemusnahan->links() }}
             </div>
-            @endif
-
             <br><br><br>
             @include('layouts.footer')
 

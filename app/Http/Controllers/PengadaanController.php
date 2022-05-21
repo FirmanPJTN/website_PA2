@@ -22,7 +22,7 @@ class PengadaanController extends Controller
      */
     public function index()
     {
-        $pengadaan = Pengadaan::paginate(5);
+        $pengadaan = Pengadaan::paginate(10);
         return view('visitor.dashboard', ['pengadaan'=>$pengadaan]);
     }
 
@@ -331,18 +331,18 @@ class PengadaanController extends Controller
 
     public function dashboardApprover()
     {
-        $peminjaman = Peminjaman::paginate(5);
-        $pengadaan = Pengadaan::paginate(5);
-        $pemusnahan = Pemusnahan::paginate(5);
-        $pembelian = Pembelian::paginate(5);
+        $peminjaman = Peminjaman::paginate(10);
+        $pengadaan = Pengadaan::paginate(10);
+        $pemusnahan = Pemusnahan::paginate(10);
+        $pembelian = Pembelian::paginate(10);
 
         return view('approver.dashboard', compact('peminjaman', 'pengadaan','pemusnahan','pembelian'));
     }
 
     public function dashboardTransactor()
     {
-        $pengadaan = Pengadaan::paginate(5);
-        $pembelian = Pembelian::paginate(5);
+        $pengadaan = Pengadaan::paginate(10);
+        $pembelian = Pembelian::paginate(10);
 
         return view('transactor.dashboard', compact('pengadaan','pembelian'));
     }
