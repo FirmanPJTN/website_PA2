@@ -41,7 +41,7 @@
             </ul>
         </li>
         <li>
-            <a href="#"><span class="iconify" data-icon="bxs:report" data-height="25"></span>&nbsp;&nbsp;&nbsp;&nbsp;Laporan Berkala</a>
+            <a href="/LaporanBerkala"><span class="iconify" data-icon="bxs:report" data-height="25"></span>&nbsp;&nbsp;&nbsp;&nbsp;Laporan Berkala</a>
         </li>
         <li>
             <a href="/KelolaPengguna"><span class="iconify" data-icon="bxs:user-rectangle" data-height="25"></span>&nbsp;&nbsp;&nbsp;&nbsp;Kelola Pengguna</a>

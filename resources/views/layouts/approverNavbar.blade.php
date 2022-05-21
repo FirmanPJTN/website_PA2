@@ -30,7 +30,7 @@
             </ul>
         </li>
         <li>
-            <a href="#"><span class="iconify" data-icon="bxs:report" data-height="25"></span>&nbsp;&nbsp;&nbsp;&nbsp;Laporan Berkala</a>
+            <a href="/approver/LaporanBerkala"><span class="iconify" data-icon="bxs:report" data-height="25"></span>&nbsp;&nbsp;&nbsp;&nbsp;Laporan Berkala</a>
         </li>
     </ul>
 

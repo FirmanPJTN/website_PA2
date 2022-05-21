@@ -8,10 +8,13 @@ use App\Models\Peminjaman;
 use App\Models\Pemusnahan;
 use App\Models\Monitoring;
 use App\Models\DataAset;
+use App\Models\Unit;
 use App\Charts\AsetChart;
 use app\Models\User;
 use App\Models\Notifikasi;
 use Illuminate\Http\Request;
+use PDF;
+use App\Exports\AsetExport;
 
 class PengadaanController extends Controller
 {
@@ -445,5 +448,23 @@ class PengadaanController extends Controller
 
 
         return view('admin.dashboard', compact('peminjaman', 'pengadaan','monitoring', 'pemusnahan','aset','asetChart', 'asetChart2','userChart'));
+    }
+
+    public function exportLaporan(Request $request) {
+        $request->validate([
+            'bulan'  => 'required|in:01,02,03,04,05,06,07,08,09,10,11,12'
+        ]);
+
+        $units = Unit::all();
+        $data = DataAset::whereMonth('created_at', $request->bulan)->get();
+        $peminjaman = Peminjaman::whereMonth('created_at', $request->bulan)->get();
+        $pengadaan = Pengadaan::whereMonth('created_at', $request->bulan)->get();
+        $monitoring = Monitoring::whereMonth('created_at', $request->bulan)->get();
+        $pemusnahan = Pemusnahan::whereMonth('created_at', $request->bulan)->get();
+        $pembelian = Pembelian::whereMonth('created_at', $request->bulan)->get();
+
+        $pdf = PDF::loadView('admin.laporan_berkala.laporan',compact('data','units','peminjaman','pengadaan','monitoring','pemusnahan','pembelian'));
+        $pdf->setPaper('A4','landscape');
+        return $pdf->stream('laporan-bulanan.pdf');
     }
 }

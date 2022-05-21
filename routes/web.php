@@ -172,6 +172,13 @@ Route::middleware(['auth','isAdmin:administrator'])->group(function(){
 
     Route::get('/notifikasiRole/{role}','NotifikasiController@destroyInRole');
 
+    // LAPORAN BULANAN
+    Route::post('/LaporanBerkala/Ekspor', 'PengadaanController@exportLaporan');
+
+    Route::get('/LaporanBerkala', function () {
+        return view('admin.laporan_berkala.laporanBerkala');
+    });
+
 });
 
 
@@ -285,6 +292,13 @@ Route::middleware(['auth','isAdmin:approver'])->group(function(){
     Route::get('/approver/notifikasiUnit/{unit}','NotifikasiController@destroyInUnit');
 
     Route::get('/approver/notifikasiRole/{role}','NotifikasiController@destroyInRole');
+
+    // LAPORAN BULANAN
+    Route::post('/approver/LaporanBerkala/Ekspor', 'PengadaanController@exportLaporan');
+
+    Route::get('/approver/LaporanBerkala', function () {
+        return view('approver.laporan_berkala.laporanBerkala');
+    });
 
 });
 

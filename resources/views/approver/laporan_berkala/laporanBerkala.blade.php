@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manajemen Aset</title>
+    <title>Laporan Berkala</title>
     <link rel="icon" type="image/png" href="../../background/title.png">
 
     <!-- Fonts -->
@@ -36,121 +36,76 @@
 
     <link rel="stylesheet" href="../../css/styleNavbar.css">
 
-    <script src="../../js/scriptCategoryFilter.js"></script>
 
     <!-- AJAX -->
     <script src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-
-
 </head>
 <body>
-
-
-@include('sweetalert::alert')
 <div class="wrapper">
         <!-- Sidebar Admin Layout -->
-        @include('layouts.adminNavbar')
+        @include('layouts.approverNavbar')
 
         <!-- Page Content  -->
         <div id="content">
 
-            @include('layouts.adminTopNavbar')
+        @include('layouts.approverTopNavbar')
 
+        <nav aria-label="breadcrumb" class="bg-light">
+            <ol class="breadcrumb mx-3 mt-2" style="color: RGBA(107,107,107,0.75)">
+                <li class="breadcrumb-item"><a href="/approver/dashboard"><span class="iconify" data-icon="ant-design:home-filled" data-height="20"></span>&nbsp;&nbsp;&nbsp;&nbsp;Beranda</a></li>
+                <li class="breadcrumb-item active fw-bold text-color"><a href="#"><span class="iconify" data-icon="bxs:report" data-height="20"></span>&nbsp;&nbsp;&nbsp;&nbsp;Laporan Berkala</a></li>
+            </ol>
+        </nav>
 
-                <nav aria-label="breadcrumb" class="bg-light">
-                    <ol class="breadcrumb mx-3 mt-2" style="color: RGBA(107,107,107,0.75)">
-                        <li class="breadcrumb-item"><a href="{{route('dashboard')}}"><span class="iconify" data-icon="ant-design:home-filled" data-height="20"></span>&nbsp;&nbsp;&nbsp;&nbsp;Beranda</a></li>
-                        <li class="breadcrumb-item"><a href="#"><span class="iconify" data-icon="eos-icons:cluster-management" data-height="20"></span>&nbsp;&nbsp;&nbsp;&nbsp;Manajemen Aset</a></li>
-                        <li class="breadcrumb-item active fw-bold text-color" aria-current="page">Data Aset</li>
-                    </ol>
-                </nav>
-
-            <h2 class="mb-3 mt-4 fw-bold mx-4 mb-5">DAFTAR DATA ASET</h2>
             
+            <h2 class="mb-5 mt-5 ml-3 fw-bold">LAPORAN BERKALA BULANAN</h2>       
 
-            <div class="d-flex mt-4">
+            <div class="d-flex justify-content-start">
+            <form enctype="multipart/form-data" action="/approver/LaporanBerkala/Ekspor" method="post">
+                {{ csrf_field() }}
+                
 
-                <div class="d-flex justify-content-end mb-4">
-                    <a href="/ManajemenAset/DataAset/Tambah" class="btn btn-primary mx-2">Tambah Data</a>
-                    <a href="/ManajemenAset/DataAset/Export/" class="btn btn-success mx-2">Ekspor Data</a>
-                    <a href="/LaporanBerkala/Ekspor" class="btn btn-info mx-2" target="_blank">Laporan Bulanan</a>
-                </div>
-            
+                    <div class="form-group mt-3">
+                        <div class="d-flex justify-content-center">
+                            <label class="mx-4 w-25">Bulan</label>
+                            <select class="form-control custom-select mx-4" name="bulan" id="bulan">
+                                <option value="">pilih bulan</option>
+                                <option value="01" <?php if (old('bulan') == '01') {?>selected="selected"<?php } ?>>Januari</option>
+                                <option value="02" <?php if (old('bulan') == '02') {?>selected="selected"<?php } ?>>Februari</option>
+                                <option value="03" <?php if (old('bulan') == '03') {?>selected="selected"<?php } ?>>Maret</option>
+                                <option value="04" <?php if (old('bulan') == '04') {?>selected="selected"<?php } ?>>April</option>
+                                <option value="05" <?php if (old('bulan') == '05') {?>selected="selected"<?php } ?>>Mei</option>
+                                <option value="06" <?php if (old('bulan') == '06') {?>selected="selected"<?php } ?>>Juni</option>
+                                <option value="07" <?php if (old('bulan') == '07') {?>selected="selected"<?php } ?>>Juli</option>
+                                <option value="08" <?php if (old('bulan') == '08') {?>selected="selected"<?php } ?>>Agustus</option>
+                                <option value="09" <?php if (old('bulan') == '09') {?>selected="selected"<?php } ?>>September</option>
+                                <option value="10" <?php if (old('bulan') == '10') {?>selected="selected"<?php } ?>>Oktober</option>
+                                <option value="11" <?php if (old('bulan') == '11') {?>selected="selected"<?php } ?>>November</option>
+                                <option value="12" <?php if (old('bulan') == '12') {?>selected="selected"<?php } ?>>Desember</option>
+                            </select>
+                        </div>
+                    </div>
+                    @error('bulan')
+                        <div class="alert-danger mt-1 ml-3">{{$message}}</div>
+                    @enderror
+
+                    <button style="width:75%" type="submit" class="btn btn-info mx-1 ml-3 mt-5" onclick="this.form.target='_blank';return true;">Ekspor Laporan</button>
+            </form>
             </div>
-
-
-            <!-- FILTERING DATA -->
-
-            @include('layouts.filtering')
-
             
-            <table class="table table-striped table-bordered mb-5">
-                <thead>
-                    <tr>
-                    <th scope="col" class="text-center">No</th>
-                    <th scope="col" class="text-center">Kode Barang</th>
-                    <th scope="col" class="text-center">Nama Barang</th>
-                    <th scope="col" class="text-center">Tipe Barang</th>
-                    <th scope="col" class="text-center">Jumlah Barang</th>
-                    <th scope="col" class="text-center">Tanggal Pembelian</th>
-                    <th scope="col" class="text-center">Penyimpanan</th>
-                    <th scope="col" class="text-center">Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php $i=0 ?>
-                        @foreach ($data as $aset)
-                    <tr>
-                        <td>{{$data->firstItem() +$i}}</td>
-                        <td>{{$aset->kodeAset}}</td>
-                        <td>{{$aset -> jenisBarang}}</td>
-                        <td>{{$aset -> tipeBarang}}</td>
-                        <td>{{$aset -> jumlahBarang}}</td>
-                        <td>{{$aset -> tglBeli}}</td>
-                        <td>{{$aset -> penyimpanan}}</td>
-                        <td class="text-center">
-                            <div class="d-flex">
-                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#abc<?= $aset->id ?>">Detail</button> &nbsp;
-                            <a href="/ManajemenAset/DataAset/Ubah/{{$aset -> id}}" class="btn btn-warning">Ubah</a> &nbsp;
-                            <a data-id="{{ $aset->id }}" class="btn btn-danger delete" data-kode= "{{$aset -> kodeAset}}"href="#">Hapus</a>
-                            </div>
-                        </td>
-                    </tr>
-                    
-                    @include('layouts.modalDetailDataAset')
-                    <?php $i++;?>
-                    @endforeach
-                    
-                </tbody>
-            </table>
 
-            @if(!empty($data))
-            <div class="pagination">
-                {{ $data->links() }}
-            </div>
-            @endif
 
             <br><br><br>
             @include('layouts.footer')
 
         </div>
     </div>
-    
 
-    <script>
-        $(".filter").on('change',function() {
-            let unit = $("#filter-unit").val();
-            let kategori = $("#filter-kategori").val();
-            console.log([unit,kategori]);
-        })
-    </script>
+
+
+    <script type="text/javascript" src="../../js/scriptDeleteConfirmPeminjamanAdmin.js"></script>
 
     
-
-    <!-- SWEET ALERT  -->
-
-    <script type="text/javascript" src="../../js/scriptDeleteConfirmAset.js"></script>
-
 
     <!-- jQuery CDN - Slim version (=without AJAX) -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -176,6 +131,5 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js" integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script>
     -->
-
 </body>
 </html>
