@@ -40,6 +40,7 @@
     <script src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 </head>
 <body>
+@include('sweetalert::alert')
 <div class="wrapper">
         <!-- Sidebar Admin Layout -->
         @include('layouts.visitorNavbar')
@@ -54,7 +55,7 @@
 
         <nav aria-label="breadcrumb" class="bg-light  mb-5">
             <ol class="breadcrumb mx-3 mt-2" style="color: RGBA(107,107,107,0.75)">
-                <li class="breadcrumb-item active fw-bold text-color"><a href="#"><span class="iconify" data-icon="ant-design:home-filled" data-height="20"></span>&nbsp;&nbsp;&nbsp;&nbsp;Dashboard</a></li>
+                <li class="breadcrumb-item active fw-bold text-color"><a href="#"><span class="iconify" data-icon="ant-design:home-filled" data-height="20"></span>&nbsp;&nbsp;&nbsp;&nbsp;Beranda</a></li>
             </ol>
         </nav>
 
@@ -65,11 +66,11 @@
             <h2 class="text-secondary"><div id="clock"> &nbsp;</div></h2>
         </div>
 
-        <div class="container mb-5">
-            <div class="d-flex">
+        <div class="mb-5">
+            <div class="d-flex justify-content-start">
                 <?php $jumlahpengadaan = DB::table('pengadaan')->count(); ?>
                 @if($jumlahpengadaan != 0)
-                <div class="box" style="background-color: #00D1B8; padding: 30px; padding-left: 35px; padding-right: 35px; border-radius: 10px; font-size: 2em; color: white; font-weight: bold; text-align: center">
+                <div class="box mx-4" style="background-color: #00D1B8; padding: 30px; padding-left: 35px; padding-right: 35px; border-radius: 10px; font-size: 2em; color: white; font-weight: bold; text-align: center">
                 {{$jumlahpengadaan}} <br>
                     <span style="font-size: 0.7em;">Jumlah Pengadaan</span>
                 </div>
@@ -77,7 +78,7 @@
 
                 <?php $jumlahpeminjaman = DB::table('peminjaman')->count(); ?>
                 @if($jumlahpeminjaman != 0)
-                <div class="box" style="background-color: #32A9FF; padding: 30px; padding-left: 35px; padding-right: 35px; border-radius: 10px; font-size: 2em; color: white; font-weight: bold; text-align: center">
+                <div class="box mx-4" style="background-color: #32A9FF; padding: 30px; padding-left: 35px; padding-right: 35px; border-radius: 10px; font-size: 2em; color: white; font-weight: bold; text-align: center">
                     {{$jumlahpeminjaman}} <br>
                     <span style="font-size: 0.7em;">Jumlah Peminjaman</span>
                 </div>
@@ -85,7 +86,7 @@
 
                 <?php $jumlahmonitoring = DB::table('monitoring')->count(); ?>
                 @if($jumlahmonitoring != 0)
-                <div class="box" style="background-color: #947AFF; padding: 30px; padding-left: 35px; padding-right: 35px; border-radius: 10px; font-size: 2em; color: white; font-weight: bold; text-align: center">
+                <div class="box mx-4" style="background-color: #947AFF; padding: 30px; padding-left: 35px; padding-right: 35px; border-radius: 10px; font-size: 2em; color: white; font-weight: bold; text-align: center">
                 {{$jumlahmonitoring}} <br>
                     <span style="font-size: 0.7em;">Jumlah Monitoring</span>
                 </div>
@@ -302,20 +303,6 @@
         </div>
     </div>
 
-
-   @if(Session::has('success'))
-    <script type="text/javascript">
-        swal({
-                title:'Berhasil',
-                text:"{{Session::get('success')}}",
-                timer:2000,
-                icon: "success",
-                type:'success'
-            }).then((value) => {
-            //location.reload();
-        }).catch(swal.noop);
-    </script>
-    @endif
 
     <!-- GET CURRENT DATE AND TIME INDONESIA -->
 

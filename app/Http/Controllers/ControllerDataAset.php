@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\DataAset;
 use App\Models\Unit;
 use App\Models\User;
+use App\Exports\AsetExport;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 use Alert;
 
 class ControllerDataAset extends Controller
@@ -184,6 +187,11 @@ class ControllerDataAset extends Controller
         $DataAset = DataAset::find($id);
         $DataAset->delete();
         return redirect('/ManajemenAset/DataAset');
+    }
+
+    public function export() 
+    {
+        return Excel::download(new AsetExport, 'data-aset.'.Carbon::now().'.xlsx');
     }
 
 

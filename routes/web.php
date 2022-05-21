@@ -65,6 +65,8 @@ Route::group(['middleware' => 'auth','isAdmin:administrator'],function(){
 
     Route::get('/ManajemenAset/DataAset/Hapus/{id}', 'ControllerDataAset@destroy');
 
+    Route::get('/ManajemenAset/DataAset/Export/', 'ControllerDataAset@export');
+
     // Peminjaman Aset
 
     Route::get('/ManajemenAset/PeminjamanAset', 'PeminjamanController@indexPeminjaman')->name('pinjam-aset-admin');
@@ -231,9 +233,8 @@ Route::group(['middleware' => 'auth','isAdmin:visitor'],function(){
 
 // APPROVER
 Route::group(['middleware' => 'auth','isAdmin:approver'],function(){
-    Route::get('/approver/dashboard', function () {
-        return view('approver.dashboard');
-    });
+
+    Route::get('/approver/dashboard', 'PengadaanController@dashboardApprover')->name('dashboard-approver');
 
     // PEMUSNAHAN 
     Route::get('/approver/Persetujuan/PemusnahanBerkas', 'PemusnahanController@indexBerkasApprover')->name('musnah-berkas-approver');

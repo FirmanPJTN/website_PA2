@@ -4,7 +4,8 @@
 <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Laravel</title>
+    <title>Beranda</title>
+    <link rel="icon" type="image/png" href="../../background/title.png">
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
@@ -65,8 +66,8 @@
             <h2 class="text-secondary"><div id="clock"> &nbsp;</div></h2>
         </div>
 
-        <div class="container mb-5">
-            <div class="d-flex">
+        <div class="mb-5">
+            <div class="d-flex justify-content-start">
                 <?php $jumlahpengadaanEks = DB::table('pengadaan')->where('kategori','=','eksternal')->count(); ?>
                 @if($jumlahpengadaanEks != 0)
                 <div class="box mx-2" style="background-color: #00D1B8; padding: 30px; padding-left: 35px; padding-right: 35px; border-radius: 10px; font-size: 2em; color: white; font-weight: bold; text-align: center">
@@ -261,19 +262,6 @@
     </div>
 
 
-   @if(Session::has('success'))
-    <script type="text/javascript">
-        swal({
-                title:'Berhasil',
-                text:"{{Session::get('success')}}",
-                timer:2000,
-                icon: "success",
-                type:'success'
-            }).then((value) => {
-            //location.reload();
-        }).catch(swal.noop);
-    </script>
-    @endif
 
     <!-- GET CURRENT DATE AND TIME INDONESIA -->
 

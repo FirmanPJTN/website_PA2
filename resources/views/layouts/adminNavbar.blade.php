@@ -10,10 +10,10 @@
 
     <ul class="list-unstyled components">
         <li>
-            <a href="{{route('dashboard')}}"><span class="iconify" data-icon="ant-design:home-filled" data-height="25"></span>&nbsp;&nbsp;&nbsp;&nbsp;Dashboard</a>
+            <a href="{{route('dashboard')}}"><span class="iconify" data-icon="ant-design:home-filled" data-height="25"></span>&nbsp;&nbsp;&nbsp;&nbsp;Beranda</a>
         </li>
         <li>
-            <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><span class="iconify" data-icon="eos-icons:cluster-management" data-height="25"></span>&nbsp;&nbsp;&nbsp;&nbsp;Manajemen Aset</a>
+            <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><span class="iconify" data-icon="eos-icons:cluster-management" data-height="25"></span>&nbsp;&nbsp;&nbsp;&nbsp;Manajemen</a>
             <ul class="collapse list-unstyled" id="homeSubmenu">
                 <li>
                     <a href="/ManajemenAset/DataAset">Data Aset</a>
@@ -27,7 +27,7 @@
             </ul>
         </li>
         <li>
-            <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><span class="iconify" data-icon="bi:eye-fill" data-height="25"></span>&nbsp;&nbsp;&nbsp;&nbsp;Monitoring Aset</a>
+            <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><span class="iconify" data-icon="bi:eye-fill" data-height="25"></span>&nbsp;&nbsp;&nbsp;&nbsp;Monitoring</a>
             <ul class="collapse list-unstyled" id="pageSubmenu">
                 <li>
                     <a href="/MonitoringAset/PerencanaanMonitoring">Perencanaan Monitoring</a>

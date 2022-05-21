@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Laravel</title>
+    <title>Beranda</title>
+    <link rel="icon" type="image/png" href="background/title.png">
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
@@ -53,7 +54,7 @@
 
         <nav aria-label="breadcrumb mb-5" class="bg-light">
             <ol class="breadcrumb mx-3 mt-2" style="color: RGBA(107,107,107,0.75)">
-                <li class="breadcrumb-item active fw-bold "><a href="#"><span class="iconify" data-icon="ant-design:home-filled" data-height="20"></span>&nbsp;&nbsp;&nbsp;&nbsp;Dashboard</a></li>
+                <li class="breadcrumb-item active fw-bold "><a href="#"><span class="iconify" data-icon="ant-design:home-filled" data-height="20"></span>&nbsp;&nbsp;&nbsp;&nbsp;Beranda</a></li>
             </ol>
         </nav>
 
@@ -115,19 +116,19 @@
 
             <div class="graph ml-3 mr-3">
                 <div class="card rounded"  style="padding: 50px">
-                    <div class="card-body ">
+                    <div class="card-body">
                         {!! $asetChart2->container() !!}
                     </div>
-                    <h5 class="card-title text-center">Statistik Aset Per Tahun <?= date("Y"); ?></h5>
+                    <h5 class="card-title text-center">Statistik Aset Tahun <?= date("Y"); ?></h5>
                 </div>
             </div>
 
             <div class="graph ml-5">
                 <div class="card rounded"  style="padding: 50px">
-                    <div class="card-body ">
+                    <div class="card-body">
                         {!! $userChart->container() !!}
                     </div>
-                    <h5 class="card-title text-center">Statistik Pengguna Per Tahun <?= date("Y"); ?></h5>
+                    <h5 class="card-title text-center">Statistik Pengguna Tahun <?= date("Y"); ?></h5>
                 </div>
             </div>
 
@@ -140,7 +141,7 @@
                     <div class="card-body py-3 px-3">
                         {!! $asetChart->container() !!}
                     </div>
-                    <h5 class="card-title text-center">Statistik Aset Per Gedung <?= date("Y"); ?></h5>
+                    <h3 class="card-title text-center">Statistik Aset Per Gedung Tahun <?= date("Y"); ?></h3>
                 </div>
             </div>
         </div>
@@ -327,20 +328,6 @@
 
      <script type="text/javascript" src="../../js/scriptDeleteConfirmPengadaanVisitor.js"></script>
 
-
-    @if(Session::has('success'))
-        <script type="text/javascript">
-            swal({
-                    title:'Berhasil',
-                    text:"{{Session::get('success')}}",
-                    timer:2000,
-                    icon: "success",
-                    type:'success'
-                }).then((value) => {
-                //location.reload();
-            }).catch(swal.noop);
-        </script>
-    @endif
 
     <!-- jQuery CDN - Slim version (=without AJAX) -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

@@ -49,8 +49,8 @@
 
         <nav aria-label="breadcrumb" class="bg-light">
             <ol class="breadcrumb mx-3 mt-2" style="color: RGBA(107,107,107,0.75)">
-                <li class="breadcrumb-item"><a href="{{route('dashboard')}}"><span class="iconify" data-icon="ant-design:home-filled" data-height="20"></span>&nbsp;&nbsp;&nbsp;&nbsp;Dashboard</a></li>
-                <li class="breadcrumb-item" aria-current="page"><a href="#">&nbsp;&nbsp;&nbsp;<span class="iconify" data-icon="bx:user-pin" data-height="25"></span>&nbsp;&nbsp; Profil</a></li>
+                <li class="breadcrumb-item"><a href="/visitor/dashboard"><span class="iconify" data-icon="ant-design:home-filled" data-height="20"></span>&nbsp;&nbsp;&nbsp;&nbsp;Beranda</a></li>
+                <li class="breadcrumb-item active fw-bold text-color" aria-current="page"><a href="#">&nbsp;&nbsp;&nbsp;<span class="iconify" data-icon="bx:user-pin" data-height="25"></span>&nbsp;&nbsp; Profil</a></li>
             </ol>
         </nav>
 

@@ -4,7 +4,8 @@
 <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Laravel</title>
+    <title>Beranda</title>
+    <link rel="icon" type="image/png" href="../../background/title.png">
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
@@ -54,7 +55,7 @@
 
         <nav aria-label="breadcrumb" class="bg-light  mb-5">
             <ol class="breadcrumb mx-3 mt-2" style="color: RGBA(107,107,107,0.75)">
-                <li class="breadcrumb-item active fw-bold text-color"><a href="#"><span class="iconify" data-icon="ant-design:home-filled" data-height="20"></span>&nbsp;&nbsp;&nbsp;&nbsp;Dashboard</a></li>
+                <li class="breadcrumb-item active fw-bold text-color"><a href="#"><span class="iconify" data-icon="ant-design:home-filled" data-height="20"></span>&nbsp;&nbsp;&nbsp;&nbsp;Beranda</a></li>
             </ol>
         </nav>
 
@@ -65,8 +66,8 @@
             <h2 class="text-secondary"><div id="clock"> &nbsp;</div></h2>
         </div>
 
-        <div class="container mb-5">
-            <div class="d-flex">
+        <div class="mb-5">
+            <div class="d-flex justify-content-start">
                 <?php $jumlahpengadaan = DB::table('pengadaan')->count(); ?>
                 @if($jumlahpengadaan != 0)
                 <div class="box mx-2" style="background-color: #00D1B8; padding: 30px; padding-left: 35px; padding-right: 35px; border-radius: 10px; font-size: 2em; color: white; font-weight: bold; text-align: center">

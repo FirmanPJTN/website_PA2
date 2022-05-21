@@ -385,10 +385,23 @@ class PengadaanController extends Controller
 
         ];
 
+        $gd1 = DataAset::where('gedung','Gedung 1')->count();
+        $gd2 = DataAset::where('gedung','Gedung 2')->count();
+        $gd3 = DataAset::where('gedung','Gedung 3')->count();
+        $gd4 = DataAset::where('gedung','Gedung 4')->count();
+        $gd56 = DataAset::where('gedung','Gedung 5 dan 6')->count();
+        $gd7 = DataAset::where('gedung','Gedung 7')->count();
+        $gd8 = DataAset::where('gedung','Gedung 8')->count();
+        $gd9 = DataAset::where('gedung','Gedung 9')->count();
+        $gdek = DataAset::where('gedung','Gedung Ex Koperasi')->count();
+        $gdb = DataAset::where('gedung','Gedung Besar (Utama)')->count();
+        $gdc = DataAset::where('gedung','Container Park')->count();
+        $gda = DataAset::where('gedung','Asrama Perpustakaan')->count();
+
 
         $asetChart = new AsetChart;
         $asetChart->labels(['Gedung 1', 'Gedung 2', 'Gedung 3','Gedung 4','Gedung 5 dan 6','Gedung 7','Gedung 8','Gedung 9','Gedung Ex Koperasi','Gedung Besar (Utama)','Container Park','Asrama Perpustakaan']);
-        $asetChart->dataset('Statistik', 'bar', [10, 25, 13,20,10, 25, 13,20,10, 25, 13,20])
+        $asetChart->dataset('Statistik', 'bar', [$gd1,$gd2,$gd3,$gd4,$gd56,$gd7,$gd8,$gd9,$gdek,$gdb,$gdc,$gda])
             ->color($borderColors)
             ->backgroundcolor($fillColors);
 

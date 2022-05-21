@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Laravel</title>
+    <title>Kelola Pengguna</title>
+    <link rel="icon" type="image/png" href="../../background/title.png">
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
@@ -34,6 +35,7 @@
     <link rel="stylesheet" href="css/styleNavbar.css">
 </head>
 <body>
+@include('sweetalert::alert')
 <div class="wrapper">
         <!-- Sidebar Admin Layout -->
         @include('layouts.adminNavbar')
@@ -48,7 +50,7 @@
 
         <nav aria-label="breadcrumb" class="bg-light">
             <ol class="breadcrumb mx-3 mt-2" style="color: RGBA(107,107,107,0.75)">
-                <li class="breadcrumb-item"><a href="{{route('dashboard')}}"><span class="iconify" data-icon="ant-design:home-filled" data-height="20"></span>&nbsp;&nbsp;&nbsp;&nbsp;Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="{{route('dashboard')}}"><span class="iconify" data-icon="ant-design:home-filled" data-height="20"></span>&nbsp;&nbsp;&nbsp;&nbsp;Beranda</a></li>
                 <li class="breadcrumb-item active fw-bold" aria-current="page"><a href="#"><span class="iconify" data-icon="bxs:user-rectangle" data-height="20"></span> Kelola Pengguna</a></li>
             </ol>
         </nav>
@@ -58,24 +60,12 @@
 
         <div class="d-flex mt-4 ml-4 justify-content-start">
         
-            <a href="/KelolaPengguna/Tambah" class="btn btn-primary mx-2">Tambah Data</a>
+            <a href="/KelolaPengguna/Tambah" class="btn btn-primary">Tambah Data</a>
 
             <a href="/KelolaPengguna/KelolaUnit" class="btn btn-info mx-4">Kelola Unit</a>
         </div>
 
-            <div class="d-flex mt-4 ml-4 justify-content-start">
-                <p>Tampilkan 
-                    <select name="rowNum" id="rowNum" onchange="getSelectedValue();">
-                    <?php $numRow=1 ?>
-                    @foreach ($users as $user)
-                        <option value="{{$numRow*5}}">{{$numRow*5}}</option>
-                    <?php $numRow++; ?>
-                    @endforeach
-                    </select>
-                </p>
-            </div>
-
-            <div class="container float-left mb-5">
+            <div class="container float-left mb-5 mx-2">
             <table class="table table-striped table-bordered mb-5">
                 <thead>
                     <tr>
@@ -127,19 +117,6 @@
 
     <script type="text/javascript" src="../../js/scriptDeleteConfirmPengguna.js"></script>
 
-    @if(Session::has('success'))
-    <script type="text/javascript">
-        swal({
-                title:'Berhasil',
-                text:"{{Session::get('success')}}",
-                timer:2000,
-                icon: "success",
-                type:'success'
-            }).then((value) => {
-            //location.reload();
-        }).catch(swal.noop);
-    </script>
-    @endif
 
     <!-- jQuery CDN - Slim version (=without AJAX) -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

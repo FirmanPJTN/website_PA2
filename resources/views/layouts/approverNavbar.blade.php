@@ -10,7 +10,7 @@
 
     <ul class="list-unstyled components">
         <li>
-            <a href="/approver/dashboard"><span class="iconify" data-icon="ant-design:home-filled" data-height="25"></span>&nbsp;&nbsp;&nbsp;&nbsp;Dashboard</a>
+            <a href="/approver/dashboard"><span class="iconify" data-icon="ant-design:home-filled" data-height="25"></span>&nbsp;&nbsp;&nbsp;&nbsp;Beranda</a>
         </li>
         <li>
             <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><span class="iconify" data-icon="healthicons:i-documents-accepted" data-height="30"></span>&nbsp;&nbsp;&nbsp;&nbsp;Persetujuan</a>
