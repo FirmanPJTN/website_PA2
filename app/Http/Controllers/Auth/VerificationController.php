@@ -37,7 +37,9 @@ class VerificationController extends Controller
             $redirectTo = RouteServiceProvider::APPROVER;
         } else if(auth()->user()->role=='transactor') {
             $redirectTo = RouteServiceProvider::TRANSACTOR;
-        } 
+        } else {
+            $redirectTo = back();
+        }
         return $redirectTo;
     }
 

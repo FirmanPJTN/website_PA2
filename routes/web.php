@@ -23,24 +23,16 @@ Route::get('/daftar', function () {
 
 Route::post('/daftar/simpan',  [App\Http\Controllers\Auth\RegisterController::class, 'create'])->name('simpan-daftar');
 
-
 Route::get('/restricted', [App\Http\Controllers\HomeController::class, 'restricted'])->middleware(['role']);
 
 
 Auth::routes();
 
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-
-
-// Route::get('/', function () {
-//     return view('admin/dashboard');
-// });
 
 
 // ADMIN
 
-Route::group(['middleware' => 'auth','isAdmin:administrator'],function(){
+Route::middleware(['auth','isAdmin:administrator'])->group(function(){
 
     Route::get('/admin', function () {
         return view('admin/dashboard');
@@ -177,7 +169,7 @@ Route::group(['middleware' => 'auth','isAdmin:administrator'],function(){
 
 
 // VISITOR
-Route::group(['middleware' => 'auth','isAdmin:visitor'],function(){
+Route::middleware(['auth','isAdmin:visitor'])->group(function(){
 
     //  DASHBOARD 
     Route::get('/visitor/dashboard', 'PeminjamanController@index')->name('visitor-dashboard');
@@ -232,7 +224,7 @@ Route::group(['middleware' => 'auth','isAdmin:visitor'],function(){
 });
 
 // APPROVER
-Route::group(['middleware' => 'auth','isAdmin:approver'],function(){
+Route::middleware(['auth','isAdmin:approver'])->group(function(){
 
     Route::get('/approver/dashboard', 'PengadaanController@dashboardApprover')->name('dashboard-approver');
 
@@ -282,7 +274,7 @@ Route::group(['middleware' => 'auth','isAdmin:approver'],function(){
 
 // TRANSACTOR
 
-Route::group(['middleware' => 'auth','isAdmin:transactor'],function(){
+Route::middleware(['auth','isAdmin:transactor'])->group(function(){
 
     Route::get('/transactor/dashboard', function () {
         return view('transactor.dashboard');

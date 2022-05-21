@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use Illuminate\Support\Facades\Auth;
 use Closure;
 use Illuminate\Http\Request;
 
@@ -14,19 +15,15 @@ class isAdmin
      * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
-    public function handle(Request $request, Closure $next)
+    public function handle(Request $request, Closure $next, $roles)
     {
         
-        $roles=["administrator", "visitor", "approver", "transactor"];
-
-        if (Auth::user()->in_array($roles)) { 
+        if (Auth::user()->role == $roles) { 
 	        return $next($request);
         } else {
-            abort(403, "Cannot access to restricted page");
+            abort(403, "Anda tidak memiliki hak akses");
         }
 
-        
         return redirect('/');
-
     }
 }
