@@ -39,8 +39,6 @@
     <link rel="stylesheet" href="../../css/styleNavbar.css">
 </head>
 <body>
-@include('sweetalert::alert')
-
 
 <div class="wrapper">
         <!-- Sidebar Admin Layout -->
@@ -78,23 +76,6 @@
                         <div class="alert-danger mt-1">{{$message}}</div>
                     @enderror
 
-                    <div class="form-group mt-3">
-                        <div class="d-flex justify-content-center">
-                            <label class="mx-4 w-25">Kategori</label>
-                            <select class="form-control custom-select mx-4" name="kategori" id="kategori">
-                                <option value="">▼ pilih kategori</option>
-                                <option value="Mebeler" <?php if (old('kategori') == 'Mebeler') {?>selected="selected"<?php } ?>>Mebeler</option>
-                                <option value="Alat Tulis / PC / Notebook" <?php if (old('kategori') == 'Alat Tulis / PC / Notebook') {?>selected="selected"<?php } ?>> Alat Tulis / PC / Notebook</option>
-                                <option value="Audio Visual" <?php if (old('kategori') == 'Audio Visual') {?>selected="selected"<?php } ?>>Audio Visual</option>
-                                <option value="Peralatan Rumah Tangga, Wisma dan Asrama" <?php if (old('kategori') == 'Peralatan Rumah Tangga, Wisma dan Asrama') {?>selected="selected"<?php } ?>>Peralatan Rumah Tangga, Wisma dan Asrama</option>
-                                <option value="Barang Persediaan Kampus" <?php if (old('kategori') == 'Barang Persediaan Kampus') {?>selected="selected"<?php } ?>>Barang Persediaan Kampus</option>
-                                <option value="Alat - Alat Lab, Peraga, Kesenian, Kesehatan dll" <?php if (old('kategori') == 'Alat - Alat Lab, Peraga, Kesenian, Kesehatan dll') {?>selected="selected"<?php } ?>> Alat - Alat Lab, Peraga, Kesenian, Kesehatan dll</option>
-                            </select>
-                        </div>
-                    </div>
-                    @error('kategori')
-                        <div class="alert-danger mt-1">{{$message}}</div>
-                    @enderror
 
                     <div class="form-group mt-3">
                         <div class="d-flex justify-content-center">
@@ -117,10 +98,31 @@
                     @enderror
 
                     <div class="form-group mt-3">
+                        <div class="d-flex justify-content-center">
+                            <label class="mx-4 w-25">Kategori</label>
+                            <select class="form-control custom-select mx-4" name="kategori" id="kategori">
+                                <option value="">pilih kategori</option>
+                                <option value="Mebeler" <?php if (old('kategori') == 'Mebeler') {?>selected="selected"<?php } ?>>Mebeler</option>
+                                <option value="Alat Tulis / PC / Notebook" <?php if (old('kategori') == 'Alat Tulis / PC / Notebook') {?>selected="selected"<?php } ?>> Alat Tulis / PC / Notebook</option>
+                                <option value="Audio Visual" <?php if (old('kategori') == 'Audio Visual') {?>selected="selected"<?php } ?>>Audio Visual</option>
+                                <option value="Peralatan Rumah Tangga, Wisma dan Asrama" <?php if (old('kategori') == 'Peralatan Rumah Tangga, Wisma dan Asrama') {?>selected="selected"<?php } ?>>Peralatan Rumah Tangga, Wisma dan Asrama</option>
+                                <option value="Barang Persediaan Kampus" <?php if (old('kategori') == 'Barang Persediaan Kampus') {?>selected="selected"<?php } ?>>Barang Persediaan Kampus</option>
+                                <option value="Jaringan" <?php if (old('kategori') == 'Jaringan') {?>selected="selected"<?php } ?>> Jaringan</option>
+                                <option value="Perlengkapan Maintenance" <?php if (old('kategori') == 'Perlengkapan Maintenance') {?>selected="selected"<?php } ?>> Perlengkapan Maintenance</option>
+                                <option value="Perlengkapan Taman" <?php if (old('kategori') == 'Perlengkapan Taman') {?>selected="selected"<?php } ?>> Perlengkapan Taman</option>
+                                <option value="Alat - Alat Lab, Peraga, Kesenian, Kesehatan dll" <?php if (old('kategori') == 'Alat - Alat Lab, Peraga, Kesenian, Kesehatan dll') {?>selected="selected"<?php } ?>> Alat - Alat Lab, Peraga, Kesenian, Kesehatan dll</option>
+                            </select>
+                        </div>
+                    </div>
+                    @error('kategori')
+                        <div class="alert-danger mt-1">{{$message}}</div>
+                    @enderror
+
+                    <div class="form-group mt-3">
                        <div class="d-flex justify-content-center">
                             <label class="mx-4 w-25">Kategori Pakai</label>
                             <select class="form-control custom-select mx-4" name="kategoriPakai" id="kategoriPakai">
-                                <option value="">▼ pilih kategori pakai</option>
+                                <option value="">pilih kategori pakai</option>
                                 <option value="0" <?php if (old('kategoriPakai') == '0') {?>selected="selected"<?php } ?>>Barang Tidak Habis (Eksternal)</option>
                                 <option value="1" <?php if (old('kategoriPakai') == '1') {?>selected="selected"<?php } ?>>Barang Habis (Internal)</option>
                             </select>
@@ -163,9 +165,33 @@
 
                     <div class="form-group mt-3">
                         <div class="d-flex justify-content-center">
+                            <label class="mx-4 w-25">Gedung</label>
+                            <select class="form-control custom-select mx-4" name="gedung" id="gedung">
+                                <option value="">pilih gedung</option>
+                                <option value="Gedung 1" <?php if (old('gedung') == 'Gedung 1') {?>selected="selected"<?php } ?>>Gedung 1</option>
+                                <option value="Gedung 2" <?php if (old('gedung') == 'Gedung 2') {?>selected="selected"<?php } ?>> Gedung 2</option>
+                                <option value="Gedung 3" <?php if (old('gedung') == 'Gedung 3') {?>selected="selected"<?php } ?>>Gedung 3</option>
+                                <option value="Gedung 4" <?php if (old('gedung') == 'Gedung 4') {?>selected="selected"<?php } ?>>Gedung 4</option>
+                                <option value="Gedung 5 dan 6" <?php if (old('gedung') == 'Gedung 5 dan 6') {?>selected="selected"<?php } ?>>Gedung 5 dan 6</option>
+                                <option value="Gedung 7" <?php if (old('gedung') == 'Gedung 7') {?>selected="selected"<?php } ?>> Gedung 7</option>
+                                <option value="Gedung 8" <?php if (old('gedung') == 'Gedung 8') {?>selected="selected"<?php } ?>> Gedung 8</option>
+                                <option value="Gedung 9" <?php if (old('gedung') == 'Gedung 9') {?>selected="selected"<?php } ?>> Gedung 9</option>
+                                <option value="Gedung Ex Koperasi" <?php if (old('gedung') == 'Gedung Ex Koperasi') {?>selected="selected"<?php } ?>> Gedung Ex Koperasi</option>
+                                <option value="Gedung Besar (Utama)" <?php if (old('gedung') == 'Gedung Besar (Utama)') {?>selected="selected"<?php } ?>> Gedung Besar (Utama)</option>
+                                <option value="Container Park" <?php if (old('gedung') == 'Container Park') {?>selected="selected"<?php } ?>> Container Park</option>
+                                <option value="Asrama Perpustakaan" <?php if (old('gedung') == 'Asrama Perpustakaan') {?>selected="selected"<?php } ?>> Asrama Perpustakaan</option>
+                            </select>
+                        </div>
+                    </div>
+                    @error('gedung')
+                        <div class="alert-danger mt-1">{{$message}}</div>
+                    @enderror
+
+                    <div class="form-group mt-3">
+                        <div class="d-flex justify-content-center">
                             <label class="mx-4 w-25">Unit</label>
                             <select class="form-control custom-select mx-4" name="unit" id="unit">
-                                <option value="">▼ pilih unit</option>
+                                <option value="">pilih unit</option>
                                 @foreach($units as $unit)
                                 <option value="{{$unit->unit}}" <?php if (old('{{$unit->unit}}') == '{{$unit->unit}}') {?>selected="selected"<?php } ?>>{{$unit->unit}}</option>
                                 @endforeach
@@ -177,11 +203,12 @@
                     @enderror
 
                     <div class="form-group mt-5">
-                        <div class="d-flex justify-content-end">
-                            <a href="/ManajemenAset/DataAset" class="btn btn-secondary mx-1">Batal</a>
-                            <button type="submit" class="btn btn-info mx-1">Kirim</button>
+                        <div class="d-flex justify-content-center">
+                            <a href="/ManajemenAset/DataAset" class="btn btn-secondary mx-4" style="width: 40%">Batal</a>
+                            <button type="submit" class="btn btn-info mx-4" style="width: 40%">Kirim</button>
                         </div>
                     </div>
+
                 </form>
 
             </div>

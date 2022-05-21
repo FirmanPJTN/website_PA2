@@ -34,8 +34,6 @@
     <link rel="stylesheet" href="../../../css/styleNavbar.css">
 </head>
 <body>
-@include('sweetalert::alert')
-
 
 <div class="wrapper">
         <!-- Sidebar Admin Layout -->
@@ -70,20 +68,6 @@
                     </div>
                     <div class="form-group mt-3">
                         <div class="d-flex justify-content-center">
-                            <label class="mx-4 w-25">Kategori</label>
-                            <select class="form-control custom-select mx-4" name="kategori" id="kategori" value="{{ $aset -> kategori}}">
-                                <option value="{{ $aset -> kategori}}">▼ {{ $aset -> kategori}} (Ganti kategori)</option>
-                                <option value="Mebeler">Mebeler</option>
-                                <option value="Alat Tulis / PC / Notebook"> Alat Tulis / PC / Notebook</option>
-                                <option value="Audio Visual">Audio Visual</option>
-                                <option value="Peralatan Rumah Tangga, Wisma dan Asrama">Peralatan Rumah Tangga, Wisma dan Asrama</option>
-                                <option value="Barang Persediaan Kampus">Barang Persediaan Kampus</option>
-                                <option value=" Alat - Alat Lab, Peraga, Kesenian, Kesehatan dll"> Alat - Alat Lab, Peraga, Kesenian, Kesehatan dll</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group mt-3">
-                        <div class="d-flex justify-content-center">
                             <label class="mx-4 w-25">Jenis Barang</label>
                             <input type="text" name="jenisBarang" class="form-control mx-4" value="{{$aset -> jenisBarang}}">
                         </div>
@@ -100,12 +84,26 @@
                             <input type="number" name="jumlahBarang" class="form-control mx-4" value="{{$aset -> jumlahBarang}}">
                         </div>
                     </div>
+                    
+                    <div class="form-group mt-3">
+                        <div class="d-flex justify-content-center">
+                            <label class="mx-4 w-25">Kategori</label>
+                            <select class="form-control custom-select mx-4" name="kategori" id="kategori" value="{{ $aset -> kategori}}">
+                                <option value="{{ $aset -> kategori}}">{{ $aset -> kategori}} (Ganti kategori)</option>
+                                <option value="Mebeler">Mebeler</option>
+                                <option value="Alat Tulis / PC / Notebook"> Alat Tulis / PC / Notebook</option>
+                                <option value="Audio Visual">Audio Visual</option>
+                                <option value="Peralatan Rumah Tangga, Wisma dan Asrama">Peralatan Rumah Tangga, Wisma dan Asrama</option>
+                                <option value="Barang Persediaan Kampus">Barang Persediaan Kampus</option>
+                                <option value=" Alat - Alat Lab, Peraga, Kesenian, Kesehatan dll"> Alat - Alat Lab, Peraga, Kesenian, Kesehatan dll</option>
+                            </select>
+                        </div>
+                    </div>
                     <div class="form-group mt-3">
                         <div class="d-flex justify-content-center">
                             <label class="mx-4 w-25">Kategori Pakai</label>
                             <select class="form-control custom-select mx-4" name="kategoriPakai" id="kategoriPakai" value="{{ $aset -> isInternal}}">
-                                <option value="{{ $aset -> isInternal}}">▼
-                                    <?php if ($aset -> isInternal == '0') {?> Barang Tidak Habis (Eksternal) (Ganti kategori) <?php } ?>
+                                <option value="{{ $aset -> isInternal}}"><?php if ($aset -> isInternal == '0') {?> Barang Tidak Habis (Eksternal) (Ganti kategori) <?php } ?>
                                     <?php if ($aset -> isInternal == '1') {?> Barang Habis (Internal) (Ganti kategori) <?php } ?>
                                 </option>
                                 <option value="0">Barang Tidak Habis (Eksternal)</option>
@@ -127,9 +125,29 @@
                     </div>
                     <div class="form-group mt-3">
                         <div class="d-flex justify-content-center">
+                            <label class="mx-4 w-25">Gedung</label>
+                            <select class="form-control custom-select mx-4" name="gedung" id="gedung">
+                                <option value="{{$aset -> gedung}}">{{$aset -> gedung}} (Ganti Gedung)</option>
+                                <option value="Gedung 1" <?php if (old('gedung') == 'Gedung 1') {?>selected="selected"<?php } ?>>Gedung 1</option>
+                                <option value="Gedung 2" <?php if (old('gedung') == 'Gedung 2') {?>selected="selected"<?php } ?>> Gedung 2</option>
+                                <option value="Gedung 3" <?php if (old('gedung') == 'Gedung 3') {?>selected="selected"<?php } ?>>Gedung 3</option>
+                                <option value="Gedung 4" <?php if (old('gedung') == 'Gedung 4') {?>selected="selected"<?php } ?>>Gedung 4</option>
+                                <option value="Gedung 5 dan 6" <?php if (old('gedung') == 'Gedung 5 dan 6') {?>selected="selected"<?php } ?>>Gedung 5 dan 6</option>
+                                <option value="Gedung 7" <?php if (old('gedung') == 'Gedung 7') {?>selected="selected"<?php } ?>> Gedung 7</option>
+                                <option value="Gedung 8" <?php if (old('gedung') == 'Gedung 8') {?>selected="selected"<?php } ?>> Gedung 8</option>
+                                <option value="Gedung 9" <?php if (old('gedung') == 'Gedung 9') {?>selected="selected"<?php } ?>> Gedung 9</option>
+                                <option value="Gedung Ex Koperasi" <?php if (old('gedung') == 'Gedung Ex Koperasi') {?>selected="selected"<?php } ?>> Gedung Ex Koperasi</option>
+                                <option value="Gedung Besar (Utama)" <?php if (old('gedung') == 'Gedung Besar (Utama)') {?>selected="selected"<?php } ?>> Gedung Besar (Utama)</option>
+                                <option value="Container Park" <?php if (old('gedung') == 'Container Park') {?>selected="selected"<?php } ?>> Container Park</option>
+                                <option value="Asrama Perpustakaan" <?php if (old('gedung') == 'Asrama Perpustakaan') {?>selected="selected"<?php } ?>> Asrama Perpustakaan</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group mt-3">
+                        <div class="d-flex justify-content-center">
                             <label class="mx-4 w-25">Unit</label>
                             <select class="form-control custom-select mx-4" name="unit" id="unit">
-                                <option value="{{$aset->unit}}">▼ {{$aset->unit}} (Ganti Unit)</option>
+                                <option value="{{$aset->unit}}">{{$aset->unit}} (Ganti Unit)</option>
                                 @foreach($units as $unit)
                                 <option value="{{$unit->unit}}" <?php if (old('{{$unit->unit}}') == '{{$unit->unit}}') {?>selected="selected"<?php } ?>>{{$unit->unit}}</option>
                                 @endforeach
@@ -137,9 +155,9 @@
                         </div>
                     </div>
                     <div class="form-group mt-5">
-                        <div class="d-flex justify-content-end">
-                            <a href="/ManajemenAset/DataAset" class="btn btn-secondary mx-1">Batal</a>
-                            <button type="submit" class="btn btn-warning mx-1">Ubah</button>
+                        <div class="d-flex justify-content-center">
+                            <a href="/ManajemenAset/DataAset" class="btn btn-secondary mx-4" style="width: 40%">Batal</a>
+                            <button type="submit" class="btn btn-warning mx-4" style="width: 40%">Ubah</button>
                         </div>
                     </div>
                 </form>

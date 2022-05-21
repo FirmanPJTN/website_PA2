@@ -6,6 +6,9 @@ use App\Models\Pengadaan;
 use App\Models\Pembelian;
 use App\Models\Peminjaman;
 use App\Models\Pemusnahan;
+use App\Models\Monitoring;
+use App\Models\DataAset;
+use App\Charts\AsetChart;
 use app\Models\User;
 use App\Models\Notifikasi;
 use Illuminate\Http\Request;
@@ -346,11 +349,88 @@ class PengadaanController extends Controller
 
     public function dashboardAdmin()
     {
-        $peminjaman = Peminjaman::paginate(5);
-        $pengadaan = Pengadaan::paginate(5);
-        $monitoring = Monitoring::paginate(5);
-        $pemusnahan = Pemusnahan::paginate(5);
+        $aset = DataAset::all();
+        $peminjaman = Peminjaman::all();
+        $pengadaan = Pengadaan::all();
+        $monitoring = Monitoring::all();
+        $pemusnahan = Pemusnahan::all();
 
-        return view('admin.dashboard', compact('peminjaman', 'pengadaan','monitoring', 'pemusnahan'));
+        $borderColors = [
+            "rgba(255, 99, 132, 1.0)",
+            "rgba(22,160,133, 1.0)",
+            "rgba(255, 205, 86, 1.0)",
+            "rgba(51,105,232, 1.0)",
+            "rgba(244,67,54, 1.0)",
+            "rgba(34,198,246, 1.0)",
+            "rgba(153, 102, 255, 1.0)",
+            "rgba(255, 159, 64, 1.0)",
+            "rgba(233,30,99, 1.0)",
+            "rgba(205,220,57, 1.0)",
+            "rgba(255, 99, 132, 1.0)",
+            "rgba(22,160,133, 1.0)",
+        ];
+        $fillColors = [
+            "rgba(255, 99, 132, 0.2)",
+            "rgba(22,160,133, 0.2)",
+            "rgba(255, 205, 86, 0.2)",
+            "rgba(51,105,232, 0.2)",
+            "rgba(244,67,54, 0.2)",
+            "rgba(34,198,246, 0.2)",
+            "rgba(153, 102, 255, 0.2)",
+            "rgba(255, 159, 64, 0.2)",
+            "rgba(233,30,99, 0.2)",
+            "rgba(205,220,57, 0.2)",
+            "rgba(255, 99, 132, 0.2)",
+            "rgba(22,160,133, 0.2)",
+
+        ];
+
+
+        $asetChart = new AsetChart;
+        $asetChart->labels(['Gedung 1', 'Gedung 2', 'Gedung 3','Gedung 4','Gedung 5 dan 6','Gedung 7','Gedung 8','Gedung 9','Gedung Ex Koperasi','Gedung Besar (Utama)','Container Park','Asrama Perpustakaan']);
+        $asetChart->dataset('Statistik', 'bar', [10, 25, 13,20,10, 25, 13,20,10, 25, 13,20])
+            ->color($borderColors)
+            ->backgroundcolor($fillColors);
+
+
+
+
+        $jan = DataAset::whereMonth('created_at', '01')->count();
+        $feb = DataAset::whereMonth('created_at', '02')->count();
+        $mar = DataAset::whereMonth('created_at', '03')->count();
+        $apr = DataAset::whereMonth('created_at', '04')->count();
+        $may = DataAset::whereMonth('created_at', '05')->count();
+        $jun = DataAset::whereMonth('created_at', '06')->count();
+        $jul = DataAset::whereMonth('created_at', '07')->count();
+        $aug = DataAset::whereMonth('created_at', '08')->count();
+        $sep = DataAset::whereMonth('created_at', '09')->count();
+        $oct = DataAset::whereMonth('created_at', '10')->count();
+        $nov = DataAset::whereMonth('created_at', '11')->count();
+        $des = DataAset::whereMonth('created_at', '12')->count();   
+
+        $asetChart2 = new AsetChart;
+        $asetChart2->labels(['Januari', 'Februari', 'Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember']);
+        $asetChart2->dataset('Statistik', 'line', [$jan,$feb,$mar,$apr,$may,$jun,$jul,$aug,$sep,$oct,$nov,$des])
+            ->color($borderColors)
+            ->backgroundcolor("rgb(255, 99, 132)")
+            ->fill(false)
+            ->linetension(0.1);
+
+
+
+        $admin = User::where('role','administrator')->count();
+        $visitor = User::where('role','visitor')->count();
+        $approver = User::where('role','approver')->count();
+        $transactor = User::where('role','transactor')->count();
+
+        $userChart = new AsetChart;
+        $userChart->labels(['Administrator', 'Visitor', 'Approver','Transactor']);
+        $userChart->dataset('', 'doughnut', [$admin, $visitor, $approver,$transactor])
+            ->color($borderColors)
+            ->backgroundcolor($fillColors);
+
+
+
+        return view('admin.dashboard', compact('peminjaman', 'pengadaan','monitoring', 'pemusnahan','aset','asetChart', 'asetChart2','userChart'));
     }
 }

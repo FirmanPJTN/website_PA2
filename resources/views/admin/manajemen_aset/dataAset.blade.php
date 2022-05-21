@@ -45,6 +45,7 @@
 <body>
 
 
+@include('sweetalert::alert')
 <div class="wrapper">
         <!-- Sidebar Admin Layout -->
         @include('layouts.adminNavbar')
@@ -67,15 +68,6 @@
             
 
             <div class="d-flex mt-4">
-                    <p>Tampilkan 
-                        <select name="rowNum" id="rowNum" onchange="getSelectedValue();">
-                        <?php $numRow=1 ?>
-                        @foreach ($data as $aset)
-                            <option value="{{$numRow*5}}">{{$numRow*5}}</option>
-                        <?php $numRow++; ?>
-                        @endforeach
-                        </select>
-                    </p>
 
                 <div class="d-flex justify-content-end mb-4">
                     <a href="/ManajemenAset/DataAset/Tambah" class="btn btn-primary mx-2">Tambah Data</a>
@@ -116,18 +108,15 @@
                         <td>{{$aset -> penyimpanan}}</td>
                         <td class="text-center">
                             <div class="d-flex">
+                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#abc<?= $aset->id ?>">Detail</button> &nbsp;
                             <a href="/ManajemenAset/DataAset/Ubah/{{$aset -> id}}" class="btn btn-warning">Ubah</a> &nbsp;
                             <a data-id="{{ $aset->id }}" class="btn btn-danger delete" data-kode= "{{$aset -> kodeAset}}"href="#">Hapus</a>
                             </div>
                         </td>
                     </tr>
                     
-                    <?php 
-                        if ($i<$numRow)
-                            $i++;
-                        else 
-                            break; 
-                    ?>
+                    @include('layouts.modalDetailDataAset')
+                    <?php $i++;?>
                     @endforeach
                     
                 </tbody>
@@ -165,20 +154,6 @@
     <!-- SWEET ALERT  -->
 
     <script type="text/javascript" src="../../js/scriptDeleteConfirmAset.js"></script>
-
-    @if(Session::has('success'))
-    <script type="text/javascript">
-        swal({
-                title:'Berhasil',
-                text:"{{Session::get('success')}}",
-                timer:2000,
-                icon: "success",
-                type:'success'
-            }).then((value) => {
-            //location.reload();
-        }).catch(swal.noop);
-    </script>
-    @endif
 
 
     <!-- jQuery CDN - Slim version (=without AJAX) -->

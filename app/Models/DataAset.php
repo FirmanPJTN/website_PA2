@@ -10,7 +10,7 @@ class DataAset extends Model
     use HasFactory;
     protected $table = 'data_asets';
     
-    protected $fillable = ['kodeAset', 'kategori', 'jenisBarang','tipeBarang','jumlahBarang','tglBeli','penyimpanan', 'unit', 'isInternal'];
+    protected $fillable = ['kodeAset', 'kategori', 'jenisBarang','tipeBarang','jumlahBarang','tglBeli','penyimpanan', 'unit', 'isInternal','gedung'];
 
     protected $primaryKey = 'id';
 

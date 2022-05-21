@@ -22,6 +22,7 @@ return new class extends Migration
             $table->integer('jumlahBarang');
             $table->date('tglBeli');
             $table->string('penyimpanan');
+            $table->string('gedung');
             $table->string('unit');
             $table->boolean('isInternal')->default(1);
             $table->string('status')->default("kosong");

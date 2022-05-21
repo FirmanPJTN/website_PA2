@@ -17,7 +17,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    public const HOME = '/ManajemenAset/DataAset';
+    public const HOME = '/dashboard';
     public const VISITOR = '/visitor/dashboard';
     public const APPROVER = '/approver/dashboard';
     public const TRANSACTOR = '/transactor/dashboard';

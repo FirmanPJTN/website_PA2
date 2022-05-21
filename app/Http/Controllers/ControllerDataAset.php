@@ -84,6 +84,7 @@ class ControllerDataAset extends Controller
             'tglBeli'  => 'required',
             'penyimpanan'  => 'required',
             'unit'  => 'required',
+            'gedung'  => 'required',
             'kategoriPakai' => 'required'
         ]);
 
@@ -96,6 +97,7 @@ class ControllerDataAset extends Controller
             'tglBeli'  => $request-> tglBeli,
             'penyimpanan'  => $request-> penyimpanan,
             'unit'  => $request-> unit,
+            'gedung'  => $request-> gedung,
             'kategoriPakai'  => $request-> isInternal
         ]);
 
@@ -148,6 +150,7 @@ class ControllerDataAset extends Controller
             'tglBeli'  => 'required',
             'penyimpanan'  => 'required',
             'unit'  => 'required',
+            'gedung'  => 'required',
             'kategoriPakai' => 'required'
         ]);
 
@@ -161,6 +164,7 @@ class ControllerDataAset extends Controller
         $aset->tglBeli  = $request-> tglBeli;
         $aset->penyimpanan  = $request-> penyimpanan;
         $aset->unit  = $request-> unit;
+        $aset->gedung  = $request-> gedung;
         $aset->isInternal  = $request-> kategoriPakai;
 
         $aset->save();

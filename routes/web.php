@@ -51,7 +51,7 @@ Route::group(['middleware' => 'auth','isAdmin:administrator'],function(){
 
     // Data Aset
 
-    Route::get('/dashboard', 'ControllerDataAset@index')->name('dashboard');
+    Route::get('/dashboard', 'PengadaanController@dashboardAdmin')->name('dashboard');
 
     Route::get('/ManajemenAset/DataAset', 'ControllerDataAset@index');
 
