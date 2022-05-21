@@ -165,6 +165,13 @@ Route::middleware(['auth','isAdmin:administrator'])->group(function(){
 
     Route::post('/profil/password/{id}', 'UserController@updatePassword');
 
+    // NOTIFIKASI
+    Route::get('/notifikasi/{id}','NotifikasiController@destroy')->name('telah-dibaca');
+
+    Route::get('/notifikasiUnit/{unit}','NotifikasiController@destroyInUnit');
+
+    Route::get('/notifikasiRole/{role}','NotifikasiController@destroyInRole');
+
 });
 
 
@@ -207,9 +214,11 @@ Route::middleware(['auth','isAdmin:visitor'])->group(function(){
     Route::post('/visitor/MonitoringAset/PersetujuanMonitoring/Simpan/{id}', 'MonitoringController@prosesPersetujuanMonitoring');
 
     // NOTIFIKASI
-    Route::get('/notifikasi/{id}','NotifikasiController@destroy')->name('telah-dibaca');
+    Route::get('/visitor/notifikasi/{id}','NotifikasiController@destroy')->name('telah-dibaca');
 
-    Route::get('/notifikasiUnit/{unit}','NotifikasiController@destroyInUnit');
+    Route::get('/visitor/notifikasiUnit/{unit}','NotifikasiController@destroyInUnit');
+
+    Route::get('/visitor/notifikasiRole/{role}','NotifikasiController@destroyInRole');
 
     
     // PROFIL 
@@ -270,6 +279,13 @@ Route::middleware(['auth','isAdmin:approver'])->group(function(){
     // DASHBOARD
     Route::get('/approver/dashboard', 'PengadaanController@dashboardApprover')->name('index-approver');
 
+    // NOTIFIKASI
+    Route::get('/approver/notifikasi/{id}','NotifikasiController@destroy')->name('telah-dibaca');
+
+    Route::get('/approver/notifikasiUnit/{unit}','NotifikasiController@destroyInUnit');
+
+    Route::get('/approver/notifikasiRole/{role}','NotifikasiController@destroyInRole');
+
 });
 
 // TRANSACTOR
@@ -297,5 +313,12 @@ Route::middleware(['auth','isAdmin:transactor'])->group(function(){
 
      // DASHBOARD
      Route::get('/transactor/dashboard', 'PengadaanController@dashboardTransactor')->name('index-transactor');
+
+      // NOTIFIKASI
+    Route::get('/transactor/notifikasi/{id}','NotifikasiController@destroy')->name('telah-dibaca');
+
+    Route::get('/transactor/notifikasiUnit/{unit}','NotifikasiController@destroyInUnit');
+
+    Route::get('/transactor/notifikasiRole/{role}','NotifikasiController@destroyInRole');
 
 });

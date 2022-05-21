@@ -96,7 +96,7 @@
                     </li>
                 @endforeach
                 <li class="text-center mt-2">
-                    <a href="/notifikasiUnit/{{Auth::user()->unit}}" style="color:#2a93d5;  text-decoration: underline;">tandai semua telah dibaca</a>
+                    <a href="/notifikasiRole/{{Auth::user()->role}}" style="color:#2a93d5;  text-decoration: underline;">tandai semua telah dibaca</a>
                 </li>
             </ul>
         </div>

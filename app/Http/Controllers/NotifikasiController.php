@@ -92,4 +92,10 @@ class NotifikasiController extends Controller
         $id = Notifikasi::where('unit','=',$unit)->delete();
         return redirect()->back();
     }
+
+    public function destroyInRole($role)
+    {
+        $id = Notifikasi::where('role','=',$role)->delete();
+        return redirect()->back();
+    }
 }

@@ -89,7 +89,7 @@
                         <h6 class="text-right mr-3" style="color: #888; font-size: 14px"><span class="iconify" data-icon="ant-design:field-time-outlined"></span>{{secondsToTime($second)}}</h6>
                         <div class="d-flex">
                             <a class="dropdown-item" id="notifyDesc" href="#"><span class="iconify" data-icon="carbon:view-filled" data-height=25></span> {{$ntf->deskripsi}}</a>
-                            <a href="/notifikasi/{{$ntf->id}}"  class="delete-notifikasi" title="Telah dibaca"><span class="iconify sudahBaca" data-icon="emojione-v1:cross-mark" style="color: #f24e1e; margin-right: 10px; font-size: 14px"></span></a>
+                            <a href="/transactor/notifikasi/{{$ntf->id}}"  class="delete-notifikasi" title="Telah dibaca"><span class="iconify sudahBaca" data-icon="emojione-v1:cross-mark" style="color: #f24e1e; margin-right: 10px; font-size: 14px"></span></a>
                             <!-- <button class="btn btn-danger btn-delete" style="font-size: 0.8em;" id="deleteNotify" data-id="{{ $ntf->id }}" >
                             Delete
                             </button> -->
@@ -98,7 +98,7 @@
                 @endforeach
 
                 <li class="text-center mt-2">
-                    <a href="/notifikasiUnit/{{Auth::user()->unit}}" style="color:#2a93d5;  text-decoration: underline;">tandai semua telah dibaca</a>
+                    <a href="/transactor/notifikasiRole/{{Auth::user()->role}}" style="color:#2a93d5;  text-decoration: underline;">tandai semua telah dibaca</a>
                 </li>
             </ul>
         </div>
@@ -109,8 +109,8 @@
                 <span class="iconify" data-icon="bxs:user"></span> {{ Auth::user()->nama }} &nbsp;&nbsp;&nbsp;&nbsp;</span>
             </button>
             <ul class="dropdown-menu  mt-2" aria-labelledby="dropdownMenuButton1">
-                <li><a class="dropdown-item" href="/transactor/profil">Profil</a></li>
-                <li><a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">Keluar</a></li>
+                <li><a class="dropdown-item" href="/transactor/profil"><span class="iconify" data-icon="bx:user-pin" data-height="22"></span>&nbsp;Profil</a></li>
+                <li><a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();"><span class="iconify" data-icon="charm:sign-out"></span>&nbsp;Keluar</a></li>
             </form>
             </ul>
         </div>

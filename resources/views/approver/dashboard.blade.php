@@ -127,7 +127,7 @@
                             $jumlah = ($beli -> jumlahBarang1) + ($beli -> jumlahBarang2) + ($beli -> jumlahBarang3) + ($beli -> jumlahBarang4) + ($beli -> jumlahBarang5)
                         ?>
                     <tr>
-                        <td class="text-center">{{$pengadaan->firstItem() + $i}}</td>
+                        <td class="text-center">{{$pembelian->firstItem() + $i}}</td>
                         <td class="text-center">{{$ada -> kodePengadaan}}</td>
                         <td class="text-center">{{$jumlah}}</td>
                         <td class="text-center">{{$beli -> created_at -> format('Y-m-d')}}</td>

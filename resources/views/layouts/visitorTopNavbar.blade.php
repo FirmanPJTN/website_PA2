@@ -100,7 +100,7 @@
                         <h6 class="text-right mr-3" style="color: #888; font-size: 14px"><span class="iconify" data-icon="ant-design:field-time-outlined"></span>{{secondsToTime($second)}}</h6>
                         <div class="d-flex">
                             <a class="dropdown-item" id="notifyDesc" href="#"><span class="iconify" data-icon="carbon:view-filled" data-height=25></span> {{$ntf->deskripsi}}</a>
-                            <a href="/notifikasi/{{$ntf->id}}"  class="delete-notifikasi" title="Telah dibaca"><span class="iconify sudahBaca" data-icon="emojione-v1:cross-mark" style="color: #f24e1e; margin-right: 10px; font-size: 14px"></span></a>
+                            <a href="/visitor/notifikasi/{{$ntf->id}}"  class="delete-notifikasi" title="Telah dibaca"><span class="iconify sudahBaca" data-icon="emojione-v1:cross-mark" style="color: #f24e1e; margin-right: 10px; font-size: 14px"></span></a>
                             <!-- <button class="btn btn-danger btn-delete" style="font-size: 0.8em;" id="deleteNotify" data-id="{{ $ntf->id }}" >
                             Delete
                             </button> -->
@@ -127,7 +127,7 @@
                     </li>
                 @endforeach
                 <li class="text-center mt-2">
-                    <a href="/notifikasiUnit/{{Auth::user()->unit}}" style="color:#2a93d5;  text-decoration: underline;">tandai semua telah dibaca</a>
+                    <a href="/visitor/notifikasiUnit/{{Auth::user()->unit}}" style="color:#2a93d5;  text-decoration: underline;">tandai semua telah dibaca</a>
                 </li>
             </ul>
         </div>
