@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Reset Password</title>
     <link rel="icon" type="image/png" href="../../background/title.png">
 
     <!-- Fonts -->
@@ -37,7 +37,7 @@
 
         body {
             font-family: 'Quicksand', sans-serif;
-            background: url("background/login.png") no-repeat center center fixed;
+            background: url("../background/login.png") no-repeat center center fixed;
             background-size: 100% 100% ;
         }
         
@@ -47,9 +47,9 @@
 <body>
 
 
-        <div class="d-flex justify-content-end">
-            <img src="background/logoV1.jpeg" class="mt-4 mr-4"alt="" width="300">
-        </div>
+    <div class="d-flex justify-content-end">
+                    <img src="../background/logoV1.jpeg" class="mt-4 mr-4"alt="" width="300">
+                </div>
 
 
         <div class="d-flex ">
@@ -64,67 +64,60 @@
                     <div class="col-md-8 mt-3">
 
          
-                                <div class="titleCard fw-bold mb-5"><h1 style="font-size: 50px">Masuk</h1></div>
+                                <div class="titleCard fw-bold mb-5"><h1 style="font-size: 50px">Reset Password</h1></div>
 
-                                <form method="POST" action="{{ route('login') }}">
-                                    @csrf
 
-                                    <div class="row mb-3">
-                                        
-                                        <div class="col-md-12">
-                                            <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="Masukkan email Anda">
 
-                                            @error('email')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
+                                <form action="{{ route('reset.password.post') }}" method="POST">
+                                @csrf
+
+                                <input type="hidden" name="token" value="{{ $token }}">
+
+                                <div class="row mb-3">
+                                    <div class="col-md-12">
+                                        <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" autocomplete="email" autofocus placeholder="Masukkan email Anda">
+
+                                        @error('email')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
+                                </div>
 
-                                    <div class="row mb-3 mt-4">
+                                <div class="row mb-3">
+                                    <div class="col-md-12">
+                                        <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" value="{{ old('password') }}" autocomplete="password" autofocus placeholder="Masukkan password Anda">
 
-                                        <div class="col-md-12">
-                                            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" placeholder="Masukkan password Anda">
-
-                                            @error('password')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
+                                        @error('password')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
+                                </div>
 
-                                    <div class="row mb-3">
-                                        <div class="col-md-6">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+                                <div class="row mb-3">
+                                    <div class="col-md-12">
+                                        <input id="password-confirm" type="password" class="form-control @error('password') is-invalid @enderror" name="password_confirmation"  autofocus placeholder="Masukkan konfirmasi password Anda">
 
-                                                <label class="form-check-label" for="remember">
-                                                    Ingat saya
-                                                </label>
-                                            </div>
-                                        </div>
-                                        
-                                        <div class="col-md-6">
-                                                    <a class="btn btn-link" href="{{ route('forget.password.get') }}">
-                                                        Lupa password ?
-                                                    </a>
-                                        </div>
+                                        @if ($errors->has('password_confirmation'))
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $errors->first('password_confirmation') }}</strong>
+                                            </span>
+                                        @endif
                                     </div>
+                                </div>
 
-                                    <div class="mt-2">
-                                        <button type="submit" class="btn btn-primary mr-4">
-                                            Masuk
+                                <div class="row mb-3">
+                                    <div class="col-md-12 mt-2">
+                                        <button type="submit" style="width: 100%" class="btn btn-primary">
+                                            Reset Password
                                         </button>
+                                    </div>  
+                                </div
 
-                                        <a href="{{ route('daftar') }}" class="btn btn-outline-secondary ml-4">
-                                            Daftar
-                                        </a>
-                                    </div>
-
-
-                                </form>
+                            </form>
                     </div>
                 </div>
             </div>

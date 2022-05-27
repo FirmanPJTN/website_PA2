@@ -8,7 +8,7 @@
 
     <div class="modal-header">
             
-        <h2 class="modal-title fw-bold text-center" id="exampleModalLabel">PERSETUJUAN PRODUCT REQUEST</h2>
+        <h2 class="modal-title fw-bold text-center" id="exampleModalLabel">PERSETUJUAN PRODUCT ORDER</h2>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
     </div>
 

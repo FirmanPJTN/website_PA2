@@ -21,6 +21,17 @@ Route::get('/daftar', function () {
     return view('auth.register');
 })->name('daftar');
 
+
+
+Route::get('/lupa-password', 'ForgotPasswordController@showForgetPasswordForm')->name('forget.password.get');
+
+Route::post('/forget-password', 'ForgotPasswordController@submitForgetPasswordForm')->name('forget.password.post'); 
+
+Route::get('/reset-password/{token}', 'ForgotPasswordController@showResetPasswordForm')->name('reset.password.get');
+
+Route::post('/reset-password', 'ForgotPasswordController@submitResetPasswordForm')->name('reset.password.post');
+
+
 Route::post('/daftar/simpan',  [App\Http\Controllers\Auth\RegisterController::class, 'create'])->name('simpan-daftar');
 
 Route::get('/restricted', [App\Http\Controllers\HomeController::class, 'restricted'])->middleware(['role']);

@@ -2,7 +2,7 @@
     <div class="modal-dialog modal-dialog-centered modal-xl">
     <div class="modal-content">
         <div class="modal-header">
-        <h2 class="modal-title fw-bold text-center" id="exampleModalLabel">DETAIL PENGADAAN</h2>
+        <h2 class="modal-title fw-bold text-center" id="exampleModalLabel">DETAIL PEMBELIAN</h2>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         
