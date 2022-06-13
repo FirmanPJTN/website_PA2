@@ -202,7 +202,10 @@ Route::middleware(['auth','isAdmin:visitor'])->group(function(){
     // PERMOHONAN ASET
 
     // PEMINJAMAN ASET
-    Route::get('/visitor/PermohonanAset/PeminjamanAset', 'PeminjamanController@create')->name('visitor-peminjaman');
+    // Route::get('/visitor/PermohonanAset/PeminjamanAset', 'PeminjamanController@create')->name('visitor-peminjaman');
+
+    Route::get('/visitor/PermohonanAset/PeminjamanAset', 'PeminjamanController@indexVisitor')->name('visitor-peminjaman');
+
 
     Route::post('/visitor/PermohonanAset/PeminjamanAset/Simpan', 'PeminjamanController@store');
 
@@ -214,11 +217,13 @@ Route::middleware(['auth','isAdmin:visitor'])->group(function(){
 
 
     // PENGADAAAN ASET
-    Route::get('/visitor/PermohonanAset/PengadaanAset', 'PengadaanController@create')->name('visitor-pengadaan');
+    // Route::get('/visitor/PermohonanAset/PengadaanAset', 'PengadaanController@create')->name('visitor-pengadaan');
+
+    Route::get('/visitor/PermohonanAset/PengadaanAset', 'PengadaanController@index')->name('visitor-pengadaan');
 
     Route::post('/visitor/PermohonanAset/PengadaanAset/Simpan', 'PengadaanController@store');
 
-    Route::get('/visitor/PermohonanAset/PengadaanAset/Ubah/{id}', 'PengadaanController@edit');
+    // Route::get('/visitor/PermohonanAset/PengadaanAset/Ubah/{id}', 'PengadaanController@edit');
 
     Route::post('/visitor/PermohonanAset/PengadaanAset/Kirim/{id}', 'PengadaanController@update');
 

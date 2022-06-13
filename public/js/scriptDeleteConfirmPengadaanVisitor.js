@@ -11,7 +11,7 @@ $('.deleteAda').click(function() {
         })
         .then((willDelete) => {
         if (willDelete) {
-            window.location = "PermohonanAset/PengadaanAset/Hapus/"+id+"";
+            window.location = "/visitor/PermohonanAset/PengadaanAset/Hapus/"+id+"";
             swal({
                 title: "Data Berhasil Dihapus!",
                 icon: "success",

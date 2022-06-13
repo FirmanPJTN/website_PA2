@@ -11,7 +11,7 @@ $('.deletePinjam').click(function() {
         })
         .then((willDelete) => {
         if (willDelete) {
-            window.location = "PermohonanAset/PeminjamanAset/Hapus/"+id+"";
+            window.location = "/visitor/PermohonanAset/PeminjamanAset/Hapus/"+id+"";
             swal({
                 title: "Data Berhasil Dihapus!",
                 icon: "success",

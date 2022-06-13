@@ -25,6 +25,14 @@ class PeminjamanController extends Controller
         return view('visitor.dashboard', compact('peminjaman', 'pengadaan','monitoring'));
     }
 
+    public function indexVisitor()
+    {
+        $peminjaman = Peminjaman::paginate(10);
+        $pengadaan = Pengadaan::paginate(10);
+
+        return view('visitor.permohonan_aset.peminjaman', compact('peminjaman', 'pengadaan'));
+    }
+
     public function indexPeminjaman()
     {
         $peminjaman = Peminjaman::where('status','!=','tolak')->paginate(10);
@@ -101,7 +109,7 @@ class PeminjamanController extends Controller
             ]);
         }
 
-        return redirect('/visitor/dashboard')->with('success', 'Peminjaman Berhasil Ditambahkan!');
+        return redirect('/visitor/PermohonanAset/PeminjamanAset')->with('success', 'Peminjaman Berhasil Ditambahkan!');
     }
 
     /**
@@ -167,7 +175,7 @@ class PeminjamanController extends Controller
         $peminjaman->save();
         
         
-        return redirect('/visitor/dashboard')->with('success', 'Data Peminjaman Berhasil Diubah!');
+        return redirect('/visitor/PermohonanAset/PeminjamanAset')->with('success', 'Data Peminjaman Berhasil Diubah!');
     }
 
     /**
@@ -180,7 +188,7 @@ class PeminjamanController extends Controller
     {
         $Peminjaman = Peminjaman::find($id);
         $Peminjaman->delete();
-        return redirect('/visitor/dashboard');
+        return redirect('/visitor/PermohonanAset/PeminjamanAset');
     }
 
     public function destroyAdmin($id)

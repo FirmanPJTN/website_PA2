@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Permohonan Aset</title>
@@ -9,7 +10,7 @@
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
-    
+
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
@@ -18,8 +19,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap" rel="stylesheet">
 
-     <!-- Font Awesome -->
-     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <!-- JQuery -->
@@ -31,104 +32,179 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
     <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.19.1/dist/bootstrap-table.min.css">
-    
+
 
 
     <link rel="stylesheet" href="../../css/styleNavbar.css">
 
 
     <!-- AJAX -->
-    <script src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 </head>
+
 <body>
-<div class="wrapper">
+    @include('sweetalert::alert')
+    <div class="wrapper">
         <!-- Sidebar Visitor Layout -->
         @include('layouts.visitorNavbar')
 
         <!-- Page Content  -->
         <div id="content">
 
-        @include('layouts.visitorTopNavbar')
+            @include('layouts.visitorTopNavbar')
 
-        <nav aria-label="breadcrumb" class="bg-light  mb-5">
-            <ol class="breadcrumb mx-3 mt-2" style="color: RGBA(107,107,107,0.75)">
-                <li class="breadcrumb-item"><a href="/visitor/dashboard"><span class="iconify" data-icon="ant-design:home-filled" data-height="20"></span>&nbsp;&nbsp;&nbsp;&nbsp;Beranda</a></li>
-                <li class="breadcrumb-item"><a href="{{route('visitor-peminjaman')}}"><span class="iconify" data-icon="eos-icons:cluster-management" data-height="20"></span>&nbsp;&nbsp;&nbsp;&nbsp;Permohonan Aset</a></li>
-                <li class="breadcrumb-item active fw-bold text-color" aria-current="page">Peminjaman Aset</li>
-            </ol>
-        </nav>
-
-        <div class="shadow p-3 mb-5 bg-body rounded container border">
-            
-            <h2 class="mb-5 text-center">FORM PEMINJAMAN ASET</h2>       
+            <nav aria-label="breadcrumb" class="bg-light  mb-5">
+                <ol class="breadcrumb mx-3 mt-2" style="color: RGBA(107,107,107,0.75)">
+                    <li class="breadcrumb-item"><a href="/visitor/dashboard"><span class="iconify" data-icon="ant-design:home-filled" data-height="20"></span>&nbsp;&nbsp;&nbsp;&nbsp;Beranda</a></li>
+                    <li class="breadcrumb-item"><a href="{{route('visitor-peminjaman')}}"><span class="iconify" data-icon="eos-icons:cluster-management" data-height="20"></span>&nbsp;&nbsp;&nbsp;&nbsp;Permohonan Aset</a></li>
+                    <li class="breadcrumb-item active fw-bold text-color" aria-current="page">Peminjaman Aset</li>
+                </ol>
+            </nav>
 
 
-            <form enctype="multipart/form-data" action="/visitor/PermohonanAset/PeminjamanAset/Simpan" method="post">
-                {{ csrf_field() }}
 
-                <div class="form-group input_fields_wrap">
-                    <div class="d-flex justify-content-start mt-4 ">
-                        <label class="mx-4 w-100 ">Daftar Barang</label>
 
-                        <label class="ml-5 pl-2">Jenis</label>
-                        <input type="text" name="jenisBarang1" class="form-control mx-4" value="{{ old('jenisBarang1') }}" autofocus autocomplete="off" required>
+            <h2 class="mb-5 mt-5 fw-bold">DAFTAR PEMINJAMAN ASET</h2>
 
-                        <label >Tipe</label>
-                        <input type="text" name="tipeBarang1" class="form-control mx-4" value="{{ old('tipeBarang1') }}" autofocus autocomplete="off" required>
+            <div class="d-flex mb-4">
+                <a href="#" class="btn btn-primary mx-2" data-bs-toggle="modal" data-bs-target="#tambah-peminjaman">Tambah Peminjaman</a>
+            </div>
 
-                        <label class="form-label" visibilit>Jumlah</label>
-                        <input type="number" name="jumlahBarang1" class="form-control mx-4" value="{{ old('jumlahBarang1') }}" autofocus autocomplete="off" required size="5">
+            @include('layouts.modalTambahPeminjamanVisitor')
 
-                        <a class="add_field_button"><span class="iconify" data-icon="carbon:add-alt" style="color: #0fa958;" data-height="25"></span></a>
-                    </div>
+            <div class="table-container mr-5">
+                <table class="table table-striped table-bordered mb-5 ">
+                    <thead>
+                        <tr>
+                            <th scope="col" class="text-center">No</th>
+                            <th scope="col" class="text-center">Kode Peminjaman</th>
+                            <th scope="col" class="text-center">Jumlah Barang</th>
+                            <th scope="col" class="text-center">Tanggal Peminjaman</th>
+                            <th scope="col" class="text-center">Rencana Pengembalian</th>
+                            <th scope="col" class="text-center">Status</th>
+                            <th scope="col" class="text-center">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php $i = 0 ?>
+                        @foreach ($peminjaman as $pinjam)
+                        @if($pinjam->user_id == Auth::user()->id && $pinjam->status == 'proses')
+
+                        <?php
+                        $jumlah = ($pinjam->jumlahBarang1) + ($pinjam->jumlahBarang2) + ($pinjam->jumlahBarang3) + ($pinjam->jumlahBarang4) + ($pinjam->jumlahBarang5)
+                        ?>
+                        <tr>
+                            <td class="text-center">{{$peminjaman->firstItem() + $i}}</td>
+                            <td class="text-center">{{$pinjam -> kodePeminjaman}}</td>
+                            <td class="text-center">{{$jumlah}}</td>
+                            <td class="text-center">{{$pinjam -> created_at -> format('Y-m-d')}}</td>
+                            <td class="text-center">{{$pinjam -> tglKembali}}</td>
+                            <td class="text-center">
+                                <button class="btn btn-warning" disabled><span class="iconify" data-icon="mdi:progress-alert" data-height="20"></span> Diproses</button>
+                            </td>
+                            <td class="text-center">
+                                <div class="d-flex justify-content-around">
+                                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#abc<?= $pinjam->id ?>">Detail</button>
+                                    &nbsp;
+                                    <a href="#" class="btn btn-warning mx-2" data-bs-toggle="modal" data-bs-target="#ubah-peminjaman<?=$pinjam->id?>">Ubah</a> &nbsp;
+                                    <a data-id="{{ $pinjam->id }}" class="btn btn-danger deletePinjam" href="#">Hapus</a>
+                                </div>
+                            </td>
+                        </tr>
+
+
+
+                        <!-- MODAL DETAIL PEMINJAMAN -->
+                        @include('layouts.modalDetailPeminjaman')
+
+                        <!-- MODAL UBAH PEMINJAMAN -->
+                        @include('layouts.modalUbahPeminjamanVisitor')
+
+                        <?php $i++; ?>
+                        @endif
+                        @endforeach
+
+                    </tbody>
+                </table>
+
+                @if(!empty($peminjaman))
+                <div class="pagination">
+                    {{ $peminjaman->links() }}
                 </div>
+                @endif
 
 
-                <div class="form-group mt-3">
-                    <div class="d-flex justify-content-center">
-                        <label class="mx-4 w-25" >Tanggal Pengembalian</label>
-                        <input type="date" name="tglKembali" class="form-control mx-4"  value="{{ old('tglKembali') }}" autofocus autocomplete="off">
-                    </div>
+            </div>
+
+            <h3 class="mb-5 mt-5 fw-bold">RIWAYAT PEMINJAMAN ASET</h3>
+
+
+            <div class="table-container mr-5">
+                <table class="table table-striped table-bordered mb-5 ">
+                    <thead>
+                        <tr>
+                            <th scope="col" class="text-center">No</th>
+                            <th scope="col" class="text-center">Kode Peminjaman</th>
+                            <th scope="col" class="text-center">Jumlah Barang</th>
+                            <th scope="col" class="text-center">Tanggal Peminjaman</th>
+                            <th scope="col" class="text-center">Rencana Pengembalian</th>
+                            <th scope="col" class="text-center">Status</th>
+                            <th scope="col" class="text-center">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php $i = 0 ?>
+                        @foreach ($peminjaman as $pinjam)
+                        @if($pinjam->user_id == Auth::user()->id && $pinjam->status != 'proses')
+
+                        <?php
+                        $jumlah = ($pinjam->jumlahBarang1) + ($pinjam->jumlahBarang2) + ($pinjam->jumlahBarang3) + ($pinjam->jumlahBarang4) + ($pinjam->jumlahBarang5)
+                        ?>
+                        <tr>
+                            <td class="text-center">{{$peminjaman->firstItem() + $i}}</td>
+                            <td class="text-center">{{$pinjam -> kodePeminjaman}}</td>
+                            <td class="text-center">{{$jumlah}}</td>
+                            <td class="text-center">{{$pinjam -> created_at -> format('Y-m-d')}}</td>
+                            <td class="text-center">{{$pinjam -> tglKembali}}</td>
+                            <td class="text-center">
+                                @if($pinjam->status == 'tolak')
+                                <button class="btn btn-danger" disabled><span class="iconify" data-icon="mdi:progress-close" data-height="20"></span> Ditolak</button>
+                                @endif
+                                @if($pinjam->status == 'setuju')
+                                <button class="btn btn-success" disabled><span class="iconify" data-icon="mdi:progress-check" data-height="20"></span> Disetujui</button>
+                                @endif
+                                @if($pinjam->status == 'kembali')
+                                <button class="btn btn-secondary" disabled><span class="iconify" data-icon="mdi:progress-check" data-height="20"></span> Dikembalikan</button>
+                                @endif
+                            </td>
+                            <td class="text-center">
+                                <div class="d-flex justify-content-around">
+                                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#abc<?= $pinjam->id ?>">Detail</button>
+                                </div>
+                            </td>
+                        </tr>
+
+
+
+                        <!-- MODAL DETAIL PEMINJAMAN -->
+                        @include('layouts.modalDetailPeminjaman')
+
+                        <?php $i++; ?>
+                        @endif
+                        @endforeach
+
+                    </tbody>
+                </table>
+
+                @if(!empty($peminjaman))
+                <div class="pagination">
+                    {{ $peminjaman->links() }}
                 </div>
-                @error('tglKembali')
-                    <div class="alert-danger mt-1">{{$message}}</div>
-                @enderror
+                @endif
 
 
-                <div class="form-group mt-3">
-                    <div class="d-flex justify-content-center">
-                        <label class="mx-4 w-25">Tujuan Peminjaman</label>
-                        <textarea name="tujuan" class="form-control mx-4" cols="30" rows="10" value="{{ old('tujuan') }}" autofocus autocomplete="off"></textarea>
-                    </div>
-                </div>
-                @error('tujuan')
-                    <div class="alert-danger mt-1">{{$message}}</div>
-                @enderror
+            </div>
 
-                <!-- USER ID REFERENCES -->
-                <input type="number" name="user_id" class="form-control mx-4"  value="{{ Auth::user()->id }}" autofocus autocomplete="off" style="visibility: hidden">
-
-                
-                <input type="text" name="kodePeminjaman" value="PMJN-{{date('Y.m.d-h.i.s')}}" style="visibility: hidden">
-
-                <?php $approvers =  DB::table('users')->where('role','=','approver')->get() ?>
-                    @foreach($approvers as $approver)
-                    <input type="text" name="role" value="{{$approver->role}}" style="visibility: hidden">
-                    @endforeach
-
-                <input type="text" name="deskripsiNotif" value="kode peminjaman PMJN-{{date('Y.m.d-h.i.s')}} telah dibuat !" style="visibility: hidden">
-
-                <input type="text" name="status" value="proses" style="visibility: hidden">
-
-                <div class="form-group">
-                    <div class="d-flex justify-content-end">
-                        <a href="/visitor/dashboard" class="btn btn-secondary mx-1">Batal</a>
-                        <button type="submit" class="btn btn-info mx-1">Kirim</button>
-                    </div>
-                </div>
-            </form>
-
-        </div>
 
 
             <br><br><br>
@@ -137,31 +213,32 @@
         </div>
     </div>
 
+    <script type="text/javascript" src="../../js/scriptDeleteConfirmPeminjamanVisitor.js"></script>
 
     <script>
         $(document).ready(function() {
-            var max_fields      = 5; //maximum input boxes allowed
-            var wrapper   		= $(".input_fields_wrap"); //Fields wrapper
-            var add_button      = $(".add_field_button"); //Add button ID
+            var max_fields = 5; //maximum input boxes allowed
+            var wrapper = $(".input_fields_wrap"); //Fields wrapper
+            var add_button = $(".add_field_button"); //Add button ID
 
             var x = 2; //initlal text box count
-            $(add_button).click(function(e){ //on add input button click
-            e.preventDefault();
-                if(x <= max_fields){ //max input box allowed
-                    $(wrapper).append('<div class="d-flex justify-content-start mt-4 "><label class="mx-4 w-100 " style="visibility: hidden">Daftar Barang</label><label class="ml-5 pl-2">Jenis</label><input type="text" name="jenisBarang'+x+'" class="form-control mx-4" autofocus autocomplete="off"><label >Tipe</label><input type="text" name="tipeBarang'+x+'" class="form-control mx-4" autofocus autocomplete="off"><label class="form-label" visibilit>Jumlah</label><input type="number" name="jumlahBarang'+x+'" class="form-control mx-4" autofocus autocomplete="off" size="5"><a class=" remove_field"> <span class="iconify" data-icon="ant-design:minus-circle-outlined" style="color: #ff1e1e;" data-height="25"></span></a></div>'); //add input box
+            $(add_button).click(function(e) { //on add input button click
+                e.preventDefault();
+                if (x <= max_fields) { //max input box allowed
+                    $(wrapper).append('<div class="d-flex justify-content-start mt-4 "><label class="mx-4 w-100 " style="visibility: hidden">Daftar Barang</label><label class="ml-5 pl-2">Jenis</label><input type="text" name="jenisBarang' + x + '" class="form-control mx-4" autofocus autocomplete="off"><label >Tipe</label><input type="text" name="tipeBarang' + x + '" class="form-control mx-4" autofocus autocomplete="off"><label class="form-label" visibilit>Jumlah</label><input type="number" name="jumlahBarang' + x + '" class="form-control mx-4" autofocus autocomplete="off" size="5"><a class=" remove_field"> <span class="iconify" data-icon="ant-design:minus-circle-outlined" style="color: #ff1e1e;" data-height="25"></span></a></div>'); //add input box
                     x++; //text box increment
                 }
             });
 
-            $(wrapper).on("click",".remove_field", function(e){ //user click on remove text
-                e.preventDefault(); 
-                $(this).parent('div').remove(); 
+            $(wrapper).on("click", ".remove_field", function(e) { //user click on remove text
+                e.preventDefault();
+                $(this).parent('div').remove();
                 x--;
-                })
-            });
+            })
+        });
     </script>
 
-    
+
 
     <!-- jQuery CDN - Slim version (=without AJAX) -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -176,7 +253,7 @@
 
     <!-- Iconify  -->
     <script src="https://code.iconify.design/2/2.1.0/iconify.min.js"></script>
-    
+
     <!-- Optional JavaScript; choose one of the two! -->
 
     <!-- Option 1: Bootstrap Bundle with Popper -->
@@ -188,4 +265,5 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script>
     -->
 </body>
+
 </html>

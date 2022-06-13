@@ -7,8 +7,11 @@
         </div>
         <div class="modal-body row">
 
-            @if($ada->status == 'proses' || $ada->status == 'proses-PR' || $ada->status == 'proses-PO' || $ada->status == 'setuju-PO' || $ada->status == 'setuju-PR') 
+            @if($ada->status == 'proses') 
                 <button class="btn form-control btn-warning" disabled><span class="iconify" data-icon="mdi:progress-alert" data-height="20"></span> Diproses</button>
+            @endif
+            @if($ada->status == 'proses-PR' || $ada->status == 'proses-PO' || $ada->status == 'setuju-PO' || $ada->status == 'setuju-PR') 
+                <button class="btn form-control btn-warning" disabled><span class="iconify" data-icon="mdi:progress-alert" data-height="20"></span> Diterima</button>
             @endif
             @if($ada->status == 'tolak') 
                 <button class="btn form-control btn-danger" disabled><span class="iconify" data-icon="mdi:progress-close" data-height="20"></span> Ditolak</button>

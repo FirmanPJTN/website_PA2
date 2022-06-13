@@ -26,7 +26,8 @@ class PengadaanController extends Controller
     public function index()
     {
         $pengadaan = Pengadaan::paginate(10);
-        return view('visitor.dashboard', ['pengadaan'=>$pengadaan]);
+        $peminjaman = Peminjaman::paginate(10);
+        return view('visitor.permohonan_aset.pengadaan', compact('peminjaman', 'pengadaan'));
     }
 
     public function indexPengadaan()
@@ -93,7 +94,7 @@ class PengadaanController extends Controller
         ]);
 
 
-        return redirect('/visitor/dashboard')->with('success', 'Pengadaan Berhasil Ditambahkan!');
+        return redirect('/visitor/PermohonanAset/PengadaanAset')->with('success', 'Pengadaan Berhasil Ditambahkan!');
     }
 
     /**
@@ -157,7 +158,7 @@ class PengadaanController extends Controller
         $pengadaan->save();
         
         
-        return redirect('/visitor/dashboard')->with('success', 'Data Pengadaan Berhasil Diubah!');
+        return redirect('/visitor/PermohonanAset/PengadaanAset')->with('success', 'Data Pengadaan Berhasil Diubah!');
     }
 
     /**
@@ -170,7 +171,7 @@ class PengadaanController extends Controller
     {
         $Pengadaan = Pengadaan::find($id);
         $Pengadaan->delete();
-        return redirect('/visitor/dashboard');
+        return redirect('/visitor/PermohonanAset/PengadaanAset');
     }
 
     public function destroyAdmin($id)

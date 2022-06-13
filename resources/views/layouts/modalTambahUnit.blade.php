@@ -22,11 +22,9 @@
                 </div>
 
 
-                <div class="modal-footer">
-                    <div class="d-flex justify-content-end">
-                        <button style="width: 100%" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                        <button type="submit" class="btn btn-info mx-1">Kirim</button>
-                    </div>
+                <div class="modal-footer d-flex">
+                    <button style="width: 40%" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                    <button style="width: 40%" type="submit" class="btn btn-info mx-1">Kirim</button>
                 </div>
         </form>
             
