@@ -71,10 +71,12 @@
                     </h2>
                 </div>
 
+                @foreach($pengadaan->take(1) as $ada)
+
                 <div class="mb-5">
                     <div class="d-flex justify-content-start">
                         <?php $jumlahpengadaanEks = DB::table('pengadaan')->where('kategori', '=', 'eksternal')->count(); ?>
-                        @if($jumlahpengadaanEks != 0)
+                        @if($jumlahpengadaanEks != 0 && $ada->status == 'setuju-PO')
                         <div class="box mx-2" style="background-color: #00D1B8; padding: 30px; padding-left: 35px; padding-right: 35px; border-radius: 10px; font-size: 2em; color: white; font-weight: bold; text-align: center">
                             {{$jumlahpengadaanEks}} <br>
                             <span style="font-size: 0.7em;">Jumlah Pengadaan <br> Eksternal</span>
@@ -82,18 +84,17 @@
                         @endif
 
                         <?php $jumlahpengadaanInt = DB::table('pengadaan')->where('kategori', '=', 'internal')->count(); ?>
-                        @if($jumlahpengadaanInt != 0)
+                        @if($jumlahpengadaanInt != 0 && $ada->status == 'setuju-PO')
                         <div class="box mx-2" style="background-color: #32A9FF; padding: 30px; padding-left: 35px; padding-right: 35px; border-radius: 10px; font-size: 2em; color: white; font-weight: bold; text-align: center">
                             {{$jumlahpengadaanInt}} <br>
                             <span style="font-size: 0.7em;">Jumlah Pengadaan <br>Internal</span>
                         </div>
                         @endif
 
-
-
-
                     </div>
                 </div>
+
+                @endforeach
 
                 <h2 class="mb-5 mt-5 ml-3 fw-bold">PENGADAAN EKSTERNAL</h2>
 
@@ -111,13 +112,13 @@
                         </thead>
                         <tbody>
                             <?php $i = 0 ?>
-                            <?php $eksternal = DB::table('pengadaan')->where('kategori', '=', 'eksternal')->count() ?>
+                            <?php $eksternal = DB::table('pengadaan')->where('kategori', '=', 'eksternal')->where('status','=','setuju-PO')->count() ?>
                             @if($eksternal!=0)
                             @foreach ($pembelian as $beli)
 
-                            @if($beli->status == 'setuju-PO' || $beli->status == 'setuju')
+                            @if($beli->status == 'setuju-PO')
 
-                            <?php $pengadaanEks = DB::table('pengadaan')->where('id', '=', $beli->pengadaan_id)->get() ?>
+                            <?php $pengadaanEks = DB::table('pengadaan')->where('id', '=', $beli->pengadaan_id)->where('kategori','eksternal')->get() ?>
 
                             @foreach($pengadaanEks as $ada)
 
@@ -166,6 +167,8 @@
                         </tbody>
                     </table>
 
+                    <a href="{{route('index-eksternal')}}" class="btn btn-info mb-3">Lihat Semua Data</a>
+
                     @if(!empty($pembelian))
                     <div class="pagination">
                         {{ $pembelian->links() }}
@@ -191,13 +194,13 @@
                         </thead>
                         <tbody>
                             <?php $i = 0 ?>
-                            <?php $internal = DB::table('pengadaan')->where('kategori', '=', 'internal')->count() ?>
+                            <?php $internal = DB::table('pengadaan')->where('kategori', '=', 'internal')->where('status','=','setuju-PO')->count() ?>
                             @if($internal!=0)
                             @foreach ($pembelian as $beli)
 
-                            @if($beli->status == 'setuju-PO' || $beli->status == 'setuju')
+                            @if($beli->status == 'setuju-PO')
 
-                            <?php $pengadaan = DB::table('pengadaan')->where('id', '=', $beli->pengadaan_id)->get() ?>
+                            <?php $pengadaan = DB::table('pengadaan')->where('id', '=', $beli->pengadaan_id)->where('kategori','internal')->get() ?>
 
                             @foreach($pengadaan as $ada)
 
@@ -244,6 +247,8 @@
 
                         </tbody>
                     </table>
+
+                    <a href="{{route('index-internal')}}" class="btn btn-info mb-3">Lihat Semua Data</a>
 
                     @if(!empty($pembelian))
                     <div class="pagination">

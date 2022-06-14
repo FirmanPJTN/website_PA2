@@ -27,6 +27,20 @@
                     @include('layouts.ifEmptyPengadaanVisitor')
 
 
+                    <div class="form-group mt-3">
+                        <div class="d-flex justify-content-center">
+                            <label class="mx-4 w-25">Kategori Pengadaan</label>
+                            <select class="form-control custom-select mx-4" name="kategori" id="kategori">
+                                @if($ada -> kategori == 'eksternal' )
+                                <option value="eksternal" <?php if (old('kategori') == 'eksternal') { ?>selected="selected" <?php } ?>>Eksternal (Barang Tidak Habis)</option>
+                                <option value="internal" <?php if (old('kategori') == 'internal') { ?>selected="selected" <?php } ?>>Internal (Barang Habis)</option>
+                                @else
+                                <option value="internal" <?php if (old('kategori') == 'internal') { ?>selected="selected" <?php } ?>>Internal (Barang Habis)</option>
+                                <option value="eksternal" <?php if (old('kategori') == 'eksternal') { ?>selected="selected" <?php } ?>>Eksternal (Barang Tidak Habis)</option>
+                                @endif
+                            </select>
+                        </div>
+                    </div>
 
                     <div class="form-group mt-3">
                         <div class="d-flex justify-content-center">

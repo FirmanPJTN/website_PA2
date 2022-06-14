@@ -29,7 +29,7 @@
 
                     <div class="form-group mt-3">
                         <div class="d-flex justify-content-center">
-                            <label class="mx-4 w-25">Kategori</label>
+                            <label class="mx-4 w-25">Kategori Pengadaan</label>
                             <select class="form-control custom-select mx-4" name="kategori" id="kategori">
                                 <option value="">▼ pilih kategori</option>
                                 <option value="eksternal" <?php if (old('kategori') == 'eksternal') { ?>selected="selected" <?php } ?>>Barang Tidak Habis (Eksternal)</option>
@@ -52,17 +52,23 @@
                     @enderror
 
                     <!-- USER ID REFERENCES -->
-                    <input type="number" name="user_id" class="form-control mx-4" value="{{Auth::user()->id}}" autofocus autocomplete="off" style="visibility: hidden">
+                    <input type="hidden" name="user_id" class="form-control mx-4" value="{{Auth::user()->id}}" autofocus autocomplete="off" style="visibility: hidden">
 
-                    <input type="text" name="kodePengadaan" value="PGDN-{{date('Y.m.d-h.i.s')}}" style="visibility: hidden">
+                    <input type="hidden" name="kodePengadaanEks" value="PGDNE-{{date('Y.m.d-h.i.s')}}" style="visibility: hidden">
 
-                    <input type="text" name="status" value="proses" style="visibility: hidden">
+                    <input type="hidden" name="kodePengadaanIn" value="PGDNI-{{date('Y.m.d-h.i.s')}}" style="visibility: hidden">
 
-                    <input type="text" name="deskripsiNotif" value="kode pengadaan PGDN-{{date('Y.m.d-h.i.s')}} telah dibuat !" style="visibility: hidden">
+
+                    <input type="hidden" name="status" value="proses" style="visibility: hidden">
+
+                    <input type="hidden" name="deskripsiNotifEks" value="kode pengadaan PGDNE-{{date('Y.m.d-h.i.s')}} telah dibuat !" style="visibility: hidden">
+
+                    <input type="hidden" name="deskripsiNotifIn" value="kode pengadaan PGDNI-{{date('Y.m.d-h.i.s')}} telah dibuat !" style="visibility: hidden">
+
 
                     <?php $admins =  DB::table('users')->where('role', '=', 'administrator')->get() ?>
                     @foreach($admins as $admin)
-                    <input type="text" name="role" value="{{$admin->role}}" style="visibility: hidden">
+                    <input type="hidden" name="role" value="{{$admin->role}}" style="visibility: hidden">
                     @endforeach
                 </div>
 

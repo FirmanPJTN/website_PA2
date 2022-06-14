@@ -6,13 +6,13 @@
         {{ csrf_field() }}
 
         <div class="modal-header">
-        <h2 class="modal-title fw-bold text-center" id="exampleModalLabel">DETAIL PEMBELIAN ASET INTERNAL</h2>
+        <h2 class="modal-title fw-bold text-center" id="exampleModalLabel">DETAIL PEMBELIAN ASET</h2>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         
         <div class="modal-body row">
 
-        <input type="text" name="statusSetuju" value="setuju" style="visibility: hidden">
+        <input type="hidden" name="statusSetuju" value="setuju" style="visibility: hidden">
 
             <div class="form-group input_fields_wrap">
                 <div class="d-flex justify-content-start mt-4 ">
@@ -130,22 +130,24 @@
 
         </div>
 
-        <<input type="text" name="deskripsiSetuju" value="PR kode pengadaan {{$ada->kodePengadaan}} disetujui dan menunggu proses pembayaran" style="visibility: hidden">
+        <input type="hidden" name="deskripsiSetuju" value="PR kode pengadaan {{$ada->kodePengadaan}} disetujui dan menunggu proses pembayaran" style="visibility: hidden">
+
+        <input type="hidden" name="idPengadaan" value="{{$ada->id}}" style="visibility: hidden">
 
 
         <?php $approvers =  DB::table('users')->where('role','=','approver')->get() ?>
         @foreach($approvers as $approver)
-        <input type="text" name="roleApprover" value="{{$approver->role}}" style="visibility: hidden">
+        <input type="hidden" name="roleApprover" value="{{$approver->role}}" style="visibility: hidden">
         @endforeach
 
         <?php $admins =  DB::table('users')->where('role','=','administrator')->get() ?>
         @foreach($admins as $admin)
-        <input type="text" name="roleAdmin" value="{{$admin->role}}" style="visibility: hidden">
+        <input type="hidden" name="roleAdmin" value="{{$admin->role}}" style="visibility: hidden">
         @endforeach
 
         <?php $users =  DB::table('users')->where('id','=',$ada->user_id)->get() ?>
         @foreach($users as $user)
-        <input type="number" name="idUser" value="{{$user->id}}" style="visibility: hidden">
+        <input type="hidden" name="idUser" value="{{$user->id}}" style="visibility: hidden">
         @endforeach
 
         <div class="modal-footer d-flex">

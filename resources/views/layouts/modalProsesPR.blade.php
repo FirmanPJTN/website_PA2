@@ -10,7 +10,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
 
-        <input type="text" name="statusProsesPR" value="proses-PR" style="visibility: hidden">
+        <input type="hidden" name="statusProsesPR" value="proses-PR" style="visibility: hidden">
 
 
         <div class="modal-body row">
@@ -65,14 +65,14 @@
 
       
 
-        <input type="text" name="deskripsiProsesPR" value="kode pengadaan {{$ada->kodePengadaan}} meminta persetujuan PR" style="visibility: hidden">
+        <input type="hidden" name="deskripsiProsesPR" value="kode pengadaan {{$ada->kodePengadaan}} meminta persetujuan PR" style="visibility: hidden">
 
-        <input type="int" name="pengadaan_id" value="{{$ada->id}}" style="visibility: hidden">
+        <input type="hidden" name="pengadaan_id" value="{{$ada->id}}" style="visibility: hidden">
 
 
         <?php $approvers =  DB::table('users')->where('role','=','approver')->get() ?>
         @foreach($approvers as $approver)
-        <input type="text" name="role" value="{{$approver->role}}" style="visibility: hidden">
+        <input type="hidden" name="role" value="{{$approver->role}}" style="visibility: hidden">
         @endforeach
 
  

@@ -69,13 +69,15 @@
 
         <div class="mb-5">
             <div class="d-flex justify-content-start">
-                <?php $jumlahpengadaan = DB::table('pengadaan')->count(); ?>
-                @if($jumlahpengadaan != 0)
+                @foreach($pengadaan->take(1) as $ada)
+                <?php $jumlahpengadaan = DB::table('pengadaan')->where('status','!=','proses')->count(); ?>
+                @if($jumlahpengadaan != 0 && $ada->status != 'proses')
                 <div class="box mx-2" style="background-color: #00D1B8; padding: 30px; padding-left: 35px; padding-right: 35px; border-radius: 10px; font-size: 2em; color: white; font-weight: bold; text-align: center">
                 {{$jumlahpengadaan}} <br>
                     <span style="font-size: 0.7em;">Jumlah Pengadaan</span>
                 </div>
                 @endif
+                @endforeach
 
                 
                 <?php $jumlahpeminjaman = DB::table('peminjaman')->count(); ?>
@@ -187,6 +189,9 @@
                         
                     </tbody>
                 </table>
+
+                <a href="{{route('index-beli-approver')}}" class="btn btn-info mb-3">Lihat Semua Data</a>
+
                 @if(!empty($pembelian))
                 <div class="pagination">
                     {{ $pembelian->links() }}
@@ -263,6 +268,9 @@
                     
                 </tbody>
             </table>
+
+            <a href="{{route('pinjam-aset-approver')}}" class="btn btn-info mb-3">Lihat Semua Data</a>
+
             @if(!empty($peminjaman))
             <div class="pagination">
                 {{ $peminjaman->links() }}
@@ -332,6 +340,10 @@
                     
                 </tbody>
             </table>
+
+            <a href="{{route('musnah-aset-approver')}}" class="btn btn-info mb-3">Lihat Semua Data</a>
+
+
             @if(!empty($pemusnahan))
             <div class="pagination">
                 {{ $pemusnahan->links() }}
@@ -400,6 +412,9 @@
                         
                     </tbody>
                 </table>
+
+                <a href="{{route('musnah-berkas-approver')}}" class="btn btn-info mb-3">Lihat Semua Data</a>
+
                 @if(!empty($pemusnahan))
                 <div class="pagination">
                     {{ $pemusnahan->links() }}

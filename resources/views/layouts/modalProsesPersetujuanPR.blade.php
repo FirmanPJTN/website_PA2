@@ -10,9 +10,9 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
 
-        <input type="text" name="statusSetujuPR" value="setuju-PR" style="visibility: hidden">
+        <input type="hidden" name="statusSetujuPR" value="setuju-PR" style="visibility: hidden">
 
-        <input type="text" name="statusTolak" value="tolak" style="visibility: hidden">
+        <input type="hidden" name="statusTolak" value="tolak" style="visibility: hidden">
 
         <div class="modal-body row">
         <div class="form-group ml-2 mt-3">
@@ -22,7 +22,7 @@
             </div>
         </div>
 
-        <input type="text" name="deskripsiNotifTolakPR" value="PR kode pengadaan {{$ada->kodePengadaan}} ditolak" style="visibility: hidden">
+        <input type="hidden" name="deskripsiNotifTolakPR" value="PR kode pengadaan {{$ada->kodePengadaan}} ditolak" style="visibility: hidden">
 
 
         
@@ -44,25 +44,25 @@
 
         <?php $transactors =  DB::table('users')->where('role','=','transactor')->get() ?>
         @foreach($transactors as $transactor)
-        <input type="text" name="role" value="{{$transactor->role}}" style="visibility: hidden">
+        <input type="hidden" name="role" value="{{$transactor->role}}" style="visibility: hidden">
         @endforeach
 
         <?php $admins =  DB::table('users')->where('role','=','administrator')->get() ?>
         @foreach($admins as $admin)
-        <input type="text" name="roleAdmin" value="{{$admin->role}}" style="visibility: hidden">
+        <input type="hidden" name="roleAdmin" value="{{$admin->role}}" style="visibility: hidden">
         @endforeach
 
         <?php $users =  DB::table('users')->where('id','=',$ada->user_id)->get() ?>
         @foreach($users as $user)
-        <input type="number" name="idUser" value="{{$user->id}}" style="visibility: hidden">
+        <input type="hidden" name="idUser" value="{{$user->id}}" style="visibility: hidden">
         @endforeach
 
 
-        <input type="number" name="idPengadaan" value="{{$beli->pengadaan_id}}" style="visibility: hidden">
+        <input type="hidden" name="idPengadaan" value="{{$beli->pengadaan_id}}" style="visibility: hidden">
 
         
 
-        <input type="number" name="idPembelian" value="{{$beli->id}}" style="visibility: hidden">
+        <input type="hidden" name="idPembelian" value="{{$beli->id}}" style="visibility: hidden">
    
 
         <input type="text" name="deskripsiNotifSetujuPR" value="PR kode pengadaan {{$ada->kodePengadaan}} disetujui" style="visibility: hidden">

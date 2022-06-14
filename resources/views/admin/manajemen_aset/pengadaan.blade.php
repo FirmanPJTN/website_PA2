@@ -199,11 +199,7 @@
                             </td>
                             <td class="text-center">
                                 <div class="d-flex justify-content-around">
-                                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#def<?= $ada->id ?>">Detail</button> 
-                                    @if($ada->status == 'setuju' || $ada->status == 'tolak')
-                                    &nbsp;
-                                    <a data-id="{{ $ada->id }}" class="btn btn-danger deleteAda" href="#">Hapus</a>
-                                    @endif
+                                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#def<?= $ada->id ?>">Detail</button>
                                     
                                     @if($ada->status == 'setuju-PR') 
                                       <a href="#" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#rst<?= $ada->id ?>">Proses PO</a>

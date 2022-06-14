@@ -11,7 +11,7 @@
         </div>
 
 
-        <input type="text" name="statusProsesPO" value="proses-PO" style="visibility: hidden">
+        <input type="hidden" name="statusProsesPO" value="proses-PO" style="visibility: hidden">
 
 
         <div class="modal-body row">
@@ -49,14 +49,14 @@
 
       
 
-        <input type="text" name="deskripsiProsesPO" value="kode pengadaan {{$ada->kodePengadaan}} meminta persetujuan PO" style="visibility: hidden">
+        <input type="hidden" name="deskripsiProsesPO" value="kode pengadaan {{$ada->kodePengadaan}} meminta persetujuan PO" style="visibility: hidden">
 
-        <input type="int" name="pengadaan_id" value="{{$ada->id}}" style="visibility: hidden">
+        <input type="hidden" name="pengadaan_id" value="{{$ada->id}}" style="visibility: hidden">
 
 
         <?php $approvers =  DB::table('users')->where('role','=','approver')->get() ?>
         @foreach($approvers as $approver)
-        <input type="text" name="role" value="{{$approver->role}}" style="visibility: hidden">
+        <input type="hidden" name="role" value="{{$approver->role}}" style="visibility: hidden">
         @endforeach
 
 

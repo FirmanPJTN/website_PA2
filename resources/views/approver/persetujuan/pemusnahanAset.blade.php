@@ -58,11 +58,11 @@
         </nav>
 
 
-            <h2 class="mb-5 fw-bold text-center">DAFTAR PEMUSNAHAN ASET</h2>       
+            <h2 class="mb-5 mt-5 fw-bold">DAFTAR PEMUSNAHAN ASET</h2>       
 
 
 
-            <div class="table-container mx-5 mr-5">
+            <div class="table-container mr-5">
                 <table class="table table-striped table-bordered mb-5 ">
                     <thead>
                         <tr>

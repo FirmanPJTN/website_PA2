@@ -74,7 +74,7 @@ class PembelianController extends Controller
         $pembelian->save();
 
         $pengadaan = Pengadaan::where('id',$request->idPengadaan)->first();
-        $pengadaan->status = $request->statusSetujuPR;
+        $pengadaan->status = $request->statusSetuju;
         $pengadaan->pembelian_id = $request->idPembelian;
         $pengadaan->save();
 
@@ -93,7 +93,7 @@ class PembelianController extends Controller
             'role' => $request->roleAdmin
         ]);
 
-        return redirect(route('index-internal'))->with('success', 'Pengadaan berhasil diproses');
+        return redirect(route('index-internal'))->with('success', 'Pembelian berhasil diproses');
     }
 
 
@@ -195,7 +195,7 @@ class PembelianController extends Controller
             ]);
         }
 
-        return redirect(route('index-beli-approver'))->with('success', 'Product Request berhasil diproses');
+        return redirect(route('index-beli-approver'))->with('success', 'Product Order berhasil diproses');
     }
 
     /**

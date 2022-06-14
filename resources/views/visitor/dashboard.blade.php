@@ -127,23 +127,13 @@
                                 <td class="text-center">{{$jumlah}}</td>
                                 <td class="text-center">{{$ada -> created_at -> format('Y-m-d')}}</td>
                                 <td class="text-center">
-                                    @if($ada->status == 'proses')
                                     <button class="btn btn-warning" disabled><span class="iconify" data-icon="mdi:progress-alert" data-height="20"></span> Diproses</button>
-                                    @endif
-                                    @if($ada->status == 'tolak')
-                                    <button class="btn btn-danger" disabled><span class="iconify" data-icon="mdi:progress-close" data-height="20"></span> Ditolak</button>
-                                    @endif
-                                    @if($ada->status == 'setuju')
-                                    <button class="btn btn-success" disabled><span class="iconify" data-icon="mdi:progress-check" data-height="20"></span> Disetujui</button>
-                                    @endif
                                 </td>
                                 <td class="text-center">
                                     <div class="d-flex justify-content-around">
                                         <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#def<?= $ada->id ?>">Detail</button>
                                         &nbsp;
                                         <a href="#" class="btn btn-warning mx-2" data-bs-toggle="modal" data-bs-target="#ubah-pengadaan<?= $ada->id ?>">Ubah</a>
-                                        @endif
-                                        @if($ada->status == 'proses' || $ada->status == 'tolak')
                                         &nbsp;
                                         <a data-id="{{ $ada->id }}" class="btn btn-danger deleteAda" href="#">Hapus</a>
                                     </div>
