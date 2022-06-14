@@ -99,7 +99,7 @@
                     </div>
                 </div>
 
-                <h3 class="mb-3 mt-4 fw-bold mx-4 mb-5">PENGADAAN ASET</h3>
+                <h3 class="mb-3 mt-4 fw-bold mx-4 mb-5 mt-5">PENGADAAN ASET</h3>
 
                 <div class="table-container mx-5 mr-5">
                     <table class="table table-striped table-bordered mb-5 ">
@@ -165,16 +165,18 @@
                         </tbody>
                     </table>
 
+                    
+                    <a href="{{route('visitor-pengadaan')}}" class="btn btn-info mb-3">Lihat Semua Data</a>
+
                     @if(!empty($pengadaan))
                     <div class="pagination">
                         {{ $pengadaan->links() }}
                     </div>
                     @endif
 
-                    <a href="{{route('visitor-pengadaan')}}" class="btn btn-info">Lihat Semua Data</a>
                 </div>
 
-                <h3 class="mb-3 mt-4 fw-bold mx-4 mb-5">PEMINJAMAN ASET</h3>
+                <h3 class="mb-3 mt-4 fw-bold mx-4 mb- mt-5">PEMINJAMAN ASET</h3>
 
                 <div class="table-container mx-5 mr-5">
                     <table class="table table-striped table-bordered mb-5 ">
@@ -231,17 +233,19 @@
                         </tbody>
                     </table>
 
+                    
+                    <a href="{{route('visitor-peminjaman')}}" class="btn btn-info mb-3">Lihat Semua Data</a>
+
                     @if(!empty($peminjaman))
                     <div class="pagination">
                         {{ $peminjaman->links() }}
                     </div>
                     @endif
 
-                    <a href="{{route('visitor-peminjaman')}}" class="btn btn-info">Lihat Semua Data</a>
 
                 </div>
 
-                <h3 class="mb-3 mt-4 fw-bold mx-4 mb-5">MONITORING ASET</h3>
+                <h3 class="mb-3 mt-4 fw-bold mx-4 mb-5 mt-5">MONITORING ASET</h3>
 
                 <div class="table-container mx-5 mr-5">
                     <table class="table table-striped table-bordered mb-5">
@@ -305,11 +309,15 @@
                         </tbody>
                     </table>
 
+                    
+                    <a href="{{route('monitoring-aset')}}" class="btn btn-info mb-3">Lihat Semua Data</a>
+
                     @if(!empty($monitoring))
                     <div class="pagination">
                         {{ $monitoring->links() }}
                     </div>
                     @endif
+
                 </div>
 
 

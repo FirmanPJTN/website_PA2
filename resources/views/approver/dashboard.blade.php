@@ -272,7 +272,7 @@
 
         <br>
 
-        <h2 class="mb-5 mt-5 fw-bold ml-3">PEMUSNAHAN ASET</h2>       
+        <h2 class="mb-5 fw-bold ml-3">PEMUSNAHAN ASET</h2>       
 
         <div class="table-container ml-3 mr-5">
             <table class="table table-striped table-bordered mb-5 ">

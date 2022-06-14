@@ -69,7 +69,7 @@
 
                 <?php $jumlahaset = DB::table('data_asets')->count(); ?>
                 @if($jumlahaset != 0)
-                <div class="box mx-3" style="background-color: #21CC7A; padding: 30px; padding-left: 50px; padding-right: 50px; border-radius: 10px; font-size: 2em; color: white; font-weight: bold; text-align: center">
+                <div class="box mx-3" style="background-color: #21CC7A; padding: 30px; padding-left: 75px; padding-right: 75px; border-radius: 10px; font-size: 2em; color: white; font-weight: bold; text-align: center">
                 {{$jumlahaset}} <br>
                     <span style="font-size: 0.7em;">Jumlah Aset</span>
                 </div>
@@ -85,7 +85,7 @@
 
                 <?php $jumlahpengadaan = DB::table('pengadaan')->count(); ?>
                 @if($jumlahpengadaan != 0)
-                <div class="box mx-3" style="background-color: #947AFF; padding: 30px; padding-left: 35px; padding-right: 35px; border-radius: 10px; font-size: 2em; color: white; font-weight: bold; text-align: center">
+                <div class="box mx-3" style="background-color: #947AFF; padding: 30px; padding-left: 40px; padding-right: 40px; border-radius: 10px; font-size: 2em; color: white; font-weight: bold; text-align: center">
                 {{$jumlahpengadaan}} <br>
                     <span style="font-size: 0.7em;">Jumlah Pengadaan</span>
                 </div>
@@ -103,7 +103,7 @@
 
                 <?php $jumlahmonitoring = DB::table('monitoring')->count(); ?>
                 @if($jumlahmonitoring != 0)
-                <div class="box mx-3" style="background-color: #FF7A7A; padding: 30px; padding-left: 35px; padding-right: 35px; border-radius: 10px; font-size: 2em; color: white; font-weight: bold; text-align: center">
+                <div class="box mx-3" style="background-color: #FF7A7A; padding: 30px; padding-left: 40px; padding-right: 40px; border-radius: 10px; font-size: 2em; color: white; font-weight: bold; text-align: center">
                 {{$jumlahmonitoring}} <br>
                     <span style="font-size: 0.7em;">Jumlah Monitoring</span>
                 </div>

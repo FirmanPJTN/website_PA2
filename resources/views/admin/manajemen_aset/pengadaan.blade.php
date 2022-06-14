@@ -41,6 +41,7 @@
     <script src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 </head>
 <body>
+@include('sweetalert::alert')
 <div class="wrapper">
         <!-- Sidebar Admin Layout -->
         @include('layouts.adminNavbar')
@@ -134,7 +135,7 @@
 
             @if(!empty($pengadaan))
             <div class="pagination">
-                {{ $data->links() }}
+                {{ $pengadaan->links() }}
             </div>
             @endif
         </div>
@@ -265,20 +266,6 @@
                 })
             });
     </script>
-
-    @if(Session::has('success'))
-    <script type="text/javascript">
-        swal({
-                title:'Berhasil',
-                text:"{{Session::get('success')}}",
-                timer:2000,
-                icon: "success",
-                type:'success'
-            }).then((value) => {
-            //location.reload();
-        }).catch(swal.noop);
-    </script>
-    @endif
 
 
 

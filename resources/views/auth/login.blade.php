@@ -74,21 +74,16 @@
                                         <div class="col-md-12">
                                             <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="Masukkan email Anda">
 
-                                            @error('email')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
                                         </div>
                                     </div>
 
                                     <div class="row mb-3 mt-4">
 
                                         <div class="col-md-12">
-                                            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" placeholder="Masukkan password Anda">
+                                            <input id="password" type="password" class="form-control @error('email') is-invalid @enderror" name="password" required autocomplete="current-password" placeholder="Masukkan password Anda">
 
-                                            @error('password')
-                                                <span class="invalid-feedback" role="alert">
+                                            @error('email')
+                                                <span class="invalid-feedback mt-3" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
                                             @enderror
