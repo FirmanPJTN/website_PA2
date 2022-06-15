@@ -119,7 +119,7 @@
                     <?php $i=0 ?>
                         @foreach ($pembelian as $beli)
 
-                        @if($beli->status != 'proses' ) 
+                        @if($beli->status != 'proses' && $beli->status != 'setuju' && $beli->status != 'tolak') 
 
                         <?php $pengadaan = DB::table('pengadaan')->where('id','=',$beli->pengadaan_id)->get() ?>
 

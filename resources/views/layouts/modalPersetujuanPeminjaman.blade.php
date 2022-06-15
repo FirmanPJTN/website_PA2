@@ -6,12 +6,12 @@
         {{ csrf_field() }}
         <div class="modal-header">
             
-        <input type="text" name="statusSetuju" value="setuju" style="visibility: hidden">
+        <input type="hidden" name="statusSetuju" value="setuju" style="visibility: hidden">
         <h2 class="modal-title fw-bold text-center" id="exampleModalLabel">PERSETUJUAN PEMINJAMAN ASET</h2>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
 
-        <input type="text" name="statusTolak" value="tolak" style="visibility: hidden">
+        <input type="hidden" name="statusTolak" value="tolak" style="visibility: hidden">
 
 
         <div class="modal-body row">
@@ -39,7 +39,7 @@
 
         @include('layouts.ifEmptyPeminjamanDisabled')
 
-        <input type="text" name="deskripsiNotifTolak" value="kode peminjaman {{$pinjam->kodePeminjaman}} ditolak" style="visibility: hidden">
+        <input type="hidden" name="deskripsiNotifTolak" value="kode peminjaman {{$pinjam->kodePeminjaman}} ditolak" style="visibility: hidden">
 
 
         <div class="form-group ml-2 mt-3">
@@ -49,7 +49,7 @@
             </div>
         </div>
 
-        <input type="text" name="statusNotifTolak" value="tolak" style="visibility: hidden">
+        <input type="hidden" name="statusNotifTolak" value="tolak" style="visibility: hidden">
 
 
         <div class="form-group mt-3 ml-2">
@@ -62,18 +62,18 @@
 
         <?php $admins =  DB::table('users')->where('role','=','administrator')->get() ?>
         @foreach($admins as $admin)
-        <input type="text" name="role" value="{{$admin->role}}" style="visibility: hidden">
+        <input type="hidden" name="role" value="{{$admin->role}}" style="visibility: hidden">
         @endforeach
 
         <?php $visitors =  DB::table('users')->where('id','=',$pinjam->user_id)->get() ?>
         @foreach($visitors as $visitor)
-        <input type="text" name="idVisitor" value="{{$visitor->id}}" style="visibility: hidden">
+        <input type="hidden" name="idVisitor" value="{{$visitor->id}}" style="visibility: hidden">
         @endforeach
  
 
-        <input type="text" name="deskripsiNotifSetuju" value="kode peminjaman {{$pinjam->kodePeminjaman}} disetujui" style="visibility: hidden">
+        <input type="hidden" name="deskripsiNotifSetuju" value="kode peminjaman {{$pinjam->kodePeminjaman}} disetujui" style="visibility: hidden">
         
-        <input type="text" name="statusNotifSetuju" value="setuju" style="visibility: hidden">
+        <input type="hidden" name="statusNotifSetuju" value="setuju" style="visibility: hidden">
 
         <div class="modal-footer d-flex">
             <button style="width: 40%" type="submit" class="btn btn-danger" name="btnSubmit" value="tolak">Tolak</button>

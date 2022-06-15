@@ -20,16 +20,15 @@ class PeminjamanController extends Controller
     {
         if ($request->has('cari')) {
 
-            $peminjaman = Peminjaman::where('kodePeminjaman', 'LIKE', '%'.$request->cari.'%')->paginate(10);
-            $pengadaan = Pengadaan::where('kodePengadaan', 'LIKE', '%'.$request->cari.'%')->paginate(10);
-            $monitoring = Monitoring::where('kodeMonitoring', 'LIKE', '%'.$request->cari.'%')->paginate(10);
-
+            $peminjaman = Peminjaman::where('kodePeminjaman', 'LIKE', '%' . $request->cari . '%')->paginate(10);
+            $pengadaan = Pengadaan::where('kodePengadaan', 'LIKE', '%' . $request->cari . '%')->paginate(10);
+            $monitoring = Monitoring::where('kodeMonitoring', 'LIKE', '%' . $request->cari . '%')->paginate(10);
         } else {
             $peminjaman = Peminjaman::paginate(10);
             $pengadaan = Pengadaan::paginate(10);
             $monitoring = Monitoring::paginate(10);
         }
-        
+
         return view('visitor.dashboard', compact('peminjaman', 'pengadaan', 'monitoring'));
     }
 
@@ -237,13 +236,12 @@ class PeminjamanController extends Controller
         $peminjaman->catatan = $request->catatan;
         $peminjaman->save();
 
-        foreach ($visitors->take(1) as $visitor)
-            Notifikasi::create([
-                'deskripsi' => $request->deskripsiNotifKembali,
-                'status' => $request->statusNotifKembali,
-                'kodePeminjaman'  => $request->kodePeminjaman,
-                'user_id' => $visitor->idVisitor
-            ]);
+        Notifikasi::create([
+            'deskripsi' => $request->deskripsiNotifKembali,
+            'status' => $request->statusNotifKembali,
+            'kodePeminjaman'  => $request->kodePeminjaman,
+            'user_id' => $request->idVisitor
+        ]);
 
         return redirect(route('pinjam-aset-admin'))->with('success', 'Peminjaman berhasil dikembalikan');
     }
@@ -288,7 +286,7 @@ class PeminjamanController extends Controller
                         'role' => $admin->role,
                         'status' => $admin->statusNotifSetuju,
                         'kodePeminjaman'  => $request->kodePeminjaman,
-                        'user_id' => $visitor->id,
+                        'user_id' => $visitor->id
 
                     ]);
             }

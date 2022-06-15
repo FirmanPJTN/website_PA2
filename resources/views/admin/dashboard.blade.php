@@ -75,13 +75,17 @@
                 </div>
                 @endif
 
-                <?php $jumlahpeminjaman = DB::table('peminjaman')->count(); ?>
-                @if($jumlahpeminjaman != 0)
+            
+
+                @foreach($peminjaman as $pinjam)
+                <?php $jumlahpeminjaman = DB::table('peminjaman')->where('status','!=','proses')->count(); ?>
+                @if($jumlahpeminjaman != 0 && $pinjam->status != 'proses')
                 <div class="box mx-3" style="background-color: #00D1B8; padding: 30px; padding-left: 35px; padding-right: 35px; border-radius: 10px; font-size: 2em; color: white; font-weight: bold; text-align: center">
                     {{$jumlahpeminjaman}} <br>
                     <span style="font-size: 0.7em;">Jumlah Peminjaman</span>
                 </div>
                 @endif
+                @endforeach
 
                 <?php $jumlahpengadaan = DB::table('pengadaan')->count(); ?>
                 @if($jumlahpengadaan != 0)

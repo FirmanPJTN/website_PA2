@@ -130,7 +130,7 @@
 
         </div>
 
-        <input type="hidden" name="deskripsiSetuju" value="PR kode pengadaan {{$ada->kodePengadaan}} disetujui dan menunggu proses pembayaran" style="visibility: hidden">
+        <input type="hidden" name="deskripsiSetuju" value="PR kode pengadaan {{$ada->kodePengadaan}} disetujui dan telah melakukan proses pembayaran" style="visibility: hidden">
 
         <input type="hidden" name="idPengadaan" value="{{$ada->id}}" style="visibility: hidden">
 

@@ -19,7 +19,7 @@
         </div>
 
 
-        <input type="text" name="deskripsiNotifKembali" value="kode peminjaman {{$pinjam->kodePeminjaman}} berhasil dikembalikan" style="visibility: hidden">
+        <input type="hidden" name="deskripsiNotifKembali" value="kode peminjaman {{$pinjam->kodePeminjaman}} berhasil dikembalikan" style="visibility: hidden">
 
 
         <div class="form-group ml-2 mt-3">
@@ -48,15 +48,15 @@
         </div>
         </div>
 
-        <input type="text" name="statusKembali" value="kembali" style="visibility: hidden">
+        <input type="hidden" name="statusKembali" value="kembali" style="visibility: hidden">
 
         <?php $visitors =  DB::table('users')->where('id','=',$pinjam->user_id)->get() ?>
         @foreach($visitors as $visitor)
-        <input type="text" name="idVisitor" value="{{$visitor->id}}" style="visibility: hidden">
+        <input type="hidden" name="idVisitor" value="{{$visitor->id}}" style="visibility: hidden">
         @endforeach
  
         
-        <input type="text" name="statusNotifKembali" value="kembali" style="visibility: hidden">
+        <input type="hidden" name="statusNotifKembali" value="kembali" style="visibility: hidden">
 
         <div class="modal-footer d-flex">
             <button style="width: 40%"  class="btn btn-secondary" data-bs-dismiss="modal" >Batal</button>

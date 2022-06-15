@@ -49,19 +49,19 @@
                     @enderror
 
                     <!-- USER ID REFERENCES -->
-                    <input type="number" name="user_id" class="form-control mx-4" value="{{ Auth::user()->id }}" autofocus autocomplete="off" style="visibility: hidden">
+                    <input type="hidden" name="user_id" class="form-control mx-4" value="{{ Auth::user()->id }}" autofocus autocomplete="off" style="visibility: hidden">
 
 
-                    <input type="text" name="kodePeminjaman" value="PMJN-{{date('Y.m.d-h.i.s')}}" style="visibility: hidden">
+                    <input type="hidden" name="kodePeminjaman" value="PMJN-{{date('Y.m.d-h.i.s')}}" style="visibility: hidden">
 
                     <?php $approvers =  DB::table('users')->where('role', '=', 'approver')->get() ?>
                     @foreach($approvers as $approver)
-                    <input type="text" name="role" value="{{$approver->role}}" style="visibility: hidden">
+                    <input type="hidden" name="role" value="{{$approver->role}}" style="visibility: hidden">
                     @endforeach
 
-                    <input type="text" name="deskripsiNotif" value="kode peminjaman PMJN-{{date('Y.m.d-h.i.s')}} telah dibuat !" style="visibility: hidden">
+                    <input type="hidden" name="deskripsiNotif" value="kode peminjaman PMJN-{{date('Y.m.d-h.i.s')}} telah dibuat !" style="visibility: hidden">
 
-                    <input type="text" name="status" value="proses" style="visibility: hidden">
+                    <input type="hidden" name="status" value="proses" style="visibility: hidden">
                 </div>
 
                 <div class="modal-footer d-flex">

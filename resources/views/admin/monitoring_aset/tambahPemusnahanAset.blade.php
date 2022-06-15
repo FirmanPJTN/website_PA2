@@ -68,9 +68,9 @@
 
                 <form enctype="multipart/form-data" action="/MonitoringAset/PemusnahanAset/Simpan" method="post">
                     {{ csrf_field() }}
-                    <input type="text" name="kodePemusnahan" value="PMNA-{{date('Y.m.d-h.i.s')}}" style="visibility: hidden">
+                    <input type="hidden" name="kodePemusnahan" value="PMNA-{{date('Y.m.d-h.i.s')}}" style="visibility: hidden">
 
-                    <input type="text" name="status" value="Diproses" style="visibility: hidden">
+                    <input type="hidden" name="status" value="Diproses" style="visibility: hidden">
 
                     <div class="form-group input_fields_wrap">
                         <div class="d-flex justify-content-start mt-4 ">
@@ -91,7 +91,7 @@
                     
                     <?php $approvers =  DB::table('users')->where('role','=','approver')->get() ?>
                     @foreach($approvers as $approver)
-                    <input type="text" name="role" value="{{$approver->role}}" style="visibility: hidden">
+                    <input type="hidden" name="role" value="{{$approver->role}}" style="visibility: hidden">
                     @endforeach
                     
 
@@ -116,7 +116,7 @@
                     @enderror
 
                     
-                    <input type="text" name="deskripsiNotif" value="kode pemusnahan PMNA-{{date('Y.m.d-h.i.s')}} telah dibuat !" style="visibility: hidden">
+                    <input type="hidden" name="deskripsiNotif" value="kode pemusnahan PMNA-{{date('Y.m.d-h.i.s')}} telah dibuat !" style="visibility: hidden">
                     
                     
 
