@@ -17,7 +17,7 @@ class UserController extends Controller
     public function index()
     {
         $users = User::paginate(10);
-        return view('admin.kelola_pengguna.KelolaPengguna', ['users'=>$users]);
+        return view('admin.kelola_pengguna.kelolaPengguna', ['users'=>$users]);
     }
 
     /**
