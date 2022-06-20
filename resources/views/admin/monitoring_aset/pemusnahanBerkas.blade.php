@@ -63,7 +63,7 @@
             <h2 class="mb-5 mt-5 fw-bold ">DAFTAR PEMUSNAHAN BERKAS</h2>
 
 
-            <div class="d-flex justify-content-start ml-5 mb-4">
+            <div class="d-flex justify-content-start mb-4">
                 <a href="{{route('tambah-musnah-berkas')}}" class="btn btn-primary mx-2">Tambah Pemusnahan</a>
             </div>
 

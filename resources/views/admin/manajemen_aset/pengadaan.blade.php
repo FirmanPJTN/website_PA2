@@ -63,7 +63,7 @@
 
         <h2 class="mb-5 mt-5 fw-bold">DAFTAR PENGADAAN ASET</h2>
 
-        <div class="table-container mx-5 mr-5">
+        <div class="table-container mr-5">
             <table class="table table-striped table-bordered mb-5 ">
                 <thead>
                     <tr>
@@ -142,7 +142,7 @@
 
             <h3 class="mb-5 mt-5 fw-bold">RIWAYAT PENGADAAN ASET</h3> 
 
-            <div class="table-container mx-5 mr-5">
+            <div class="table-container mr-5">
                 <table class="table table-striped table-bordered mb-5 ">
                     <thead>
                         <tr>

@@ -73,7 +73,7 @@
                 <div class="d-flex justify-content-end mb-4">
                     <a href="/ManajemenAset/DataAset/Tambah" class="btn btn-primary mx-2">Tambah Data</a>
                     <a href="/ManajemenAset/DataAset/Export/" class="btn btn-success mx-2">Ekspor Data</a>
-                    <a href="/LaporanBerkala/Ekspor" class="btn btn-info mx-2" target="_blank">Laporan Bulanan</a>
+                    <a href="/LaporanBerkala" class="btn btn-info mx-2" >Laporan Bulanan</a>
                 </div>
             
             </div>

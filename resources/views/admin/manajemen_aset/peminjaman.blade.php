@@ -81,7 +81,7 @@
                         <?php $i=0 ?>
                             @foreach ($peminjaman as $pinjam)
 
-                            @if($pinjam->status != null && $pinjam->status != 'proses') 
+                            @if($pinjam->status != null && $pinjam->status != 'proses' && $pinjam->status != 'kembali') 
                             <?php $users = DB::table('users')->select('nama','unit')->where('id',$pinjam->user_id)->get(); ?>
 
                             @foreach ($users as $user)
@@ -98,9 +98,6 @@
                             <td class="text-center">{{$pinjam -> tglKembali}}</td>
                             @if($pinjam->status == 'setuju') 
                                 <td class="text-center"> <button class="btn btn-secondary" disabled><span class="iconify" data-icon="mdi:progress-clock" data-height="20"></span> Dipinjam</button></td>
-                            @endif
-                            @if($pinjam->status == 'kembali') 
-                                <td class="text-center"><button class="btn btn-success" disabled><span class="iconify" data-icon="mdi:progress-check" data-height="20"></span> Dikembalikan</button></td>
                             @endif
                             <td class="text-center">
                                 <div class="d-flex justify-content-around">
@@ -137,6 +134,73 @@
                 @endif
             </div>
             
+            <h3 class="mb-5 mt-5 fw-bold">RIWAYAT PEMINJAMAN ASET</h3>       
+
+            <div class="table-container mr-5">
+                <table class="table table-striped table-bordered mb-5 " >
+                    <thead>
+                        <tr>
+                        <th scope="col" class="text-center">No</th>
+                        <th scope="col" class="text-center">Kode Peminjaman</th>
+                        <th scope="col" class="text-center">Peminjam</th>
+                        <th scope="col" class="text-center">Unit</th>
+                        <th scope="col" class="text-center">Jumlah Barang</th>
+                        <th scope="col" class="text-center">Tanggal Peminjaman</th>
+                        <th scope="col" class="text-center">Rencana Pengembalian</th>
+                        <th scope="col" class="text-center">Status</th>
+                        <th scope="col" class="text-center">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php $i=0 ?>
+                            @foreach ($peminjaman as $pinjam)
+
+                            @if($pinjam->status != 'kembali') 
+                            <?php $users = DB::table('users')->select('nama','unit')->where('id',$pinjam->user_id)->get(); ?>
+
+                            @foreach ($users as $user)
+                            <?php 
+                                $jumlah = ($pinjam -> jumlahBarang1) + ($pinjam -> jumlahBarang2) + ($pinjam -> jumlahBarang3) + ($pinjam -> jumlahBarang4) + ($pinjam -> jumlahBarang5)
+                            ?>
+                        <tr>
+                            <td class="text-center">{{$peminjaman->firstItem() +$i}}</td>
+                            <td class="text-center">{{$pinjam->kodePeminjaman}}</td>
+                            <td class="text-center">{{$user->nama}}</td>
+                            <td class="text-center">{{$user->unit}}</td>
+                            <td class="text-center">{{$jumlah}}</td>
+                            <td class="text-center">{{$pinjam -> created_at -> format('Y-m-d')}}</td>
+                            <td class="text-center">{{$pinjam -> tglKembali}}</td>
+                                <td class="text-center"><button class="btn btn-success" disabled><span class="iconify" data-icon="mdi:progress-check" data-height="20"></span> Dikembalikan</button></td>
+                            <td class="text-center">
+                                <div class="d-flex justify-content-around">
+                                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#abc<?= $pinjam->id ?>">Detail</button>
+                                </div>
+                            </td>
+                        </tr>
+
+
+
+                        <!-- MODAL DETAIL PEMINJAMAN -->
+                        @include('layouts.modalDetailPeminjamanAdmin')
+
+
+                        <!-- MODAL PENGEMBALIAN PEMINJAMAN -->
+                        @include('layouts.modalPengembalianPeminjaman')
+
+                        <?php $i++; ?>
+                        @endforeach
+                        @endif
+                        @endforeach
+                        
+                    </tbody>
+                </table>
+
+                @if(!empty($peminjaman))
+                <div class="pagination">
+                    {{ $peminjaman->links() }}
+                </div>
+                @endif
+            </div>
 
 
             <br><br><br>

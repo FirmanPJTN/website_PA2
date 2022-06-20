@@ -8,6 +8,7 @@ use App\Models\User;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use App\Exports\AsetExport;
 use Alert;
 
 class ControllerDataAset extends Controller
