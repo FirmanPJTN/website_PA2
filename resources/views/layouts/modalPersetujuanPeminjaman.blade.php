@@ -72,6 +72,8 @@
  
 
         <input type="hidden" name="deskripsiNotifSetuju" value="kode peminjaman {{$pinjam->kodePeminjaman}} disetujui" style="visibility: hidden">
+
+        <input type="hidden" name="unit_id" value="{{$pinjam->unit->id}}" style="visibility: hidden">
         
         <input type="hidden" name="statusNotifSetuju" value="setuju" style="visibility: hidden">
 

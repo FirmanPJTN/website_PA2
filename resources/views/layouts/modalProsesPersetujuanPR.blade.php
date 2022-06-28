@@ -26,7 +26,7 @@
 
 
         
-        <div class="form-group mt-3">
+        <div class="form-group ml-2 mt-3">
             <div class="d-flex justify-content-center">
                 <label class="mx-4 w-25" >Tanggal Pengajuan</label>
                 <input type="text" class="form-control mx-4" id="tglPinjam<?= $beli->id ?>" value="{{$beli -> created_at -> format('Y-m-d')}}" autofocus autocomplete="off" disabled>
@@ -60,7 +60,8 @@
 
         <input type="hidden" name="idPengadaan" value="{{$beli->pengadaan_id}}" style="visibility: hidden">
 
-        
+
+        <input type="hidden" name="unit_id" value="{{$ada->unit_id}}" style="visibility: hidden">
 
         <input type="hidden" name="idPembelian" value="{{$beli->id}}" style="visibility: hidden">
    

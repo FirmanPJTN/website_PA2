@@ -94,8 +94,7 @@
                             <td class="text-center">
                                 <button class="btn btn-warning" disabled><span class="iconify" data-icon="mdi:progress-alert" data-height="20"></span> {{$musnah->status}}</button>
                             </td>
-                            <?php $datetime = new DateTime($musnah->waktuPemusnahan);  ?>
-                            <td class="text-center">{{ date_format($datetime,"m")}}</td>
+                            <td class="text-center">{{$musnah->waktuPemusnahan}}</td>
                             <td>{{Str::limit($musnah->deskripsi, 50, $end=' .....')}}</td>
                             <td class="text-center">
                                 <div class="d-flex justify-content-around">
@@ -165,8 +164,7 @@
                                 <button class="btn btn-danger" disabled><span class="iconify" data-icon="mdi:progress-close" data-height="20"></span> {{$musnah->status}}</button>
                                 @endif
                             </td>
-                            <?php $datetime = new DateTime($musnah->waktuPemusnahan);  ?>
-                            <td class="text-center">{{ date_format($datetime,"m")}}</td>
+                            <td class="text-center">{{$musnah->waktuPemusnahan}}</td>
                             <td>{{Str::limit($musnah->deskripsi, 50, $end=' .....')}}</td>
                             <td class="text-center">
                                 <div class="d-flex justify-content-around">

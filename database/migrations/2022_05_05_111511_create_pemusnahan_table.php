@@ -17,7 +17,6 @@ return new class extends Migration
             $table->increments('id');
             $table->string('kodePemusnahan')->unique();
             $table->string('role')->nullable();
-            $table->string('unit')->nullable();
             $table->text('gambar')->nullable();
             $table->string('jenisBarang1')->nullable();
             $table->text('tipeBarang1')->nullable();

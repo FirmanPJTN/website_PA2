@@ -23,14 +23,14 @@
         <div class="form-group ml-2 mt-3">
             <div class="d-flex justify-content-center">
                 <label class="mx-4 w-25" >Peminjam</label>
-                <input type="text" name="peminjam" class="form-control mx-4" value="{{$user->nama}}" autofocus autocomplete="off"  disabled>
+                <input type="text" name="peminjam" class="form-control mx-4" value="{{$pinjam->user->nama}}" autofocus autocomplete="off"  disabled>
             </div>
         </div>
 
         <div class="form-group ml-2 mt-3">
             <div class="d-flex justify-content-center">
                 <label class="mx-4 w-25" >Unit</label>
-                <input type="text" name="unit" class="form-control mx-4" value="{{$user->unit}}" autofocus autocomplete="off"  disabled>
+                <input type="text" name="unit" class="form-control mx-4" value="{{$pinjam->unit->unit}}" autofocus autocomplete="off"  disabled>
             </div>
         </div>
 

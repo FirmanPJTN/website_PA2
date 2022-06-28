@@ -130,7 +130,7 @@
 
         </div>
 
-        <input type="hidden" name="deskripsiSetuju" value="PR kode pengadaan {{$ada->kodePengadaan}} disetujui dan telah melakukan proses pembayaran" style="visibility: hidden">
+        <input type="hidden" name="deskripsiSetuju" value="PO kode pengadaan {{$ada->kodePengadaan}} telah melakukan proses pembayaran" style="visibility: hidden">
 
         <input type="hidden" name="idPengadaan" value="{{$ada->id}}" style="visibility: hidden">
 
@@ -149,6 +149,8 @@
         @foreach($users as $user)
         <input type="hidden" name="idUser" value="{{$user->id}}" style="visibility: hidden">
         @endforeach
+
+        <input type="hidden" name="unit_id" value="{{$ada->unit_id}}" style="visibility: hidden">
 
         <div class="modal-footer d-flex">
             <button style="width: 40%" data-bs-dismiss="modal" class="btn btn-secondary">Batal</button>

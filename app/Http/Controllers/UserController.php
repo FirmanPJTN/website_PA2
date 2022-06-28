@@ -46,7 +46,7 @@ class UserController extends Controller
         $request->validate([
             'nama' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'unit' => ['required', 'string', 'max:255'],
+            'unit' => ['required'],
             'role' => ['required', 'string', 'max:255'],
             'password' => ['required', 'string', 'min:8', 'confirmed']
         ]);
@@ -55,9 +55,8 @@ class UserController extends Controller
             'nama'  => $request-> nama,
             'email'  => $request-> email,
             'role'  => $request-> role,
-            'unit'  => $request-> unit,
+            'unit_id'  => $request-> unit,
             'password'  => Hash::make($request-> password)
-            
         ]);
 
         return redirect('/KelolaPengguna')->with('success', 'Pengguna Berhasil Ditambahkan!');
@@ -101,7 +100,7 @@ class UserController extends Controller
         $request->validate([
             'nama' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255'],
-            'unit' => ['required', 'string', 'max:255'],
+            'unit' => ['required'],
             'role' => ['required', 'string', 'max:255']
         ]);
 
@@ -110,7 +109,7 @@ class UserController extends Controller
         $user->nama  = $request-> nama;
         $user->email  = $request-> email;
         $user->role  = $request-> role;
-        $user->unit  = $request-> unit;
+        $user->unit_id  = $request-> unit;
 
         $user->save();
             
@@ -131,7 +130,7 @@ class UserController extends Controller
 
         $user->nama  = $request-> nama;
         $user->email  = $request-> email;
-        $user->unit  = $request-> unit;
+        $user->unit_id  = $request-> unit;
 
         $user->save();
             

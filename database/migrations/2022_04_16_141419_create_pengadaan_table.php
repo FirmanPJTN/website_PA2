@@ -41,6 +41,8 @@ return new class extends Migration
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('pembelian_id')->references('id')->on('pembelian')->onDelete('cascade');
+            $table->unsignedInteger('unit_id')->nullable();
+            $table->foreign('unit_id')->references('id')->on('unit')->onDelete('cascade');
 
             $table->timestamps();
         });

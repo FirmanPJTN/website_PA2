@@ -91,7 +91,7 @@
                         <tr>
                             <td class="text-center">{{$monitoring->firstItem() +$i}}</td>
                             <td class="text-center">{{$monitor ->kodeMonitoring}}</td>
-                            <td class="text-center">{{$monitor ->unit}}</td>
+                            <td class="text-center">{{$monitor ->unit->unit}}</td>
                             <td class="text-center">{{$jumlah}}</td>
                             <td class="text-center">{{$monitor -> waktuMonitoring}}</td>
                             <td class="text-center">
@@ -153,7 +153,7 @@
                         <tr>
                             <td class="text-center">{{$monitoring->firstItem() +$i}}</td>
                             <td class="text-center">{{$monitor ->kodeMonitoring}}</td>
-                            <td class="text-center">{{$monitor ->unit}}</td>
+                            <td class="text-center">{{$monitor ->unit->unit}}</td>
                             <td class="text-center">{{$jumlah}}</td>
                             <td class="text-center">{{$monitor -> waktuMonitoring}}</td>
                             <td class="text-center">

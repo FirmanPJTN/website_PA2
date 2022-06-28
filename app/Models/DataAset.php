@@ -10,16 +10,15 @@ class DataAset extends Model
     use HasFactory;
     protected $table = 'data_asets';
     
-    protected $fillable = ['kodeAset', 'kategori', 'jenisBarang','tipeBarang','jumlahBarang','tglBeli','penyimpanan', 'unit', 'isInternal','gedung'];
+    protected $guarded = ['id'];
 
-    protected $primaryKey = 'id';
 
-    public function User() {
-        return $this->hasMany(User::class);
+    public function user() {
+        return $this->belongsTo(User::class);
     }
 
-    public function Unit() {
-        return $this->belongsTo(Unit::class, 'id');
+    public function unit() {
+        return $this->belongsTo(Unit::class);
     }
 
 }

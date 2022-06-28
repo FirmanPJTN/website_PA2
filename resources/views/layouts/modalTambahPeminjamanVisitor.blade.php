@@ -62,6 +62,10 @@
                     <input type="hidden" name="deskripsiNotif" value="kode peminjaman PMJN-{{date('Y.m.d-h.i.s')}} telah dibuat !" style="visibility: hidden">
 
                     <input type="hidden" name="status" value="proses" style="visibility: hidden">
+
+                    
+                    <input type="hidden" name="unit_id" value="{{Auth::user()->unit_id}}" style="visibility: hidden">
+
                 </div>
 
                 <div class="modal-footer d-flex">

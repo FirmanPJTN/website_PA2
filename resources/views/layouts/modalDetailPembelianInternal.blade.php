@@ -16,12 +16,33 @@
                 <button class="btn from-control btn-secondary" disabled><span class="iconify" data-icon="mdi:progress-check" data-height="20"></span> PO disetujui</button>
                 @endif
 
-                <div class="form-group ml-2 mt-3">
+                <div class="form-group mt-3">
                     <div class="d-flex justify-content-center">
                         <label class="mx-4 w-25">Kode Pengadaan</label>
                         <input type="text" name="kodePengadaan" class="form-control mx-4" value="{{$ada->kodePengadaan}}" autofocus autocomplete="off" disabled>
                     </div>
                 </div>
+
+
+                <?php $pengada = DB::table('users')->where('id',$ada->user_id)->get() ?>
+                @foreach($pengada->take(1) as $pada)
+                <div class="form-group mt-3">
+                    <div class="d-flex justify-content-center">
+                        <label class="mx-4 w-25">Pengada</label>
+                        <input type="text" name="pengada" class="form-control mx-4" value="{{$pada->nama}}" autofocus autocomplete="off" disabled>
+                    </div>
+                </div>
+                @endforeach
+
+                <?php $unit = DB::table('unit')->where('id',$ada->unit_id)->get() ?>
+                @foreach($unit->take(1) as $unt)
+                <div class="form-group mt-3">
+                    <div class="d-flex justify-content-center">
+                        <label class="mx-4 w-25">Unit</label>
+                        <input type="text" name="unit" class="form-control mx-4" value="{{$unt->unit}}" autofocus autocomplete="off" disabled>
+                    </div>
+                </div>
+                @endforeach
 
                 <div class="form-group input_fields_wrap">
                     <div class="d-flex justify-content-start mt-4 ">

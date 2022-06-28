@@ -34,15 +34,16 @@ return new class extends Migration
             $table->date('tglKembali');
             $table->text('tujuan');
             $table->string('role')->nullable();
-            $table->string('unit')->nullable();
             $table->string('status')->nullable();
             $table->text('alasan')->nullable();
             $table->datetime('waktuPengembalian')->nullable();
             $table->text('catatan')->nullable();
 
             $table->unsignedInteger('user_id')->nullable();
-
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+
+            $table->unsignedInteger('unit_id')->nullable();
+            $table->foreign('unit_id')->references('id')->on('unit')->onDelete('cascade');
 
             $table->timestamps();
         });

@@ -20,12 +20,10 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string("role");
-            $table->string("unit");
             $table->rememberToken();
             $table->timestamps();
 
-            $table->unsignedInteger('unit_id')->nullable();
-
+            $table->unsignedInteger('unit_id');
             $table->foreign('unit_id')->references('id')->on('unit')->onDelete('cascade');
         });
     }

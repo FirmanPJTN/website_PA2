@@ -85,6 +85,7 @@ class PengadaanController extends Controller
                 'status'  => $request->status,
                 'kategori'  => $request->kategori,
                 'user_id'  => $request->user_id,
+                'unit_id'  => $request->unit_id
             ]);
 
             Notifikasi::create([
@@ -115,6 +116,7 @@ class PengadaanController extends Controller
                 'status'  => $request->status,
                 'kategori'  => $request->kategori,
                 'user_id'  => $request->user_id,
+                'unit_id'  => $request->unit_id
             ]);
 
 

@@ -17,23 +17,23 @@
             @endif
 
             <div class="form-group ml-2 mt-3">
-                    <div class="d-flex justify-content-center">
-                        <label class="mx-4 w-25">Kode Pengadaan</label>
-                        <input type="text" name="kodePengadaan" class="form-control mx-4" value="{{$ada->kodePengadaan}}" disabled autofocus autocomplete="off">
-                    </div>
+                <div class="d-flex justify-content-center">
+                    <label class="mx-4 w-25">Kode Pengadaan</label>
+                    <input type="text" name="kodePengadaan" class="form-control mx-4" value="{{$ada->kodePengadaan}}" disabled autofocus autocomplete="off">
                 </div>
+            </div>
 
             <div class="form-group ml-2 mt-3">
                 <div class="d-flex justify-content-center">
-                    <label class="mx-4 w-25">Peminjam</label>
-                    <input type="text" name="peminjam" class="form-control mx-4" value="{{$user->nama}}" autofocus autocomplete="off" disabled>
+                    <label class="mx-4 w-25">Pengada</label>
+                    <input type="text" name="pengada" class="form-control mx-4" value="{{$ada->user->nama}}" autofocus autocomplete="off" disabled>
                 </div>
             </div>
 
             <div class="form-group ml-2 mt-3">
                 <div class="d-flex justify-content-center">
                     <label class="mx-4 w-25">Unit</label>
-                    <input type="text" name="unit" class="form-control mx-4" value="{{$user->unit}}" autofocus autocomplete="off" disabled>
+                    <input type="text" name="unit" class="form-control mx-4" value="{{$ada->unit->unit}}" autofocus autocomplete="off" disabled>
                 </div>
             </div>
 

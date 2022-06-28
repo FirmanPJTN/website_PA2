@@ -16,7 +16,6 @@ return new class extends Migration
         Schema::create('notifikasi', function (Blueprint $table) {
             $table->increments('id');
             $table->text('deskripsi');
-            $table->string('unit')->nullable();
             $table->string('role')->nullable();
             $table->string('kodePeminjaman')->nullable();
             $table->string('kodePemusnahan')->nullable();

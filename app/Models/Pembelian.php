@@ -11,9 +11,13 @@ class Pembelian extends Model
 
     protected $table = 'pembelian';
 
-    protected $fillable = ['gambar','jenisBarang1','tipeBarang1','jumlahBarang1','jenisBarang2','tipeBarang2','jumlahBarang2','jenisBarang3','tipeBarang3','jumlahBarang3','jenisBarang4','tipeBarang4','jumlahBarang4','jenisBarang5','tipeBarang5','jumlahBarang5','waktuPembelian','deskripsi','deskripsi2', 'status','role','user_id','pengadaan_id','alasan', 'dokumenPO', 'dokumenPR'];
+    protected $guarded = ['id'];
 
-    public function User() {
-        return $this->belongsTo(User::class, 'id');
+    public function user() {
+        return $this->belongsTo(User::class);
+    }
+
+    public function unit() {
+        return $this->belongsTo(Unit::class);
     }
 }

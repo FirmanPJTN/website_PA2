@@ -86,7 +86,7 @@
                     <tbody>
                         <?php $i = 0 ?>
                         @foreach ($pengadaan as $ada)
-                        @if($ada->user_id == Auth::user()->id && $ada->status == 'proses')
+                        @if($ada->unit_id == Auth::user()->unit_id && $ada->status == 'proses')
 
                         <?php
                         $jumlah = ($ada->jumlahBarang1) + ($ada->jumlahBarang2) + ($ada->jumlahBarang3) + ($ada->jumlahBarang4) + ($ada->jumlahBarang5)
@@ -151,7 +151,7 @@
                     <tbody>
                         <?php $i = 0 ?>
                         @foreach ($pengadaan as $ada)
-                        @if($ada->user_id == Auth::user()->id && $ada->status != 'proses')
+                        @if($ada->unit_id == Auth::user()->unit_id && $ada->status != 'proses')
 
                         <?php
                         $jumlah = ($ada->jumlahBarang1) + ($ada->jumlahBarang2) + ($ada->jumlahBarang3) + ($ada->jumlahBarang4) + ($ada->jumlahBarang5)
@@ -207,7 +207,7 @@
         </div>
     </div>
 
-    <script type="text/javascript" src="../../js/scriptDeleteConfirmPengadaanVisitor.js"></script>
+    <script type="text/javascript" src="../../../js/scriptDeleteConfirmPengadaanVisitor.js"></script>
 
     <script>
         $(document).ready(function() {

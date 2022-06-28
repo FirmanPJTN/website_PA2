@@ -71,20 +71,18 @@
                     </h2>
                 </div>
 
-                @foreach($pengadaan->take(1) as $ada)
-
                 <div class="mb-5">
                     <div class="d-flex justify-content-start">
-                        <?php $jumlahpengadaanEks = DB::table('pengadaan')->where('kategori', '=', 'eksternal')->count(); ?>
-                        @if($jumlahpengadaanEks != 0 && $ada->status == 'setuju-PO')
+                        <?php $jumlahpengadaanEks = DB::table('pengadaan')->where('kategori', '=', 'eksternal')->whereIn('status',['setuju-PO','setuju'])->count(); ?>
+                        @if($jumlahpengadaanEks != 0 )
                         <div class="box mx-2" style="background-color: #00D1B8; padding: 30px; padding-left: 35px; padding-right: 35px; border-radius: 10px; font-size: 2em; color: white; font-weight: bold; text-align: center">
                             {{$jumlahpengadaanEks}} <br>
                             <span style="font-size: 0.7em;">Jumlah Pengadaan <br> Eksternal</span>
                         </div>
                         @endif
 
-                        <?php $jumlahpengadaanInt = DB::table('pengadaan')->where('kategori', '=', 'internal')->count(); ?>
-                        @if($jumlahpengadaanInt != 0 && $ada->status == 'setuju-PO')
+                        <?php $jumlahpengadaanInt = DB::table('pengadaan')->where('kategori', '=', 'internal')->whereIn('status',['setuju-PO','setuju'])->count(); ?>
+                        @if($jumlahpengadaanInt != 0)
                         <div class="box mx-2" style="background-color: #32A9FF; padding: 30px; padding-left: 35px; padding-right: 35px; border-radius: 10px; font-size: 2em; color: white; font-weight: bold; text-align: center">
                             {{$jumlahpengadaanInt}} <br>
                             <span style="font-size: 0.7em;">Jumlah Pengadaan <br>Internal</span>
@@ -94,7 +92,6 @@
                     </div>
                 </div>
 
-                @endforeach
 
                 <h2 class="mb-5 mt-5 ml-3 fw-bold">PENGADAAN EKSTERNAL</h2>
 

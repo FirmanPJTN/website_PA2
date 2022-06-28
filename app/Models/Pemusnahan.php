@@ -11,5 +11,13 @@ class Pemusnahan extends Model
 
     protected $table = 'pemusnahan';
     
-    protected $fillable = ['kodePemusnahan','jenisBarang1','tipeBarang1','jumlahBarang1','gambarBarang1','jenisBarang2','tipeBarang2','jumlahBarang2','gambarBarang2','jenisBarang3','tipeBarang3','jumlahBarang3','gambarBarang3','jenisBarang4','tipeBarang4','jumlahBarang4','gambarBarang4','jenisBarang5','tipeBarang5','jumlahBarang5','gambarBarang5','gambar','waktuPemusnahan','deskripsi', 'status','unit','unit_id','user_id','alasan'];
+    protected $guarded = ['id'];
+
+    public function user() {
+        return $this->belongsTo(User::class);
+    }
+
+    public function unit() {
+        return $this->belongsTo(Unit::class);
+    }
 }

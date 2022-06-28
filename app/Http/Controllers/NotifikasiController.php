@@ -89,7 +89,7 @@ class NotifikasiController extends Controller
 
     public function destroyInUnit($unit)
     {
-        $id = Notifikasi::where('unit','=',$unit)->delete();
+        $id = Notifikasi::where('unit_id','=',$unit)->delete();
         return redirect()->back();
     }
 

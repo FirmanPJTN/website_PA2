@@ -54,6 +54,8 @@
         @foreach($visitors as $visitor)
         <input type="hidden" name="idVisitor" value="{{$visitor->id}}" style="visibility: hidden">
         @endforeach
+
+        <input type="hidden" name="unit_id" value="{{$pinjam->unit_id}}" style="visibility: hidden">
  
         
         <input type="hidden" name="statusNotifKembali" value="kembali" style="visibility: hidden">

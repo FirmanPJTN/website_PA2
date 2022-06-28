@@ -11,10 +11,14 @@ class Peminjaman extends Model
 
     protected $table = 'peminjaman';
     
-    protected $fillable = ['kodePeminjaman','jenisBarang1','tipeBarang1','jumlahBarang1','jenisBarang2','tipeBarang2','jumlahBarang2','jenisBarang3','tipeBarang3','jumlahBarang3','jenisBarang4','tipeBarang4','jumlahBarang4','jenisBarang5','tipeBarang5','jumlahBarang5','tglKembali','tujuan','user_id','status','role','unit','alasan','waktuPengembalian','catatan'];
+    protected $guarded = ['id'];
 
-    public function User() {
-        return $this->belongsTo(User::class, 'id');
+    public function user() {
+        return $this->belongsTo(User::class);
+    }
+
+    public function unit() {
+        return $this->belongsTo(Unit::class);
     }
 
 }

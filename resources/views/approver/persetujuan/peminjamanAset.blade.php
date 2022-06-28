@@ -86,9 +86,7 @@
 
                         @if($pinjam->status == 'proses')
 
-                        <?php $users = DB::table('users')->select('nama', 'unit')->where('id', $pinjam->user_id)->get(); ?>
-
-                        @foreach ($users as $user)
+            
 
                         <?php
                         $jumlah = ($pinjam->jumlahBarang1) + ($pinjam->jumlahBarang2) + ($pinjam->jumlahBarang3) + ($pinjam->jumlahBarang4) + ($pinjam->jumlahBarang5)
@@ -96,8 +94,8 @@
                         <tr>
                             <td class="text-center">{{$peminjaman->firstItem() + $i}}</td>
                             <td class="text-center">{{$pinjam->kodePeminjaman}}</td>
-                            <td class="text-center">{{$user->nama}}</td>
-                            <td class="text-center">{{$user->unit}}</td>
+                            <td class="text-center">{{$pinjam->user->nama}}</td>
+                            <td class="text-center">{{$pinjam->unit->unit}}</td>
                             <td class="text-center">{{$jumlah}}</td>
                             <td class="text-center">{{$pinjam -> created_at -> format('Y-m-d')}}</td>
                             <td class="text-center">{{$pinjam -> tglKembali}}</td>
@@ -123,7 +121,6 @@
                         @include('layouts.modalPersetujuanPeminjaman')
 
                         <?php $i++; ?>
-                        @endforeach
                         @endif
                         @endforeach
 
@@ -159,17 +156,15 @@
                         @foreach ($peminjaman as $pinjam)
 
                         @if($pinjam->status != 'proses')
-                        <?php $users = DB::table('users')->select('nama', 'unit')->where('id', $pinjam->user_id)->get(); ?>
 
-                        @foreach ($users as $user)
                         <?php
                         $jumlah = ($pinjam->jumlahBarang1) + ($pinjam->jumlahBarang2) + ($pinjam->jumlahBarang3) + ($pinjam->jumlahBarang4) + ($pinjam->jumlahBarang5)
                         ?>
                         <tr>
                             <td class="text-center">{{$peminjaman->firstItem() + $i}}</td>
                             <td class="text-center">{{$pinjam->kodePeminjaman}}</td>
-                            <td class="text-center">{{$user->nama}}</td>
-                            <td class="text-center">{{$user->unit}}</td>
+                            <td class="text-center">{{$pinjam->user->nama}}</td>
+                            <td class="text-center">{{$pinjam->unit->unit}}</td>
                             <td class="text-center">{{$jumlah}}</td>
                             <td class="text-center">{{$pinjam -> created_at -> format('Y-m-d')}}</td>
                             <td class="text-center">{{$pinjam -> tglKembali}}</td>
@@ -194,7 +189,6 @@
                         @include('layouts.modalDetailPeminjamanAdminRiwayat')
 
                         <?php $i++; ?>
-                        @endforeach
                         @endif
                         @endforeach
 

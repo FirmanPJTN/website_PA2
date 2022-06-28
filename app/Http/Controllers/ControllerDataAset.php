@@ -27,12 +27,11 @@ class ControllerDataAset extends Controller
             ->orWhere('tipeBarang', 'LIKE','%'.$request->cari.'%')
             ->orWhere('tglBeli', 'LIKE','%'.$request->cari.'%')
             ->orWhere('penyimpanan', 'LIKE','%'.$request->cari.'%')
-            ->orWhere('unit', 'LIKE','%'.$request->cari.'%')
             ->paginate(10);
             $units = Unit::all();
             $user = User::paginate(10);
         } elseif($request->has('filterUnit') AND $request->has('filterKategori')) {
-            $data = DataAset::where('unit', 'LIKE','%'.$request->filterUnit.'%')
+            $data = DataAset::where('unit_id', 'LIKE',$request->filterUnit)
             ->where('kategori', 'LIKE','%'.$request->filterKategori.'%')
             ->paginate(10);
             $units = Unit::all();
@@ -43,7 +42,7 @@ class ControllerDataAset extends Controller
             $units = Unit::all();
             $user = User::paginate(10);
         } elseif($request->has('filterUnit')) {
-            $data = DataAset::where('unit', 'LIKE','%'.$request->filterUnit.'%')
+            $data = DataAset::where('unit_id', $request->filterUnit)
             ->paginate(10);
             $units = Unit::all();
             $user = User::paginate(10);
@@ -99,7 +98,7 @@ class ControllerDataAset extends Controller
             'jumlahBarang'  => $request-> jumlahBarang,
             'tglBeli'  => $request-> tglBeli,
             'penyimpanan'  => $request-> penyimpanan,
-            'unit'  => $request-> unit,
+            'unit_id'  => $request-> unit,
             'gedung'  => $request-> gedung,
             'kategoriPakai'  => $request-> isInternal
         ]);
@@ -166,7 +165,7 @@ class ControllerDataAset extends Controller
         $aset->jumlahBarang  = $request-> jumlahBarang;
         $aset->tglBeli  = $request-> tglBeli;
         $aset->penyimpanan  = $request-> penyimpanan;
-        $aset->unit  = $request-> unit;
+        $aset->unit_id  = $request-> unit;
         $aset->gedung  = $request-> gedung;
         $aset->isInternal  = $request-> kategoriPakai;
 

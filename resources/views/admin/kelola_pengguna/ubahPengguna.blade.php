@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,7 +10,7 @@
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
-    
+
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
@@ -18,13 +19,13 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap" rel="stylesheet">
 
-     <!-- Font Quicksand -->
-     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <!-- Font Quicksand -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap" rel="stylesheet">
 
-     <!-- Font Awesome -->
-     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <!-- JQuery -->
@@ -39,10 +40,11 @@
 
     <link rel="stylesheet" href="../../css/styleNavbar.css">
 </head>
+
 <body>
 
 
-<div class="wrapper">
+    <div class="wrapper">
         <!-- Sidebar Admin Layout -->
         @include('layouts.adminNavbar')
 
@@ -53,16 +55,16 @@
 
 
             <nav aria-label="breadcrumb" class="bg-light">
-            <ol class="breadcrumb mx-3 mt-2" style="color: RGBA(107,107,107,0.75)">
-                <li class="breadcrumb-item"><a href="{{route('dashboard')}}"><span class="iconify" data-icon="ant-design:home-filled" data-height="20"></span>&nbsp;&nbsp;&nbsp;&nbsp;Beranda</a></li>
-                <li class="breadcrumb-item" aria-current="page"><a href="/KelolaPengguna"><span class="iconify" data-icon="bxs:user-rectangle" data-height="20"></span> Kelola Pengguna</a></li>
-                <li class="breadcrumb-item active fw-bold text-color" aria-current="page">Ubah Pengguna</li>
-            </ol>
-        </nav>
+                <ol class="breadcrumb mx-3 mt-2" style="color: RGBA(107,107,107,0.75)">
+                    <li class="breadcrumb-item"><a href="{{route('dashboard')}}"><span class="iconify" data-icon="ant-design:home-filled" data-height="20"></span>&nbsp;&nbsp;&nbsp;&nbsp;Beranda</a></li>
+                    <li class="breadcrumb-item" aria-current="page"><a href="/KelolaPengguna"><span class="iconify" data-icon="bxs:user-rectangle" data-height="20"></span> Kelola Pengguna</a></li>
+                    <li class="breadcrumb-item active fw-bold text-color" aria-current="page">Ubah Pengguna</li>
+                </ol>
+            </nav>
 
             <div class="shadow p-3 mb-5 bg-body rounded container border mt-5">
-            
-                <h2 class="mb-5 text-center">UBAH PENGGUNA</h2>       
+
+                <h2 class="mb-5 text-center">UBAH PENGGUNA</h2>
 
 
                 <form enctype="multipart/form-data" action="/KelolaPengguna/Kirim/{{$user->id}}" method="post">
@@ -74,7 +76,7 @@
                         </div>
                     </div>
                     @error('nama')
-                        <div class="alert-danger mt-1">{{$message}}</div>
+                    <div class="alert-danger mt-1">{{$message}}</div>
                     @enderror
 
                     <div class="form-group ">
@@ -84,7 +86,7 @@
                         </div>
                     </div>
                     @error('email')
-                        <div class="alert-danger mt-1">{{$message}}</div>
+                    <div class="alert-danger mt-1">{{$message}}</div>
                     @enderror
 
                     <div class="form-group mt-3">
@@ -92,30 +94,30 @@
                             <label class="mx-4 w-25">Role</label>
                             <select class="form-control custom-select mx-4" name="role" id="role">
                                 <option value="{{ $user->role}}">▼ {{ $user->role}} (Ganti role)</option>
-                                <option value="Administrator" <?php if (old('role') == 'Administrator') {?>selected="selected"<?php } ?>>Administrator</option>
-                                <option value="Visitor" <?php if (old('role') == 'Visitor') {?>selected="selected"<?php } ?>> Visitor</option>
-                                <option value="Approver" <?php if (old('role') == 'Approver') {?>selected="selected"<?php } ?>>Approver</option>
-                                <option value="Transactor" <?php if (old('role') == 'Transactor') {?>selected="selected"<?php } ?>>Transactor</option>
+                                <option value="Administrator" <?php if (old('role') == 'Administrator') { ?>selected="selected" <?php } ?>>Administrator</option>
+                                <option value="Visitor" <?php if (old('role') == 'Visitor') { ?>selected="selected" <?php } ?>> Visitor</option>
+                                <option value="Approver" <?php if (old('role') == 'Approver') { ?>selected="selected" <?php } ?>>Approver</option>
+                                <option value="Transactor" <?php if (old('role') == 'Transactor') { ?>selected="selected" <?php } ?>>Transactor</option>
                             </select>
                         </div>
                     </div>
                     @error('role')
-                        <div class="alert-danger mt-1">{{$message}}</div>
+                    <div class="alert-danger mt-1">{{$message}}</div>
                     @enderror
 
                     <div class="form-group mt-3">
                         <div class="d-flex justify-content-center">
                             <label class="mx-4 w-25">Unit</label>
                             <select class="form-control custom-select mx-4" name="unit" id="unit">
-                                <option value="{{$user->unit}}">▼ {{$user->unit}} (Ganti Unit)</option>
+                                <option value="{{$user->unit}}">▼ {{$user->unit->unit}} (Ganti Unit)</option>
                                 @foreach($units as $unit)
-                                <option value="{{$unit->unit}}" <?php if (old('{{$unit->unit}}') == '{{$unit->unit}}') {?>selected="selected"<?php } ?>>{{$unit->unit}}</option>
+                                <option value="{{$unit->id}}">{{$unit->unit}}</option>
                                 @endforeach
                             </select>
                         </div>
                     </div>
                     @error('unit')
-                        <div class="alert-danger mt-1">{{$message}}</div>
+                    <div class="alert-danger mt-1">{{$message}}</div>
                     @enderror
 
                     <!-- <div class="form-group mt-3">
@@ -128,12 +130,11 @@
                         <div class="alert-danger mt-1">{{$message}}</div>
                     @enderror -->
 
-                    
-                    <div class="form-group mt-5">
-                        <div class="d-flex justify-content-end">
-                            <a href="/KelolaPengguna" class="btn btn-secondary mx-1">Batal</a>
-                            <button type="submit" class="btn btn-info mx-1">Kirim</button>
-                        </div>
+
+                    <br>
+                    <div class="d-flex mt-3 mb-3">
+                        <a style="width: 40%" href="/KelolaPengguna" class="btn btn-secondary mx-1">Batal</a>
+                        <button style="width: 40%" type="submit" class="btn btn-info mx-1">Kirim</button>
                     </div>
                 </form>
 
@@ -144,7 +145,7 @@
 
         </div>
     </div>
-    
+
 
 
     <!-- jQuery CDN - Slim version (=without AJAX) -->
@@ -160,7 +161,7 @@
 
     <!-- Iconify  -->
     <script src="https://code.iconify.design/2/2.1.0/iconify.min.js"></script>
-    
+
     <!-- Optional JavaScript; choose one of the two! -->
 
     <!-- Option 1: Bootstrap Bundle with Popper -->
@@ -172,4 +173,5 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script>
     -->
 </body>
+
 </html>

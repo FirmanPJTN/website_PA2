@@ -8,9 +8,8 @@
             <p class="mt-1 ml-5 mr-3" style="color:white">Unit</p>
             <select class="form-control filter mr-3" name="filterUnit" id="filterUnit"  value="{{ old('filterUnit') }}">
                 <option value="">▼ Pilih Unit</option>
-            <!-- {{$data2 = DB::table('data_asets')->select('unit')->distinct()->get();}} -->
                 @foreach($units as $unit)
-                <option value="{{$unit->unit}}" <?php if (old('{{$unit->unit}}') == '{{$unit->unit}}') {?>selected="selected"<?php } ?>>{{$unit->unit}}</option>
+                <option value="{{$unit->id}}">{{$unit->unit}}</option>
                 @endforeach
             </select>
 

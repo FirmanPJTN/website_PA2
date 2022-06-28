@@ -38,14 +38,14 @@
             <div class="form-group ml-2 mt-3">
                 <div class="d-flex justify-content-center">
                     <label class="mx-4 w-25">Peminjam</label>
-                    <input type="text" name="peminjam" class="form-control mx-4" value="{{$user->nama}}" autofocus autocomplete="off" disabled>
+                    <input type="text" name="peminjam" class="form-control mx-4" value="{{$pinjam->user->nama}}" autofocus autocomplete="off" disabled>
                 </div>
             </div>
 
             <div class="form-group ml-2 mt-3">
                 <div class="d-flex justify-content-center">
                     <label class="mx-4 w-25">Unit</label>
-                    <input type="text" name="unit" class="form-control mx-4" value="{{$user->unit}}" autofocus autocomplete="off" disabled>
+                    <input type="text" name="unit" class="form-control mx-4" value="{{$pinjam->unit->unit}}" autofocus autocomplete="off" disabled>
                 </div>
             </div>
 
@@ -146,7 +146,7 @@
                 <div class="form-group mt-3">
                     <div class="d-flex justify-content-center">
                         <label class="mx-4 w-25">Tanggal Peminjaman</label>
-                        <input type="date" name="tglPinjam" class="form-control mx-4" id="tglPinjam<?= $pinjam->id ?>" value="{{$pinjam -> created_at -> format('Y-m-d')}}" autofocus autocomplete="off">
+                        <input type="text" name="tglPinjam" class="form-control mx-4" value="{{$pinjam -> created_at -> format('Y-m-d')}}"disabled>
                     </div>
                 </div>
 
@@ -155,7 +155,7 @@
                 <div class="form-group mt-3">
                     <div class="d-flex justify-content-center">
                         <label class="mx-4 w-25">Tanggal Pengembalian</label>
-                        <input type="date" name="tglKembali" class="form-control mx-4" id="tglKembali<?= $pinjam->id ?>" value="{{ $pinjam -> tglKembali }}" autofocus autocomplete="off">
+                        <input type="text" name="tglKembali" class="form-control mx-4" value="{{ $pinjam -> tglKembali }}" disabled>
                     </div>
                 </div>
 
@@ -173,7 +173,7 @@
                 <div class="form-group mt-3">
                     <div class="d-flex justify-content-center">
                         <label class="mx-4 w-25">Waktu Pengembalian</label>
-                        <input type="text" name="waktuPengembalian" class="form-control mx-4" value="{{ $pinjam -> waktuPengembalian }}" autofocus autocomplete="off">
+                        <input type="text" name="waktuPengembalian" class="form-control mx-4" value="{{ $pinjam -> waktuPengembalian }}" disabled>
                     </div>
                 </div>
 

@@ -88,10 +88,11 @@
                 <div class="d-flex justify-content-center">
                     <label class="mx-4 w-10" >Unit&nbsp;&nbsp;</label>
                     <select class="form-control custom-select mx-4" name="unit" id="unit">
-                        <option value="{{ Auth::user()->unit }}">{{ Auth::user()->unit }}</option>
-                        {{$units = DB::table('unit')->select('unit')->get();}} 
+                        <option value="{{ Auth::user()->unit->id }}">{{ Auth::user()->unit->unit }}</option>
+
+                        {{$units = DB::table('unit')->get();}} 
                         @foreach($units as $unit)
-                        <option value="{{$unit->unit}}" <?php if (old('{{$unit->unit}}') == '{{$unit->unit}}') {?>selected="selected"<?php } ?>>{{$unit->unit}}</option>
+                        <option value="{{$unit->id}}">{{$unit->unit}}</option>
                         @endforeach
                     </select>
                 </div>

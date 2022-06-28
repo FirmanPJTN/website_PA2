@@ -11,5 +11,13 @@ class Notifikasi extends Model
 
     protected $table = 'notifikasi';
     
-    protected $fillable = ['deskripsi','user_id','aset_id','peminjaman_id','pengadaan_id','unit_id','status', 'unit','kodeMonitoring','kodePemusnahan','kodePeminjaman','role','kodePengadaan'];
+    protected $guarded = ['id'];
+
+    public function user() {
+        return $this->belongsTo(User::class);
+    }
+
+    public function unit() {
+        return $this->belongsTo(Unit::class);
+    }
 }

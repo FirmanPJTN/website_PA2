@@ -75,7 +75,7 @@
                     <tbody>
                         <?php $i = 0 ?>
                         @foreach ($monitoring as $monitor)
-                        @if(($monitor->unit == Auth::user()->unit)&&($monitor->status == 'proses'))
+                        @if(($monitor->unit_id == Auth::user()->unit_id)&&($monitor->status == 'proses'))
 
                         <?php
                         $jumlah = ($monitor->jumlahBarang1) + ($monitor->jumlahBarang2) + ($monitor->jumlahBarang3) + ($monitor->jumlahBarang4) + ($monitor->jumlahBarang5)
@@ -83,7 +83,7 @@
                         <tr>
                             <td class="text-center">{{$monitoring->firstItem() + $i}}</td>
                             <td class="text-center">{{$monitor->kodeMonitoring}}</td>
-                            <td class="text-center">{{$monitor ->unit}}</td>
+                            <td class="text-center">{{$monitor ->unit->unit}}</td>
                             <td class="text-center">{{$jumlah}}</td>
                             <td class="text-center">{{$monitor -> waktuMonitoring}}</td>
                             <td class="text-center">
@@ -150,7 +150,7 @@
                     <tbody>
                         <?php $i = 0 ?>
                         @foreach ($monitoring as $monitor)
-                        @if(($monitor->unit == Auth::user()->unit)&&($monitor->status != 'proses'))
+                        @if(($monitor->unit_id == Auth::user()->unit_id)&&($monitor->status != 'proses'))
 
                         <?php
                         $jumlah = ($monitor->jumlahBarang1) + ($monitor->jumlahBarang2) + ($monitor->jumlahBarang3) + ($monitor->jumlahBarang4) + ($monitor->jumlahBarang5)
@@ -158,7 +158,7 @@
                         <tr>
                             <td class="text-center">{{$monitoring->firstItem() + $i}}</td>
                             <td class="text-center">{{$monitor->kodeMonitoring}}</td>
-                            <td class="text-center">{{$monitor ->unit}}</td>
+                            <td class="text-center">{{$monitor ->unit->unit}}</td>
                             <td class="text-center">{{$jumlah}}</td>
                             <td class="text-center">{{$monitor -> waktuMonitoring}}</td>
                             <td class="text-center">

@@ -65,6 +65,8 @@
 
                     <input type="hidden" name="deskripsiNotifIn" value="kode pengadaan PGDNI-{{date('Y.m.d-h.i.s')}} telah dibuat !" style="visibility: hidden">
 
+                    <input type="hidden" name="unit_id" value="{{Auth::user()->unit_id}}" style="visibility: hidden">
+
 
                     <?php $admins =  DB::table('users')->where('role', '=', 'administrator')->get() ?>
                     @foreach($admins as $admin)

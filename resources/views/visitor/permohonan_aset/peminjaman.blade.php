@@ -88,7 +88,7 @@
                     <tbody>
                         <?php $i = 0 ?>
                         @foreach ($peminjaman as $pinjam)
-                        @if($pinjam->user_id == Auth::user()->id && $pinjam->status == 'proses')
+                        @if($pinjam->unit_id == Auth::user()->unit_id && $pinjam->status == 'proses')
 
                         <?php
                         $jumlah = ($pinjam->jumlahBarang1) + ($pinjam->jumlahBarang2) + ($pinjam->jumlahBarang3) + ($pinjam->jumlahBarang4) + ($pinjam->jumlahBarang5)
@@ -155,7 +155,7 @@
                     <tbody>
                         <?php $i = 0 ?>
                         @foreach ($peminjaman as $pinjam)
-                        @if($pinjam->user_id == Auth::user()->id && $pinjam->status != 'proses')
+                        @if($pinjam->unit_id == Auth::user()->unit_id && $pinjam->status != 'proses')
 
                         <?php
                         $jumlah = ($pinjam->jumlahBarang1) + ($pinjam->jumlahBarang2) + ($pinjam->jumlahBarang3) + ($pinjam->jumlahBarang4) + ($pinjam->jumlahBarang5)
@@ -213,7 +213,7 @@
         </div>
     </div>
 
-    <script type="text/javascript" src="../../js/scriptDeleteConfirmPeminjamanVisitor.js"></script>
+    <script type="text/javascript" src="../../../js/scriptDeleteConfirmPeminjamanVisitor.js"></script>
 
     <script>
         $(document).ready(function() {

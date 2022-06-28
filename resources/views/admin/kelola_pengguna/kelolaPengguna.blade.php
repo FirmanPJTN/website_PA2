@@ -85,7 +85,7 @@
                         <td>{{$user->nama}}</td>
                         <td>{{$user -> email}}</td>
                         <td>{{$user -> role}}</td>
-                        <td>{{$user -> unit}}</td>
+                        <td>{{$user->unit->unit}}</td>
                         <td class="text-center">
                             <div class="d-flex">
                             <a href="/KelolaPengguna/Ubah/{{$user -> id}}" class="btn btn-warning">Ubah</a> &nbsp;

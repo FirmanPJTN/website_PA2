@@ -28,7 +28,7 @@
             </div>
         </div>
 
-        <div class="form-group input_fields_wrap">
+        <div class="form-group input_fields_wrap ml-2">
             <div class="d-flex justify-content-start mt-4 ">
                 <label class="mx-4 w-100 ">Daftar Barang</label>
                     

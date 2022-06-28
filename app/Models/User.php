@@ -20,9 +20,8 @@ class User extends Authenticatable
 
     protected $table = 'users';
 
-    protected $fillable = ['nama', 'unit', 'email', 'password', 'role'];
+    protected $guarded = ['id'];
 
-    protected $primaryKey = 'id';
 
     /**
      * The attributes that should be hidden for serialization.
@@ -43,21 +42,35 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function DataAset() {
-        return $this->belongsTo(DataAset::class, 'id');
+    public function dataaset() {
+        return $this->belongsTo(DataAset::class);
     }
 
-    public function Peminjaman() {
-        return $this->belongsTo(Peminjaman::class, 'id');
+    public function notifikasi() {
+        return $this->belongsTo(Notifikasi::class);
     }
 
-    public function Pengadaan() {
-        return $this->belongsTo(Pengadaan::class, 'id');
+    public function pembelian() {
+        return $this->belongsTo(Pembelian::class);
     }
 
-    public function Pembelian() {
-        return $this->belongsTo(Pembelian::class, 'id');
+    public function peminjaman() {
+        return $this->belongsTo(Peminjaman::class);
     }
 
-   
+    public function pemusnahan() {
+        return $this->belongsTo(Pemusnahan::class);
+    }
+
+    public function pengadaan() {
+        return $this->belongsTo(Pengadaan::class);
+    }
+
+    public function unit() {
+        return $this->belongsTo(Unit::class);
+    }
+
+    public function monitoring() {
+        return $this->belongsTo(Monitoring::class);
+    }
 }

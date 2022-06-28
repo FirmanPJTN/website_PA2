@@ -19,7 +19,7 @@
         <div class="dropdown mr-2">
             <a href="#" class="mx-4 dropdown-toggle my-dropdown-toggle" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                 <span class="iconify" data-icon="akar-icons:bell" data-height="25" style="color: #fff"></span>
-                <?php $numNotif = DB::table('notifikasi')->where('unit', Auth::user()->unit)->count(); ?>
+                <?php $numNotif = DB::table('notifikasi')->where('unit_id', Auth::user()->unit_id)->count(); ?>
 
                 <?php $numNotifUser = DB::table('notifikasi')->where('user_id', Auth::user()->id)->count(); ?>
 
@@ -39,7 +39,7 @@
 
 
             <?php
-            $data = DB::table('notifikasi')->where('unit', Auth::user()->unit)->get(); ?>
+            $data = DB::table('notifikasi')->where('unit_id', Auth::user()->unit_id)->get(); ?>
 
             <?php
             $dataUser = DB::table('notifikasi')->where('user_id', Auth::user()->id)->get(); ?>
@@ -128,7 +128,7 @@
                 </li>
                 @endforeach
                 <li class="text-center mt-2">
-                    <a href="/visitor/notifikasiUnit/{{Auth::user()->unit}}" style="color:#2a93d5;  text-decoration: underline;">tandai semua telah dibaca</a>
+                    <a href="/visitor/notifikasiUnit/{{Auth::user()->unit_id}}" style="color:#2a93d5;  text-decoration: underline;">tandai semua telah dibaca</a>
                 </li>
             </ul>
         </div>

@@ -16,7 +16,6 @@ return new class extends Migration
         Schema::create('monitoring', function (Blueprint $table) {
             $table->increments('id');
             $table->string('kodeMonitoring')->unique();
-            $table->string('unit');
             $table->string('jenisBarang1');
             $table->text('tipeBarang1');
             $table->integer('jumlahBarang1');

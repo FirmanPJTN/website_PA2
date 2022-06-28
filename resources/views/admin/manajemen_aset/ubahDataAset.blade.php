@@ -148,9 +148,9 @@
                         <div class="d-flex justify-content-center">
                             <label class="mx-4 w-25">Unit</label>
                             <select class="form-control custom-select mx-4" name="unit" id="unit">
-                                <option value="{{$aset->unit}}">{{$aset->unit}} (Ganti Unit)</option>
+                                <option value="{{$aset->unit->id}}">{{$aset->unit->unit}} (Ganti Unit)</option>
                                 @foreach($units as $unit)
-                                <option value="{{$unit->unit}}" <?php if (old('{{$unit->unit}}') == '{{$unit->unit}}') {?>selected="selected"<?php } ?>>{{$unit->unit}}</option>
+                                <option value="{{$unit->id}}">{{$unit->unit}}</option>
                                 @endforeach
                             </select>
                         </div>

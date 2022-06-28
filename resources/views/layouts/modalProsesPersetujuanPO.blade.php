@@ -38,7 +38,7 @@
 
         <div class="form-group mt-3 ml-2">
             <div class="d-flex justify-content-center">
-                <label class="mx-4 w-25">Alasan PR Ditolak</label>
+                <label class="mx-4 w-25">Alasan PO Ditolak</label>
                 <textarea name="alasan" placeholder="bersifat optional ..." class="form-control mx-4" cols="30" rows="10" autofocus autocomplete="off"></textarea>
             </div>
         </div>
@@ -69,6 +69,8 @@
         <input type="hidden" name="deskripsiNotifSetujuPO" value="PO kode pengadaan {{$ada->kodePengadaan}} disetujui" style="visibility: hidden">
 
         <input type="hidden" name="deskripsiNotifSetujuPOBeli" value="PO kode pengadaan {{$ada->kodePengadaan}} meminta pembelian" style="visibility: hidden">
+
+        <input type="hidden" name="unit_id" value="{{$ada->unit_id}}" style="visibility: hidden">
        
 
         <div class="modal-footer d-flex">

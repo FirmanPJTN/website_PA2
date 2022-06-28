@@ -121,7 +121,7 @@
             <div class="form-group mt-3">
                 <div class="d-flex justify-content-center">
                     <label class="mx-4 w-25" >Unit</label>
-                    <input type="text" name="unit" class="form-control mx-4" value="{{$monitor -> unit}}" autofocus autocomplete="off" disabled>
+                    <input type="text" name="unit" class="form-control mx-4" value="{{$monitor -> unit->unit}}" autofocus autocomplete="off" disabled>
                 </div>
             </div>
 

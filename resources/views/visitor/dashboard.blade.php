@@ -72,7 +72,7 @@
 
                 <div class="mb-5">
                     <div class="d-flex justify-content-start">
-                        <?php $jumlahpengadaan = DB::table('pengadaan')->count(); ?>
+                        <?php $jumlahpengadaan = DB::table('pengadaan')->where('unit_id',Auth::user()->unit_id)->count(); ?>
                         @if($jumlahpengadaan != 0)
                         <div class="box mx-4" style="background-color: #00D1B8; padding: 30px; padding-left: 35px; padding-right: 35px; border-radius: 10px; font-size: 2em; color: white; font-weight: bold; text-align: center">
                             {{$jumlahpengadaan}} <br>
@@ -80,7 +80,7 @@
                         </div>
                         @endif
 
-                        <?php $jumlahpeminjaman = DB::table('peminjaman')->count(); ?>
+                        <?php $jumlahpeminjaman = DB::table('peminjaman')->where('unit_id',Auth::user()->unit_id)->count(); ?>
                         @if($jumlahpeminjaman != 0)
                         <div class="box mx-4" style="background-color: #32A9FF; padding: 30px; padding-left: 35px; padding-right: 35px; border-radius: 10px; font-size: 2em; color: white; font-weight: bold; text-align: center">
                             {{$jumlahpeminjaman}} <br>
@@ -88,7 +88,7 @@
                         </div>
                         @endif
 
-                        <?php $jumlahmonitoring = DB::table('monitoring')->count(); ?>
+                        <?php $jumlahmonitoring = DB::table('monitoring')->where('unit_id',Auth::user()->unit->id)->count(); ?>
                         @if($jumlahmonitoring != 0)
                         <div class="box mx-4" style="background-color: #947AFF; padding: 30px; padding-left: 35px; padding-right: 35px; border-radius: 10px; font-size: 2em; color: white; font-weight: bold; text-align: center">
                             {{$jumlahmonitoring}} <br>

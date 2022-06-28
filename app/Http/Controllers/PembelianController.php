@@ -83,7 +83,7 @@ class PembelianController extends Controller
             'status' => $request->statusSetuju,
             'kodePengadaan'  => $request-> kodePengadaan,
             'role' => $request->roleApprover,
-            'user_id' => $request->idUser,
+            'unit_id' => $request->unit_id
         ]);
 
         Notifikasi::create([
@@ -130,7 +130,7 @@ class PembelianController extends Controller
                 'status' => $request->statusTolak,
                 'kodePengadaan'  => $request-> kodePengadaan,
                 'role' => $request->roleAdmin,
-                'user_id' => $request->idUser
+                'unit_id' => $request->unit_id
             ]);
         } else if($request->get('btnSubmit') == 'setuju') {
             Notifikasi::create([
@@ -138,7 +138,7 @@ class PembelianController extends Controller
                 'status' => $request->statusSetujuPR,
                 'kodePengadaan'  => $request-> kodePengadaan,
                 'role' => $request->roleAdmin,
-                'user_id' => $request->idUser
+                'unit_id' => $request->unit_id
             ]);
         }
 
@@ -176,7 +176,7 @@ class PembelianController extends Controller
                 'status' => $request->statusTolak,
                 'kodePengadaan'  => $request-> kodePengadaan,
                 'role' => $request->roleAdmin,
-                'user_id' => $request->idUser
+                'unit_id' => $request->unit_id
             ]);
         } else if($request->get('btnSubmit') == 'setuju') {
             Notifikasi::create([
@@ -184,7 +184,7 @@ class PembelianController extends Controller
                 'status' => $request->statusSetujuPO,
                 'kodePengadaan'  => $request-> kodePengadaan,
                 'role' => $request->roleAdmin,
-                'user_id' => $request->idUser
+                'unit_id' => $request->unit_id
             ]);
 
             Notifikasi::create([

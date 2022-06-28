@@ -104,7 +104,8 @@ class PeminjamanController extends Controller
             'tglKembali'  => $request->tglKembali,
             'tujuan'  => $request->tujuan,
             'status'  => $request->status,
-            'user_id' => $request->user_id
+            'user_id' => $request->user_id,
+            'unit_id' => $request->unit_id
         ]);
 
 
@@ -240,7 +241,7 @@ class PeminjamanController extends Controller
             'deskripsi' => $request->deskripsiNotifKembali,
             'status' => $request->statusNotifKembali,
             'kodePeminjaman'  => $request->kodePeminjaman,
-            'user_id' => $request->idVisitor
+            'unit_id' => $request->unit_id
         ]);
 
         return redirect(route('pinjam-aset-admin'))->with('success', 'Peminjaman berhasil dikembalikan');
@@ -274,7 +275,7 @@ class PeminjamanController extends Controller
                         'role' => $admin->role,
                         'status' => $admin->statusNotifTolak,
                         'kodePeminjaman'  => $request->kodePeminjaman,
-                        'user_id' => $visitor->id
+                        'unit_id' => $request->unit_id
                     ]);
             }
         } else if ($request->get('btnSubmit') == 'setuju') {
@@ -286,7 +287,7 @@ class PeminjamanController extends Controller
                         'role' => $admin->role,
                         'status' => $admin->statusNotifSetuju,
                         'kodePeminjaman'  => $request->kodePeminjaman,
-                        'user_id' => $visitor->id
+                        'unit_id' => $request->unit_id
 
                     ]);
             }

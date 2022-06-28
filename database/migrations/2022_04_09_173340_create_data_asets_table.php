@@ -23,13 +23,14 @@ return new class extends Migration
             $table->date('tglBeli');
             $table->string('penyimpanan');
             $table->string('gedung');
-            $table->string('unit');
             $table->boolean('isInternal')->default(1);
             $table->string('status')->default("kosong");
 
             $table->unsignedInteger('user_id')->nullable();
-
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+
+            $table->unsignedInteger('unit_id');
+            $table->foreign('unit_id')->references('id')->on('unit')->onDelete('cascade');
 
             $table->timestamps();
         });

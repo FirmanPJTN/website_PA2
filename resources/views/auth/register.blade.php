@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,7 +10,7 @@
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
-    
+
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
@@ -18,8 +19,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap" rel="stylesheet">
 
-     <!-- Font Awesome -->
-     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <!-- JQuery -->
@@ -31,20 +32,20 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
     <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.19.1/dist/bootstrap-table.min.css">
-    
+
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap');
 
         body {
             font-family: 'Quicksand', sans-serif;
             background: url("background/register.png") no-repeat center center fixed;
-            background-size: 100% 100% ;
+            background-size: 100% 100%;
         }
-        
     </style>
 </head>
+
 <body>
-    
+
     <div class="d-flex justify-content-between">
 
         <div class="mt-2 ml-5">
@@ -54,10 +55,10 @@
 
                         <div class="card-body">
 
-                        <div class="titleCard fw-bold mb-3 text-center">
-                            <h1>Senang melihat Anda di sini!</h1>
-                            <h5 style="color: #757575">Mari siapkan akun Anda hanya dalam <br>beberapa langkah.</h5>
-                        </div>
+                            <div class="titleCard fw-bold mb-3 text-center">
+                                <h1>Senang melihat Anda di sini!</h1>
+                                <h5 style="color: #757575">Mari siapkan akun Anda hanya dalam <br>beberapa langkah.</h5>
+                            </div>
 
 
                             <form method="POST" action="{{ route('register') }}">
@@ -68,44 +69,44 @@
                                     <div class="col-md-6">
                                         <label for="nama" class="col-md-4 col-form-label">Nama</label>
                                     </div>
-                                    
+
                                     <div class="col-md-12">
                                         <input id="nama" type="text" class="form-control @error('nama') is-invalid @enderror ml-3" name="nama" value="{{ old('nama') }}" required autocomplete="nama" autofocus>
                                     </div>
                                     @error('nama')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
                                     @enderror
                                 </div>
 
-                                
+
 
 
                                 <div class="row mb-1 mr-5">
 
                                     <div class="col-md-6">
-                                        
+
                                         <label for="unit" class="col-md-4 col-form-label">Unit</label>
-                                    
+
                                     </div>
 
                                     <div class="col-md-12">
-                                        
-                                        <select class="form-control custom-select ml-3" name="unit" id="unit">
+
+                                        <select class="form-control custom-select ml-3" name="unit_id" id="unit_id">
                                             <option value="">▼ pilih unit</option>
-                                            {{$units = DB::table('unit')->select('unit')->get();}} 
+                                            {{$units = DB::table('unit')->get();}}
                                             @foreach($units as $unit)
-                                            <option value="{{$unit->unit}}" <?php if (old('{{$unit->unit}}') == '{{$unit->unit}}') {?>selected="selected"<?php } ?>>{{$unit->unit}}</option>
+                                            <option value="{{$unit->id}}">{{$unit->unit}}</option>
                                             @endforeach
                                         </select>
                                     </div>
 
-                                    
-                                    @error('unit')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
+
+                                    @error('unit_id')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
                                     @enderror
                                 </div>
 
@@ -113,7 +114,7 @@
                                 <div class="row mb-1 mr-5">
 
                                     <div class="col-md-6">
-                                        
+
                                         <label for="email" class="col-md-4 col-form-label">Email</label>
                                     </div>
 
@@ -121,11 +122,11 @@
                                         <input id="email" type="email" class="form-control @error('email') is-invalid @enderror ml-3" name="email" value="{{ old('email') }}" required autocomplete="email">
                                     </div>
 
-                                    
+
                                     @error('email')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
                                     @enderror
 
                                 </div>
@@ -137,19 +138,19 @@
                                     </div>
 
                                     <div class="col-md-12">
-                                        
+
                                         <select class="form-control custom-select @error('role') is-invalid @enderror ml-3" name="role" id="role" value="{{ old('role') }}">
-                                            <option value="visitor" <?php if (old('role') == 'visitor') {?>selected="selected"<?php } ?>>Visitor</option>
-                                            <option value="approver" <?php if (old('role') == 'approver') {?>selected="selected"<?php } ?>>Approver</option>
-                                            <option value="transactor" <?php if (old('role') == 'transactor') {?>selected="selected"<?php } ?>>Transactor</option>
+                                            <option value="visitor" <?php if (old('role') == 'visitor') { ?>selected="selected" <?php } ?>>Visitor</option>
+                                            <option value="approver" <?php if (old('role') == 'approver') { ?>selected="selected" <?php } ?>>Approver</option>
+                                            <option value="transactor" <?php if (old('role') == 'transactor') { ?>selected="selected" <?php } ?>>Transactor</option>
                                         </select>
                                     </div>
 
 
                                     @error('role')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
                                     @enderror
 
                                 </div>
@@ -164,11 +165,11 @@
                                         <input id="password" type="password" class="form-control @error('password') is-invalid @enderror ml-3" name="password" required autocomplete="new-password">
                                     </div>
 
-                                    
+
                                     @error('password')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
                                     @enderror
 
                                 </div>
@@ -187,7 +188,7 @@
 
                                 <div class="mt-5">
                                     <div class="d-flex justify-content-center">
-                                        <button type="submit" class="btn btn-primary mr-4" >
+                                        <button type="submit" class="btn btn-primary mr-4">
                                             Daftar
                                         </button>
 
@@ -213,7 +214,7 @@
 
     </div>
 
-    
+
 
     <script>
         function showPassword() {
@@ -243,7 +244,7 @@
 
     <!-- Iconify  -->
     <script src="https://code.iconify.design/2/2.1.0/iconify.min.js"></script>
-    
+
     <!-- Optional JavaScript; choose one of the two! -->
 
     <!-- Option 1: Bootstrap Bundle with Popper -->
@@ -255,4 +256,5 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script>
     -->
 </body>
+
 </html>

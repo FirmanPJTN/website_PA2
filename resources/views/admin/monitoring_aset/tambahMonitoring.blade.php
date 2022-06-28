@@ -76,7 +76,7 @@
                             <select class="selectVal form-control custom-select mx-4" name="unit" id="unit">
                                 <option value="">▼ pilih unit</option>
                                 @foreach($units as $unit)
-                                <option value="{{$unit->unit}}" <?php if (old('{{$unit->unit}}') == '{{$unit->unit}}') {?>selected="selected"<?php } ?>>{{$unit->unit}}</option>
+                                <option value="{{$unit->id}}">{{$unit->unit}}</option>
                                 @endforeach
                             </select>
                         </div>

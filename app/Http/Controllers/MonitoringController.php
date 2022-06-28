@@ -58,12 +58,9 @@ class MonitoringController extends Controller
             'tipeBarang1'  => 'required',
             'jumlahBarang1'  => 'required',
             'waktuMonitoring'  => 'required',
-            'unit'  => 'required'
         ]);
 
-        $unit = Unit::where('unit',$request->unit)->get('id');
 
-        foreach($unit as $unt)
         Monitoring::create([
             'kodeMonitoring'  => $request-> kodeMonitoring,
             'jenisBarang1'  => $request-> jenisBarang1,
@@ -82,18 +79,15 @@ class MonitoringController extends Controller
             'tipeBarang5'  => $request-> tipeBarang5,
             'jumlahBarang5'  => $request-> jumlahBarang5,
             'waktuMonitoring'  => $request-> waktuMonitoring,
-            'unit'  => $request-> unit,
+            'unit_id'  => $request-> unit,
             'status'  => $request-> status,
-            'unit_id'  => $unt->id
         ]);
 
 
-        foreach($unit as $unts)
         Notifikasi::create([
             'deskripsi' => $request-> deskripsi,
-            'unit' => $request->unit,
+            'unit_id' => $request->unit,
             'kodeMonitoring'  => $request-> kodeMonitoring,
-            'unit_id' => $unts->id,
             'status'  => $request-> status
         ]);
         
@@ -142,10 +136,7 @@ class MonitoringController extends Controller
             'tipeBarang1'  => 'required',
             'jumlahBarang1'  => 'required',
             'waktuMonitoring'  => 'required',
-            'unit'  => 'required'
         ]);
-
-        $unit = Unit::where('unit',$request->unit)->get('id');
 
         $monitoring =  Monitoring::find($id);
         $monitoring-> jenisBarang1  = $request-> jenisBarang1;
@@ -164,19 +155,13 @@ class MonitoringController extends Controller
         $monitoring-> tipeBarang5  = $request-> tipeBarang5;
         $monitoring-> jumlahBarang5  = $request-> jumlahBarang5;
         $monitoring->  waktuMonitoring  = $request-> waktuMonitoring;
-        $monitoring-> unit  = $request-> unit;
-
-        foreach($unit as $unt) 
-            $monitoring-> unit_id = $unt->id;
+        $monitoring-> unit_id  = $request-> unit;
         
 
         $notifikasi = Notifikasi::where('kodeMonitoring',$monitoring-> kodeMonitoring )->first();
 
         
-        $notifikasi->unit =  $monitoring-> unit;
-
-        foreach($unit as $unt) 
-            $notifikasi-> unit_id = $unt->id;
+        $notifikasi->unit_id =  $monitoring-> unit;
         
 
         $notifikasi->save();
