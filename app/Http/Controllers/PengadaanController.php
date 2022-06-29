@@ -290,9 +290,6 @@ class PengadaanController extends Controller
     public function prosesPR(Request $request, $id)
     {
         $request->validate([
-            'jenisBarang1'  => 'required',
-            'tipeBarang1'  => 'required',
-            'jumlahBarang1'  => 'required',
             'dokumenPR' => 'required|mimes:doc,docx,pdf,xls,xlsx,pdf',
         ]);
 
@@ -371,20 +368,21 @@ class PengadaanController extends Controller
         return redirect('/ManajemenAset/PengadaanAset')->with('success', 'Product Order Berhasil Diproses!');
     }
 
-    public function dashboardApprover()
+    public function dashboardApprover(Request $request)
     {
-        $peminjaman = Peminjaman::paginate(10);
-        $pengadaan = Pengadaan::paginate(10);
-        $pemusnahan = Pemusnahan::paginate(10);
-        $pembelian = Pembelian::paginate(10);
+            $peminjaman = Peminjaman::where('kodePeminjaman','LIKE', '%' . $request->cari . '%')->orWhere('jenisBarang1','LIKE', '%' . $request->cari . '%')->orWhere('tipeBarang1','LIKE', '%' . $request->cari . '%')->orWhere('jumlahBarang1','LIKE', '%' . $request->cari . '%')->paginate(10);
+            $pengadaan = Pengadaan::where('kodePengadaan','LIKE', '%' . $request->cari . '%')->orWhere('jenisBarang1','LIKE', '%' . $request->cari . '%')->orWhere('tipeBarang1','LIKE', '%' . $request->cari . '%')->orWhere('jumlahBarang1','LIKE', '%' . $request->cari . '%')->paginate(10);
+            $pemusnahan = Pemusnahan::where('kodePemusnahan','LIKE', '%' . $request->cari . '%')->orWhere('jenisBarang1','LIKE', '%' . $request->cari . '%')->orWhere('tipeBarang1','LIKE', '%' . $request->cari . '%')->orWhere('jumlahBarang1','LIKE', '%' . $request->cari . '%')->paginate(10);
+            $pembelian = Pembelian::where('jenisBarang1','LIKE', '%' . $request->cari . '%')->orWhere('tipeBarang1','LIKE', '%' . $request->cari . '%')->orWhere('jumlahBarang1','LIKE', '%' . $request->cari . '%')->paginate(10);
+        
 
         return view('approver.dashboard', compact('peminjaman', 'pengadaan', 'pemusnahan', 'pembelian'));
     }
 
-    public function dashboardTransactor()
+    public function dashboardTransactor(Request $request)
     {
-        $pengadaan = Pengadaan::paginate(10);
-        $pembelian = Pembelian::paginate(10);
+        $pengadaan = Pengadaan::where('kodePengadaan','LIKE', '%' . $request->cari . '%')->orWhere('jenisBarang1','LIKE', '%' . $request->cari . '%')->orWhere('tipeBarang1','LIKE', '%' . $request->cari . '%')->orWhere('jumlahBarang1','LIKE', '%' . $request->cari . '%')->paginate(10);
+        $pembelian = Pembelian::where('jenisBarang1','LIKE', '%' . $request->cari . '%')->orWhere('tipeBarang1','LIKE', '%' . $request->cari . '%')->orWhere('jumlahBarang1','LIKE', '%' . $request->cari . '%')->paginate(10);
 
         return view('transactor.dashboard', compact('pengadaan', 'pembelian'));
     }

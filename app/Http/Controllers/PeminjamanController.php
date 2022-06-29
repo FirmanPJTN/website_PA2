@@ -20,8 +20,8 @@ class PeminjamanController extends Controller
     {
         if ($request->has('cari')) {
 
-            $peminjaman = Peminjaman::where('kodePeminjaman', 'LIKE', '%' . $request->cari . '%')->paginate(10);
-            $pengadaan = Pengadaan::where('kodePengadaan', 'LIKE', '%' . $request->cari . '%')->paginate(10);
+            $peminjaman = Peminjaman::where('kodePeminjaman','LIKE', '%' . $request->cari . '%')->orWhere('jenisBarang1','LIKE', '%' . $request->cari . '%')->orWhere('tipeBarang1','LIKE', '%' . $request->cari . '%')->orWhere('jumlahBarang1','LIKE', '%' . $request->cari . '%')->paginate(10);
+            $pengadaan = Pengadaan::where('kodePengadaan','LIKE', '%' . $request->cari . '%')->orWhere('jenisBarang1','LIKE', '%' . $request->cari . '%')->orWhere('tipeBarang1','LIKE', '%' . $request->cari . '%')->orWhere('jumlahBarang1','LIKE', '%' . $request->cari . '%')->paginate(10);
             $monitoring = Monitoring::where('kodeMonitoring', 'LIKE', '%' . $request->cari . '%')->paginate(10);
         } else {
             $peminjaman = Peminjaman::paginate(10);
