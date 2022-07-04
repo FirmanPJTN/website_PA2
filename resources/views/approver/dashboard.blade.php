@@ -299,7 +299,9 @@
                             <tr>
                                 <td class="text-center">{{$pemusnahanA->firstItem() + $i}}</td>
                                 <td class="text-center">{{$musnah ->kodePemusnahan}}</td>
-                                <td class="text-center">{{$musnah->aset->jumlahBarang}}</td>
+                                @foreach($aset->where('kodeAset',$musnah->aset_id)->take(1) as $as)
+                                <td class="text-center">{{$as->jumlahBarang}}</td>
+                                @endforeach
                                 <td class="text-center">{{$musnah ->waktuPemusnahan}}</td>
                                 <td class="text-center">
                                     @if($musnah->status == 'Diproses')
