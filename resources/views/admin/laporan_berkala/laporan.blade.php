@@ -52,7 +52,7 @@
         <div id="content">
 
             @foreach ($data->take(1) as $aset)
-            <h1 class="mt-1 text-center fw-bold mb-5" style="text-transform: uppercase;">LAPORAN BULAN {{date('F', strtotime($aset->created_at)) }}</h1>
+            <h1 class="mt-1 text-center fw-bold mb-5" style="text-transform: uppercase;">LAPORAN BULANAN {{date('F', strtotime($aset->created_at)) }}</h1>
             @endforeach
 
             <h2 class="mb-3 mt-4 mx-4 mb-5">DAFTAR DATA ASET</h2>
@@ -64,12 +64,11 @@
                     <th scope="col" class="text-center">No</th>
                     <th scope="col" class="text-center">Kode Barang</th>
                     <th scope="col" class="text-center">Nama Barang</th>
-                    <th scope="col" class="text-center">Tipe Barang</th>
                     <th scope="col" class="text-center">Jumlah Barang</th>
                     <th scope="col" class="text-center">Kategori</th>
                     <th scope="col" class="text-center">Kategori Pakai</th>
                     <th scope="col" class="text-center">Penyimpanan</th>
-                    <th scope="col" class="text-center">Gedung</th>
+                    <th scope="col" class="text-center">Gedung</th><th scope="col" class="text-center">Unit</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -77,11 +76,10 @@
                         @foreach ($data as $aset)
                     <tr>
                         <td>{{$i}}</td>
-                        <td>{{$aset->kodeAset}}</td>
-                        <td>{{$aset -> jenisBarang}}</td>
+                        <td>{{$aset -> kodeAset}}</td>
                         <td>{{$aset -> tipeBarang}}</td>
                         <td>{{$aset -> jumlahBarang}}</td>
-                        <td>{{$aset -> kategori}}</td>
+                        <td>{{$aset -> kategori->nama}}</td>
                         @if($aset->isInternal==0)
                         <td>Barang Tidak Habis (Eksternal)</td>
                         @endif
@@ -89,7 +87,8 @@
                         <td>Barang Habis (Internal)</td>
                         @endif
                         <td>{{$aset -> penyimpanan}}</td>
-                        <td class="text-center">{{$aset->gedung}}</td>
+                        <td class="text-center">{{$aset->gedung->nama}}</td>
+                        <td class="text-center">{{$aset->unit->nama}}</td>
                     </tr>
                     <?php $i++;?>
                     @endforeach
@@ -107,30 +106,24 @@
                     <th scope="col" class="text-center">Kode Peminjaman</th>
                     <th scope="col" class="text-center">Peminjam</th>
                     <th scope="col" class="text-center">Unit</th>
+                    <th scope="col" class="text-center">Nama Barang</th>
                     <th scope="col" class="text-center">Jumlah Barang</th>
                     <th scope="col" class="text-center">Tanggal Pengembalian</th>
-                    <th scope="col" class="text-center">Tujuan</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php $i=1 ?>
                         @foreach ($peminjaman as $pinjam)
-                        <?php $users = DB::table('users')->select('nama','unit')->where('id',$pinjam->user_id)->get(); ?>
-                        @foreach ($users as $user)
-                        <?php 
-                            $jumlah = ($pinjam -> jumlahBarang1) + ($pinjam -> jumlahBarang2) + ($pinjam -> jumlahBarang3) + ($pinjam -> jumlahBarang4) + ($pinjam -> jumlahBarang5)
-                        ?>
                     <tr>
                         <td>{{$i}}</td>
                         <td>{{$pinjam->kodePeminjaman}}</td>
-                        <td>{{$user->nama}}</td>
-                        <td>{{$user->unit}}</td>
-                        <td>{{$jumlah}}</td>
+                        <td>{{$pinjam->user->nama}}</td>
+                        <td>{{$pinjam->unit->nama}}</td>
+                        <td>{{$pinjam->aset->tipeBarang}}</td>
+                        <td>{{$pinjam->jumlahPinjam}}</td>
                         <td>{{$pinjam -> tglKembali}}</td>
-                        <td>{{$pinjam -> tujuan}}</td>
                     </tr>
                     <?php $i++;?>
-                    @endforeach
                     @endforeach
                     
                 </tbody>
@@ -148,25 +141,22 @@
                     <th scope="col" class="text-center">Unit</th>
                     <th scope="col" class="text-center">Jumlah Barang</th>
                     <th scope="col" class="text-center">Kategori</th>
-                    <th scope="col" class="text-center">Alasan</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php $i=1 ?>
                         @foreach ($pengadaan as $ada)
-                        <?php $users = DB::table('users')->select('nama','unit')->where('id',$ada->user_id)->get(); ?>
-                        @foreach ($users as $user)
+                        @foreach ($pembelian->where('pengadaan_id',$ada->kodePengadaan)->take(1) as $beli)
                         <?php 
-                            $jumlah = ($ada -> jumlahBarang1) + ($ada -> jumlahBarang2) + ($ada -> jumlahBarang3) + ($ada -> jumlahBarang4) + ($ada -> jumlahBarang5)
+                            $jumlah = ($beli -> jumlahBarang1) + ($beli -> jumlahBarang2) + ($beli -> jumlahBarang3) + ($beli -> jumlahBarang4) + ($beli -> jumlahBarang5)
                         ?>
                     <tr>
                         <td>{{$i}}</td>
                         <td>{{$ada->kodePengadaan}}</td>
-                        <td>{{$user->nama}}</td>
-                        <td>{{$user->unit}}</td>
+                        <td>{{$ada->user->nama}}</td>
+                        <td>{{$ada->unit->nama}}</td>
                         <td>{{$jumlah}}</td>
                         <td>{{$ada -> kategori}}</td>
-                        <td>{{$ada -> alasan}}</td>
                     </tr>
                     <?php $i++;?>
                     @endforeach
@@ -184,29 +174,19 @@
                     <th scope="col" class="text-center">No</th>
                     <th scope="col" class="text-center">Kode Monitoring</th>
                     <th scope="col" class="text-center">Unit</th>
-                    <th scope="col" class="text-center">Jumlah Barang</th>
-                    <th scope="col" class="text-center">Tanggal Monitoring</th>
-                    <th scope="col" class="text-center">Deskripsi</th>
+                    <th scope="col" class="text-center">Waktu Monitoring</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php $i=1 ?>
                         @foreach ($monitoring as $monitor)
-                        <?php $units = DB::table('unit')->select('id','unit')->where('id',$monitor->unit_id)->get(); ?>
-                        @foreach ($units as $unit)
-                        <?php 
-                            $jumlah = ($monitor -> jumlahBarang1) + ($monitor -> jumlahBarang2) + ($monitor -> jumlahBarang3) + ($monitor -> jumlahBarang4) + ($monitor -> jumlahBarang5)
-                        ?>
                     <tr>
                         <td>{{$i}}</td>
                         <td>{{$monitor->kodeMonitoring}}</td>
-                        <td>{{$unit->unit}}</td>
-                        <td>{{$jumlah}}</td>
+                        <td>{{$monitor->unit->nama}}</td>
                         <td>{{$monitor -> waktuMonitoring}}</td>
-                        <td>{{$monitor -> deskripsi}}</td>
                     </tr>
                     <?php $i++;?>
-                    @endforeach
                     @endforeach
                     
                 </tbody>
@@ -221,32 +201,21 @@
                     <tr>
                     <th scope="col" class="text-center">No</th>
                     <th scope="col" class="text-center">Kode Pemusnahan</th>
-                    <th scope="col" class="text-center">Unit</th>
-                    <th scope="col" class="text-center">Jumlah Barang</th>
+                    <th scope="col" class="text-center">Jumlah Aset</th>
                     <th scope="col" class="text-center">Waktu Pemusnahan</th>
-                    <th scope="col" class="text-center">Deskripsi</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php $i=1 ?>
-                        @foreach ($pemusnahan as $musnah)
-                        @if($musnah->jenisBarang1 != NULL)
-                        <?php $units = DB::table('unit')->select('id','unit')->where('id',$musnah->unit_id)->get(); ?>
-                        @foreach ($units as $unit)
-                        <?php 
-                            $jumlah = ($musnah -> jumlahBarang1) + ($musnah -> jumlahBarang2) + ($musnah -> jumlahBarang3) + ($musnah -> jumlahBarang4) + ($musnah -> jumlahBarang5)
-                        ?>
+                        <?php $pemusnahanA = DB::table('pemusnahan')->where('kodePemusnahan', 'LIKE', 'PMNA-%')->where('status', 'Diproses')->get() ?>
+                        @foreach ($pemusnahanA as $musnah)
                     <tr>
                         <td>{{$i}}</td>
                         <td>{{$musnah->kodePemusnahan}}</td>
-                        <td>{{$unit->unit}}</td>
-                        <td>{{$jumlah}}</td>
+                        <td class="text-center">{{$musnah->aset->jumlahBarang}}</td>
                         <td>{{$musnah -> waktuPemusnahan}}</td>
-                        <td>{{$musnah -> deskripsi}}</td>
                     </tr>
                     <?php $i++;?>
-                    @endforeach
-                    @endif
                     @endforeach
                     
                 </tbody>
@@ -265,19 +234,14 @@
                 </thead>
                 <tbody>
                     <?php $i=1 ?>
-                        @foreach ($pemusnahan as $musnah)
-                        @if($musnah->jenisBarang1 == NULL)
-                        <?php 
-                            $jumlah = ($musnah -> jumlahBarang1) + ($musnah -> jumlahBarang2) + ($musnah -> jumlahBarang3) + ($musnah -> jumlahBarang4) + ($musnah -> jumlahBarang5)
-                        ?>
+                    <?php $pemusnahanB = DB::table('pemusnahan')->where('kodePemusnahan', 'LIKE', 'PMNB-%')->where('status', 'Diproses')->get() ?>
+                    @foreach ($pemusnahanB as $musnah)
                     <tr>
                         <td>{{$i}}</td>
                         <td>{{$musnah->kodePemusnahan}}</td>
                         <td>{{$musnah -> waktuPemusnahan}}</td>
-                        <td>{{$musnah -> deskripsi}}</td>
                     </tr>
                     <?php $i++;?>
-                    @endif
                     @endforeach
                     
                 </tbody>

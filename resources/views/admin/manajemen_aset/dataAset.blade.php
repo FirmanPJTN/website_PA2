@@ -120,6 +120,8 @@
                         </td>
                     </tr>
 
+                    
+
                     @include('layouts.modalDetailDataAset')
                     <?php $i++; ?>
                     @endforeach

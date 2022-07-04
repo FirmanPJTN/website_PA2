@@ -286,7 +286,7 @@
                         <thead>
                             <tr>
                                 <th scope="col" class="text-center">No</th>
-                                <th scope="col" class="text-center">Kode Pemusnahan</th>
+                                <th scope="col" class="text-center">Kode Pemusnahan</th><th scope="col" class="text-center">Jumlah Aset</th>
                                 <th scope="col" class="text-center">Waktu Pemusnahan</th>
                                 <th scope="col" class="text-center">Status</th>
                                 <th scope="col" class="text-center">Aksi</th>
@@ -299,6 +299,7 @@
                             <tr>
                                 <td class="text-center">{{$pemusnahanA->firstItem() + $i}}</td>
                                 <td class="text-center">{{$musnah ->kodePemusnahan}}</td>
+                                <td class="text-center">{{$musnah->aset->jumlahBarang}}</td>
                                 <td class="text-center">{{$musnah ->waktuPemusnahan}}</td>
                                 <td class="text-center">
                                     @if($musnah->status == 'Diproses')

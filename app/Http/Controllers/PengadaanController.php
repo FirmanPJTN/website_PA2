@@ -15,6 +15,7 @@ use App\Models\User;
 use App\Models\Notifikasi;
 use Illuminate\Http\Request;
 use PDF;
+use Carbon\Carbon;
 use App\Exports\AsetExport;
 
 class PengadaanController extends Controller
@@ -569,16 +570,21 @@ class PengadaanController extends Controller
     public function exportLaporan(Request $request)
     {
         $request->validate([
-            'bulan'  => 'required|in:01,02,03,04,05,06,07,08,09,10,11,12'
+            'RentangAwal'  => 'required',
+            'RentangAkhir'  => 'required'
         ]);
 
+        $request->RentangAwal =  Carbon::createFromFormat('Y-m', $request->RentangAwal)->format('Y-m-d H:i:s');
+
+        $request->RentangAkhir = Carbon::createFromFormat('Y-m', $request->RentangAkhir)->format('Y-m-d H:i:s');
+
         $units = Unit::all();
-        $data = DataAset::whereMonth('created_at', $request->bulan)->get();
-        $peminjaman = Peminjaman::whereMonth('created_at', $request->bulan)->get();
-        $pengadaan = Pengadaan::whereMonth('created_at', $request->bulan)->get();
-        $monitoring = Monitoring::whereMonth('created_at', $request->bulan)->get();
-        $pemusnahan = Pemusnahan::whereMonth('created_at', $request->bulan)->get();
-        $pembelian = Pembelian::whereMonth('created_at', $request->bulan)->get();
+        $data = DataAset::where('created_at','>=' ,$request->RentangAwal)->where('created_at','<=',$request->RentangAkhir)->get();
+        $peminjaman = Peminjaman::where('created_at','>=' ,$request->RentangAwal)->where('created_at','<=',$request->RentangAkhir)->get();
+        $pengadaan = Pengadaan::where('created_at','>=' ,$request->RentangAwal)->where('created_at','<=',$request->RentangAkhir)->get();
+        $monitoring = Monitoring::where('created_at','>=' ,$request->RentangAwal)->where('created_at','<=',$request->RentangAkhir)->get();
+        $pemusnahan = Pemusnahan::where('created_at','>=' ,$request->RentangAwal)->where('created_at','<=',$request->RentangAkhir)->get();
+        $pembelian = Pembelian::where('created_at','>=' ,$request->RentangAwal)->where('created_at','<=',$request->RentangAkhir)->get();
 
         $pdf = PDF::loadView('admin.laporan_berkala.laporan', compact('data', 'units', 'peminjaman', 'pengadaan', 'monitoring', 'pemusnahan', 'pembelian'));
         $pdf->setPaper('A4', 'landscape');

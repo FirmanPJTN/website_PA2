@@ -74,7 +74,7 @@
                             <th scope="col" class="text-center">No</th>
                             <th scope="col" class="text-center">Kode Monitoring</th>
                             <th scope="col" class="text-center">Unit</th>
-                            <th scope="col" class="text-center">Tanggal Monitoring</th>
+                            <th scope="col" class="text-center">Waktu Monitoring</th>
                             <th scope="col" class="text-center">Status</th>
                             <th scope="col" class="text-center">Aksi</th>
                         </tr>
@@ -84,9 +84,6 @@
                         @foreach ($monitoring as $monitor)
                         @if($monitor->status == 'proses')
 
-                        <?php
-                        $jumlah = ($monitor->jumlahBarang1) + ($monitor->jumlahBarang2) + ($monitor->jumlahBarang3) + ($monitor->jumlahBarang4) + ($monitor->jumlahBarang5)
-                        ?>
                         <tr>
                             <td class="text-center">{{$monitoring->firstItem() +$i}}</td>
                             <td class="text-center">{{$monitor ->kodeMonitoring}}</td>
@@ -134,7 +131,7 @@
                             <th scope="col" class="text-center">No</th>
                             <th scope="col" class="text-center">Kode Monitoring</th>
                             <th scope="col" class="text-center">Unit</th>
-                            <th scope="col" class="text-center">Tanggal Monitoring</th>
+                            <th scope="col" class="text-center">Waktu Monitoring</th>
                             <th scope="col" class="text-center">Status</th>
                             <th scope="col" class="text-center">Aksi</th>
                         </tr>

@@ -71,7 +71,7 @@
                         <tr>
                             <th scope="col" class="text-center">No</th>
                             <th scope="col" class="text-center">Kode Pengadaan</th>
-                            <th scope="col" class="text-center">Pemohon</th>
+                            <th scope="col" class="text-center">Pengada</th>
                             <th scope="col" class="text-center">Unit</th>
                             <th scope="col" class="text-center">Jumlah Barang</th>
                             <th scope="col" class="text-center">Tanggal Pengadaan</th>
@@ -146,7 +146,7 @@
                         <tr>
                             <th scope="col" class="text-center">No</th>
                             <th scope="col" class="text-center">Kode Pengadaan</th>
-                            <th scope="col" class="text-center">Pemohon</th>
+                            <th scope="col" class="text-center">Pengada</th>
                             <th scope="col" class="text-center">Unit</th>
                             <th scope="col" class="text-center">Jumlah Barang</th>
                             <th scope="col" class="text-center">Tanggal Pengadaan</th>
