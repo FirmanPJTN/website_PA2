@@ -50,7 +50,3 @@
         </div>
     </div>
 </div>
-
-<script>
-    document.getElementById("tglmusnah<?= $musnah->id ?>").disabled = true;
-</script>

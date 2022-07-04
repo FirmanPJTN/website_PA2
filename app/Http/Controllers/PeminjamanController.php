@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pembelian;
 use App\Models\DataAset;
 use App\Models\Monitoring;
 use App\Models\Peminjaman;
 use App\Models\Pengadaan;
 use App\Models\Notifikasi;
-use app\Models\User;
-use app\Models\Unit;
+use App\Models\User;
+use App\Models\Unit;
 use Illuminate\Http\Request;
 
 
@@ -27,14 +28,16 @@ class PeminjamanController extends Controller
             $pengadaan = Pengadaan::where('kodePengadaan', 'LIKE', '%' . $request->cari . '%')->paginate(10);
             $monitoring = Monitoring::where('kodeMonitoring', 'LIKE', '%' . $request->cari . '%')->paginate(10);
             $aset = DataAset::all();
+            $pembelian = Pembelian::all();
         } else {
             $peminjaman = Peminjaman::paginate(10);
             $pengadaan = Pengadaan::paginate(10);
             $monitoring = Monitoring::paginate(10);
             $aset = DataAset::all();
+            $pembelian = Pembelian::all();
         }
 
-        return view('visitor.dashboard', compact('peminjaman', 'pengadaan', 'monitoring','aset'));
+        return view('visitor.dashboard', compact('peminjaman', 'pengadaan', 'monitoring','aset','pembelian'));
     }
 
     public function indexVisitor()

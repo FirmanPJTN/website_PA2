@@ -11,7 +11,7 @@ use App\Models\DataAset;
 use App\Models\Unit;
 use App\Models\Gedung;
 use App\Charts\AsetChart;
-use app\Models\User;
+use App\Models\User;
 use App\Models\Notifikasi;
 use Illuminate\Http\Request;
 use PDF;
@@ -451,11 +451,12 @@ class PengadaanController extends Controller
             $pengadaan = Pengadaan::where('kodePengadaan','LIKE', '%' . $request->cari . '%')->paginate(10);
             $pemusnahan = Pemusnahan::where('kodePemusnahan','LIKE', '%' . $request->cari . '%')->paginate(10);
             $pembelian = Pembelian::all();
+            $aset = DataAset::all();
 
             // $pembelian = Pembelian::where('jenisBarang1','LIKE', '%' . $request->cari . '%')->orWhere('tipeBarang1','LIKE', '%' . $request->cari . '%')->orWhere('jumlahBarang1','LIKE', '%' . $request->cari . '%')->paginate(10);
         
 
-        return view('approver.dashboard', compact('peminjaman', 'pengadaan', 'pemusnahan','pembelian'));
+        return view('approver.dashboard', compact('peminjaman', 'pengadaan', 'pemusnahan','pembelian','aset'));
     }
 
     public function dashboardTransactor(Request $request)

@@ -73,34 +73,34 @@
                 <div class="mb-5">
                     <div class="d-flex justify-content-start">
                         <a href="/visitor/PermohonanAset/PengadaanAset">
-                        <?php $jumlahpengadaan = DB::table('pengadaan')->where('unit_id', Auth::user()->unit_id)->count(); ?>
-                        @if($jumlahpengadaan != 0)
-                        <div class="box mx-4" style="background-color: #00D1B8; padding: 30px; padding-left: 35px; padding-right: 35px; border-radius: 10px; font-size: 2em; color: white; font-weight: bold; text-align: center">
-                            {{$jumlahpengadaan}} <br>
-                            <span style="font-size: 0.7em;">Jumlah Pengadaan</span>
-                        </div>
-                        @endif
+                            <?php $jumlahpengadaan = DB::table('pengadaan')->where('unit_id', Auth::user()->unit_id)->count(); ?>
+                            @if($jumlahpengadaan != 0)
+                            <div class="box mx-4" style="background-color: #00D1B8; padding: 30px; padding-left: 35px; padding-right: 35px; border-radius: 10px; font-size: 2em; color: white; font-weight: bold; text-align: center">
+                                {{$jumlahpengadaan}} <br>
+                                <span style="font-size: 0.7em;">Jumlah Pengadaan</span>
+                            </div>
+                            @endif
                         </a>
 
                         <a href="/visitor/PermohonanAset/PeminjamanAset">
-                        <?php $jumlahpeminjaman = DB::table('peminjaman')->where('unit_id', Auth::user()->unit_id)->count(); ?>
-                        @if($jumlahpeminjaman != 0)
-                        <div class="box mx-4" style="background-color: #32A9FF; padding: 30px; padding-left: 35px; padding-right: 35px; border-radius: 10px; font-size: 2em; color: white; font-weight: bold; text-align: center">
-                            {{$jumlahpeminjaman}} <br>
-                            <span style="font-size: 0.7em;">Jumlah Peminjaman</span>
-                        </div>
-                        @endif
+                            <?php $jumlahpeminjaman = DB::table('peminjaman')->where('unit_id', Auth::user()->unit_id)->count(); ?>
+                            @if($jumlahpeminjaman != 0)
+                            <div class="box mx-4" style="background-color: #32A9FF; padding: 30px; padding-left: 35px; padding-right: 35px; border-radius: 10px; font-size: 2em; color: white; font-weight: bold; text-align: center">
+                                {{$jumlahpeminjaman}} <br>
+                                <span style="font-size: 0.7em;">Jumlah Peminjaman</span>
+                            </div>
+                            @endif
                         </a>
 
 
                         <a href="/visitor/MonitoringAset">
-                        <?php $jumlahmonitoring = DB::table('monitoring')->where('unit_id', Auth::user()->unit->id)->count(); ?>
-                        @if($jumlahmonitoring != 0)
-                        <div class="box mx-4" style="background-color: #947AFF; padding: 30px; padding-left: 35px; padding-right: 35px; border-radius: 10px; font-size: 2em; color: white; font-weight: bold; text-align: center">
-                            {{$jumlahmonitoring}} <br>
-                            <span style="font-size: 0.7em;">Jumlah Monitoring</span>
-                        </div>
-                        @endif
+                            <?php $jumlahmonitoring = DB::table('monitoring')->where('unit_id', Auth::user()->unit->id)->count(); ?>
+                            @if($jumlahmonitoring != 0)
+                            <div class="box mx-4" style="background-color: #947AFF; padding: 30px; padding-left: 35px; padding-right: 35px; border-radius: 10px; font-size: 2em; color: white; font-weight: bold; text-align: center">
+                                {{$jumlahmonitoring}} <br>
+                                <span style="font-size: 0.7em;">Jumlah Monitoring</span>
+                            </div>
+                            @endif
                         </a>
 
                     </div>
@@ -123,10 +123,11 @@
                         <tbody>
                             <?php $i = 0 ?>
                             @foreach ($pengadaan as $ada)
+                            @foreach ($pembelian->where('pengadaan_id',$ada->kodePengadaan)->take(1) as $beli)
                             @if($ada->user_id == Auth::user()->id && $ada->status == 'proses')
 
                             <?php
-                            $jumlah = ($ada->jumlahBarang1) + ($ada->jumlahBarang2) + ($ada->jumlahBarang3) + ($ada->jumlahBarang4) + ($ada->jumlahBarang5)
+                            $jumlah = ($beli->jumlahBarang1) + ($beli->jumlahBarang2) + ($beli->jumlahBarang3) + ($beli->jumlahBarang4) + ($beli->jumlahBarang5)
                             ?>
                             <tr>
                                 <td class="text-center">{{$pengadaan->firstItem() + $i}}</td>
@@ -138,9 +139,9 @@
                                 </td>
                                 <td class="text-center">
                                     <div class="d-flex justify-content-around">
-                                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#def<?= $i ?>">Detail</button>
+                                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#def<?= $beli->id ?>">Detail</button>
                                         &nbsp;
-                                        <a href="#" class="btn btn-warning mx-2" data-bs-toggle="modal" data-bs-target="#ubah-pengadaan<?= $i ?>">Ubah</a>
+                                        <a href="#" class="btn btn-warning mx-2" data-bs-toggle="modal" data-bs-target="#ubah-pengadaan<?= $beli->id ?>">Ubah</a>
                                         &nbsp;
                                         <a data-id="{{ $ada->kodePengadaan }}" class="btn btn-danger deleteAda" href="#">Hapus</a>
                                     </div>
@@ -157,6 +158,7 @@
 
                             <?php $i++; ?>
                             @endif
+                            @endforeach
                             @endforeach
 
                         </tbody>
@@ -181,9 +183,9 @@
                             <tr>
                                 <th scope="col" class="text-center">No</th>
                                 <th scope="col" class="text-center">Kode Peminjaman</th>
-                                <th scope="col" class="text-center">Jumlah Barang</th>
-                                <th scope="col" class="text-center">Tanggal Peminjaman</th>
-                                <th scope="col" class="text-center">Rencana Pengembalian</th>
+                                <th scope="col" class="text-center">Nama Barang</th>
+                                <th scope="col" class="text-center">Peminjam</th>
+                                <th scope="col" class="text-center">Unit</th>
                                 <th scope="col" class="text-center">Status</th>
                                 <th scope="col" class="text-center">Aksi</th>
                             </tr>
@@ -198,10 +200,10 @@
                             ?>
                             <tr>
                                 <td class="text-center">{{$peminjaman->firstItem() + $i}}</td>
-                                <td class="text-center">{{$pinjam -> kodePeminjaman}}</td>
-                                <td class="text-center">{{$jumlah}}</td>
-                                <td class="text-center">{{$pinjam -> created_at -> format('Y-m-d')}}</td>
-                                <td class="text-center">{{$pinjam -> tglKembali}}</td>
+                                <td class="text-center">{{$pinjam->kodePeminjaman}}</td>
+                                <td class="text-center">{{$pinjam->aset->tipeBarang}}</td>
+                                <td class="text-center">{{$pinjam->user->nama}}</td>
+                                <td class="text-center">{{$pinjam->unit->nama}}</td>
                                 <td class="text-center">
                                     <button class="btn btn-warning" disabled><span class="iconify" data-icon="mdi:progress-alert" data-height="20"></span> Diproses</button>
                                 </td>

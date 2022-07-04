@@ -161,12 +161,11 @@
 
 
 
-                @if($ada->gambar != NULL)
+                @if($ada->faktur != NULL)
                 <div class="form-group mt-3">
-                    <div class="d-flex justify-content-center">
+                    <div class="d-flex justify-content-start">
                         <label class="mx-4 w-25">Faktur Pembelian</label>
-                        <img src="../../foto/pembelian-aset/{{$ada->gambar}}" alt="" width="700">
-                        <img src="../../foto/pembelian-aset/{{$ada->gambar}}" alt="" width="80" style="visibility: hidden">
+                        <img src="../../foto/pembelian-aset/{{$ada->faktur}}" alt="" width="400">
                     </div>
                 </div>
                 @endif

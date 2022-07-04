@@ -217,11 +217,9 @@
                             <tr>
                                 <th scope="col" class="text-center">No</th>
                                 <th scope="col" class="text-center">Kode Peminjaman</th>
+                                <th scope="col" class="text-center">Nama Barang</th>
                                 <th scope="col" class="text-center">Peminjam</th>
                                 <th scope="col" class="text-center">Unit</th>
-                                <th scope="col" class="text-center">Jumlah Barang</th>
-                                <th scope="col" class="text-center">Tanggal Peminjaman</th>
-                                <th scope="col" class="text-center">Rencana Pengembalian</th>
                                 <th scope="col" class="text-center">Status</th>
                                 <th scope="col" class="text-center">Aksi</th>
                             </tr>
@@ -239,19 +237,17 @@
                             <tr>
                                 <td class="text-center">{{$peminjaman->firstItem() + $i}}</td>
                                 <td class="text-center">{{$pinjam->kodePeminjaman}}</td>
+                                <td class="text-center">{{$pinjam->aset->tipeBarang}}</td>
                                 <td class="text-center">{{$pinjam->user->nama}}</td>
-                                <td class="text-center">{{$pinjam->unit->unit}}</td>
-                                <td class="text-center">{{$jumlah}}</td>
-                                <td class="text-center">{{$pinjam -> created_at -> format('Y-m-d')}}</td>
-                                <td class="text-center">{{$pinjam -> tglKembali}}</td>
+                                <td class="text-center">{{$pinjam->unit->nama}}</td>
                                 @if($pinjam->status == 'proses')
                                 <td class="text-center"> <button class="btn btn-warning" disabled><span class="iconify" data-icon="mdi:progress-alert" data-height="20"></span> Diproses</button></td>
                                 @endif
 
                                 <td class="text-center">
                                     <div class="d-flex justify-content-around">
-                                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#abc<?= $pinjam->id ?>">Detail</button> &nbsp;
-                                        <a href="" data-bs-toggle="modal" data-bs-target="#jkl<?= $pinjam->id ?>" class="btn btn-info">Proses</a>
+                                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#abc<?= $i ?>">Detail</button> &nbsp;
+                                        <a href="" data-bs-toggle="modal" data-bs-target="#jkl<?= $i ?>" class="btn btn-info">Proses</a>
                                     </div>
                                 </td>
                             </tr>
@@ -292,20 +288,18 @@
                                 <th scope="col" class="text-center">No</th>
                                 <th scope="col" class="text-center">Kode Pemusnahan</th>
                                 <th scope="col" class="text-center">Waktu Pemusnahan</th>
-                                <th scope="col" class="text-center">Deskripsi Berkas</th>
                                 <th scope="col" class="text-center">Status</th>
                                 <th scope="col" class="text-center">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php $i = 0 ?>
-                            @foreach ($pemusnahan as $musnah)
-                            @if($musnah-> jenisBarang1 != NULL )
+                            <?php $pemusnahanA = DB::table('pemusnahan')->where('kodePemusnahan', 'LIKE', 'PMNA-%')->where('status', 'Diproses')->paginate(10) ?>
+                            @foreach ($pemusnahanA as $musnah)
                             <tr>
-                                <td class="text-center">{{$pemusnahan->firstItem() + $i}}</td>
+                                <td class="text-center">{{$pemusnahanA->firstItem() + $i}}</td>
                                 <td class="text-center">{{$musnah ->kodePemusnahan}}</td>
                                 <td class="text-center">{{$musnah ->waktuPemusnahan}}</td>
-                                <td>{{Str::limit($musnah->deskripsi, 50, $end=' .....')}}</td>
                                 <td class="text-center">
                                     @if($musnah->status == 'Diproses')
                                     <button class="btn btn-warning" disabled><span class="iconify" data-icon="mdi:progress-alert" data-height="20"></span> {{$musnah->status}}</button>
@@ -322,9 +316,9 @@
                                 </td>
                                 <td class="text-center">
                                     <div class="d-flex justify-content-around">
-                                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#abc<?= $musnah->id ?>">Detail</button>
+                                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#abc<?= $i ?>">Detail</button>
                                         @if($musnah->status == 'Diproses')
-                                        &nbsp;<a href="#" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#def<?= $musnah->id ?>">Proses</a>
+                                        &nbsp;<a href="#" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#def<?= $i ?>">Proses</a>
                                         @endif
                                     </div>
                                 </td>
@@ -338,7 +332,6 @@
                             @include('layouts.modalPersetujuanPemusnahanAset')
 
                             <?php $i++; ?>
-                            @endif
                             @endforeach
 
                         </tbody>
@@ -347,9 +340,9 @@
                     <a href="{{route('musnah-aset-approver')}}" class="btn btn-info mb-3">Lihat Semua Data</a>
 
 
-                    @if(!empty($pemusnahan))
+                    @if(!empty($pemusnahanA))
                     <div class="pagination">
-                        {{ $pemusnahan->links() }}
+                        {{ $pemusnahanA->links() }}
                     </div>
                     @endif
                 </div>
@@ -364,20 +357,18 @@
                                 <th scope="col" class="text-center">No</th>
                                 <th scope="col" class="text-center">Kode Pemusnahan</th>
                                 <th scope="col" class="text-center">Waktu Pemusnahan</th>
-                                <th scope="col" class="text-center">Deskripsi Berkas</th>
                                 <th scope="col" class="text-center">Status</th>
                                 <th scope="col" class="text-center">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php $i = 0 ?>
-                            @foreach ($pemusnahan as $musnah)
-                            @if($musnah-> jenisBarang1 == NULL )
+                            <?php $pemusnahanB = DB::table('pemusnahan')->where('kodePemusnahan', 'LIKE', 'PMNB-%')->where('status', 'Diproses')->paginate(10) ?>
+                            @foreach ($pemusnahanB as $musnah)
                             <tr>
-                                <td class="text-center">{{$pemusnahan->firstItem() + $i}}</td>
+                                <td class="text-center">{{$pemusnahanB->firstItem() + $i}}</td>
                                 <td class="text-center">{{$musnah ->kodePemusnahan}}</td>
                                 <td class="text-center">{{$musnah ->waktuPemusnahan}}</td>
-                                <td>{{Str::limit($musnah->deskripsi, 50, $end=' .....')}}</td>
                                 <td class="text-center">
                                     @if($musnah->status == 'Diproses')
                                     <button class="btn btn-warning" disabled><span class="iconify" data-icon="mdi:progress-alert" data-height="20"></span> {{$musnah->status}}</button>
@@ -394,9 +385,9 @@
                                 </td>
                                 <td class="text-center">
                                     <div class="d-flex justify-content-around">
-                                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#berkas<?= $musnah->id ?>">Detail</button>
+                                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#berkas<?= $i ?>">Detail</button>
                                         @if($musnah->status == 'Diproses')
-                                        &nbsp;<a href="#" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#def<?= $musnah->id ?>">Proses</a>
+                                        &nbsp;<a href="#" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#def<?= $i ?>">Proses</a>
                                         @endif
                                     </div>
                                 </td>
@@ -410,7 +401,6 @@
                             @include('layouts.modalPersetujuanPemusnahanBerkas')
 
                             <?php $i++; ?>
-                            @endif
                             @endforeach
 
                         </tbody>
@@ -418,9 +408,9 @@
 
                     <a href="{{route('musnah-berkas-approver')}}" class="btn btn-info mb-3">Lihat Semua Data</a>
 
-                    @if(!empty($pemusnahan))
+                    @if(!empty($pemusnahanB))
                     <div class="pagination">
-                        {{ $pemusnahan->links() }}
+                        {{ $pemusnahanB->links() }}
                     </div>
                     @endif
 

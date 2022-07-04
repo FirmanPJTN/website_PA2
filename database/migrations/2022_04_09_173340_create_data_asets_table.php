@@ -15,15 +15,12 @@ return new class extends Migration
     {
         Schema::create('data_asets', function (Blueprint $table) {
             $table->string('kodeAset')->primary();
-            // $table->text('kodeAset')->unique();
-            // $table->string('kategori');
             $table->string('jenisBarang');
             $table->text('tipeBarang');
             $table->integer('jumlahBarang');
             $table->string('gambarBarang')->nullable();
             $table->date('tglBeli');
             $table->string('penyimpanan');
-            // $table->string('gedung');
             $table->boolean('isInternal')->default(1);
             $table->string('status')->default("ada");
 
