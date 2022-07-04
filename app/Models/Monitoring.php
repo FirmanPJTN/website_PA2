@@ -15,6 +15,8 @@ class Monitoring extends Model
 
     public $incrementing = false; 
 
+    protected $primaryKey = 'kodeMonitoring';
+
     public function user() {
         return $this->belongsTo(User::class,'user_id');
     }

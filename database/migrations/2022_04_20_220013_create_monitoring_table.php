@@ -36,7 +36,7 @@ return new class extends Migration
             // $table->text('tipeBarang5')->nullable();
             // $table->integer('jumlahBarang5')->nullable();
             // $table->string('gambarBarang5')->nullable();
-            $table->date('waktuMonitoring')->nullable();
+            $table->datetime('waktuMonitoring');
             $table->string('deskripsi')->nullable();
             $table->string('status')->nullable();
 

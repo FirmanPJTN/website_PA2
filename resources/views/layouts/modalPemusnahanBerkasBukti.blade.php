@@ -1,8 +1,8 @@
-<div class="modal fade" id="jkl<?= $musnah->id ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="jkl<?= $i ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-xl">
     <div class="modal-content">
 
-    <form enctype="multipart/form-data" action="/MonitoringAset/PemusnahanBerkas/Bukti/{{$musnah->id}}" method="post">
+    <form enctype="multipart/form-data" action="/MonitoringAset/PemusnahanBerkas/Bukti/{{$musnah->kodePemusnahan}}" method="post">
         {{ csrf_field() }}
         <div class="modal-header">
         <h2 class="modal-title fw-bold" id="exampleModalLabel">TAMBAH BUKTI OTENTIK</h2>
@@ -29,12 +29,12 @@
 
         <div class="form-group mt-3 ml-2">
             <div class="d-flex justify-content-center">
-                <label class="mx-4 w-25">Gambar</label>
-                <input type="file" name="gambar" class="form-control mx-4">
+                <label class="mx-4 w-25">Bukti Otentik</label>
+                <input type="file" name="bukti" class="form-control mx-4">
             </div>
             
 
-            @error('gambar')
+            @error('bukti')
                 <div class="alert-danger mt-2 mr-2">{{$message}}</div>
             @enderror
         </div>

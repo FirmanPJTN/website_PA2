@@ -74,9 +74,8 @@
                             <th scope="col" class="text-center">No</th>
                             <th scope="col" class="text-center">Kode Pemusnahan</th>
                             <th scope="col" class="text-center">Jumlah Aset</th>
-                            <th scope="col" class="text-center">Status</th>
                             <th scope="col" class="text-center">Waktu Pemusnahan</th>
-                            <th scope="col" class="text-center">Deskripsi Berkas</th>
+                            <th scope="col" class="text-center">Status</th>
                             <th scope="col" class="text-center">Aksi</th>
                         </tr>
                     </thead>
@@ -84,32 +83,24 @@
                         <?php $i = 0 ?>
                         @foreach ($pemusnahan as $musnah)
                         @if($musnah->status == 'Diproses')
-                        <?php
-                        $jumlah = ($musnah->jumlahBarang1) + ($musnah->jumlahBarang2) + ($musnah->jumlahBarang3) + ($musnah->jumlahBarang4) + ($musnah->jumlahBarang5)
-                        ?>
                         <tr>
                             <td class="text-center">{{$pemusnahan->firstItem() +$i}}</td>
                             <td class="text-center">{{$musnah ->kodePemusnahan}}</td>
-                            <td class="text-center">{{$jumlah}}</td>
+                            <td class="text-center">{{$musnah->aset->jumlahBarang}}</td>
+                            <td class="text-center">{{$musnah->waktuPemusnahan}}</td>
                             <td class="text-center">
                                 <button class="btn btn-warning" disabled><span class="iconify" data-icon="mdi:progress-alert" data-height="20"></span> {{$musnah->status}}</button>
                             </td>
-                            <td class="text-center">{{$musnah->waktuPemusnahan}}</td>
-                            <td>{{Str::limit($musnah->deskripsi, 50, $end=' .....')}}</td>
                             <td class="text-center">
                                 <div class="d-flex justify-content-around">
-                                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#abc<?= $musnah->id ?>">Detail</button>
+                                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#abc<?= $i ?>">Detail</button>
                                     &nbsp;
-                                    <a href="/MonitoringAset/PemusnahanAset/Ubah/{{$musnah -> id}}" class="btn btn-warning">Ubah</a>
+                                    <a href="/MonitoringAset/PemusnahanAset/Ubah/{{$musnah -> kodePemusnahan}}" class="btn btn-warning">Ubah</a>
                                     &nbsp;
-                                    <a data-id="{{ $musnah->id }}" class="btn btn-danger deleteAset" href="#">Hapus</a>
+                                    <a data-id="{{ $musnah->kodePemusnahan }}" class="btn btn-danger deleteAset" href="#">Hapus</a>
                                 </div>
                             </td>
                         </tr>
-
-
-                        <!-- MODAL TAMBAH BUKTI -->
-                        @include('layouts.modalPemusnahanAsetBukti')
 
                         <!-- MODAL DETAIL PEMUSNAHAN BERKAS -->
                         @include('layouts.modalDetailPemusnahanAsetAdmin')
@@ -137,9 +128,8 @@
                             <th scope="col" class="text-center">No</th>
                             <th scope="col" class="text-center">Kode Pemusnahan</th>
                             <th scope="col" class="text-center">Jumlah Aset</th>
-                            <th scope="col" class="text-center">Status</th>
                             <th scope="col" class="text-center">Waktu Pemusnahan</th>
-                            <th scope="col" class="text-center">Deskripsi Berkas</th>
+                            <th scope="col" class="text-center">Status</th>
                             <th scope="col" class="text-center">Aksi</th>
                         </tr>
                     </thead>
@@ -147,13 +137,11 @@
                         <?php $i = 0 ?>
                         @foreach ($pemusnahan as $musnah)
                         @if($musnah->status != 'Diproses')
-                        <?php
-                        $jumlah = ($musnah->jumlahBarang1) + ($musnah->jumlahBarang2) + ($musnah->jumlahBarang3) + ($musnah->jumlahBarang4) + ($musnah->jumlahBarang5)
-                        ?>
                         <tr>
                             <td class="text-center">{{$pemusnahan->firstItem() +$i}}</td>
                             <td class="text-center">{{$musnah ->kodePemusnahan}}</td>
-                            <td class="text-center">{{$jumlah}}</td>
+                            <td class="text-center">{{$musnah->aset->jumlahBarang}}</td>
+                            <td class="text-center">{{$musnah->waktuPemusnahan}}</td>
                             <td class="text-center">
 
                                 @if($musnah->status == 'Disetujui')
@@ -164,14 +152,12 @@
                                 <button class="btn btn-danger" disabled><span class="iconify" data-icon="mdi:progress-close" data-height="20"></span> {{$musnah->status}}</button>
                                 @endif
                             </td>
-                            <td class="text-center">{{$musnah->waktuPemusnahan}}</td>
-                            <td>{{Str::limit($musnah->deskripsi, 50, $end=' .....')}}</td>
                             <td class="text-center">
                                 <div class="d-flex justify-content-around">
-                                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#abc<?= $musnah->id ?>">Detail</button>
+                                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#abcr<?= $i ?>">Detail</button>
                                     @if($musnah->status == 'Disetujui')
                                     &nbsp;
-                                    <a href="#" data-bs-toggle="modal" data-bs-target="#jkl<?= $musnah->id ?>" class="btn btn-success">Tambah Bukti</a>
+                                    <a href="#" data-bs-toggle="modal" data-bs-target="#jkl<?= $i ?>" class="btn btn-success">Unggah Bukti</a>
                                     @endif
                                 </div>
                             </td>
@@ -182,7 +168,9 @@
                         @include('layouts.modalPemusnahanAsetBukti')
 
                         <!-- MODAL DETAIL PEMUSNAHAN BERKAS -->
-                        @include('layouts.modalDetailPemusnahanAsetAdmin')
+                        @include('layouts.modalDetailPemusnahanAsetAdminRiwayat')
+
+
                         <?php $i++; ?>
                         @endif
                         @endforeach

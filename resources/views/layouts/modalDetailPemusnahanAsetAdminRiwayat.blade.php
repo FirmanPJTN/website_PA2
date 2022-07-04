@@ -1,4 +1,4 @@
-<div class="modal fade" id="abc<?= $i ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="abcr<?= $i ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-xl">
         <div class="modal-content">
             <div class="modal-header">
@@ -62,6 +62,14 @@
             </div>
 
 
+            @if($musnah -> bukti != NULL)
+            <div class="form-group mt-3 ml-2">
+                <div class="d-flex justify-content-start">
+                    <label class="ml-4 w-25">Bukti Otentik</label>
+                    <img src="../foto/pemusnahan-aset/{{ $musnah -> bukti }}" style="border: 1px black solid;" alt="" width="300">
+                </div>
+            </div>
+            @endif
 
             <div class="modal-footer text-center">
                 <button style="width: 100%" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>

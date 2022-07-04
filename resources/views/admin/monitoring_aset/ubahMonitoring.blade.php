@@ -66,18 +66,17 @@
                 <h2 class="mb-5 text-center fw-bold">UBAH PERENCANAAN</h2>       
 
 
-                <form enctype="multipart/form-data" action="/MonitoringAset/PerencanaanMonitoring/Kirim/{{$monitoring->id}}" method="post">
+                <form enctype="multipart/form-data" action="/MonitoringAset/PerencanaanMonitoring/Kirim/{{$monitoring->kodeMonitoring}}" method="post">
                     {{ csrf_field() }}
-                    <input type="text" name="kodeMonitoring" value="MNTR-{{date('Y.m.d-h.i.s')}}" style="visibility: hidden">
+                    <input type="hidden" name="kodeMonitoring" value="MNTR-{{date('Y.m.d-h.i.s')}}" style="visibility: hidden">
                     
                     <div class="form-group mt-3">
                         <div class="d-flex justify-content-center">
                             <label class="mx-4 w-25">Unit</label>
                             <select class="form-control custom-select mx-4" name="unit" id="unit">
-                                <option value="{{$monitoring->unit}}">▼ {{$monitoring->unit}} (Ganti Unit)</option>
+                                <option value="{{$monitoring->unit_id}}">▼ {{$monitoring->unit->nama}} (Ganti Unit)</option>
                                 @foreach($units as $unit)
-                                <option value="{{$unit->unit}}" <?php if (old('{{$unit->unit}}') == '{{$unit->unit}}') {?>selected="selected"<?php } ?>>{{$unit->unit}}</option>
-                                <?php $unitsABC = DB::table('unit')->where('unit',$unit->unit)->first(); ?>
+                                <option value="{{$unit->id}}">{{$unit->nama}}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -86,43 +85,24 @@
                         <div class="alert-danger mt-1">{{$message}}</div>
                     @enderror
 
-                    <div class="form-group input_fields_wrap">
-                        <div class="d-flex justify-content-start mt-4 ">
-                            <label class="mx-4 w-100 ">Daftar Barang</label>
-
-                            <label class="ml-5 pl-2">Jenis</label>
-                            <input type="text" name="jenisBarang1" class="form-control mx-4" value="{{ $monitoring->jenisBarang1 }}" autofocus autocomplete="off" required>
-
-                            <label >Tipe</label>
-                            <input type="text" name="tipeBarang1" class="form-control mx-4" value="{{ $monitoring->tipeBarang1 }}" autofocus autocomplete="off" required>
-
-                            <label class="form-label" visibilit>Jumlah</label>
-                            <input type="number" name="jumlahBarang1" class="form-control mx-4" value="{{ $monitoring->jumlahBarang1 }}" autofocus autocomplete="off" required size="5">
-
-                            <a class="add_field_button"><span class="iconify" data-icon="carbon:add-alt" style="color: #0fa958;" data-height="25"></span></a>
-                        </div>
-                    </div>
-
-                    @include('layouts.ifEmptyMonitoring')
-
 
                     <div class="form-group mt-3">
                        <div class="d-flex justify-content-center">
                             <label class="mx-4 w-25" >Tanggal Monitoring</label>
-                            <input type="date" name="waktuMonitoring" class="form-control mx-4"  value="{{ $monitoring->waktuMonitoring }}" autofocus autocomplete="off">
+                            <input type="datetime-local" name="waktuMonitoring" class="form-control mx-4"  value="{{ $monitoring->waktuMonitoring }}" autofocus autocomplete="off">
                         </div>
                     </div>
                     @error('waktuMonitoring')
                         <div class="alert-danger mt-1">{{$message}}</div>
                     @enderror
 
-                        <input type="number" name="unit_id" value="{{$unitsABC->id}}" style="visibility: hidden">
+                        <input type="hidden" name="unit_id" value="{{$monitoring->unit_id}}" style="visibility: hidden">
 
 
                     <div class="form-group mt-5">
-                        <div class="d-flex justify-content-end">
-                            <a href="/MonitoringAset/PerencanaanMonitoring" class="btn btn-secondary mx-1">Batal</a>
-                            <button type="submit" class="btn btn-info mx-1">Kirim</button>
+                        <div class="d-flex justify-content-center">
+                            <a  style="width: 40%" href="/MonitoringAset/PerencanaanMonitoring" class="btn btn-secondary mr-5">Batal</a>
+                            <button  style="width: 40%"  type="submit" class="btn btn-info ml-5">Kirim</button>
                         </div>
                     </div>
                 </form>

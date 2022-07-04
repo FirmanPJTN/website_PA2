@@ -73,6 +73,7 @@
 
                 <div class="mb-5">
                     <div class="d-flex justify-content-start">
+                        <a href="/transactor/PembelianAset/Eksternal">
                         <?php $jumlahpengadaanEks = DB::table('pengadaan')->where('kategori', '=', 'eksternal')->whereIn('status', ['setuju-PO', 'setuju'])->count(); ?>
                         @if($jumlahpengadaanEks != 0 )
                         <div class="box mx-2" style="background-color: #00D1B8; padding: 30px; padding-left: 35px; padding-right: 35px; border-radius: 10px; font-size: 2em; color: white; font-weight: bold; text-align: center">
@@ -80,7 +81,9 @@
                             <span style="font-size: 0.7em;">Jumlah Pengadaan <br> Eksternal</span>
                         </div>
                         @endif
+                        </a>
 
+                        <a href="/transactor/PembelianAset/Internal">
                         <?php $jumlahpengadaanInt = DB::table('pengadaan')->where('kategori', '=', 'internal')->whereIn('status', ['setuju-PO', 'setuju'])->count(); ?>
                         @if($jumlahpengadaanInt != 0)
                         <div class="box mx-2" style="background-color: #32A9FF; padding: 30px; padding-left: 35px; padding-right: 35px; border-radius: 10px; font-size: 2em; color: white; font-weight: bold; text-align: center">
@@ -88,6 +91,8 @@
                             <span style="font-size: 0.7em;">Jumlah Pengadaan <br>Internal</span>
                         </div>
                         @endif
+
+                        </a>
 
                     </div>
                 </div>

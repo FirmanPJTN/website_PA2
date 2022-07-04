@@ -68,7 +68,7 @@
 
                 <form enctype="multipart/form-data" action="/MonitoringAset/PerencanaanMonitoring/Simpan" method="post">
                     {{ csrf_field() }}
-                    <input type="text" name="kodeMonitoring" value="MNTR-{{date('Y.m.d-h.i.s')}}" style="visibility: hidden">
+                    <input type="hidden" name="kodeMonitoring" value="MNTR-{{date('Y.m.d-h.i.s')}}" style="visibility: hidden">
                     
                     <div class="form-group mt-3">
                         <div class="d-flex justify-content-center">
@@ -76,7 +76,7 @@
                             <select class="selectVal form-control custom-select mx-4" name="unit" id="unit">
                                 <option value="">▼ pilih unit</option>
                                 @foreach($units as $unit)
-                                <option value="{{$unit->id}}">{{$unit->unit}}</option>
+                                <option value="{{$unit->id}}">{{$unit->nama}}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -86,27 +86,10 @@
                     @enderror
 
 
-                    <div class="form-group input_fields_wrap">
-                        <div class="d-flex justify-content-start mt-4 ">
-                            <label class="mx-4 w-100 ">Daftar Barang</label>
-
-                            <label class="ml-5 pl-2">Jenis</label>
-                            <input type="text" name="jenisBarang1" class="form-control mx-4" value="{{ old('jenisBarang1') }}" autofocus autocomplete="off" required>
-
-                            <label >Tipe</label>
-                            <input type="text" name="tipeBarang1" class="form-control mx-4" value="{{ old('tipeBarang1') }}" autofocus autocomplete="off" required>
-
-                            <label class="form-label" visibilit>Jumlah</label>
-                            <input type="number" name="jumlahBarang1" class="form-control mx-4" value="{{ old('jumlahBarang1') }}" autofocus autocomplete="off" required size="5">
-
-                            <a class="add_field_button"><span class="iconify" data-icon="carbon:add-alt" style="color: #0fa958;" data-height="25"></span></a>
-                        </div>
-                    </div>
-
                     <div class="form-group mt-3">
                        <div class="d-flex justify-content-center">
                             <label class="mx-4 w-25" >Tanggal Monitoring</label>
-                            <input type="date" name="waktuMonitoring" class="form-control mx-4"  value="{{ old('waktuMonitoring') }}" autofocus autocomplete="off">
+                            <input type="datetime-local" name="waktuMonitoring" class="form-control mx-4"  value="{{ old('waktuMonitoring') }}" autofocus autocomplete="off">
                         </div>
                     </div>
                     @error('waktuMonitoring')
@@ -114,15 +97,15 @@
                     @enderror
 
                     
-                    <input type="text" name="deskripsi" value="kode monitoring MNTR-{{date('Y.m.d-h.i.s')}} telah dibuat !" style="visibility: hidden">
+                    <input type="hidden" name="deskripsi" value="kode monitoring MNTR-{{date('Y.m.d-h.i.s')}} telah dibuat !" style="visibility: hidden">
                     
-                    <input type="text" name="status" value="proses" style="visibility: hidden">
+                    <input type="hidden" name="status" value="proses" style="visibility: hidden">
                     
 
                     <div class="form-group mt-5">
-                        <div class="d-flex justify-content-end">
-                            <a href="/MonitoringAset/PerencanaanMonitoring" class="btn btn-secondary mx-1">Batal</a>
-                            <button type="submit" class="btn btn-info mx-1">Kirim</button>
+                        <div class="d-flex justify-content-center">
+                            <a  style="width: 40%" href="/MonitoringAset/PerencanaanMonitoring" class="btn btn-secondary mr-5">Batal</a>
+                            <button style="width: 40%" type="submit" class="btn btn-info ml-5">Kirim</button>
                         </div>
                     </div>
                 </form>

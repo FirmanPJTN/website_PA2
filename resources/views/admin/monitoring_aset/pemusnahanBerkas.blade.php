@@ -75,7 +75,6 @@
                             <th scope="col" class="text-center">Kode Pemusnahan</th>
                             <th scope="col" class="text-center">Status</th>
                             <th scope="col" class="text-center">Waktu Pemusnahan</th>
-                            <th scope="col" class="text-center">Deskripsi Berkas</th>
                             <th scope="col" class="text-center">Aksi</th>
                         </tr>
                     </thead>
@@ -91,15 +90,14 @@
 
                             </td>
                             <td class="text-center">{{$musnah ->waktuPemusnahan}}</td>
-                            <td>{{Str::limit($musnah->deskripsi, 50, $end=' .....')}}</td>
                             <td class="text-center">
                                 <div class="d-flex justify-content-around">
-                                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#berkas<?= $musnah->id ?>">Detail</button>
+                                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#berkas<?= $i ?>">Detail</button>
 
                                     &nbsp;
-                                    <a href="/MonitoringAset/PemusnahanBerkas/Ubah/{{$musnah -> id}}" class="btn btn-warning">Ubah</a>
+                                    <a href="/MonitoringAset/PemusnahanBerkas/Ubah/{{$musnah -> kodePemusnahan}}" class="btn btn-warning">Ubah</a>
                                     &nbsp;
-                                    <a data-id="{{ $musnah->id }}" class="btn btn-danger deleteBerkas" href="#">Hapus</a>
+                                    <a data-id="{{ $musnah->kodePemusnahan }}" class="btn btn-danger deleteBerkas" href="#">Hapus</a>
                                 </div>
                             </td>
                         </tr>
@@ -107,11 +105,6 @@
 
                         <!-- MODAL DETAIL PEMUSNAHAN BERKAS -->
                         @include('layouts.modalDetailPemusnahanBerkasAdmin')
-
-
-                        <!-- MODAL TAMBAH BUKTI -->
-                        @include('layouts.modalPemusnahanBerkasBukti')
-
 
                         <?php $i++; ?>
                         @endif
@@ -139,7 +132,6 @@
                             <th scope="col" class="text-center">Kode Pemusnahan</th>
                             <th scope="col" class="text-center">Status</th>
                             <th scope="col" class="text-center">Waktu Pemusnahan</th>
-                            <th scope="col" class="text-center">Deskripsi Berkas</th>
                             <th scope="col" class="text-center">Aksi</th>
                         </tr>
                     </thead>
@@ -161,13 +153,12 @@
                                 @endif
                             </td>
                             <td class="text-center">{{$musnah ->waktuPemusnahan}}</td>
-                            <td>{{Str::limit($musnah->deskripsi, 50, $end=' .....')}}</td>
                             <td class="text-center">
                                 <div class="d-flex justify-content-around">
-                                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#berkas<?= $musnah->id ?>">Detail</button>
+                                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#berkasR<?= $i ?>">Detail</button>
                                     @if($musnah->status == 'Disetujui')
                                     &nbsp;
-                                    <a href="#" data-bs-toggle="modal" data-bs-target="#jkl<?= $musnah->id ?>" class="btn btn-success">Tambah Bukti</a>
+                                    <a href="#" data-bs-toggle="modal" data-bs-target="#jkl<?= $i ?>" class="btn btn-success">Unggah Bukti</a>
                                     @endif
                                 </div>
                             </td>
@@ -175,7 +166,7 @@
 
 
                         <!-- MODAL DETAIL PEMUSNAHAN BERKAS -->
-                        @include('layouts.modalDetailPemusnahanBerkasAdmin')
+                        @include('layouts.modalDetailPemusnahanBerkasAdminRiwayat')
 
 
                         <!-- MODAL TAMBAH BUKTI -->

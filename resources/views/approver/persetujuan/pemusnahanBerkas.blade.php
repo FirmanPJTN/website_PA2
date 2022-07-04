@@ -69,7 +69,6 @@
                             <th scope="col" class="text-center">No</th>
                             <th scope="col" class="text-center">Kode Pemusnahan</th>
                             <th scope="col" class="text-center">Waktu Pemusnahan</th>
-                            <th scope="col" class="text-center">Deskripsi Berkas</th>
                             <th scope="col" class="text-center">Status</th>
                             <th scope="col" class="text-center">Aksi</th>
                         </tr>
@@ -82,15 +81,14 @@
                             <td class="text-center">{{$pemusnahan->firstItem() + $i}}</td>
                             <td class="text-center">{{$musnah ->kodePemusnahan}}</td>
                             <td class="text-center">{{$musnah ->waktuPemusnahan}}</td>
-                            <td>{{Str::limit($musnah->deskripsi, 50, $end=' .....')}}</td>
                             <td class="text-center">
                                 <button class="btn btn-warning" disabled><span class="iconify" data-icon="mdi:progress-alert" data-height="20"></span> {{$musnah->status}}</button>
 
                             </td>
                             <td class="text-center">
                                 <div class="d-flex justify-content-around">
-                                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#berkas<?= $musnah->id ?>">Detail</button>
-                                    &nbsp;<a href="#" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#def<?= $musnah->id ?>">Proses</a>
+                                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#berkas<?= $i ?>">Detail</button>
+                                    &nbsp;<a href="#" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#def<?= $i ?>">Proses</a>
                                 </div>
                             </td>
                         </tr>
@@ -125,7 +123,6 @@
                             <th scope="col" class="text-center">No</th>
                             <th scope="col" class="text-center">Kode Pemusnahan</th>
                             <th scope="col" class="text-center">Waktu Pemusnahan</th>
-                            <th scope="col" class="text-center">Deskripsi Berkas</th>
                             <th scope="col" class="text-center">Status</th>
                             <th scope="col" class="text-center">Aksi</th>
                         </tr>
@@ -138,7 +135,6 @@
                             <td class="text-center">{{$pemusnahan->firstItem() + $i}}</td>
                             <td class="text-center">{{$musnah ->kodePemusnahan}}</td>
                             <td class="text-center">{{$musnah ->waktuPemusnahan}}</td>
-                            <td>{{Str::limit($musnah->deskripsi, 50, $end=' .....')}}</td>
                             <td class="text-center">
 
                                 @if($musnah->status == 'Disetujui')
@@ -152,7 +148,7 @@
                             </td>
                             <td class="text-center">
                                 <div class="d-flex justify-content-around">
-                                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#berkas<?= $musnah->id ?>">Detail</button>
+                                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#berkasR<?= $i ?>">Detail</button>
                                 </div>
                             </td>
                         </tr>
@@ -160,9 +156,8 @@
 
 
                         <!-- MODAL DETAIL PEMUSNAHAN BERKAS -->
-                        @include('layouts.modalDetailPemusnahanBerkasAdmin')
+                        @include('layouts.modalDetailPemusnahanBerkasAdminRiwayat')
 
-                        @include('layouts.modalPersetujuanPemusnahanBerkas')
 
                         <?php $i++; ?>
                         @endif

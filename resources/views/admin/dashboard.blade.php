@@ -73,13 +73,15 @@
 
                         <?php $jumlahaset = DB::table('data_asets')->count(); ?>
                         @if($jumlahaset != 0)
+                        <a href="/ManajemenAset/DataAset">
                         <div class="box mx-3" style="background-color: #21CC7A; padding: 30px; padding-left: 75px; padding-right: 75px; border-radius: 10px; font-size: 2em; color: white; font-weight: bold; text-align: center">
                             {{$jumlahaset}} <br>
                             <span style="font-size: 0.7em;">Jumlah Aset</span>
                         </div>
                         @endif
-
+                        </a>
               
+                        <a href="/ManajemenAset/PeminjamanAset">
                         <?php $jumlahpeminjaman = DB::table('peminjaman')->where('status', '!=', 'proses')->count(); ?>
                         @if($jumlahpeminjaman != 0)
                         <div class="box mx-3" style="background-color: #00D1B8; padding: 30px; padding-left: 35px; padding-right: 35px; border-radius: 10px; font-size: 2em; color: white; font-weight: bold; text-align: center">
@@ -87,7 +89,9 @@
                             <span style="font-size: 0.7em;">Jumlah Peminjaman</span>
                         </div>
                         @endif
+                        </a>
 
+                        <a href="/ManajemenAset/PengadaanAset">
                         <?php $jumlahpengadaan = DB::table('pengadaan')->count(); ?>
                         @if($jumlahpengadaan != 0)
                         <div class="box mx-3" style="background-color: #947AFF; padding: 30px; padding-left: 40px; padding-right: 40px; border-radius: 10px; font-size: 2em; color: white; font-weight: bold; text-align: center">
@@ -95,7 +99,9 @@
                             <span style="font-size: 0.7em;">Jumlah Pengadaan</span>
                         </div>
                         @endif
+                        </a>
 
+                        <a href="/MonitoringAset/PemusnahanBerkas">
                         <?php $jumlahpemusnahan = DB::table('pemusnahan')->count(); ?>
                         @if($jumlahpemusnahan != 0)
                         <div class="box mx-3" style="background-color: #32A9FF; padding: 30px; padding-left: 35px; padding-right: 35px; border-radius: 10px; font-size: 2em; color: white; font-weight: bold; text-align: center">
@@ -103,9 +109,11 @@
                             <span style="font-size: 0.7em;">Jumlah Pemusnahan</span>
                         </div>
                         @endif
+                        </a>
 
 
 
+                        <a href="/MonitoringAset/PerencanaanMonitoring">
                         <?php $jumlahmonitoring = DB::table('monitoring')->count(); ?>
                         @if($jumlahmonitoring != 0)
                         <div class="box mx-3" style="background-color: #FF7A7A; padding: 30px; padding-left: 40px; padding-right: 40px; border-radius: 10px; font-size: 2em; color: white; font-weight: bold; text-align: center">
@@ -113,6 +121,7 @@
                             <span style="font-size: 0.7em;">Jumlah Monitoring</span>
                         </div>
                         @endif
+                         </a>
 
                     </div>
                 </div>

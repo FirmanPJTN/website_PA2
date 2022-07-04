@@ -1,8 +1,8 @@
-<div class="modal fade" id="def<?= $musnah->id ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="def<?= $i ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-xl">
     <div class="modal-content">
 
-    <form enctype="multipart/form-data" action="/approver/Persetujuan/PemusnahanBerkas/Simpan/{{$musnah->id}}" method="post">
+    <form enctype="multipart/form-data" action="/approver/Persetujuan/PemusnahanBerkas/Simpan/{{$musnah->kodePemusnahan}}" method="post">
         {{ csrf_field() }}
         <div class="modal-header">
             
@@ -34,15 +34,6 @@
 
         <input type="hidden" name="statusNotifTolak" value="tolak" style="visibility: hidden">
 
-        <!-- <div class="form-group mt-3 ml-2">
-            <div class="d-flex justify-content-center">
-                <label class="mx-4 w-25">Deskripsi Berkas</label>
-                <textarea name="deskripsi" class="form-control mx-4" cols="30" rows="10" value="{{ $musnah-> deskripsi }}" autofocus autocomplete="off" disabled>{{ $musnah -> deskripsi }}</textarea>
-            </div>
-        </div> -->
-
-
-  
 
 
         <div class="form-group mt-3 ml-2">

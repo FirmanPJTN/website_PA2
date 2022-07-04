@@ -20,14 +20,16 @@ class MonitoringController extends Controller
     {
         $monitoring = Monitoring::paginate(10);
         $user = User::paginate(10);
-        return view('admin.monitoring_aset.monitoring', compact('monitoring', 'user'));
+        $aset = DataAset::all();
+        return view('admin.monitoring_aset.monitoring', compact('monitoring', 'user','aset'));
     }
 
     public function indexVisitor()
     {
         $monitoring = Monitoring::paginate(10);
         $user = User::paginate(10);
-        return view('visitor.monitoring_aset.monitoring', compact('monitoring', 'user'));
+        $aset = DataAset::all();
+        return view('visitor.monitoring_aset.monitoring', compact('monitoring', 'user','aset'));
     }
 
     /**
@@ -54,30 +56,13 @@ class MonitoringController extends Controller
     {
         //
         $request->validate([
-            'jenisBarang1'  => 'required',
-            'tipeBarang1'  => 'required',
-            'jumlahBarang1'  => 'required',
-            'waktuMonitoring'  => 'required',
+            'unit'  => 'required',
+            'waktuMonitoring'  => 'required'
         ]);
 
 
         Monitoring::create([
             'kodeMonitoring'  => $request-> kodeMonitoring,
-            'jenisBarang1'  => $request-> jenisBarang1,
-            'tipeBarang1'  => $request-> tipeBarang1,
-            'jumlahBarang1'  => $request-> jumlahBarang1,
-            'jenisBarang2'  => $request-> jenisBarang2,
-            'tipeBarang2'  => $request-> tipeBarang2,
-            'jumlahBarang2'  => $request-> jumlahBarang2,
-            'jenisBarang3'  => $request-> jenisBarang3,
-            'tipeBarang3'  => $request-> tipeBarang3,
-            'jumlahBarang3'  => $request-> jumlahBarang3,
-            'jenisBarang4'  => $request-> jenisBarang4,
-            'tipeBarang4'  => $request-> tipeBarang4,
-            'jumlahBarang4'  => $request-> jumlahBarang4,
-            'jenisBarang5'  => $request-> jenisBarang5,
-            'tipeBarang5'  => $request-> tipeBarang5,
-            'jumlahBarang5'  => $request-> jumlahBarang5,
             'waktuMonitoring'  => $request-> waktuMonitoring,
             'unit_id'  => $request-> unit,
             'status'  => $request-> status,
@@ -87,7 +72,7 @@ class MonitoringController extends Controller
         Notifikasi::create([
             'deskripsi' => $request-> deskripsi,
             'unit_id' => $request->unit,
-            'kodeMonitoring'  => $request-> kodeMonitoring,
+            'id_monitoring'  => $request-> kodeMonitoring,
             'status'  => $request-> status
         ]);
         
@@ -112,12 +97,13 @@ class MonitoringController extends Controller
      * @param  \App\Models\Monitoring  $monitoring
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit( $id)
     {
         $monitoring = Monitoring::find($id);
         $units = Unit::all();
         $notifikasi = Notifikasi::all();
-        return view('admin.monitoring_aset.ubahMonitoring',compact('monitoring','units','notifikasi'));
+        $aset = DataAset::all();
+        return view('admin.monitoring_aset.ubahMonitoring',compact('monitoring','units','notifikasi','aset'));
     }
 
 
@@ -132,42 +118,19 @@ class MonitoringController extends Controller
     {
         //
         $request->validate([
-            'jenisBarang1'  => 'required',
-            'tipeBarang1'  => 'required',
-            'jumlahBarang1'  => 'required',
-            'waktuMonitoring'  => 'required',
+            'unit'  => 'required',
+            'waktuMonitoring'  => 'required'
         ]);
 
         $monitoring =  Monitoring::find($id);
-        $monitoring-> jenisBarang1  = $request-> jenisBarang1;
-        $monitoring-> tipeBarang1  = $request-> tipeBarang1;
-        $monitoring-> jumlahBarang1  = $request-> jumlahBarang1;
-        $monitoring-> jenisBarang2  = $request-> jenisBarang2;
-        $monitoring-> tipeBarang2  = $request-> tipeBarang2;
-        $monitoring-> jumlahBarang2  = $request-> jumlahBarang2;
-        $monitoring-> jenisBarang3  = $request-> jenisBarang3;
-        $monitoring-> tipeBarang3  = $request-> tipeBarang3;
-        $monitoring-> jumlahBarang3  = $request-> jumlahBarang3;
-        $monitoring-> jenisBarang4  = $request-> jenisBarang4;
-        $monitoring-> tipeBarang4  = $request-> tipeBarang4;
-        $monitoring-> jumlahBarang4  = $request-> jumlahBarang4;
-        $monitoring-> jenisBarang5  = $request-> jenisBarang5;
-        $monitoring-> tipeBarang5  = $request-> tipeBarang5;
-        $monitoring-> jumlahBarang5  = $request-> jumlahBarang5;
         $monitoring->  waktuMonitoring  = $request-> waktuMonitoring;
         $monitoring-> unit_id  = $request-> unit;
-        
-
-        $notifikasi = Notifikasi::where('kodeMonitoring',$monitoring-> kodeMonitoring )->first();
-
-        
-        $notifikasi->unit_id =  $monitoring-> unit;
-        
-
-        $notifikasi->save();
-
         $monitoring->save();
 
+
+        $notifikasi = Notifikasi::where('id_monitoring',$monitoring-> kodeMonitoring )->first();
+        $notifikasi->unit_id =  $request-> unit;
+        $notifikasi->save();
 
         return redirect('/MonitoringAset/PerencanaanMonitoring')->with('success', 'Monitoring Berhasil Diubah!');
     }
@@ -192,7 +155,7 @@ class MonitoringController extends Controller
             Notifikasi::create([
                 'deskripsi' => $request-> deskripsiNotifTolak,
                 'status' => $request->statusNotifTolak,
-                'kodeMonitoring'  => $request-> kodeMonitoring,
+                'id_monitoring'  => $request-> kodeMonitoring,
                 'role' => $request->role
             ]);
         } 
@@ -200,7 +163,7 @@ class MonitoringController extends Controller
             Notifikasi::create([
                 'deskripsi' => $request-> deskripsiNotifSetuju,
                 'status' => $request->statusNotifSetuju,
-                'kodeMonitoring'  => $request-> kodeMonitoring,
+                'id_monitoring'  => $request-> kodeMonitoring,
                 'role' => $request->role
             ]);
         }

@@ -74,7 +74,6 @@
                             <th scope="col" class="text-center">No</th>
                             <th scope="col" class="text-center">Kode Monitoring</th>
                             <th scope="col" class="text-center">Unit</th>
-                            <th scope="col" class="text-center">Jumlah Barang</th>
                             <th scope="col" class="text-center">Tanggal Monitoring</th>
                             <th scope="col" class="text-center">Status</th>
                             <th scope="col" class="text-center">Aksi</th>
@@ -91,17 +90,16 @@
                         <tr>
                             <td class="text-center">{{$monitoring->firstItem() +$i}}</td>
                             <td class="text-center">{{$monitor ->kodeMonitoring}}</td>
-                            <td class="text-center">{{$monitor ->unit->unit}}</td>
-                            <td class="text-center">{{$jumlah}}</td>
+                            <td class="text-center">{{$monitor ->unit->nama}}</td>
                             <td class="text-center">{{$monitor -> waktuMonitoring}}</td>
                             <td class="text-center">
                                 <button class="btn btn-warning" disabled><span class="iconify" data-icon="mdi:progress-alert" data-height="20"></span> Diproses</button>
                             </td>
                             <td class="text-center">
                                 <div class="d-flex justify-content-around">
-                                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#xyz<?= $monitor->id ?>">Detail</button> &nbsp;
-                                    <a href="/MonitoringAset/PerencanaanMonitoring/Ubah/{{$monitor -> id}}" class="btn btn-warning">Ubah</a> &nbsp;
-                                    <a data-id="{{ $monitor->id }}" class="btn btn-danger deleteMonitoring" href="#">Hapus</a>
+                                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#xyz<?= $i ?>">Detail</button> &nbsp;
+                                    <a href="/MonitoringAset/PerencanaanMonitoring/Ubah/{{$monitor -> kodeMonitoring}}" class="btn btn-warning">Ubah</a> &nbsp;
+                                    <a data-id="{{ $monitor -> kodeMonitoring }}" class="btn btn-danger deleteMonitoring" href="#">Hapus</a>
                                 </div>
                             </td>
                         </tr>
@@ -136,7 +134,6 @@
                             <th scope="col" class="text-center">No</th>
                             <th scope="col" class="text-center">Kode Monitoring</th>
                             <th scope="col" class="text-center">Unit</th>
-                            <th scope="col" class="text-center">Jumlah Barang</th>
                             <th scope="col" class="text-center">Tanggal Monitoring</th>
                             <th scope="col" class="text-center">Status</th>
                             <th scope="col" class="text-center">Aksi</th>
@@ -147,14 +144,10 @@
                         @foreach ($monitoring as $monitor)
                         @if($monitor->status != 'proses')
 
-                        <?php
-                        $jumlah = ($monitor->jumlahBarang1) + ($monitor->jumlahBarang2) + ($monitor->jumlahBarang3) + ($monitor->jumlahBarang4) + ($monitor->jumlahBarang5)
-                        ?>
                         <tr>
                             <td class="text-center">{{$monitoring->firstItem() +$i}}</td>
                             <td class="text-center">{{$monitor ->kodeMonitoring}}</td>
-                            <td class="text-center">{{$monitor ->unit->unit}}</td>
-                            <td class="text-center">{{$jumlah}}</td>
+                            <td class="text-center">{{$monitor ->unit->nama}}</td>
                             <td class="text-center">{{$monitor -> waktuMonitoring}}</td>
                             <td class="text-center">
                                 @if($monitor->status == 'tolak')
@@ -166,7 +159,7 @@
                             </td>
                             <td class="text-center">
                                 <div class="d-flex justify-content-around">
-                                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#xyz<?= $monitor->id ?>">Detail</button>
+                                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#xyzr<?= $i ?>">Detail</button>
                                 </div>
                             </td>
                         </tr>
@@ -174,7 +167,7 @@
 
 
                         <!-- MODAL DETAIL PEMINJAMAN -->
-                        @include('layouts.modalDetailMonitoringAdmin')
+                        @include('layouts.modalDetailMonitoringAdminRiwayat')
 
                         <?php $i++; ?>
                         @endif

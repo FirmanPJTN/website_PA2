@@ -283,7 +283,6 @@ Route::middleware(['auth','isAdmin:approver'])->group(function(){
 
     Route::get('/approver/Persetujuan/PemusnahanAset', 'PemusnahanController@indexAsetApprover')->name('musnah-aset-approver');
 
-    Route::get('/approver/Persetujuan/PeminjamanAset', 'PeminjamanController@indexApprover')->name('pinjam-aset-approver');
 
     Route::post('/approver/Persetujuan/PemusnahanBerkas/Simpan/{id}', 'PemusnahanController@prosesPemusnahanBerkas');
 
@@ -300,6 +299,8 @@ Route::middleware(['auth','isAdmin:approver'])->group(function(){
 
 
     // PEMINJAMAN
+    
+    Route::get('/approver/Persetujuan/PeminjamanAset', 'PeminjamanController@indexApprover')->name('pinjam-aset-approver');
     
     Route::get('/approver/Persetujuan/PeminjamanAset/Setujui/{id}', 'PeminjamanController@statusSetuju');
 

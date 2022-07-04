@@ -1,5 +1,5 @@
 
-$('.deleteBerkas').click(function() {
+$('.deleteAset').click(function() {
     var id = $(this).attr('data-id');
 
     swal({

@@ -68,14 +68,14 @@
 
                 <form enctype="multipart/form-data" action="/MonitoringAset/PemusnahanBerkas/Simpan" method="post">
                     {{ csrf_field() }}
-                    <input type="text" name="kodePemusnahan" value="PMNB-{{date('Y.m.d-h.i.s')}}" style="visibility: hidden">
+                    <input type="hidden" name="kodePemusnahan" value="PMNB-{{date('Y.m.d-h.i.s')}}" style="visibility: hidden">
 
-                    <input type="text" name="status" value="Diproses" style="visibility: hidden">
+                    <input type="hidden" name="status" value="Diproses" style="visibility: hidden">
 
                     
                     <?php $approvers =  DB::table('users')->where('role','=','approver')->get() ?>
                     @foreach($approvers as $approver)
-                    <input type="text" name="role" value="{{$approver->role}}" style="visibility: hidden">
+                    <input type="hidden" name="role" value="{{$approver->role}}" style="visibility: hidden">
                     @endforeach
                     
 
@@ -100,14 +100,14 @@
                     @enderror
 
                     
-                    <input type="text" name="deskripsiNotif" value="kode pemusnahan PMNB-{{date('Y.m.d-h.i.s')}} telah dibuat !" style="visibility: hidden">
+                    <input type="hidden" name="deskripsiNotif" value="kode pemusnahan PMNB-{{date('Y.m.d-h.i.s')}} telah dibuat !" style="visibility: hidden">
                     
                     
 
                     <div class="form-group mt-5">
                         <div class="d-flex justify-content-end">
-                            <a href="{{route('musnah-berkas')}}" class="btn btn-secondary mx-1">Batal</a>
-                            <button type="submit" class="btn btn-info mx-1">Kirim</button>
+                            <a style="width: 40%" href="{{route('musnah-berkas')}}" class="btn btn-secondary mr-5">Batal</a>
+                            <button style="width: 40%" type="submit" class="btn btn-info ml-5">Kirim</button>
                         </div>
                     </div>
                 </form>

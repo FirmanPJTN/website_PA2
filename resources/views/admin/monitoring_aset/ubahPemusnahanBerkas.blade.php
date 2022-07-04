@@ -66,14 +66,14 @@
                 <h2 class="mb-5 text-center fw-bold mt-3">UBAH PEMUSNAHAN BERKAS</h2>       
 
 
-                <form enctype="multipart/form-data" action="/MonitoringAset/PemusnahanBerkas/Kirim/{{$pemusnahan->id}}" method="post">
+                <form enctype="multipart/form-data" action="/MonitoringAset/PemusnahanBerkas/Kirim/{{$pemusnahan->kodePemusnahan}}" method="post">
                     {{ csrf_field() }}
 
 
                     <div class="form-group mt-3">
                        <div class="d-flex justify-content-center">
                             <label class="mx-4 w-25" >Waktu Pemusnahan</label>
-                            <input type="datetime-local" name="waktuPemusnahan" class="form-control mx-4" autofocus autocomplete="off">
+                            <input type="datetime-local" name="waktuPemusnahan" class="form-control mx-4" value="{{$pemusnahan->waktuPemusnahan}}" autofocus autocomplete="off">
                         </div>
                     </div>
                     @error('waktuPemusnahan')
@@ -93,8 +93,8 @@
 
                     <div class="form-group mt-5">
                         <div class="d-flex justify-content-end">
-                            <a href="{{route('musnah-berkas')}}" class="btn btn-secondary mx-1">Batal</a>
-                            <button type="submit" class="btn btn-info mx-1">Simpan</button>
+                            <a  style="width: 40%" href="{{route('musnah-berkas')}}" class="btn btn-secondary mr-5">Batal</a>
+                            <button  style="width: 40%" type="submit" class="btn btn-info ml-5">Simpan</button>
                         </div>
                     </div>
                 </form>

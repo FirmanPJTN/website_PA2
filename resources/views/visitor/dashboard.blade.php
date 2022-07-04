@@ -72,29 +72,36 @@
 
                 <div class="mb-5">
                     <div class="d-flex justify-content-start">
-                        <?php $jumlahpengadaan = DB::table('pengadaan')->where('unit_id',Auth::user()->unit_id)->count(); ?>
+                        <a href="/visitor/PermohonanAset/PengadaanAset">
+                        <?php $jumlahpengadaan = DB::table('pengadaan')->where('unit_id', Auth::user()->unit_id)->count(); ?>
                         @if($jumlahpengadaan != 0)
                         <div class="box mx-4" style="background-color: #00D1B8; padding: 30px; padding-left: 35px; padding-right: 35px; border-radius: 10px; font-size: 2em; color: white; font-weight: bold; text-align: center">
                             {{$jumlahpengadaan}} <br>
                             <span style="font-size: 0.7em;">Jumlah Pengadaan</span>
                         </div>
                         @endif
+                        </a>
 
-                        <?php $jumlahpeminjaman = DB::table('peminjaman')->where('unit_id',Auth::user()->unit_id)->count(); ?>
+                        <a href="/visitor/PermohonanAset/PeminjamanAset">
+                        <?php $jumlahpeminjaman = DB::table('peminjaman')->where('unit_id', Auth::user()->unit_id)->count(); ?>
                         @if($jumlahpeminjaman != 0)
                         <div class="box mx-4" style="background-color: #32A9FF; padding: 30px; padding-left: 35px; padding-right: 35px; border-radius: 10px; font-size: 2em; color: white; font-weight: bold; text-align: center">
                             {{$jumlahpeminjaman}} <br>
                             <span style="font-size: 0.7em;">Jumlah Peminjaman</span>
                         </div>
                         @endif
+                        </a>
 
-                        <?php $jumlahmonitoring = DB::table('monitoring')->where('unit_id',Auth::user()->unit->id)->count(); ?>
+
+                        <a href="/visitor/MonitoringAset">
+                        <?php $jumlahmonitoring = DB::table('monitoring')->where('unit_id', Auth::user()->unit->id)->count(); ?>
                         @if($jumlahmonitoring != 0)
                         <div class="box mx-4" style="background-color: #947AFF; padding: 30px; padding-left: 35px; padding-right: 35px; border-radius: 10px; font-size: 2em; color: white; font-weight: bold; text-align: center">
                             {{$jumlahmonitoring}} <br>
                             <span style="font-size: 0.7em;">Jumlah Monitoring</span>
                         </div>
                         @endif
+                        </a>
 
                     </div>
                 </div>
@@ -131,11 +138,11 @@
                                 </td>
                                 <td class="text-center">
                                     <div class="d-flex justify-content-around">
-                                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#def<?= $ada->id ?>">Detail</button>
+                                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#def<?= $i ?>">Detail</button>
                                         &nbsp;
-                                        <a href="#" class="btn btn-warning mx-2" data-bs-toggle="modal" data-bs-target="#ubah-pengadaan<?= $ada->id ?>">Ubah</a>
+                                        <a href="#" class="btn btn-warning mx-2" data-bs-toggle="modal" data-bs-target="#ubah-pengadaan<?= $i ?>">Ubah</a>
                                         &nbsp;
-                                        <a data-id="{{ $ada->id }}" class="btn btn-danger deleteAda" href="#">Hapus</a>
+                                        <a data-id="{{ $ada->kodePengadaan }}" class="btn btn-danger deleteAda" href="#">Hapus</a>
                                     </div>
                                 </td>
                             </tr>
@@ -155,7 +162,7 @@
                         </tbody>
                     </table>
 
-                    
+
                     <a href="{{route('visitor-pengadaan')}}" class="btn btn-info mb-3">Lihat Semua Data</a>
 
                     @if(!empty($pengadaan))
@@ -200,10 +207,10 @@
                                 </td>
                                 <td class="text-center">
                                     <div class="d-flex justify-content-around">
-                                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#abc<?= $pinjam->id ?>">Detail</button>
+                                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#abc<?= $i ?>">Detail</button>
                                         &nbsp;
-                                        <a href="#" class="btn btn-warning mx-2" data-bs-toggle="modal" data-bs-target="#ubah-peminjaman<?= $pinjam->id ?>">Ubah</a> &nbsp;
-                                        <a data-id="{{ $pinjam->id }}" class="btn btn-danger deletePinjam" href="#">Hapus</a>
+                                        <a href="#" class="btn btn-warning mx-2" data-bs-toggle="modal" data-bs-target="#ubah-peminjaman<?= $i ?>">Ubah</a> &nbsp;
+                                        <a data-id="{{ $pinjam->kodePeminjaman }}" class="btn btn-danger deletePinjam" href="#">Hapus</a>
                                     </div>
                                 </td>
                             </tr>
@@ -223,7 +230,7 @@
                         </tbody>
                     </table>
 
-                    
+
                     <a href="{{route('visitor-peminjaman')}}" class="btn btn-info mb-3">Lihat Semua Data</a>
 
                     @if(!empty($peminjaman))
@@ -243,7 +250,6 @@
                             <tr>
                                 <th scope="col" class="text-center">No</th>
                                 <th scope="col" class="text-center">Kode Monitoring</th>
-                                <th scope="col" class="text-center">Jumlah Barang</th>
                                 <th scope="col" class="text-center">Unit</th>
                                 <th scope="col" class="text-center">Tanggal Monitoring</th>
                                 <th scope="col" class="text-center">Status</th>
@@ -255,14 +261,10 @@
                             @foreach ($monitoring as $monitor)
                             @if(($monitor->unit == Auth::user()->unit)&&($monitor->status == 'proses'))
 
-                            <?php
-                            $jumlah = ($monitor->jumlahBarang1) + ($monitor->jumlahBarang2) + ($monitor->jumlahBarang3) + ($monitor->jumlahBarang4) + ($monitor->jumlahBarang5)
-                            ?>
                             <tr>
                                 <td class="text-center">{{$monitoring->firstItem() + $i}}</td>
                                 <td class="text-center">{{$monitor->kodeMonitoring}}</td>
-                                <td class="text-center">{{$monitor ->unit}}</td>
-                                <td class="text-center">{{$jumlah}}</td>
+                                <td class="text-center">{{$monitor ->unit->nama}}</td>
                                 <td class="text-center">{{$monitor -> waktuMonitoring}}</td>
                                 <td class="text-center">
                                     @if($monitor->status == 'proses')
@@ -278,8 +280,8 @@
                                 <!-- <td>{{Str::limit($monitor->alasan, 50, $end=' .....')}}</td> -->
                                 <td class="text-center">
                                     <div class="d-flex justify-content-around">
-                                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#xyz<?= $monitor->id ?>">Detail</button> &nbsp;
-                                        <a href="" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#opq<?= $monitor->id ?>">Proses</a>
+                                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#xyz<?= $i ?>">Detail</button> &nbsp;
+                                        <a href="" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#opq<?= $i ?>">Proses</a>
                                     </div>
                                 </td>
                             </tr>
@@ -299,7 +301,7 @@
                         </tbody>
                     </table>
 
-                    
+
                     <a href="{{route('monitoring-aset')}}" class="btn btn-info mb-3">Lihat Semua Data</a>
 
                     @if(!empty($monitoring))
