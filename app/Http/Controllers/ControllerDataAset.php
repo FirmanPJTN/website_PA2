@@ -24,9 +24,11 @@ class ControllerDataAset extends Controller
         $unit = Unit::all();
         $kategori = Kategori::all();
         $aset = DataAset::all();
+        $gedung = Gedung::all();
         return response()->json(
             [   'unit' => $unit->values()->toArray(),
                 'kategori' => $kategori->values()->toArray(),
+                'gedung' => $gedung->values()->toArray(),
                 'aset' => $aset->values()->toArray()
             ],200
         );
