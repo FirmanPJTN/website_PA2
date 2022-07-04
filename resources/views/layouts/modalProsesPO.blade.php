@@ -1,8 +1,8 @@
-<div class="modal fade" id="rst<?= $ada->id ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="rst<?= $beli->id ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-xl">
     <div class="modal-content">
 
-    <form enctype="multipart/form-data" action="/MonitoringAset/PengadaanAset/ProsesPO/Simpan/{{$ada->id}}" method="post">
+    <form enctype="multipart/form-data" action="/MonitoringAset/PengadaanAset/ProsesPO/Simpan/{{$beli->pengadaan_id}}" method="post">
         {{ csrf_field() }}
         <div class="modal-header">
       

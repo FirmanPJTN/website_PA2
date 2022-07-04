@@ -62,7 +62,7 @@
 
             <h2 class="mb-5 mt-5 fw-bold">DAFTAR PENGADAAN ASET</h2>
 
-            <div class="table-container mx-5 mr-5">
+            <div class="table-container mr-5">
                 <table class="table table-striped table-bordered mb-5 ">
                     <thead>
                         <tr>
@@ -76,13 +76,11 @@
                     </thead>
                     <tbody>
                         <?php $i = 0 ?>
-                        @foreach ($pembelian as $beli)
+                        @foreach ($pengadaan as $ada)
+                        @foreach ($pembelian->where('pengadaan_id',$ada->kodePengadaan)->take(1) as $beli)
 
-                        @if($beli->status != 'proses' && $beli->status != 'setuju' && $beli->status != 'tolak' )
+                        @if($ada->status != 'proses' && $ada->status != 'setuju' && $ada->status != 'tolak' )
 
-                        <?php $pengadaan = DB::table('pengadaan')->where('id', '=', $beli->pengadaan_id)->get() ?>
-
-                        @foreach($pengadaan as $ada)
 
                         <?php
                         $jumlah = ($beli->jumlahBarang1) + ($beli->jumlahBarang2) + ($beli->jumlahBarang3) + ($beli->jumlahBarang4) + ($beli->jumlahBarang5)
@@ -141,8 +139,8 @@
 
 
                         <?php $i++; ?>
-                        @endforeach
                         @endif
+                        @endforeach
                         @endforeach
 
 
@@ -160,7 +158,7 @@
 
             <h3 class="mb-5 mt-5 fw-bold">RIWAYAT PENGADAAN ASET</h3>
 
-            <div class="table-container mx-5 mr-5">
+            <div class="table-container mr-5">
                 <table class="table table-striped table-bordered mb-5 ">
                     <thead>
                         <tr>
@@ -174,13 +172,11 @@
                     </thead>
                     <tbody>
                         <?php $i = 0 ?>
-                        @foreach ($pembelian as $beli)
+                        @foreach ($pengadaan as $ada)
+                        @foreach ($pembelian->where('pengadaan_id',$ada->kodePengadaan)->take(1) as $beli)
 
-                        @if($beli->status == 'setuju' || $beli->status == 'tolak' )
+                        @if($ada->status == 'setuju' || $ada->status == 'tolak' )
 
-                        <?php $pengadaan = DB::table('pengadaan')->where('id', '=', $beli->pengadaan_id)->get() ?>
-
-                        @foreach($pengadaan as $ada)
 
                         <?php
                         $jumlah = ($beli->jumlahBarang1) + ($beli->jumlahBarang2) + ($beli->jumlahBarang3) + ($beli->jumlahBarang4) + ($beli->jumlahBarang5)
@@ -239,8 +235,8 @@
 
 
                         <?php $i++; ?>
-                        @endforeach
                         @endif
+                        @endforeach
                         @endforeach
 
 

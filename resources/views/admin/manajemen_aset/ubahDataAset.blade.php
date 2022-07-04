@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,7 +10,7 @@
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
-    
+
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
@@ -34,9 +35,10 @@
 
     <link rel="stylesheet" href="../../../css/styleNavbar.css">
 </head>
+
 <body>
 
-<div class="wrapper">
+    <div class="wrapper">
         <!-- Sidebar Admin Layout -->
         @include('layouts.adminNavbar')
 
@@ -56,47 +58,38 @@
             </nav>
 
             <div class="shadow  p-3 mb-5 bg-body rounded container border">
-            
-                <h2 class="mb-5 text-center">UBAH DATA ASET</h2>       
 
-                <form enctype="multipart/form-data" action="/ManajemenAset/DataAset/Kirim/{{$aset -> id}}" method="post">
+                <h2 class="mb-5 text-center">UBAH DATA ASET</h2>
+
+                <form enctype="multipart/form-data" action="/ManajemenAset/DataAset/Kirim/{{$aset -> kodeAset}}" method="post">
                     {{ csrf_field() }}
-                    <div class="form-group ">
-                        <div class="d-flex justify-content-center">
-                            <label class="mx-4 w-25">Kode Aset</label>
-                            <input type="text" name="kodeAset" class="form-control mx-4" value="{{$aset -> kodeAset}}">
-                        </div>
-                    </div>
                     <div class="form-group mt-3">
                         <div class="d-flex justify-content-center">
                             <label class="mx-4 w-25">Jenis Barang</label>
-                            <input type="text" name="jenisBarang" class="form-control mx-4" value="{{$aset -> jenisBarang}}">
+                            <input type="text" name="jenisBarang" class="form-control mx-4" value="{{$aset -> jenisBarang}}"  autofocus autocomplete="off">
                         </div>
                     </div>
                     <div class="form-group mt-3">
-                       <div class="d-flex justify-content-center">
+                        <div class="d-flex justify-content-center">
                             <label class="mx-4 w-25">Tipe Barang</label>
-                            <input type="text" name="tipeBarang" class="form-control mx-4" value="{{$aset -> tipeBarang}}">
+                            <input type="text" name="tipeBarang" class="form-control mx-4" value="{{$aset -> tipeBarang}}"  autofocus autocomplete="off">
                         </div>
                     </div>
                     <div class="form-group mt-3">
                         <div class="d-flex justify-content-center">
                             <label class="mx-4 w-25">Jumlah Barang</label>
-                            <input type="number" name="jumlahBarang" class="form-control mx-4" value="{{$aset -> jumlahBarang}}">
+                            <input type="number" name="jumlahBarang" class="form-control mx-4" value="{{$aset -> jumlahBarang}}"  autofocus autocomplete="off">
                         </div>
                     </div>
-                    
+
                     <div class="form-group mt-3">
                         <div class="d-flex justify-content-center">
                             <label class="mx-4 w-25">Kategori</label>
                             <select class="form-control custom-select mx-4" name="kategori" id="kategori" value="{{ $aset -> kategori}}">
-                                <option value="{{ $aset -> kategori}}">{{ $aset -> kategori}} (Ganti kategori)</option>
-                                <option value="Mebeler">Mebeler</option>
-                                <option value="Alat Tulis / PC / Notebook"> Alat Tulis / PC / Notebook</option>
-                                <option value="Audio Visual">Audio Visual</option>
-                                <option value="Peralatan Rumah Tangga, Wisma dan Asrama">Peralatan Rumah Tangga, Wisma dan Asrama</option>
-                                <option value="Barang Persediaan Kampus">Barang Persediaan Kampus</option>
-                                <option value=" Alat - Alat Lab, Peraga, Kesenian, Kesehatan dll"> Alat - Alat Lab, Peraga, Kesenian, Kesehatan dll</option>
+                                <option value="{{ $aset -> kategori->id}}">{{ $aset -> kategori->nama}} (Ganti kategori)</option>
+                                @foreach($kategori as $ktg)
+                                <option value="{{$ktg->id}}">{{$ktg->nama}}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
@@ -104,8 +97,8 @@
                         <div class="d-flex justify-content-center">
                             <label class="mx-4 w-25">Kategori Pakai</label>
                             <select class="form-control custom-select mx-4" name="kategoriPakai" id="kategoriPakai" value="{{ $aset -> isInternal}}">
-                                <option value="{{ $aset -> isInternal}}"><?php if ($aset -> isInternal == '0') {?> Barang Tidak Habis (Eksternal) (Ganti kategori) <?php } ?>
-                                    <?php if ($aset -> isInternal == '1') {?> Barang Habis (Internal) (Ganti kategori) <?php } ?>
+                                <option value="{{ $aset -> isInternal}}"><?php if ($aset->isInternal == '0') { ?> Barang Tidak Habis (Eksternal) (Ganti kategori) <?php } ?>
+                                    <?php if ($aset->isInternal == '1') { ?> Barang Habis (Internal) (Ganti kategori) <?php } ?>
                                 </option>
                                 <option value="0">Barang Tidak Habis (Eksternal)</option>
                                 <option value="1">Barang Habis (Internal)</option>
@@ -113,34 +106,19 @@
                         </div>
                     </div>
                     <div class="form-group mt-3">
-                       <div class="d-flex justify-content-center">
-                            <label class="mx-4 w-25" >Tanggal Pembelian</label>
-                            <input type="date" name="tglBeli" class="form-control mx-4" value="{{$aset -> tglBeli}}">
-                        </div>
-                    </div>
-                    <div class="form-group mt-3">
                         <div class="d-flex justify-content-center">
                             <label class="mx-4 w-25">Penyimpanan</label>
-                            <input type="text" name="penyimpanan" class="form-control mx-4" value="{{$aset -> penyimpanan}}">
+                            <input type="text" name="penyimpanan" class="form-control mx-4" value="{{$aset -> penyimpanan}}"  autofocus autocomplete="off">
                         </div>
                     </div>
                     <div class="form-group mt-3">
                         <div class="d-flex justify-content-center">
                             <label class="mx-4 w-25">Gedung</label>
                             <select class="form-control custom-select mx-4" name="gedung" id="gedung">
-                                <option value="{{$aset -> gedung}}">{{$aset -> gedung}} (Ganti Gedung)</option>
-                                <option value="Gedung 1" <?php if (old('gedung') == 'Gedung 1') {?>selected="selected"<?php } ?>>Gedung 1</option>
-                                <option value="Gedung 2" <?php if (old('gedung') == 'Gedung 2') {?>selected="selected"<?php } ?>> Gedung 2</option>
-                                <option value="Gedung 3" <?php if (old('gedung') == 'Gedung 3') {?>selected="selected"<?php } ?>>Gedung 3</option>
-                                <option value="Gedung 4" <?php if (old('gedung') == 'Gedung 4') {?>selected="selected"<?php } ?>>Gedung 4</option>
-                                <option value="Gedung 5 dan 6" <?php if (old('gedung') == 'Gedung 5 dan 6') {?>selected="selected"<?php } ?>>Gedung 5 dan 6</option>
-                                <option value="Gedung 7" <?php if (old('gedung') == 'Gedung 7') {?>selected="selected"<?php } ?>> Gedung 7</option>
-                                <option value="Gedung 8" <?php if (old('gedung') == 'Gedung 8') {?>selected="selected"<?php } ?>> Gedung 8</option>
-                                <option value="Gedung 9" <?php if (old('gedung') == 'Gedung 9') {?>selected="selected"<?php } ?>> Gedung 9</option>
-                                <option value="Gedung Ex Koperasi" <?php if (old('gedung') == 'Gedung Ex Koperasi') {?>selected="selected"<?php } ?>> Gedung Ex Koperasi</option>
-                                <option value="Gedung Besar (Utama)" <?php if (old('gedung') == 'Gedung Besar (Utama)') {?>selected="selected"<?php } ?>> Gedung Besar (Utama)</option>
-                                <option value="Container Park" <?php if (old('gedung') == 'Container Park') {?>selected="selected"<?php } ?>> Container Park</option>
-                                <option value="Asrama Perpustakaan" <?php if (old('gedung') == 'Asrama Perpustakaan') {?>selected="selected"<?php } ?>> Asrama Perpustakaan</option>
+                                <option value="{{$aset -> gedung->id}}">{{$aset -> gedung->nama}} (Ganti Gedung)</option>
+                                @foreach($gedung as $gd)
+                                <option value="{{$gd->id}}">{{$gd->nama}}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
@@ -148,11 +126,17 @@
                         <div class="d-flex justify-content-center">
                             <label class="mx-4 w-25">Unit</label>
                             <select class="form-control custom-select mx-4" name="unit" id="unit">
-                                <option value="{{$aset->unit->id}}">{{$aset->unit->unit}} (Ganti Unit)</option>
+                                <option value="{{$aset->unit->id}}">{{$aset->unit->nama}} (Ganti Unit)</option>
                                 @foreach($units as $unit)
                                 <option value="{{$unit->id}}">{{$unit->unit}}</option>
                                 @endforeach
                             </select>
+                        </div>
+                    </div>
+                    <div class="form-group mt-3">
+                        <div class="d-flex justify-content-center">
+                            <label class="mx-4 w-25">Tanggal Pembelian</label>
+                            <input type="date" name="tglBeli" class="form-control mx-4" value="{{$aset -> tglBeli}}">
                         </div>
                     </div>
                     <div class="form-group mt-5">
@@ -170,7 +154,7 @@
 
         </div>
     </div>
-    
+
 
 
     <!-- jQuery CDN - Slim version (=without AJAX) -->
@@ -186,7 +170,7 @@
 
     <!-- Iconify  -->
     <script src="https://code.iconify.design/2/2.1.0/iconify.min.js"></script>
-    
+
     <!-- Optional JavaScript; choose one of the two! -->
 
     <!-- Option 1: Bootstrap Bundle with Popper -->
@@ -198,4 +182,5 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script>
     -->
 </body>
+
 </html>

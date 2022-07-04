@@ -1,8 +1,8 @@
-<div class="modal fade" id="ubah-peminjaman<?= $pinjam->id ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="ubah-peminjaman{{$i}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-xl">
         <div class="modal-content">
 
-            <form enctype="multipart/form-data" action="/visitor/PermohonanAset/PeminjamanAset/Kirim/{{$pinjam->id}}" method="post">
+            <form enctype="multipart/form-data" action="/visitor/PermohonanAset/PeminjamanAset/Kirim/{{$pinjam->kodePeminjaman}}" method="post">
                 {{ csrf_field() }}
                 <div class="modal-header">
                     <h2 class="modal-title fw-bold text-center" id="exampleModalLabel">UBAH PEMINJAMAN</h2>
@@ -10,21 +10,20 @@
                 </div>
                 <div class="modal-body row">
                     <div class="form-group input_fields_wrap">
-                        <div class="d-flex justify-content-start mt-4 ">
-                            <label class="mx-4 w-100 ">Daftar Barang</label>
+                        <div class="d-flex justify-content-start mt-4">
+                            <label class="ml-4 w-25">Daftar Barang</label>
 
-                            <label class="ml-5 pl-2">Jenis</label>
-                            <input type="text" name="jenisBarang1" class="form-control mx-4" value="{{ $pinjam -> jenisBarang1 }}" autofocus autocomplete="off" required>
+                            <label style="margin-left: 130px">Nama</label>
+                            <select class="form-control custom-select mx-5" name="nama" id="nama">
+                                <option value="{{$pinjam->aset_id}}">{{$pinjam->aset->tipeBarang}}</option>
+                                @foreach($aset->where('status','ada') as $as)
+                                <option value="{{$as->kodeAset}}">{{$as->tipeBarang}} ( {{$as->jumlahBarang}} item )</option>
+                                @endforeach
+                            </select>
 
-                            <label>Tipe</label>
-                            <input type="text" name="tipeBarang1" class="form-control mx-4" value="{{ $pinjam -> tipeBarang1 }}" autofocus autocomplete="off" required>
-
-                            <label class="form-label" visibilit>Jumlah</label>
-                            <input type="number" name="jumlahBarang1" class="form-control mx-4" value="{{ $pinjam -> jumlahBarang1 }}" autofocus autocomplete="off" required size="5">
-                        </div>
+                            <label class="ml-2">Jumlah</label>
+                            <input type="number" name="jumlah" class="mx-4" value="{{$pinjam->jumlahPinjam}}" style="margin-top: 2px; margin-bottom:2px" min="1" max="10" autofocus autocomplete="off">
                     </div>
-
-                    @include('layouts.ifEmptyPeminjamanVisitor')
 
 
                     <div class="form-group mt-3">

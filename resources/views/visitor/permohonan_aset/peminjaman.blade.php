@@ -78,9 +78,9 @@
                         <tr>
                             <th scope="col" class="text-center">No</th>
                             <th scope="col" class="text-center">Kode Peminjaman</th>
-                            <th scope="col" class="text-center">Jumlah Barang</th>
-                            <th scope="col" class="text-center">Tanggal Peminjaman</th>
-                            <th scope="col" class="text-center">Rencana Pengembalian</th>
+                            <th scope="col" class="text-center">Nama Barang</th>
+                            <th scope="col" class="text-center">Peminjam</th>
+                            <th scope="col" class="text-center">Unit</th>
                             <th scope="col" class="text-center">Status</th>
                             <th scope="col" class="text-center">Aksi</th>
                         </tr>
@@ -90,24 +90,21 @@
                         @foreach ($peminjaman as $pinjam)
                         @if($pinjam->unit_id == Auth::user()->unit_id && $pinjam->status == 'proses')
 
-                        <?php
-                        $jumlah = ($pinjam->jumlahBarang1) + ($pinjam->jumlahBarang2) + ($pinjam->jumlahBarang3) + ($pinjam->jumlahBarang4) + ($pinjam->jumlahBarang5)
-                        ?>
                         <tr>
                             <td class="text-center">{{$peminjaman->firstItem() + $i}}</td>
-                            <td class="text-center">{{$pinjam -> kodePeminjaman}}</td>
-                            <td class="text-center">{{$jumlah}}</td>
-                            <td class="text-center">{{$pinjam -> created_at -> format('Y-m-d')}}</td>
-                            <td class="text-center">{{$pinjam -> tglKembali}}</td>
+                            <td class="text-center">{{$pinjam->kodePeminjaman}}</td>
+                            <td class="text-center">{{$pinjam->aset->tipeBarang}}</td>
+                            <td class="text-center">{{$pinjam->user->nama}}</td>
+                            <td class="text-center">{{$pinjam->unit->nama}}</td>
                             <td class="text-center">
                                 <button class="btn btn-warning" disabled><span class="iconify" data-icon="mdi:progress-alert" data-height="20"></span> Diproses</button>
                             </td>
                             <td class="text-center">
                                 <div class="d-flex justify-content-around">
-                                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#abc<?= $pinjam->id ?>">Detail</button>
+                                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#abc{{$i}}">Detail</button>
                                     &nbsp;
-                                    <a href="#" class="btn btn-warning mx-2" data-bs-toggle="modal" data-bs-target="#ubah-peminjaman<?=$pinjam->id?>">Ubah</a> &nbsp;
-                                    <a data-id="{{ $pinjam->id }}" class="btn btn-danger deletePinjam" href="#">Hapus</a>
+                                    <a href="#" class="btn btn-warning mx-2" data-bs-toggle="modal" data-bs-target="#ubah-peminjaman{{$i}}">Ubah</a> &nbsp;
+                                    <a data-id="{{ $pinjam->kodePeminjaman }}" class="btn btn-danger deletePinjam" href="#">Hapus</a>
                                 </div>
                             </td>
                         </tr>
@@ -145,9 +142,9 @@
                         <tr>
                             <th scope="col" class="text-center">No</th>
                             <th scope="col" class="text-center">Kode Peminjaman</th>
-                            <th scope="col" class="text-center">Jumlah Barang</th>
-                            <th scope="col" class="text-center">Tanggal Peminjaman</th>
-                            <th scope="col" class="text-center">Rencana Pengembalian</th>
+                            <th scope="col" class="text-center">Nama Barang</th>
+                            <th scope="col" class="text-center">Peminjam</th>
+                            <th scope="col" class="text-center">Unit</th>
                             <th scope="col" class="text-center">Status</th>
                             <th scope="col" class="text-center">Aksi</th>
                         </tr>
@@ -157,15 +154,12 @@
                         @foreach ($peminjaman as $pinjam)
                         @if($pinjam->unit_id == Auth::user()->unit_id && $pinjam->status != 'proses')
 
-                        <?php
-                        $jumlah = ($pinjam->jumlahBarang1) + ($pinjam->jumlahBarang2) + ($pinjam->jumlahBarang3) + ($pinjam->jumlahBarang4) + ($pinjam->jumlahBarang5)
-                        ?>
                         <tr>
                             <td class="text-center">{{$peminjaman->firstItem() + $i}}</td>
-                            <td class="text-center">{{$pinjam -> kodePeminjaman}}</td>
-                            <td class="text-center">{{$jumlah}}</td>
-                            <td class="text-center">{{$pinjam -> created_at -> format('Y-m-d')}}</td>
-                            <td class="text-center">{{$pinjam -> tglKembali}}</td>
+                            <td class="text-center">{{$pinjam->kodePeminjaman}}</td>
+                            <td class="text-center">{{$pinjam->aset->tipeBarang}}</td>
+                            <td class="text-center">{{$pinjam->user->nama}}</td>
+                            <td class="text-center">{{$pinjam->unit->nama}}</td>
                             <td class="text-center">
                                 @if($pinjam->status == 'tolak')
                                 <button class="btn btn-danger" disabled><span class="iconify" data-icon="mdi:progress-close" data-height="20"></span> Ditolak</button>
@@ -179,7 +173,7 @@
                             </td>
                             <td class="text-center">
                                 <div class="d-flex justify-content-around">
-                                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#abc<?= $pinjam->id ?>">Detail</button>
+                                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#abcr<?= $i ?>">Detail</button>
                                 </div>
                             </td>
                         </tr>
@@ -187,7 +181,7 @@
 
 
                         <!-- MODAL DETAIL PEMINJAMAN -->
-                        @include('layouts.modalDetailPeminjaman')
+                        @include('layouts.modalDetailPeminjamanAdminRiwayat')
 
                         <?php $i++; ?>
                         @endif

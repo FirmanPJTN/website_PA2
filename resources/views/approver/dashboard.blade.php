@@ -117,22 +117,20 @@
                 </thead>
                 <tbody>
                     <?php $i=0 ?>
-                        @foreach ($pembelian as $beli)
+                        @foreach ($pengadaan as $ada)
+                        @foreach ($pembelian->where('pengadaan_id',$ada->kodePengadaan)->take(1) as $beli)
 
-                        @if($beli->status != 'proses' && $beli->status != 'setuju' && $beli->status != 'tolak') 
+                        @if($ada->status != 'proses' && $ada->status != 'setuju' && $ada->status != 'tolak') 
 
-                        <?php $pengadaan = DB::table('pengadaan')->where('id','=',$beli->pengadaan_id)->get() ?>
-
-                        @foreach($pengadaan as $ada)
 
                         <?php 
                             $jumlah = ($beli -> jumlahBarang1) + ($beli -> jumlahBarang2) + ($beli -> jumlahBarang3) + ($beli -> jumlahBarang4) + ($beli -> jumlahBarang5)
                         ?>
                     <tr>
-                        <td class="text-center">{{$pembelian->firstItem() + $i}}</td>
+                        <td class="text-center">{{$pengadaan->firstItem() + $i}}</td>
                         <td class="text-center">{{$ada -> kodePengadaan}}</td>
                         <td class="text-center">{{$jumlah}}</td>
-                        <td class="text-center">{{$beli -> created_at -> format('Y-m-d')}}</td>
+                        <td class="text-center">{{$ada -> created_at -> format('Y-m-d')}}</td>
                         <td class="text-center">
                             @if($ada->status == 'tolak') 
                                     <button class="btn btn-danger" disabled><span class="iconify" data-icon="mdi:progress-close" data-height="20"></span> Ditolak</button>
@@ -179,11 +177,9 @@
 
                     
 
-                    
-
                     <?php $i++; ?>
-                    @endforeach
                     @endif
+                    @endforeach
                     @endforeach
 
                         
@@ -192,9 +188,9 @@
 
                 <a href="{{route('index-beli-approver')}}" class="btn btn-info mb-3">Lihat Semua Data</a>
 
-                @if(!empty($pembelian))
+                @if(!empty($pengadaan))
                 <div class="pagination">
-                    {{ $pembelian->links() }}
+                    {{ $pengadaan->links() }}
                 </div>
                 @endif
             </div>

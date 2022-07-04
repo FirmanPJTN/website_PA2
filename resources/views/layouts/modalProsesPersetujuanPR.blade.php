@@ -2,7 +2,7 @@
     <div class="modal-dialog modal-dialog-centered modal-xl">
     <div class="modal-content">
 
-    <form enctype="multipart/form-data" action="/approver/Persetujuan/PegadaanAset/InternalPR/Simpan/{{$beli->id}}" method="post">
+    <form enctype="multipart/form-data" action="/approver/Persetujuan/PegadaanAset/InternalPR/Simpan/{{$beli->pengadaan_id}}" method="post">
         {{ csrf_field() }}
         <div class="modal-header">
             

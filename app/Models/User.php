@@ -42,35 +42,27 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function dataaset() {
-        return $this->belongsTo(DataAset::class);
+    public function unit() {
+        return $this->belongsTo(Unit::class,'unit_id');
     }
 
-    public function notifikasi() {
-        return $this->belongsTo(Notifikasi::class);
-    }
-
-    public function pembelian() {
-        return $this->belongsTo(Pembelian::class);
+    public function aset() {
+        return $this->hasMany(DataAset::class);
     }
 
     public function peminjaman() {
-        return $this->belongsTo(Peminjaman::class);
+        return $this->hasMany(Peminjaman::class);
     }
 
     public function pemusnahan() {
-        return $this->belongsTo(Pemusnahan::class);
+        return $this->hasMany(Pemusnahan::class);
     }
 
     public function pengadaan() {
-        return $this->belongsTo(Pengadaan::class);
-    }
-
-    public function unit() {
-        return $this->belongsTo(Unit::class);
+        return $this->hasMany(Pengadaan::class);
     }
 
     public function monitoring() {
-        return $this->belongsTo(Monitoring::class);
+        return $this->hasMany(Monitoring::class);
     }
 }

@@ -2,11 +2,11 @@
     <div class="modal-dialog modal-dialog-centered modal-xl">
     <div class="modal-content">
 
-    <form enctype="multipart/form-data" action="/transactor/PembelianAset/Internal/Proses/Simpan/{{$beli->id}}" method="post">
+    <form enctype="multipart/form-data" action="/transactor/PembelianAset/Internal/Proses/Simpan/{{$beli->pengadaan_id}}" method="post">
         {{ csrf_field() }}
 
         <div class="modal-header">
-        <h2 class="modal-title fw-bold text-center" id="exampleModalLabel">DETAIL PEMBELIAN ASET</h2>
+        <h2 class="modal-title fw-bold text-center" id="exampleModalLabel">PROSES PEMBELIAN ASET</h2>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         
@@ -16,7 +16,7 @@
 
             <div class="form-group input_fields_wrap">
                 <div class="d-flex justify-content-start mt-4 ">
-                    <label class="mx-4 w-100 ">Daftar Pemesanan Barang</label>
+                    <label class="mx-4 w-100 ">Daftar Barang</label>
                     
                     <label class="ml-5 pl-2">Jenis</label>
                     <input type="text" name="jenisBarang1" class="form-control mx-4" value="{{ $beli -> jenisBarang1 }}" autofocus autocomplete="off" disabled>

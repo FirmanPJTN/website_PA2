@@ -109,9 +109,9 @@
                         <div class="d-flex justify-content-center">
                             <label class="mx-4 w-25">Unit</label>
                             <select class="form-control custom-select mx-4" name="unit" id="unit">
-                                <option value="{{$user->unit}}">▼ {{$user->unit->unit}} (Ganti Unit)</option>
+                                <option value="{{$user->unit}}">▼ {{$user->unit->nama}} (Ganti Unit)</option>
                                 @foreach($units as $unit)
-                                <option value="{{$unit->id}}">{{$unit->unit}}</option>
+                                <option value="{{$unit->id}}">{{$unit->nama}}</option>
                                 @endforeach
                             </select>
                         </div>

@@ -13,7 +13,7 @@
                     <div class="form-group ml-2 mt-3">
                         <div class="d-flex justify-content-center">
                             <label class="mx-4 w-25">Unit</label>
-                            <input type="text" name="unit" class="form-control mx-4" value="{{$unt -> unit}}" autofocus autocomplete="off">
+                            <input type="text" name="unit" class="form-control mx-4" value="{{$unt -> nama}}" autofocus autocomplete="off">
                         </div>
                     </div>
                 </div>

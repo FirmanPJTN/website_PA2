@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,7 +10,7 @@
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
-    
+
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
@@ -18,13 +19,13 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap" rel="stylesheet">
 
-     <!-- Font Quicksand -->
-     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <!-- Font Quicksand -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap" rel="stylesheet">
 
-     <!-- Font Awesome -->
-     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <!-- JQuery -->
@@ -39,9 +40,10 @@
 
     <link rel="stylesheet" href="../../css/styleNavbar.css">
 </head>
+
 <body>
 
-<div class="wrapper">
+    <div class="wrapper">
         <!-- Sidebar Admin Layout -->
         @include('layouts.adminNavbar')
 
@@ -61,41 +63,43 @@
             </nav>
 
             <div class="shadow p-3 mb-5 bg-body rounded container border">
-            
-                <h2 class="mb-5 text-center">TAMBAH DATA ASET</h2>       
+
+                <h2 class="mb-5 text-center">TAMBAH DATA ASET</h2>
 
 
                 <form enctype="multipart/form-data" action="/ManajemenAset/DataAset/Simpan" method="post">
                     {{ csrf_field() }}
-                    <div class="form-group ">
-                        <div class="d-flex justify-content-center">
-                            <label class="mx-4 w-25">Kode Aset</label>
-                            <input type="text" name="kodeAset" class="form-control mx-4" value="{{ old('kodeAset') }}" autofocus autocomplete="off">
-                        </div>
-                    </div>
-                    @error('kodeAset')
-                        <div class="alert-danger mt-1">{{$message}}</div>
-                    @enderror
-
+                    <input type="hidden" name="kodeAset" value="AT.{{date('Y.m.d-h.i.s')}}" >
 
                     <div class="form-group mt-3">
                         <div class="d-flex justify-content-center">
                             <label class="mx-4 w-25">Jenis Barang</label>
-                            <input type="text" name="jenisBarang" class="form-control mx-4"  value="{{ old('jenisBarang') }}" autofocus autocomplete="off">
+                            <input type="text" name="jenisBarang" class="form-control mx-4" value="{{ old('jenisBarang') }}" autofocus autocomplete="off">
                         </div>
                     </div>
                     @error('jenisBarang')
-                        <div class="alert-danger mt-1">{{$message}}</div>
+                    <div class="alert-danger mt-1">{{$message}}</div>
                     @enderror
 
                     <div class="form-group mt-3">
-                       <div class="d-flex justify-content-center">
+                        <div class="d-flex justify-content-center">
                             <label class="mx-4 w-25">Tipe Barang</label>
-                            <input type="text" name="tipeBarang" class="form-control mx-4"  value="{{ old('tipeBarang') }}" autofocus autocomplete="off" >
+                            <input type="text" name="tipeBarang" class="form-control mx-4" value="{{ old('tipeBarang') }}" autofocus autocomplete="off">
                         </div>
                     </div>
                     @error('tipeBarang')
-                        <div class="alert-danger mt-1">{{$message}}</div>
+                    <div class="alert-danger mt-1">{{$message}}</div>
+                    @enderror
+
+
+                    <div class="form-group mt-3">
+                        <div class="d-flex justify-content-center">
+                            <label class="mx-4 w-25">Jumlah Barang</label>
+                            <input type="number" name="jumlahBarang" class="form-control mx-4" value="{{ old('jumlahBarang') }}" autofocus autocomplete="off">
+                        </div>
+                    </div>
+                    @error('jumlahBarang')
+                    <div class="alert-danger mt-1">{{$message}}</div>
                     @enderror
 
                     <div class="form-group mt-3">
@@ -103,65 +107,42 @@
                             <label class="mx-4 w-25">Kategori</label>
                             <select class="form-control custom-select mx-4" name="kategori" id="kategori">
                                 <option value="">pilih kategori</option>
-                                <option value="Mebeler" <?php if (old('kategori') == 'Mebeler') {?>selected="selected"<?php } ?>>Mebeler</option>
-                                <option value="Alat Tulis / PC / Notebook" <?php if (old('kategori') == 'Alat Tulis / PC / Notebook') {?>selected="selected"<?php } ?>> Alat Tulis / PC / Notebook</option>
-                                <option value="Audio Visual" <?php if (old('kategori') == 'Audio Visual') {?>selected="selected"<?php } ?>>Audio Visual</option>
-                                <option value="Peralatan Rumah Tangga, Wisma dan Asrama" <?php if (old('kategori') == 'Peralatan Rumah Tangga, Wisma dan Asrama') {?>selected="selected"<?php } ?>>Peralatan Rumah Tangga, Wisma dan Asrama</option>
-                                <option value="Barang Persediaan Kampus" <?php if (old('kategori') == 'Barang Persediaan Kampus') {?>selected="selected"<?php } ?>>Barang Persediaan Kampus</option>
-                                <option value="Jaringan" <?php if (old('kategori') == 'Jaringan') {?>selected="selected"<?php } ?>> Jaringan</option>
-                                <option value="Perlengkapan Maintenance" <?php if (old('kategori') == 'Perlengkapan Maintenance') {?>selected="selected"<?php } ?>> Perlengkapan Maintenance</option>
-                                <option value="Perlengkapan Taman" <?php if (old('kategori') == 'Perlengkapan Taman') {?>selected="selected"<?php } ?>> Perlengkapan Taman</option>
-                                <option value="Alat - Alat Lab, Peraga, Kesenian, Kesehatan dll" <?php if (old('kategori') == 'Alat - Alat Lab, Peraga, Kesenian, Kesehatan dll') {?>selected="selected"<?php } ?>> Alat - Alat Lab, Peraga, Kesenian, Kesehatan dll</option>
+                                @foreach($kategori as $ktg)
+                                <option value="{{$ktg->id}}">{{$ktg->nama}}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
                     @error('kategori')
-                        <div class="alert-danger mt-1">{{$message}}</div>
-                    @enderror
-
-                    <div class="form-group mt-3">
-                       <div class="d-flex justify-content-center">
-                            <label class="mx-4 w-25">Kategori Pakai</label>
-                            <select class="form-control custom-select mx-4" name="kategoriPakai" id="kategoriPakai">
-                                <option value="">pilih kategori pakai</option>
-                                <option value="0" <?php if (old('kategoriPakai') == '0') {?>selected="selected"<?php } ?>>Barang Tidak Habis (Eksternal)</option>
-                                <option value="1" <?php if (old('kategoriPakai') == '1') {?>selected="selected"<?php } ?>>Barang Habis (Internal)</option>
-                            </select>
-                        </div>
-                    </div>
-                    @error('kategoriPakai')
-                        <div class="alert-danger mt-1">{{$message}}</div>
+                    <div class="alert-danger mt-1">{{$message}}</div>
                     @enderror
 
                     <div class="form-group mt-3">
                         <div class="d-flex justify-content-center">
-                            <label class="mx-4 w-25">Jumlah Barang</label>
-                            <input type="number" name="jumlahBarang" class="form-control mx-4"  value="{{ old('jumlahBarang') }}" autofocus autocomplete="off">
+                            <label class="mx-4 w-25">Kategori Pakai</label>
+                            <select class="form-control custom-select mx-4" name="kategoriPakai" id="kategoriPakai">
+                                <option value="">pilih kategori pakai</option>
+                                <option value="0" <?php if (old('kategoriPakai') == '0') { ?>selected="selected" <?php } ?>>Barang Tidak Habis (Eksternal)</option>
+                                <option value="1" <?php if (old('kategoriPakai') == '1') { ?>selected="selected" <?php } ?>>Barang Habis (Internal)</option>
+                            </select>
                         </div>
                     </div>
-                    @error('jumlahBarang')
-                        <div class="alert-danger mt-1">{{$message}}</div>
+                    @error('kategoriPakai')
+                    <div class="alert-danger mt-1">{{$message}}</div>
                     @enderror
 
-                    <div class="form-group mt-3">
-                       <div class="d-flex justify-content-center">
-                            <label class="mx-4 w-25" >Tanggal Pembelian</label>
-                            <input type="date" name="tglBeli" class="form-control mx-4"  value="{{ old('tglBeli') }}" autofocus autocomplete="off">
-                        </div>
-                    </div>
-                    @error('tglBeli')
-                        <div class="alert-danger mt-1">{{$message}}</div>
-                    @enderror
+
+                 
 
 
                     <div class="form-group mt-3">
                         <div class="d-flex justify-content-center">
                             <label class="mx-4 w-25">Penyimpanan</label>
-                            <input type="text" name="penyimpanan" class="form-control mx-4"  value="{{ old('penyimpanan') }}" autofocus autocomplete="off">
+                            <input type="text" name="penyimpanan" class="form-control mx-4" value="{{ old('penyimpanan') }}" autofocus autocomplete="off">
                         </div>
                     </div>
                     @error('penyimpanan')
-                        <div class="alert-danger mt-1">{{$message}}</div>
+                    <div class="alert-danger mt-1">{{$message}}</div>
                     @enderror
 
                     <div class="form-group mt-3">
@@ -169,23 +150,14 @@
                             <label class="mx-4 w-25">Gedung</label>
                             <select class="form-control custom-select mx-4" name="gedung" id="gedung">
                                 <option value="">pilih gedung</option>
-                                <option value="Gedung 1" <?php if (old('gedung') == 'Gedung 1') {?>selected="selected"<?php } ?>>Gedung 1</option>
-                                <option value="Gedung 2" <?php if (old('gedung') == 'Gedung 2') {?>selected="selected"<?php } ?>> Gedung 2</option>
-                                <option value="Gedung 3" <?php if (old('gedung') == 'Gedung 3') {?>selected="selected"<?php } ?>>Gedung 3</option>
-                                <option value="Gedung 4" <?php if (old('gedung') == 'Gedung 4') {?>selected="selected"<?php } ?>>Gedung 4</option>
-                                <option value="Gedung 5 dan 6" <?php if (old('gedung') == 'Gedung 5 dan 6') {?>selected="selected"<?php } ?>>Gedung 5 dan 6</option>
-                                <option value="Gedung 7" <?php if (old('gedung') == 'Gedung 7') {?>selected="selected"<?php } ?>> Gedung 7</option>
-                                <option value="Gedung 8" <?php if (old('gedung') == 'Gedung 8') {?>selected="selected"<?php } ?>> Gedung 8</option>
-                                <option value="Gedung 9" <?php if (old('gedung') == 'Gedung 9') {?>selected="selected"<?php } ?>> Gedung 9</option>
-                                <option value="Gedung Ex Koperasi" <?php if (old('gedung') == 'Gedung Ex Koperasi') {?>selected="selected"<?php } ?>> Gedung Ex Koperasi</option>
-                                <option value="Gedung Besar (Utama)" <?php if (old('gedung') == 'Gedung Besar (Utama)') {?>selected="selected"<?php } ?>> Gedung Besar (Utama)</option>
-                                <option value="Container Park" <?php if (old('gedung') == 'Container Park') {?>selected="selected"<?php } ?>> Container Park</option>
-                                <option value="Asrama Perpustakaan" <?php if (old('gedung') == 'Asrama Perpustakaan') {?>selected="selected"<?php } ?>> Asrama Perpustakaan</option>
+                                @foreach($gedung as $gd)
+                                <option value="{{$gd->id}}">{{$gd->nama}}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
                     @error('gedung')
-                        <div class="alert-danger mt-1">{{$message}}</div>
+                    <div class="alert-danger mt-1">{{$message}}</div>
                     @enderror
 
                     <div class="form-group mt-3">
@@ -194,13 +166,23 @@
                             <select class="form-control custom-select mx-4" name="unit" id="unit">
                                 <option value="">pilih unit</option>
                                 @foreach($units as $unit)
-                                <option value="{{$unit->id}}">{{$unit->unit}}</option>
+                                <option value="{{$unit->id}}">{{$unit->nama}}</option>
                                 @endforeach
                             </select>
                         </div>
                     </div>
                     @error('unit')
-                        <div class="alert-danger mt-1">{{$message}}</div>
+                    <div class="alert-danger mt-1">{{$message}}</div>
+                    @enderror
+
+                    <div class="form-group mt-3">
+                        <div class="d-flex justify-content-center">
+                            <label class="mx-4 w-25">Tanggal Pembelian</label>
+                            <input type="date" name="tglBeli" class="form-control mx-4" value="{{ old('tglBeli') }}" autofocus autocomplete="off">
+                        </div>
+                    </div>
+                    @error('tglBeli')
+                    <div class="alert-danger mt-1">{{$message}}</div>
                     @enderror
 
                     <div class="form-group mt-5">
@@ -219,7 +201,7 @@
 
         </div>
     </div>
-    
+
 
 
     <!-- jQuery CDN - Slim version (=without AJAX) -->
@@ -235,7 +217,7 @@
 
     <!-- Iconify  -->
     <script src="https://code.iconify.design/2/2.1.0/iconify.min.js"></script>
-    
+
     <!-- Optional JavaScript; choose one of the two! -->
 
     <!-- Option 1: Bootstrap Bundle with Popper -->
@@ -247,4 +229,5 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script>
     -->
 </body>
+
 </html>

@@ -41,7 +41,7 @@ class UnitController extends Controller
         ]);
 
         Unit::create([
-            'unit'  => $request-> unit
+            'nama'  => $request-> unit
         ]);
 
         return redirect(route('kelola-unit'))->with('success', 'Unit Berhasil Ditambahkan!');
@@ -79,14 +79,12 @@ class UnitController extends Controller
     public function update(Request $request, $id)
     {
 
-
-
         $request->validate([
             'unit'  => 'required'
         ]);
 
         $unit = Unit::find($id);
-        $unit->unit = $request-> unit;
+        $unit->nama = $request-> unit;
 
         $unit->save();
         

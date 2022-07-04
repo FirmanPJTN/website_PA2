@@ -1,8 +1,8 @@
-<div class="modal fade" id="rst<?= $pinjam->id ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="rst<?= $i ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-xl">
     <div class="modal-content">
 
-    <form enctype="multipart/form-data" action="/ManajemenAset/PeminjamanAset/Pengembalian/Simpan/{{$pinjam->id}}" method="post">
+    <form enctype="multipart/form-data" action="/ManajemenAset/PeminjamanAset/Pengembalian/Simpan/{{$pinjam->kodePeminjaman}}" method="post">
         {{ csrf_field() }}
         <div class="modal-header">
             

@@ -82,16 +82,17 @@
                     <tbody>
                         <?php $i = 0 ?>
                         @foreach ($pengadaan as $ada)
+                        @foreach ($pembelian->where('pengadaan_id',$ada->kodePengadaan)->take(1) as $beli)
 
                         @if($ada->status != null && $ada->status == 'proses')
                         <?php
-                        $jumlah = ($ada->jumlahBarang1) + ($ada->jumlahBarang2) + ($ada->jumlahBarang3) + ($ada->jumlahBarang4) + ($ada->jumlahBarang5)
+                        $jumlah = ($beli->jumlahBarang1) + ($beli->jumlahBarang2) + ($beli->jumlahBarang3) + ($beli->jumlahBarang4) + ($beli->jumlahBarang5)
                         ?>
                         <tr>
                             <td class="text-center">{{$pengadaan->firstItem() +$i}}</td>
                             <td class="text-center">{{$ada -> kodePengadaan}}</td>
                             <td class="text-center">{{$ada->user->nama}}</td>
-                            <td class="text-center">{{$ada->unit->unit}}</td>
+                            <td class="text-center">{{$ada->unit->nama}}</td>
                             <td class="text-center">{{$jumlah}}</td>
                             <td class="text-center">{{$ada -> created_at -> format('Y-m-d')}}</td>
                             <td class="text-center">
@@ -107,8 +108,8 @@
                             </td>
                             <td class="text-center">
                                 <div class="d-flex justify-content-around">
-                                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#def<?= $ada->id ?>">Detail</button> &nbsp;
-                                    <a href="#" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#lmn<?= $ada->id ?>">Proses PR</a>
+                                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#def<?= $beli->id ?>">Detail</button> &nbsp;
+                                    <a href="#" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#lmn<?= $beli->id ?>">Proses PR</a>
                                 </div>
                             </td>
                         </tr>
@@ -124,6 +125,7 @@
 
                         <?php $i++; ?>
                         @endif
+                        @endforeach
                         @endforeach
 
                     </tbody>
@@ -155,17 +157,18 @@
                     <tbody>
                         <?php $i = 0 ?>
                         @foreach ($pengadaan as $ada)
+                        @foreach ($pembelian->where('pengadaan_id',$ada->kodePengadaan)->take(1) as $beli)
 
                         @if($ada->status != null && $ada->status != 'proses')
 
                         <?php
-                        $jumlah = ($ada->jumlahBarang1) + ($ada->jumlahBarang2) + ($ada->jumlahBarang3) + ($ada->jumlahBarang4) + ($ada->jumlahBarang5)
+                        $jumlah = ($beli->jumlahBarang1) + ($beli->jumlahBarang2) + ($beli->jumlahBarang3) + ($beli->jumlahBarang4) + ($beli->jumlahBarang5)
                         ?>
                         <tr>
                             <td class="text-center">{{$pengadaan->firstItem() + $i}}</td>
                             <td class="text-center">{{$ada -> kodePengadaan}}</td>
                             <td class="text-center">{{$ada->user->nama}}</td>
-                            <td class="text-center">{{$ada->unit->unit}}</td>
+                            <td class="text-center">{{$ada->unit->nama}}</td>
                             <td class="text-center">{{$jumlah}}</td>
                             <td class="text-center">{{$ada -> created_at -> format('Y-m-d')}}</td>
                             <td class="text-center">
@@ -190,10 +193,10 @@
                             </td>
                             <td class="text-center">
                                 <div class="d-flex justify-content-around">
-                                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#def<?= $ada->id ?>">Detail</button>
+                                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#def<?= $beli->id ?>">Detail</button>
 
                                     @if($ada->status == 'setuju-PR')
-                                    <a href="#" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#rst<?= $ada->id ?>">Proses PO</a>
+                                    <a href="#" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#rst<?= $beli->id ?>">Proses PO</a>
                                     @endif
                                 </div>
                             </td>
@@ -210,6 +213,7 @@
 
                         <?php $i++; ?>
                         @endif
+                        @endforeach
                         @endforeach
 
                     </tbody>

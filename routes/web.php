@@ -136,6 +136,24 @@ Route::middleware(['auth','isAdmin:administrator'])->group(function(){
 
     Route::get('/KelolaPengguna/KelolaUnit/Hapus/{id}', 'UnitController@destroy');
 
+    // Kelola Kategori
+    Route::get('/ManajemenAset/DataAset/Kategori/', 'KategoriController@index')->name('kelola-kategori');
+
+    Route::post('/ManajemenAset/DataAset/Kategori/Simpan', 'KategoriController@store');
+
+    Route::post('/ManajemenAset/DataAset/Kategori/Kirim/{id}', 'KategoriController@update');
+
+    Route::get('/ManajemenAset/DataAset/Kategori/Hapus/{id}', 'KategoriController@destroy');
+
+    // Kelola Gedung
+    Route::get('/ManajemenAset/DataAset/Gedung/', 'GedungController@index')->name('kelola-gedung');
+
+    Route::post('/ManajemenAset/DataAset/Gedung/Simpan', 'GedungController@store');
+
+    Route::post('/ManajemenAset/DataAset/Gedung/Kirim/{id}', 'GedungController@update');
+
+    Route::get('/ManajemenAset/DataAset/Gedung/Hapus/{id}', 'GedungController@destroy');
+
     // PEMUSNAHAN BERKAS
     Route::get('/MonitoringAset/PemusnahanBerkas', 'PemusnahanController@indexBerkas')->name('musnah-berkas');
 
@@ -273,11 +291,11 @@ Route::middleware(['auth','isAdmin:approver'])->group(function(){
 
 
     // PENGADAAN
-    Route::get('/approver/Persetujuan/PegadaanAset', 'PembelianController@indexApprover')->name('index-beli-approver');
+    Route::get('/approver/Persetujuan/PegadaanAset', 'PengadaanController@indexApprover')->name('index-beli-approver');
 
-    Route::post('/approver/Persetujuan/PegadaanAset/InternalPR/Simpan/{id}', 'PembelianController@prosesPersetujuanInternalPR');
+    Route::post('/approver/Persetujuan/PegadaanAset/InternalPR/Simpan/{id}', 'PengadaanController@prosesPersetujuanInternalPR');
 
-    Route::post('/approver/Persetujuan/PegadaanAset/InternalPO/Simpan/{id}', 'PembelianController@prosesPersetujuanInternalPO');
+    Route::post('/approver/Persetujuan/PegadaanAset/InternalPO/Simpan/{id}', 'PengadaanController@prosesPersetujuanInternalPO');
 
 
 

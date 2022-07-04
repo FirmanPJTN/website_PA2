@@ -13,11 +13,7 @@ class Pembelian extends Model
 
     protected $guarded = ['id'];
 
-    public function user() {
-        return $this->belongsTo(User::class);
-    }
-
-    public function unit() {
-        return $this->belongsTo(Unit::class);
+    public function pengadaan() {
+        return $this->belongsTo(Pengadaan::class,'pengadaan_id');
     }
 }

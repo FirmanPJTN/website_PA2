@@ -84,13 +84,11 @@
                             <?php $i = 0 ?>
                             <?php $internal = DB::table('pengadaan')->where('kategori', '=', 'internal')->count() ?>
                             @if($internal!=0)
-                            @foreach ($pembelian as $beli)
+                            @foreach ($pengadaan->where('kategori','internal') as $ada)
+                            @foreach ($pembelian->where('pengadaan_id',$ada->kodePengadaan)->take(1) as $beli)
 
-                            @if($beli->status == 'setuju-PO')
+                            @if($ada->status == 'setuju-PO')
 
-                            <?php $pengadaan = DB::table('pengadaan')->where('id', '=', $beli->pengadaan_id)->where('kategori', 'internal')->get() ?>
-
-                            @foreach($pengadaan as $ada)
 
                             <?php
                             $jumlah = ($beli->jumlahBarang1) + ($beli->jumlahBarang2) + ($beli->jumlahBarang3) + ($beli->jumlahBarang4) + ($beli->jumlahBarang5)
@@ -121,8 +119,8 @@
                             @include('layouts.modalProsesPembelianInternal')
 
                             <?php $i++; ?>
-                            @endforeach
                             @endif
+                            @endforeach
                             @endforeach
                             @endif
 
@@ -154,13 +152,11 @@
                             <?php $i = 0 ?>
                             <?php $internal = DB::table('pengadaan')->where('kategori', '=', 'internal')->count() ?>
                             @if($internal!=0)
-                            @foreach ($pembelian as $beli)
+                            @foreach ($pengadaan->where('kategori','internal') as $ada)
+                            @foreach ($pembelian->where('pengadaan_id',$ada->kodePengadaan)->take(1) as $beli)
 
-                            @if($beli->status == 'setuju')
+                            @if($ada->status == 'setuju')
 
-                            <?php $pengadaan = DB::table('pengadaan')->where('id', '=', $beli->pengadaan_id)->where('kategori', 'internal')->get() ?>
-
-                            @foreach($pengadaan as $ada)
 
                             <?php
                             $jumlah = ($beli->jumlahBarang1) + ($beli->jumlahBarang2) + ($beli->jumlahBarang3) + ($beli->jumlahBarang4) + ($beli->jumlahBarang5)
@@ -189,8 +185,8 @@
                             @include('layouts.modalProsesPembelianInternal')
 
                             <?php $i++; ?>
-                            @endforeach
                             @endif
+                            @endforeach
                             @endforeach
                             @endif
 

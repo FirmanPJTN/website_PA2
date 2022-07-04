@@ -73,7 +73,7 @@
 
                 <div class="mb-5">
                     <div class="d-flex justify-content-start">
-                        <?php $jumlahpengadaanEks = DB::table('pengadaan')->where('kategori', '=', 'eksternal')->whereIn('status',['setuju-PO','setuju'])->count(); ?>
+                        <?php $jumlahpengadaanEks = DB::table('pengadaan')->where('kategori', '=', 'eksternal')->whereIn('status', ['setuju-PO', 'setuju'])->count(); ?>
                         @if($jumlahpengadaanEks != 0 )
                         <div class="box mx-2" style="background-color: #00D1B8; padding: 30px; padding-left: 35px; padding-right: 35px; border-radius: 10px; font-size: 2em; color: white; font-weight: bold; text-align: center">
                             {{$jumlahpengadaanEks}} <br>
@@ -81,7 +81,7 @@
                         </div>
                         @endif
 
-                        <?php $jumlahpengadaanInt = DB::table('pengadaan')->where('kategori', '=', 'internal')->whereIn('status',['setuju-PO','setuju'])->count(); ?>
+                        <?php $jumlahpengadaanInt = DB::table('pengadaan')->where('kategori', '=', 'internal')->whereIn('status', ['setuju-PO', 'setuju'])->count(); ?>
                         @if($jumlahpengadaanInt != 0)
                         <div class="box mx-2" style="background-color: #32A9FF; padding: 30px; padding-left: 35px; padding-right: 35px; border-radius: 10px; font-size: 2em; color: white; font-weight: bold; text-align: center">
                             {{$jumlahpengadaanInt}} <br>
@@ -95,7 +95,7 @@
 
                 <h2 class="mb-5 mt-5 ml-3 fw-bold">PENGADAAN EKSTERNAL</h2>
 
-                <div class="table-container mx-5 mr-5 ml-3">
+                <div class="table-container mr-5 ml-3">
                     <table class="table table-striped table-bordered mb-5 ">
                         <thead>
                             <tr>
@@ -109,15 +109,12 @@
                         </thead>
                         <tbody>
                             <?php $i = 0 ?>
-                            <?php $eksternal = DB::table('pengadaan')->where('kategori', '=', 'eksternal')->where('status','=','setuju-PO')->count() ?>
+                            <?php $eksternal = DB::table('pengadaan')->where('kategori', '=', 'eksternal')->where('status', '=', 'setuju-PO')->count() ?>
                             @if($eksternal!=0)
-                            @foreach ($pembelian as $beli)
+                            @foreach ($pengadaan->where('kategori','eksternal') as $ada)
+                            @foreach ($pembelian->where('pengadaan_id',$ada->kodePengadaan)->take(1) as $beli)
 
-                            @if($beli->status == 'setuju-PO')
-
-                            <?php $pengadaanEks = DB::table('pengadaan')->where('id', '=', $beli->pengadaan_id)->where('kategori','eksternal')->get() ?>
-
-                            @foreach($pengadaanEks as $ada)
+                            @if($ada->status == 'setuju-PO')
 
                             <?php
                             $jumlah = ($beli->jumlahBarang1) + ($beli->jumlahBarang2) + ($beli->jumlahBarang3) + ($beli->jumlahBarang4) + ($beli->jumlahBarang5)
@@ -138,7 +135,7 @@
                                 <td class="text-center">
                                     <div class="d-flex justify-content-around">
                                         <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#abc<?= $beli->id ?>">Detail</button>
-                                        @if($beli->status == 'setuju-PO')
+                                        @if($ada->status == 'setuju-PO')
                                         &nbsp;
                                         <a href="#" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#def<?= $beli->id ?>">Proses Beli</a>
                                         @endif
@@ -156,8 +153,8 @@
 
 
                             <?php $i++; ?>
-                            @endforeach
                             @endif
+                            @endforeach
                             @endforeach
                             @endif
 
@@ -177,7 +174,7 @@
 
                 <h2 class="mb-5 mt-5 ml-3 fw-bold">PENGADAAN INTERNAL</h2>
 
-                <div class="table-container mx-5 mr-5 ml-3">
+                <div class="table-container mr-5 ml-3">
                     <table class="table table-striped table-bordered mb-5 ">
                         <thead>
                             <tr>
@@ -191,15 +188,13 @@
                         </thead>
                         <tbody>
                             <?php $i = 0 ?>
-                            <?php $internal = DB::table('pengadaan')->where('kategori', '=', 'internal')->where('status','=','setuju-PO')->count() ?>
+                            <?php $internal = DB::table('pengadaan')->where('kategori', '=', 'internal')->where('status', '=', 'setuju-PO')->count() ?>
                             @if($internal!=0)
-                            @foreach ($pembelian as $beli)
+                            @foreach ($pengadaan->where('kategori','internal') as $ada)
+                            @foreach ($pembelian->where('pengadaan_id',$ada->kodePengadaan)->take(1) as $beli)
 
-                            @if($beli->status == 'setuju-PO')
+                            @if($ada->status == 'setuju-PO')
 
-                            <?php $pengadaan = DB::table('pengadaan')->where('id', '=', $beli->pengadaan_id)->where('kategori','internal')->get() ?>
-
-                            @foreach($pengadaan as $ada)
 
                             <?php
                             $jumlah = ($beli->jumlahBarang1) + ($beli->jumlahBarang2) + ($beli->jumlahBarang3) + ($beli->jumlahBarang4) + ($beli->jumlahBarang5)
@@ -220,7 +215,7 @@
                                 <td class="text-center">
                                     <div class="d-flex justify-content-around">
                                         <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#abc<?= $beli->id ?>">Detail</button>
-                                        @if($beli->status == 'setuju-PO')
+                                        @if($ada->status == 'setuju-PO')
                                         &nbsp;
                                         <a href="#" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#def<?= $beli->id ?>">Proses Beli</a>
                                         @endif
@@ -237,8 +232,8 @@
 
 
                             <?php $i++; ?>
-                            @endforeach
                             @endif
+                            @endforeach
                             @endforeach
                             @endif
 

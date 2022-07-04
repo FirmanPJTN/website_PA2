@@ -71,11 +71,9 @@
                         <tr>
                             <th scope="col" class="text-center">No</th>
                             <th scope="col" class="text-center">Kode Peminjaman</th>
+                            <th scope="col" class="text-center">Nama Barang</th>
                             <th scope="col" class="text-center">Peminjam</th>
                             <th scope="col" class="text-center">Unit</th>
-                            <th scope="col" class="text-center">Jumlah Barang</th>
-                            <th scope="col" class="text-center">Tanggal Peminjaman</th>
-                            <th scope="col" class="text-center">Rencana Pengembalian</th>
                             <th scope="col" class="text-center">Status</th>
                             <th scope="col" class="text-center">Aksi</th>
                         </tr>
@@ -86,7 +84,7 @@
 
                         @if($pinjam->status == 'proses')
 
-            
+
 
                         <?php
                         $jumlah = ($pinjam->jumlahBarang1) + ($pinjam->jumlahBarang2) + ($pinjam->jumlahBarang3) + ($pinjam->jumlahBarang4) + ($pinjam->jumlahBarang5)
@@ -94,19 +92,17 @@
                         <tr>
                             <td class="text-center">{{$peminjaman->firstItem() + $i}}</td>
                             <td class="text-center">{{$pinjam->kodePeminjaman}}</td>
+                            <td class="text-center">{{$pinjam->aset->tipeBarang}}</td>
                             <td class="text-center">{{$pinjam->user->nama}}</td>
-                            <td class="text-center">{{$pinjam->unit->unit}}</td>
-                            <td class="text-center">{{$jumlah}}</td>
-                            <td class="text-center">{{$pinjam -> created_at -> format('Y-m-d')}}</td>
-                            <td class="text-center">{{$pinjam -> tglKembali}}</td>
+                            <td class="text-center">{{$pinjam->unit->nama}}</td>
                             @if($pinjam->status == 'proses')
                             <td class="text-center"> <button class="btn btn-warning" disabled><span class="iconify" data-icon="mdi:progress-alert" data-height="20"></span> Diproses</button></td>
                             @endif
 
                             <td class="text-center">
                                 <div class="d-flex justify-content-around">
-                                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#abc<?= $pinjam->id ?>">Detail</button> &nbsp;
-                                    <a href="" data-bs-toggle="modal" data-bs-target="#jkl<?= $pinjam->id ?>" class="btn btn-info">Proses</a>
+                                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#abc{{$i}}">Detail</button> &nbsp;
+                                    <a href="" data-bs-toggle="modal" data-bs-target="#jkl{{$i}}" class="btn btn-info">Proses</a>
                                 </div>
                             </td>
                         </tr>
@@ -114,7 +110,7 @@
                         <!-- /visitor/PermohonanAset/PeminjamanAset/Setujui/{{$pinjam -> id}} -->
 
                         <!-- MODAL DETAIL PEMINJAMAN -->
-                        @include('layouts.modalDetailPeminjamanAdmin')
+                        @include('layouts.modalDetailPeminjaman')
 
 
                         <!-- MODAL PERSETUJUAN -->
@@ -140,15 +136,15 @@
                 <table class="table table-striped table-bordered mb-5 ">
                     <thead>
                         <tr>
+                        <tr>
                             <th scope="col" class="text-center">No</th>
                             <th scope="col" class="text-center">Kode Peminjaman</th>
+                            <th scope="col" class="text-center">Nama Barang</th>
                             <th scope="col" class="text-center">Peminjam</th>
                             <th scope="col" class="text-center">Unit</th>
-                            <th scope="col" class="text-center">Jumlah Barang</th>
-                            <th scope="col" class="text-center">Tanggal Peminjaman</th>
-                            <th scope="col" class="text-center">Rencana Pengembalian</th>
                             <th scope="col" class="text-center">Status</th>
                             <th scope="col" class="text-center">Aksi</th>
+                        </tr>
                         </tr>
                     </thead>
                     <tbody>
@@ -157,26 +153,24 @@
 
                         @if($pinjam->status != 'proses')
 
-                        <?php
-                        $jumlah = ($pinjam->jumlahBarang1) + ($pinjam->jumlahBarang2) + ($pinjam->jumlahBarang3) + ($pinjam->jumlahBarang4) + ($pinjam->jumlahBarang5)
-                        ?>
                         <tr>
                             <td class="text-center">{{$peminjaman->firstItem() + $i}}</td>
                             <td class="text-center">{{$pinjam->kodePeminjaman}}</td>
+                            <td class="text-center">{{$pinjam->aset->tipeBarang}}</td>
                             <td class="text-center">{{$pinjam->user->nama}}</td>
-                            <td class="text-center">{{$pinjam->unit->unit}}</td>
-                            <td class="text-center">{{$jumlah}}</td>
-                            <td class="text-center">{{$pinjam -> created_at -> format('Y-m-d')}}</td>
-                            <td class="text-center">{{$pinjam -> tglKembali}}</td>
-                            @if($pinjam->status == 'setuju' || $pinjam->status == 'kembali')
+                            <td class="text-center">{{$pinjam->unit->nama}}</td>
+                            @if($pinjam->status == 'setuju')
                             <td class="text-center"> <button class="btn btn-success" disabled><span class="iconify" data-icon="mdi:progress-check" data-height="20"></span> Disetujui</button></td>
                             @endif
                             @if($pinjam->status == 'tolak')
                             <td class="text-center"><button class="btn btn-danger" disabled><span class="iconify" data-icon="mdi:progress-close" data-height="20"></span> Ditolak</button></td>
                             @endif
+                            @if($pinjam->status == 'kembali')
+                            <td class="text-center"><button class="btn btn-secondary" disabled><span class="iconify" data-icon="mdi:progress-close" data-height="20"></span> Dikembalikan</button></td>
+                            @endif
                             <td class="text-center">
                                 <div class="d-flex justify-content-around">
-                                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#abc<?= $pinjam->id ?>">Detail</button>
+                                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#abcr<?= $i ?>">Detail</button>
                                     <!-- &nbsp;
                                     <a data-id="{{ $pinjam->id }}" class="btn btn-danger deletePinjam" href="#">Hapus</a> -->
                                 </div>

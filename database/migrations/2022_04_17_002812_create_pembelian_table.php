@@ -15,10 +15,9 @@ return new class extends Migration
     {
         Schema::create('pembelian', function (Blueprint $table) {
             $table->increments('id');
-            $table->text('gambar')->nullable();
-            $table->string('jenisBarang1')->nullable();
-            $table->text('tipeBarang1')->nullable();
-            $table->integer('jumlahBarang1')->nullable();
+            $table->string('jenisBarang1');
+            $table->text('tipeBarang1');
+            $table->integer('jumlahBarang1');
             $table->string('jenisBarang2')->nullable();
             $table->text('tipeBarang2')->nullable();
             $table->integer('jumlahBarang2')->nullable();
@@ -31,18 +30,9 @@ return new class extends Migration
             $table->string('jenisBarang5')->nullable();
             $table->text('tipeBarang5')->nullable();
             $table->integer('jumlahBarang5')->nullable();
-            $table->datetime('waktuPembelian')->nullable();
-            $table->string('status')->nullable();
-            $table->string('role')->nullable();
-            $table->text('deskripsi')->nullable();
-            $table->text('deskripsi2')->nullable();
-            $table->text('alasan')->nullable();
-            $table->unsignedInteger('user_id')->nullable();
-            $table->unsignedInteger('pengadaan_id')->nullable();
-            $table->string('dokumenPO')->nullable();
-            $table->string('dokumenPR')->nullable();
 
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->string('pengadaan_id')->nullable();
+            $table->foreign('pengadaan_id')->references('kodePengadaan')->on('pengadaan');
             
             $table->timestamps();
         });

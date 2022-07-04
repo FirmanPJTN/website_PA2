@@ -89,11 +89,11 @@
                 <div class="d-flex justify-content-center">
                     <label class="mx-4 w-10" >Unit&nbsp;&nbsp;</label>
                     <select class="form-control custom-select mx-4" name="unit" id="unit">
-                        <option value="{{ Auth::user()->unit->id }}">{{ Auth::user()->unit->unit }}</option>
+                        <option value="{{ Auth::user()->unit->id }}">{{ Auth::user()->unit->nama }}</option>
 
                         {{$units = DB::table('unit')->get();}} 
                         @foreach($units as $unit)
-                        <option value="{{$unit->id}}">{{$unit->unit}}</option>
+                        <option value="{{$unit->id}}">{{$unit->nama}}</option>
                         @endforeach
                     </select>
                 </div>

@@ -24,7 +24,7 @@
                 </div>
 
 
-                <?php $pengada = DB::table('users')->where('id',$ada->user_id)->get() ?>
+                <?php $pengada = DB::table('users')->where('id', $ada->user_id)->get() ?>
                 @foreach($pengada->take(1) as $pada)
                 <div class="form-group mt-3">
                     <div class="d-flex justify-content-center">
@@ -34,19 +34,16 @@
                 </div>
                 @endforeach
 
-                <?php $unit = DB::table('unit')->where('id',$ada->unit_id)->get() ?>
-                @foreach($unit->take(1) as $unt)
                 <div class="form-group mt-3">
                     <div class="d-flex justify-content-center">
                         <label class="mx-4 w-25">Unit</label>
-                        <input type="text" name="unit" class="form-control mx-4" value="{{$unt->unit}}" autofocus autocomplete="off" disabled>
+                        <input type="text" name="unit" class="form-control mx-4" value="{{$ada->unit->nama}}" autofocus autocomplete="off" disabled>
                     </div>
                 </div>
-                @endforeach
 
                 <div class="form-group input_fields_wrap">
                     <div class="d-flex justify-content-start mt-4 ">
-                        <label class="mx-4 w-100 ">Daftar Pemesanan Barang</label>
+                        <label class="mx-4 w-100 ">Daftar Barang</label>
 
                         <label class="ml-5 pl-2">Jenis</label>
                         <input type="text" name="jenisBarang1" class="form-control mx-4" value="{{ $beli -> jenisBarang1 }}" autofocus autocomplete="off" disabled>
@@ -144,44 +141,44 @@
                     </div>
                 </div>
 
-                @if($beli->dokumenPR != NULL)
+                @if($ada->dokumenPR != NULL)
                 <div class="form-group mt-3">
                     <div class="d-flex justify-content-center">
                         <label class="mx-4 w-25">Dokumen Product Request</label>
-                        <a href="./../dokumen/PR/{{$beli->dokumenPR}}" class="btn btn-info form-control mx-4" target="_blank">Download Dokumen</a>
+                        <a href="../../dokumen/PR/{{$ada->dokumenPR}}" class="btn btn-info form-control mx-4" target="_blank">Lihat Dokumen</a>
                     </div>
                 </div>
                 @endif
 
-                @if($beli->dokumenPO != NULL)
+                @if($ada->dokumenPO != NULL)
                 <div class="form-group mt-3">
                     <div class="d-flex justify-content-center">
                         <label class="mx-4 w-25">Dokumen Product Order</label>
-                        <a href="./../dokumen/PO/{{$beli->dokumenPO}}" class="btn btn-success form-control mx-4" target="_blank">Download Dokumen</a>
+                        <a href="../../dokumen/PO/{{$ada->dokumenPO}}" class="btn btn-success form-control mx-4" target="_blank">Lihat Dokumen</a>
                     </div>
                 </div>
                 @endif
 
 
 
-                @if($beli->gambar != NULL)
+                @if($ada->gambar != NULL)
                 <div class="form-group mt-3">
                     <div class="d-flex justify-content-center">
                         <label class="mx-4 w-25">Faktur Pembelian</label>
-                        <img src="../../foto/pembelian-aset/{{$beli->gambar}}" alt="" width="700">
-                        <img src="../../foto/pembelian-aset/{{$beli->gambar}}" alt="" width="80" style="visibility: hidden">
+                        <img src="../../foto/pembelian-aset/{{$ada->gambar}}" alt="" width="700">
+                        <img src="../../foto/pembelian-aset/{{$ada->gambar}}" alt="" width="80" style="visibility: hidden">
                     </div>
                 </div>
                 @endif
 
 
-                <input type="int" name="idPembelian" value="{{$beli->pengadaan_id}}" style="visibility: hidden">
+                <input type="int" name="idPembelian" value="{{$ada->pengadaan_id}}" style="visibility: hidden">
 
-                @if($beli->status == 'tolak')
+                @if($ada->status == 'tolak')
                 <div class="form-group mt-3">
                     <div class="d-flex justify-content-center">
                         <label class="mx-4 w-25">Alasan Penolakan</label>
-                        <textarea name="alasan" class="form-control mx-4" cols="30" rows="10" value="{{ $ada-> alasan }}" autofocus autocomplete="off" disabled>{{ $beli -> alasan }}</textarea>
+                        <textarea name="alasan" class="form-control mx-4" cols="30" rows="10" value="{{ $ada-> alasan }}" autofocus autocomplete="off" disabled>{{ $ada -> alasan }}</textarea>
                     </div>
                 </div>
                 @endif

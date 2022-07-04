@@ -86,10 +86,11 @@
                     <tbody>
                         <?php $i = 0 ?>
                         @foreach ($pengadaan as $ada)
+                        @foreach ($pembelian->where('pengadaan_id',$ada->kodePengadaan)->take(1) as $beli)
                         @if($ada->unit_id == Auth::user()->unit_id && $ada->status == 'proses')
 
                         <?php
-                        $jumlah = ($ada->jumlahBarang1) + ($ada->jumlahBarang2) + ($ada->jumlahBarang3) + ($ada->jumlahBarang4) + ($ada->jumlahBarang5)
+                        $jumlah = ($beli->jumlahBarang1) + ($beli->jumlahBarang2) + ($beli->jumlahBarang3) + ($beli->jumlahBarang4) + ($beli->jumlahBarang5)
                         ?>
                         <tr>
                             <td class="text-center">{{$pengadaan->firstItem() + $i}}</td>
@@ -101,15 +102,14 @@
                             </td>
                             <td class="text-center">
                                 <div class="d-flex justify-content-around">
-                                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#def<?= $ada->id ?>">Detail</button>
+                                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#def<?= $beli->id ?>">Detail</button>
                                     &nbsp;
-                                    <a href="#" class="btn btn-warning mx-2" data-bs-toggle="modal" data-bs-target="#ubah-pengadaan<?=$ada->id?>">Ubah</a>
+                                    <a href="#" class="btn btn-warning mx-2" data-bs-toggle="modal" data-bs-target="#ubah-pengadaan<?=$beli->id?>">Ubah</a>
                                     &nbsp;
-                                    <a data-id="{{ $ada->id }}" class="btn btn-danger deleteAda" href="#">Hapus</a>
+                                    <a data-id="{{ $beli->id }}" class="btn btn-danger deleteAda" href="#">Hapus</a>
                                 </div>
                             </td>
                         </tr>
-
 
 
                         <!-- MODAL DETAIL PENGADAAN -->
@@ -120,6 +120,7 @@
 
                         <?php $i++; ?>
                         @endif
+                        @endforeach
                         @endforeach
 
                     </tbody>
@@ -151,10 +152,11 @@
                     <tbody>
                         <?php $i = 0 ?>
                         @foreach ($pengadaan as $ada)
+                        @foreach ($pembelian->where('pengadaan_id',$ada->kodePengadaan)->take(1) as $beli)
                         @if($ada->unit_id == Auth::user()->unit_id && $ada->status != 'proses')
 
                         <?php
-                        $jumlah = ($ada->jumlahBarang1) + ($ada->jumlahBarang2) + ($ada->jumlahBarang3) + ($ada->jumlahBarang4) + ($ada->jumlahBarang5)
+                        $jumlah = ($beli->jumlahBarang1) + ($beli->jumlahBarang2) + ($beli->jumlahBarang3) + ($beli->jumlahBarang4) + ($beli->jumlahBarang5)
                         ?>
                         <tr>
                             <td class="text-center">{{$pengadaan->firstItem() + $i}}</td>
@@ -174,7 +176,7 @@
                             </td>
                             <td class="text-center">
                                 <div class="d-flex justify-content-around">
-                                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#def<?= $ada->id ?>">Detail</button>
+                                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#def<?= $beli->id ?>">Detail</button>
                                 </div>
                             </td>
                         </tr>
@@ -186,6 +188,7 @@
 
                         <?php $i++; ?>
                         @endif
+                        @endforeach
                         @endforeach
 
                     </tbody>

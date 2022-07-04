@@ -9,6 +9,7 @@ use App\Models\Pemusnahan;
 use App\Models\Monitoring;
 use App\Models\DataAset;
 use App\Models\Unit;
+use App\Models\Gedung;
 use App\Charts\AsetChart;
 use app\Models\User;
 use App\Models\Notifikasi;
@@ -27,7 +28,8 @@ class PengadaanController extends Controller
     {
         $pengadaan = Pengadaan::paginate(10);
         $peminjaman = Peminjaman::paginate(10);
-        return view('visitor.permohonan_aset.pengadaan', compact('peminjaman', 'pengadaan'));
+        $pembelian = Pembelian::paginate(10);
+        return view('visitor.permohonan_aset.pengadaan', compact('peminjaman', 'pengadaan', 'pembelian'));
     }
 
     public function indexPengadaan()
@@ -66,6 +68,14 @@ class PengadaanController extends Controller
         if ($request->kategori == 'eksternal') {
             Pengadaan::create([
                 'kodePengadaan'  => $request->kodePengadaanEks,
+                'alasan'  => $request->alasan,
+                'status'  => $request->status,
+                'kategori'  => $request->kategori,
+                'user_id'  => $request->user_id,
+                'unit_id'  => $request->unit_id
+            ]);
+
+            Pembelian::create([
                 'jenisBarang1'  => $request->jenisBarang1,
                 'tipeBarang1'  => $request->tipeBarang1,
                 'jumlahBarang1'  => $request->jumlahBarang1,
@@ -81,11 +91,7 @@ class PengadaanController extends Controller
                 'jenisBarang5'  => $request->jenisBarang5,
                 'tipeBarang5'  => $request->tipeBarang5,
                 'jumlahBarang5'  => $request->jumlahBarang5,
-                'alasan'  => $request->alasan,
-                'status'  => $request->status,
-                'kategori'  => $request->kategori,
-                'user_id'  => $request->user_id,
-                'unit_id'  => $request->unit_id
+                'pengadaan_id'  => $request->kodePengadaanEks,
             ]);
 
             Notifikasi::create([
@@ -94,9 +100,18 @@ class PengadaanController extends Controller
                 'status' => $request->status,
                 'role' => $request->role
             ]);
+
         } else {
             Pengadaan::create([
                 'kodePengadaan'  => $request->kodePengadaanIn,
+                'alasan'  => $request->alasan,
+                'status'  => $request->status,
+                'kategori'  => $request->kategori,
+                'user_id'  => $request->user_id,
+                'unit_id'  => $request->unit_id
+            ]);
+
+            Pembelian::create([
                 'jenisBarang1'  => $request->jenisBarang1,
                 'tipeBarang1'  => $request->tipeBarang1,
                 'jumlahBarang1'  => $request->jumlahBarang1,
@@ -112,11 +127,7 @@ class PengadaanController extends Controller
                 'jenisBarang5'  => $request->jenisBarang5,
                 'tipeBarang5'  => $request->tipeBarang5,
                 'jumlahBarang5'  => $request->jumlahBarang5,
-                'alasan'  => $request->alasan,
-                'status'  => $request->status,
-                'kategori'  => $request->kategori,
-                'user_id'  => $request->user_id,
-                'unit_id'  => $request->unit_id
+                'pengadaan_id'  => $request->kodePengadaanIn,
             ]);
 
 
@@ -127,7 +138,6 @@ class PengadaanController extends Controller
                 'role' => $request->role
             ]);
         }
-
 
 
         return redirect('/visitor/PermohonanAset/PengadaanAset')->with('success', 'Pengadaan Berhasil Ditambahkan!');
@@ -169,28 +179,32 @@ class PengadaanController extends Controller
             'jenisBarang1'  => 'required',
             'tipeBarang1'  => 'required',
             'jumlahBarang1'  => 'required',
-            'alasan'  => 'required'
+            'alasan'  => 'required',
+            'kategori' => 'required',
         ]);
 
-        $pengadaan = Pengadaan::find($id);
-        $pengadaan->id = $request->id;
-        $pengadaan->jenisBarang1 = $request->jenisBarang1;
-        $pengadaan->tipeBarang1 = $request->tipeBarang1;
-        $pengadaan->jumlahBarang1  = $request->jumlahBarang1;
-        $pengadaan->jenisBarang2 = $request->jenisBarang2;
-        $pengadaan->tipeBarang2 = $request->tipeBarang2;
-        $pengadaan->jumlahBarang2  = $request->jumlahBarang2;
-        $pengadaan->jenisBarang3 = $request->jenisBarang3;
-        $pengadaan->tipeBarang3 = $request->tipeBarang3;
-        $pengadaan->jumlahBarang3  = $request->jumlahBarang3;
-        $pengadaan->jenisBarang4 = $request->jenisBarang4;
-        $pengadaan->tipeBarang4 = $request->tipeBarang4;
-        $pengadaan->jumlahBarang4  = $request->jumlahBarang4;
-        $pengadaan->jenisBarang5 = $request->jenisBarang5;
-        $pengadaan->tipeBarang5 = $request->tipeBarang5;
-        $pengadaan->jumlahBarang5  = $request->jumlahBarang5;
-        $pengadaan->alasan  = $request->alasan;
+        $pembelian = Pembelian::find($id);
+        $pembelian->jenisBarang1 = $request->jenisBarang1;
+        $pembelian->tipeBarang1 = $request->tipeBarang1;
+        $pembelian->jumlahBarang1  = $request->jumlahBarang1;
+        $pembelian->jenisBarang2 = $request->jenisBarang2;
+        $pembelian->tipeBarang2 = $request->tipeBarang2;
+        $pembelian->jumlahBarang2  = $request->jumlahBarang2;
+        $pembelian->jenisBarang3 = $request->jenisBarang3;
+        $pembelian->tipeBarang3 = $request->tipeBarang3;
+        $pembelian->jumlahBarang3  = $request->jumlahBarang3;
+        $pembelian->jenisBarang4 = $request->jenisBarang4;
+        $pembelian->tipeBarang4 = $request->tipeBarang4;
+        $pembelian->jumlahBarang4  = $request->jumlahBarang4;
+        $pembelian->jenisBarang5 = $request->jenisBarang5;
+        $pembelian->tipeBarang5 = $request->tipeBarang5;
+        $pembelian->jumlahBarang5  = $request->jumlahBarang5;
+        $pembelian->save();
 
+
+        $pengadaan = Pengadaan::find($request->pengadaan_id);
+        $pengadaan->alasan  = $request->alasan;
+        $pengadaan->kategori  = $request->kategori;
         $pengadaan->save();
 
 
@@ -205,8 +219,9 @@ class PengadaanController extends Controller
      */
     public function destroy($id)
     {
-        $Pengadaan = Pengadaan::find($id);
-        $Pengadaan->delete();
+        $Pembelian = Pembelian::find($id);
+        $Pembelian->delete();
+
         return redirect('/visitor/PermohonanAset/PengadaanAset');
     }
 
@@ -293,37 +308,17 @@ class PengadaanController extends Controller
             'dokumenPR' => 'required|mimes:doc,docx,pdf,xls,xlsx,pdf',
         ]);
 
-        $pengadaan = Pengadaan::find($id);
-        $pengadaan->status = $request->statusProsesPR;
-        $pengadaan->save();
-
-
         $dokumen = $request->file('dokumenPR');
         $nama_dokumen = 'PR' . date('Ymdhis') . '.' . $request->file('dokumenPR')->getClientOriginalExtension();
         $dokumen->move('dokumen/PR/', $nama_dokumen);
 
-        Pembelian::create([
-            'jenisBarang1'  => $request->jenisBarang1,
-            'tipeBarang1'  => $request->tipeBarang1,
-            'jumlahBarang1'  => $request->jumlahBarang1,
-            'jenisBarang2'  => $request->jenisBarang2,
-            'tipeBarang2'  => $request->tipeBarang2,
-            'jumlahBarang2'  => $request->jumlahBarang2,
-            'jenisBarang3'  => $request->jenisBarang3,
-            'tipeBarang3'  => $request->tipeBarang3,
-            'jumlahBarang3'  => $request->jumlahBarang3,
-            'jenisBarang4'  => $request->jenisBarang4,
-            'tipeBarang4'  => $request->tipeBarang4,
-            'jumlahBarang4'  => $request->jumlahBarang4,
-            'jenisBarang5'  => $request->jenisBarang5,
-            'tipeBarang5'  => $request->tipeBarang5,
-            'jumlahBarang5'  => $request->jumlahBarang5,
-            'role' => $request->role,
-            'pengadaan_id' => $request->pengadaan_id,
-            'status' => $request->statusProsesPR,
-            'deskripsi' => $request->deskripsi,
-            'dokumenPR' => $nama_dokumen
-        ]);
+        $pengadaan = Pengadaan::find($id);
+        $pengadaan->status  = $request->statusProsesPR;
+        $pengadaan->deskripsi  = $request->deskripsi;
+        $pengadaan->role  = $request->role;
+        $pengadaan->dokumenPR = $nama_dokumen;
+        $pengadaan->save();
+
 
         Notifikasi::create([
             'kodePengadaan'  => $request->kodePengadaan,
@@ -342,20 +337,17 @@ class PengadaanController extends Controller
             'dokumenPO' => 'required|mimes:doc,docx,pdf,xls,xlsx,pdf',
         ]);
 
-        $pengadaan = Pengadaan::find($id);
-        $pengadaan->status = $request->statusProsesPO;
-        $pengadaan->save();
-
-
+      
         $dokumen = $request->file('dokumenPO');
         $nama_dokumen = 'PO' . date('Ymdhis') . '.' . $request->file('dokumenPO')->getClientOriginalExtension();
         $dokumen->move('dokumen/PO/', $nama_dokumen);
 
-        $pembelian = Pembelian::where('pengadaan_id', $request->pengadaan_id)->first();
-        $pembelian->status = $request->statusProsesPO;
-        $pembelian->deskripsi2 = $request->deskripsi2;
-        $pembelian->dokumenPO = $nama_dokumen;
-        $pembelian->save();
+        $pengadaan = Pengadaan::find($id);
+        $pengadaan->status = $request->statusProsesPO;
+        $pengadaan->deskripsi2 = $request->deskripsi2;
+        $pengadaan->dokumenPO = $nama_dokumen;
+        $pengadaan->save();
+
 
         Notifikasi::create([
             'kodePengadaan'  => $request->kodePengadaan,
@@ -368,20 +360,107 @@ class PengadaanController extends Controller
         return redirect('/ManajemenAset/PengadaanAset')->with('success', 'Product Order Berhasil Diproses!');
     }
 
+    public function prosesPersetujuanInternalPR(Request $request, $id)
+    {
+
+        $pengadaan = Pengadaan::find($id);
+
+        if($request->get('btnSubmit') == 'tolak') {
+            $pengadaan-> status = $request->statusTolak;
+        } else if($request->get('btnSubmit') == 'setuju') {
+            $pengadaan-> status = $request->statusSetujuPR;
+        }
+        $pengadaan->alasanPR = $request->alasan;
+        $pengadaan->save();
+
+
+        if($request->get('btnSubmit') == 'tolak') {
+            Notifikasi::create([
+                'deskripsi' => $request-> deskripsiNotifTolakPR,
+                'status' => $request->statusTolak,
+                'kodePengadaan'  => $request-> kodePengadaan,
+                'role' => $request->roleAdmin,
+                'unit_id' => $request->unit_id
+            ]);
+        } else if($request->get('btnSubmit') == 'setuju') {
+            Notifikasi::create([
+                'deskripsi' => $request-> deskripsiNotifSetujuPR,
+                'status' => $request->statusSetujuPR,
+                'kodePengadaan'  => $request-> kodePengadaan,
+                'role' => $request->roleAdmin,
+                'unit_id' => $request->unit_id
+            ]);
+        }
+
+        return redirect(route('index-beli-approver'))->with('success', 'Product Request berhasil diproses');
+    }
+
+    public function prosesPersetujuanInternalPO(Request $request, $id)
+    {
+
+
+        $pengadaan = Pengadaan::find($id);
+
+        if($request->get('btnSubmit') == 'tolak') {
+            $pengadaan-> status = $request->statusTolak;
+        } else if($request->get('btnSubmit') == 'setuju') {
+            $pengadaan-> status = $request->statusSetujuPO;
+        }
+        $pengadaan->alasanPO = $request->alasan;
+        $pengadaan->save();
+
+
+        if($request->get('btnSubmit') == 'tolak') {
+            Notifikasi::create([
+                'deskripsi' => $request-> deskripsiNotifTolakPO,
+                'status' => $request->statusTolak,
+                'kodePengadaan'  => $request-> kodePengadaan,
+                'role' => $request->roleAdmin,
+                'unit_id' => $request->unit_id
+            ]);
+        } else if($request->get('btnSubmit') == 'setuju') {
+            Notifikasi::create([
+                'deskripsi' => $request-> deskripsiNotifSetujuPO,
+                'status' => $request->statusSetujuPO,
+                'kodePengadaan'  => $request-> kodePengadaan,
+                'role' => $request->roleAdmin,
+                'unit_id' => $request->unit_id
+            ]);
+
+            Notifikasi::create([
+                'deskripsi' => $request-> deskripsiNotifSetujuPOBeli,
+                'status' => $request->statusSetujuPO,
+                'kodePengadaan'  => $request-> kodePengadaan,
+                'role' => $request->role
+            ]);
+        }
+
+        return redirect(route('index-beli-approver'))->with('success', 'Product Order berhasil diproses');
+    }
+
+    public function indexApprover()
+    {
+        $pembelian = Pembelian::paginate(10);
+        $pengadaan = Pengadaan::paginate(10);
+        return view('approver.persetujuan.pengadaanAset', compact('pembelian', 'pengadaan'));
+    }
+
     public function dashboardApprover(Request $request)
     {
-            $peminjaman = Peminjaman::where('kodePeminjaman','LIKE', '%' . $request->cari . '%')->orWhere('jenisBarang1','LIKE', '%' . $request->cari . '%')->orWhere('tipeBarang1','LIKE', '%' . $request->cari . '%')->orWhere('jumlahBarang1','LIKE', '%' . $request->cari . '%')->paginate(10);
-            $pengadaan = Pengadaan::where('kodePengadaan','LIKE', '%' . $request->cari . '%')->orWhere('jenisBarang1','LIKE', '%' . $request->cari . '%')->orWhere('tipeBarang1','LIKE', '%' . $request->cari . '%')->orWhere('jumlahBarang1','LIKE', '%' . $request->cari . '%')->paginate(10);
-            $pemusnahan = Pemusnahan::where('kodePemusnahan','LIKE', '%' . $request->cari . '%')->orWhere('jenisBarang1','LIKE', '%' . $request->cari . '%')->orWhere('tipeBarang1','LIKE', '%' . $request->cari . '%')->orWhere('jumlahBarang1','LIKE', '%' . $request->cari . '%')->paginate(10);
-            $pembelian = Pembelian::where('jenisBarang1','LIKE', '%' . $request->cari . '%')->orWhere('tipeBarang1','LIKE', '%' . $request->cari . '%')->orWhere('jumlahBarang1','LIKE', '%' . $request->cari . '%')->paginate(10);
+            $peminjaman = Peminjaman::where('kodePeminjaman','LIKE', '%' . $request->cari . '%')->paginate(10);
+            $pengadaan = Pengadaan::where('kodePengadaan','LIKE', '%' . $request->cari . '%')->paginate(10);
+            $pemusnahan = Pemusnahan::where('kodePemusnahan','LIKE', '%' . $request->cari . '%')->paginate(10);
+            $pembelian = Pembelian::all();
+
+            // $pembelian = Pembelian::where('jenisBarang1','LIKE', '%' . $request->cari . '%')->orWhere('tipeBarang1','LIKE', '%' . $request->cari . '%')->orWhere('jumlahBarang1','LIKE', '%' . $request->cari . '%')->paginate(10);
         
 
-        return view('approver.dashboard', compact('peminjaman', 'pengadaan', 'pemusnahan', 'pembelian'));
+        return view('approver.dashboard', compact('peminjaman', 'pengadaan', 'pemusnahan','pembelian'));
     }
 
     public function dashboardTransactor(Request $request)
     {
-        $pengadaan = Pengadaan::where('kodePengadaan','LIKE', '%' . $request->cari . '%')->orWhere('jenisBarang1','LIKE', '%' . $request->cari . '%')->orWhere('tipeBarang1','LIKE', '%' . $request->cari . '%')->orWhere('jumlahBarang1','LIKE', '%' . $request->cari . '%')->paginate(10);
+        $pengadaan = Pengadaan::where('kodePengadaan','LIKE', '%' . $request->cari . '%')->paginate(10);
         $pembelian = Pembelian::where('jenisBarang1','LIKE', '%' . $request->cari . '%')->orWhere('tipeBarang1','LIKE', '%' . $request->cari . '%')->orWhere('jumlahBarang1','LIKE', '%' . $request->cari . '%')->paginate(10);
 
         return view('transactor.dashboard', compact('pengadaan', 'pembelian'));
@@ -394,6 +473,8 @@ class PengadaanController extends Controller
         $pengadaan = Pengadaan::all();
         $monitoring = Monitoring::all();
         $pemusnahan = Pemusnahan::all();
+        $gedung = Gedung::all();
+
 
         $borderColors = [
             "rgba(255, 99, 132, 1.0)",
@@ -409,6 +490,7 @@ class PengadaanController extends Controller
             "rgba(255, 99, 132, 1.0)",
             "rgba(22,160,133, 1.0)",
         ];
+
         $fillColors = [
             "rgba(255, 99, 132, 0.2)",
             "rgba(22,160,133, 0.2)",
@@ -425,26 +507,22 @@ class PengadaanController extends Controller
 
         ];
 
-        $gd1 = DataAset::where('gedung', 'Gedung 1')->count();
-        $gd2 = DataAset::where('gedung', 'Gedung 2')->count();
-        $gd3 = DataAset::where('gedung', 'Gedung 3')->count();
-        $gd4 = DataAset::where('gedung', 'Gedung 4')->count();
-        $gd56 = DataAset::where('gedung', 'Gedung 5 dan 6')->count();
-        $gd7 = DataAset::where('gedung', 'Gedung 7')->count();
-        $gd8 = DataAset::where('gedung', 'Gedung 8')->count();
-        $gd9 = DataAset::where('gedung', 'Gedung 9')->count();
-        $gdek = DataAset::where('gedung', 'Gedung Ex Koperasi')->count();
-        $gdb = DataAset::where('gedung', 'Gedung Besar (Utama)')->count();
-        $gdc = DataAset::where('gedung', 'Container Park')->count();
-        $gda = DataAset::where('gedung', 'Asrama Perpustakaan')->count();
+        
+        $arrSumGD = array('');
+        $arrGD = array('');
+
+        foreach($gedung as $gd) {
+            $gdCount = DataAset::where('gedung_id', $gd->id)->count();
+            $newArrGD = array_push($arrGD,$gd->nama);
+            $newArrSumGD = array_push($arrSumGD,$gdCount);
+        }
 
 
         $asetChart = new AsetChart;
-        $asetChart->labels(['Gedung 1', 'Gedung 2', 'Gedung 3', 'Gedung 4', 'Gedung 5 dan 6', 'Gedung 7', 'Gedung 8', 'Gedung 9', 'Gedung Ex Koperasi', 'Gedung Besar (Utama)', 'Container Park', 'Asrama Perpustakaan']);
-        $asetChart->dataset('Statistik', 'bar', [$gd1, $gd2, $gd3, $gd4, $gd56, $gd7, $gd8, $gd9, $gdek, $gdb, $gdc, $gda])
+        $asetChart->labels($arrGD);
+        $asetChart->dataset('Statistik', 'bar', $arrSumGD)
             ->color($borderColors)
             ->backgroundcolor($fillColors);
-
 
 
 

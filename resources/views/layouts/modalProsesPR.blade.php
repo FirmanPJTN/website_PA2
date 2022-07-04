@@ -1,8 +1,8 @@
-<div class="modal fade" id="lmn<?= $ada->id ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="lmn<?= $beli->id ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-xl">
         <div class="modal-content">
 
-            <form enctype="multipart/form-data" action="/MonitoringAset/PengadaanAset/ProsesPR/Simpan/{{$ada->id}}" method="post">
+            <form enctype="multipart/form-data" action="/MonitoringAset/PengadaanAset/ProsesPR/Simpan/{{$beli->pengadaan_id}}" method="post">
                 {{ csrf_field() }}
                 <div class="modal-header">
 
@@ -22,23 +22,98 @@
                     </div>
 
 
-                    <div class="form-group input_fields_wrap2 mt-3">
-                        <div class="d-flex justify-content-start">
-                            <label class="mx-4 w-100 ">Daftar Permintaan Barang</label>
+                    <div class="form-group input_fields_wrap">
+                    <div class="d-flex justify-content-start mt-4 ">
+                        <label class="mx-4 w-100 ">Daftar Barang</label>
 
-                            <label class="ml-5 pl-2">Jenis</label>
-                            <input type="text" name="jenisBarang1" class="form-control mx-4" value="{{ old('jenisBarang1') }}" autofocus autocomplete="off" required>
+                        <label class="ml-5 pl-2">Jenis</label>
+                        <input type="text" name="jenisBarang1" class="form-control mx-4" value="{{ $beli -> jenisBarang1 }}" autofocus autocomplete="off" disabled>
 
-                            <label>Tipe</label>
-                            <input type="text" name="tipeBarang1" class="form-control mx-4" value="{{ old('tipeBarang1') }}" autofocus autocomplete="off" required>
+                        <label>Tipe</label>
+                        <input type="text" name="tipeBarang1" class="form-control mx-4" value="{{ $beli -> tipeBarang1 }}" autofocus autocomplete="off" disabled>
 
-                            <label class="form-label" visibilit>Jumlah</label>
-                            <input type="number" name="jumlahBarang1" class="form-control mx-4" value="{{ old('jumlahBarang1') }}" autofocus autocomplete="off" required size="5">
+                        <label class="form-label" visibilit>Jumlah</label>
+                        <input type="number" name="jumlahBarang1" class="form-control mx-4" value="{{ $beli -> jumlahBarang1 }}" autofocus autocomplete="off" disabled size="5">
+                    </div>
+                </div>
 
-                            <a class="add_field_button2"><span class="iconify" data-icon="carbon:add-alt" style="color: #0fa958;" data-height="25"></span></a>
-                        </div>
+                @if (!empty($beli -> jenisBarang2))
+
+                <div class="form-group input_fields_wrap">
+                    <div class="d-flex justify-content-start mt-4 ">
+                        <label class="mx-4 w-100 " style="visibility: hidden">Daftar Barang</label>
+
+                        <label class="ml-5 pl-2">Jenis</label>
+                        <input type="text" name="jenisBarang2" class="form-control mx-4" value="{{ $beli -> jenisBarang2 }}" autofocus autocomplete="off" disabled>
+
+                        <label>Tipe</label>
+                        <input type="text" name="tipeBarang2" class="form-control mx-4" value="{{ $beli -> tipeBarang2 }}" autofocus autocomplete="off" disabled>
+
+                        <label class="form-label" visibilit>Jumlah</label>
+                        <input type="number" name="jumlahBarang2" class="form-control mx-4" value="{{ $beli -> jumlahBarang2 }}" autofocus autocomplete="off" disabled size="5">
+                    </div>
+                </div>
+
+                @if (!empty($beli -> jenisBarang3))
+
+                <div class="form-group input_fields_wrap">
+                    <div class="d-flex justify-content-start mt-4 ">
+                        <label class="mx-4 w-100 " style="visibility: hidden">Daftar Barang</label>
+
+                        <label class="ml-5 pl-2">Jenis</label>
+                        <input type="text" name="jenisBarang3" class="form-control mx-4" value="{{ $beli -> jenisBarang3 }}" autofocus autocomplete="off" disabled>
+
+                        <label>Tipe</label>
+                        <input type="text" name="tipeBarang3" class="form-control mx-4" value="{{ $beli -> tipeBarang3 }}" autofocus autocomplete="off" disabled>
+
+                        <label class="form-label" visibilit>Jumlah</label>
+                        <input type="number" name="jumlahBarang3" class="form-control mx-4" value="{{ $beli -> jumlahBarang3 }}" autofocus autocomplete="off" disabled size="5">
+                    </div>
+                </div>
+
+
+                @if (!empty($beli -> jenisBarang4))
+
+                <div class="form-group input_fields_wrap">
+                    <div class="d-flex justify-content-start mt-4 ">
+                        <label class="mx-4 w-100 " style="visibility: hidden">Daftar Barang</label>
+
+                        <label class="ml-5 pl-2">Jenis</label>
+                        <input type="text" name="jenisBarang4" class="form-control mx-4" value="{{ $beli -> jenisBarang4 }}" autofocus autocomplete="off" disabled>
+
+                        <label>Tipe</label>
+                        <input type="text" name="tipeBarang4" class="form-control mx-4" value="{{ $beli -> tipeBarang4 }}" autofocus autocomplete="off" disabled>
+
+                        <label class="form-label" visibilit>Jumlah</label>
+                        <input type="number" name="jumlahBarang4" class="form-control mx-4" value="{{ $beli -> jumlahBarang4 }}" autofocus autocomplete="off" disabled size="5">
+                    </div>
+                </div>
+
+                @if (!empty($beli -> jenisBarang5))
+
+                <div class="form-group input_fields_wrap">
+                    <div class="d-flex justify-content-start mt-4 ">
+                        <label class="mx-4 w-100 " style="visibility: hidden">Daftar Barang</label>
+
+                        <label class="ml-5 pl-2">Jenis</label>
+                        <input type="text" name="jenisBarang5" class="form-control mx-4" value="{{ $beli -> jenisBarang5 }}" autofocus autocomplete="off" disabled>
+
+                        <label>Tipe</label>
+                        <input type="text" name="tipeBarang5" class="form-control mx-4" value="{{ $beli -> tipeBarang5 }}" autofocus autocomplete="off" disabled>
+
+                        <label class="form-label" visibilit>Jumlah</label>
+                        <input type="number" name="jumlahBarang5" class="form-control mx-4" value="{{ $beli -> jumlahBarang5 }}" autofocus autocomplete="off" disabled size="5">
 
                     </div>
+                </div>
+
+                @endif
+
+                @endif
+
+                @endif
+
+                @endif
 
                    
 

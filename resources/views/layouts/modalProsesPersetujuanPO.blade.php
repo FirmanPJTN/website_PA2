@@ -2,7 +2,7 @@
     <div class="modal-dialog modal-dialog-centered modal-xl">
 
 
-    <form enctype="multipart/form-data" action="/approver/Persetujuan/PegadaanAset/InternalPO/Simpan/{{$beli->id}}" method="post">
+    <form enctype="multipart/form-data" action="/approver/Persetujuan/PegadaanAset/InternalPO/Simpan/{{$beli->pengadaan_id}}" method="post">
         {{ csrf_field() }}
      <div class="modal-content">
 
@@ -53,6 +53,9 @@
         @foreach($admins as $admin)
         <input type="hidden" name="roleAdmin" value="{{$admin->role}}" style="visibility: hidden">
         @endforeach
+
+
+        
 
         <?php $users =  DB::table('users')->where('id','=',$ada->user_id)->get() ?>
         @foreach($users as $user)

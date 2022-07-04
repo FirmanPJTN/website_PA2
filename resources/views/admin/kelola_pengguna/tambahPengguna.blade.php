@@ -111,7 +111,7 @@
                             <select class="form-control custom-select mx-4" name="unit" id="unit">
                                 <option value="">▼ pilih unit</option>
                                 @foreach($units as $unit)
-                                <option value="{{$unit->id}}">{{$unit->unit}}</option>
+                                <option value="{{$unit->id}}">{{$unit->nama}}</option>
                                 @endforeach
                             </select>
                         </div>

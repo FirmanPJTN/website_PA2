@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('unit', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('unit');
+            $table->string('nama');
             $table->timestamps();
 
         });

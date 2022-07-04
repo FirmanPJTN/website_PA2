@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DataAset;
 use App\Models\Monitoring;
 use App\Models\Peminjaman;
 use App\Models\Pengadaan;
-use Illuminate\Http\Request;
 use App\Models\Notifikasi;
 use app\Models\User;
+use app\Models\Unit;
+use Illuminate\Http\Request;
+
 
 class PeminjamanController extends Controller
 {
@@ -20,24 +23,27 @@ class PeminjamanController extends Controller
     {
         if ($request->has('cari')) {
 
-            $peminjaman = Peminjaman::where('kodePeminjaman','LIKE', '%' . $request->cari . '%')->orWhere('jenisBarang1','LIKE', '%' . $request->cari . '%')->orWhere('tipeBarang1','LIKE', '%' . $request->cari . '%')->orWhere('jumlahBarang1','LIKE', '%' . $request->cari . '%')->paginate(10);
-            $pengadaan = Pengadaan::where('kodePengadaan','LIKE', '%' . $request->cari . '%')->orWhere('jenisBarang1','LIKE', '%' . $request->cari . '%')->orWhere('tipeBarang1','LIKE', '%' . $request->cari . '%')->orWhere('jumlahBarang1','LIKE', '%' . $request->cari . '%')->paginate(10);
+            $peminjaman = Peminjaman::where('kodePeminjaman', 'LIKE', '%' . $request->cari . '%')->paginate(10);
+            $pengadaan = Pengadaan::where('kodePengadaan', 'LIKE', '%' . $request->cari . '%')->paginate(10);
             $monitoring = Monitoring::where('kodeMonitoring', 'LIKE', '%' . $request->cari . '%')->paginate(10);
+            $aset = DataAset::all();
         } else {
             $peminjaman = Peminjaman::paginate(10);
             $pengadaan = Pengadaan::paginate(10);
             $monitoring = Monitoring::paginate(10);
+            $aset = DataAset::all();
         }
 
-        return view('visitor.dashboard', compact('peminjaman', 'pengadaan', 'monitoring'));
+        return view('visitor.dashboard', compact('peminjaman', 'pengadaan', 'monitoring','aset'));
     }
 
     public function indexVisitor()
     {
         $peminjaman = Peminjaman::paginate(10);
         $pengadaan = Pengadaan::paginate(10);
+        $aset = DataAset::all();
 
-        return view('visitor.permohonan_aset.peminjaman', compact('peminjaman', 'pengadaan'));
+        return view('visitor.permohonan_aset.peminjaman', compact('peminjaman', 'pengadaan', 'aset'));
     }
 
     public function indexPeminjaman()
@@ -63,7 +69,9 @@ class PeminjamanController extends Controller
     {
         $user = User::all();
         $pinjam = Peminjaman::all();
-        return view('visitor.permohonan_aset.peminjaman', compact('user', 'pinjam'));
+        $aset = DataAset::all();
+        $unit = Unit::all();
+        return view('visitor.permohonan_aset.peminjaman', compact('user', 'pinjam', 'aset', 'unit'));
     }
 
     /**
@@ -75,49 +83,45 @@ class PeminjamanController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'jenisBarang1'  => 'required',
-            'tipeBarang1'  => 'required',
-            'jumlahBarang1'  => 'required',
+            'nama'  => 'required',
+            'jumlah'  => 'required',
             'tglKembali'  => 'required',
             'tujuan'  => 'required'
         ]);
 
-        $users = User::where('role', $request->role)->get();
+        $aset = DataAset::find($request->nama);
 
-        Peminjaman::create([
-            'kodePeminjaman'  => $request->kodePeminjaman,
-            'jenisBarang1'  => $request->jenisBarang1,
-            'tipeBarang1'  => $request->tipeBarang1,
-            'jumlahBarang1'  => $request->jumlahBarang1,
-            'jenisBarang2'  => $request->jenisBarang2,
-            'tipeBarang2'  => $request->tipeBarang2,
-            'jumlahBarang2'  => $request->jumlahBarang2,
-            'jenisBarang3'  => $request->jenisBarang3,
-            'tipeBarang3'  => $request->tipeBarang3,
-            'jumlahBarang3'  => $request->jumlahBarang3,
-            'jenisBarang4'  => $request->jenisBarang4,
-            'tipeBarang4'  => $request->tipeBarang4,
-            'jumlahBarang4'  => $request->jumlahBarang4,
-            'jenisBarang5'  => $request->jenisBarang5,
-            'tipeBarang5'  => $request->tipeBarang5,
-            'jumlahBarang5'  => $request->jumlahBarang5,
-            'tglKembali'  => $request->tglKembali,
-            'tujuan'  => $request->tujuan,
-            'status'  => $request->status,
-            'user_id' => $request->user_id,
-            'unit_id' => $request->unit_id
-        ]);
+        if ((int)$request->jumlah > (int)$aset->jumlahBarang) {
+            return redirect('/visitor/PermohonanAset/PeminjamanAset')->with('warning', 'Peminjaman Melebihi Jumlah Aset!');
+        } else {
+            // $aset->jumlahBarang = (int)$aset->jumlahBarang - (int)$request->jumlah;
 
+            // if($aset->jumlahBarang==0) {
+            //     $aset->status = 'kosong';
+            // }
 
-        foreach ($users->take(1) as $user) {
+            // $aset->save();
+
+            Peminjaman::create([
+                'kodePeminjaman' => $request->kodePeminjaman,
+                'aset_id'  => $request->nama,
+                'jumlahPinjam'  => $request->jumlah,
+                'tglKembali'  => $request->tglKembali,
+                'tujuan'  => $request->tujuan,
+                'status'  => $request->status,
+                'user_id' => $request->user_id,
+                'unit_id' => $request->unit_id
+            ]);
+
             Notifikasi::create([
                 'deskripsi' => $request->deskripsiNotif,
-                'role' => $user->role,
-                'kodePeminjaman'  => $request->kodePeminjaman
+                'role' => $request->role,
+                'id_peminjaman'  => $request->kodePeminjaman,
+                'status'  => $request->status,
             ]);
-        }
 
-        return redirect('/visitor/PermohonanAset/PeminjamanAset')->with('success', 'Peminjaman Berhasil Ditambahkan!');
+            return redirect('/visitor/PermohonanAset/PeminjamanAset')->with('success', 'Peminjaman Berhasil Ditambahkan!');
+        }
     }
 
     /**
@@ -153,37 +157,29 @@ class PeminjamanController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'jenisBarang1'  => 'required',
-            'tipeBarang1'  => 'required',
-            'jumlahBarang1'  => 'required',
+            'nama'  => 'required',
+            'jumlah'  => 'required',
             'tglKembali'  => 'required',
             'tujuan'  => 'required'
         ]);
 
-        $peminjaman = Peminjaman::find($id);
-        $peminjaman->id = $request->id;
-        $peminjaman->jenisBarang1 = $request->jenisBarang1;
-        $peminjaman->tipeBarang1 = $request->tipeBarang1;
-        $peminjaman->jumlahBarang1  = $request->jumlahBarang1;
-        $peminjaman->jenisBarang2 = $request->jenisBarang2;
-        $peminjaman->tipeBarang2 = $request->tipeBarang2;
-        $peminjaman->jumlahBarang2  = $request->jumlahBarang2;
-        $peminjaman->jenisBarang3 = $request->jenisBarang3;
-        $peminjaman->tipeBarang3 = $request->tipeBarang3;
-        $peminjaman->jumlahBarang3  = $request->jumlahBarang3;
-        $peminjaman->jenisBarang4 = $request->jenisBarang4;
-        $peminjaman->tipeBarang4 = $request->tipeBarang4;
-        $peminjaman->jumlahBarang4  = $request->jumlahBarang4;
-        $peminjaman->jenisBarang5 = $request->jenisBarang5;
-        $peminjaman->tipeBarang5 = $request->tipeBarang5;
-        $peminjaman->jumlahBarang5  = $request->jumlahBarang5;
-        $peminjaman->tglKembali  = $request->tglKembali;
-        $peminjaman->tujuan  = $request->tujuan;
+        $aset = DataAset::find($request->nama);
 
-        $peminjaman->save();
+        if ((int)$request->jumlah > (int)$aset->jumlahBarang) {
+            return redirect('/visitor/PermohonanAset/PeminjamanAset')->with('warning', 'Peminjaman Melebihi Jumlah Aset!');
+        } else {
+
+            $peminjaman = Peminjaman::find($id);
+            $peminjaman->aset_id = $request->nama;
+            $peminjaman->jumlahPinjam = $request->jumlah;
+            $peminjaman->tglKembali  = $request->tglKembali;
+            $peminjaman->tujuan  = $request->tujuan;
+
+            $peminjaman->save();
 
 
-        return redirect('/visitor/PermohonanAset/PeminjamanAset')->with('success', 'Data Peminjaman Berhasil Diubah!');
+            return redirect('/visitor/PermohonanAset/PeminjamanAset')->with('success', 'Data Peminjaman Berhasil Diubah!');
+        }
     }
 
     /**
@@ -229,9 +225,7 @@ class PeminjamanController extends Controller
         ]);
 
         $peminjaman = Peminjaman::find($id);
-
-        $visitors = User::where('id', $request->idVisitor)->get();
-
+        
         $peminjaman->status = $request->statusKembali;
         $peminjaman->waktuPengembalian = $request->waktuPengembalian;
         $peminjaman->catatan = $request->catatan;
@@ -240,7 +234,7 @@ class PeminjamanController extends Controller
         Notifikasi::create([
             'deskripsi' => $request->deskripsiNotifKembali,
             'status' => $request->statusNotifKembali,
-            'kodePeminjaman'  => $request->kodePeminjaman,
+            'id_peminjaman'  => $request->kodePeminjaman,
             'unit_id' => $request->unit_id
         ]);
 
@@ -260,6 +254,8 @@ class PeminjamanController extends Controller
 
         if ($request->get('btnSubmit') == 'tolak') {
             $peminjaman->status = $request->statusTolak;
+
+
         } else if ($request->get('btnSubmit') == 'setuju') {
             $peminjaman->status = $request->statusSetuju;
         }
@@ -279,14 +275,26 @@ class PeminjamanController extends Controller
                     ]);
             }
         } else if ($request->get('btnSubmit') == 'setuju') {
-            foreach ($admins->take(1) as $admin) {
+            $aset = DataAset::find($request->kodeAset);
 
+            $total = $aset->jumlahBarang - $peminjaman->jumlahPinjam;
+
+            $aset->jumlahBarang = $total;
+
+            if($aset->jumlahBarang==0) {
+                $aset->status = 'kosong';
+            }
+
+            $aset->save();
+
+
+            foreach ($admins->take(1) as $admin) {
                 foreach ($visitors->take(1) as $visitor)
                     Notifikasi::create([
                         'deskripsi' => $request->deskripsiNotifSetuju,
                         'role' => $admin->role,
                         'status' => $admin->statusNotifSetuju,
-                        'kodePeminjaman'  => $request->kodePeminjaman,
+                        'id_peminjaman'  => $request->kodePeminjaman,
                         'unit_id' => $request->unit_id
 
                     ]);

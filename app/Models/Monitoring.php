@@ -11,13 +11,23 @@ class Monitoring extends Model
 
     protected $table = 'monitoring';
     
-    protected $guarded = ['id'];
+    protected $guarded = [];
+
+    public $incrementing = false; 
 
     public function user() {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class,'user_id');
     }
 
     public function unit() {
-        return $this->belongsTo(Unit::class);
+        return $this->belongsTo(Unit::class,'unit_id');
+    }
+
+    public function aset() {
+        return $this->belongsTo(DataAset::class,'aset_id');
+    }
+
+    public function notifikasi() {
+        return $this->hasMany(Notifikasi::class);
     }
 }
