@@ -20,6 +20,18 @@ class ControllerDataAset extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function indexAPI() {
+        $unit = Unit::all();
+        $kategori = Kategori::all();
+        $aset = DataAset::all();
+        return response()->json(
+            [   'unit' => $unit->values()->toArray(),
+                'kategori' => $kategori->values()->toArray(),
+                'aset' => $aset->values()->toArray()
+            ],200
+        );
+    }
+
     public function index(Request $request)
     {
         if($request->has('cari')) {
