@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Gedung;
+use App\Models\DataAset;
 use Illuminate\Http\Request;
 
 class GedungController extends Controller
@@ -101,7 +102,14 @@ class GedungController extends Controller
     public function destroy($id)
     {
         $Gedung = Gedung::find($id);
-        $Gedung->delete();
-        return redirect(route('kelola-gedung'));
+
+        $DataAset = DataAset::where('gedung_id',$id)->count();
+
+        if($DataAset != 0) {
+            return redirect(route('kelola-gedung'))->with('warning', 'Data Gagal Dihapus, Data Gedung Sedang Digunakan!');
+        } else {
+            $Gedung->delete();
+            return redirect(route('kelola-gedung'));
+        }
     }
 }

@@ -16,7 +16,7 @@ $('.deleteKategori').click(function() {
                 icon: "success",
                 timer:3000
             });
-            window.location = "/ManajemenAset/DataAset/Gedung/Hapus/"+id+"";
+            window.location = "/ManajemenAset/DataAset/Kategori/Hapus/"+id+"";
         } else {
             swal({
                 title: "Kategori Gagal Dihapus!",

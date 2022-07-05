@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Unit;
+use App\Models\User;
+use App\Models\DataAset;
 use Illuminate\Http\Request;
 
 class UnitController extends Controller
@@ -101,7 +103,16 @@ class UnitController extends Controller
     public function destroy($id)
     {
         $Unit = Unit::find($id);
-        $Unit->delete();
-        return redirect(route('kelola-unit'));
+
+        $DataAset = DataAset::where('unit_id',$id)->count();
+        $User = User::where('unit_id',$id)->count();
+
+        if($DataAset != 0 || $User != 0) {
+            return redirect(route('kelola-unit'))->with('warning', 'Data Gagal Dihapus, Data Unit Sedang Digunakan!');
+        } else {
+            $Unit->delete();
+            return redirect(route('kelola-unit'));
+        }
+
     }
 }

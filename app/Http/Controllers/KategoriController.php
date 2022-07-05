@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kategori;
+use App\Models\DataAset;
 use Illuminate\Http\Request;
 
 class KategoriController extends Controller
@@ -101,7 +102,14 @@ class KategoriController extends Controller
     public function destroy($id)
     {
         $Kategori = Kategori::find($id);
-        $Kategori->delete();
-        return redirect(route('kelola-kategori'));
+
+        $DataAset = DataAset::where('kategori_id',$id)->count();
+
+        if($DataAset != 0) {
+            return redirect(route('kelola-kategori'))->with('warning', 'Data Gagal Dihapus, Data Kategori Sedang Digunakan!');
+        } else {
+            $Kategori->delete();
+            return redirect(route('kelola-kategori'));
+        }
     }
 }

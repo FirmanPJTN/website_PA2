@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Exports\AsetExport;
 use Alert;
+use App\Models\Monitoring;
 use App\Models\Peminjaman;
 
 class ControllerDataAset extends Controller
@@ -210,6 +211,7 @@ class ControllerDataAset extends Controller
         $DataAset = DataAset::find($id);
 
         $peminjaman = Peminjaman::where('aset_id',$id)->count();
+
         if($peminjaman != 0) {
             return redirect('/ManajemenAset/DataAset')->with('warning', 'Data Gagal Dihapus, Data Aset Sedang Digunakan!');
         } else {
