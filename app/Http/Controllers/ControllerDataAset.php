@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Exports\AsetExport;
 use Alert;
+use App\Models\Peminjaman;
 
 class ControllerDataAset extends Controller
 {
@@ -207,8 +208,14 @@ class ControllerDataAset extends Controller
     public function destroy($id)
     {
         $DataAset = DataAset::find($id);
-        $DataAset->delete();
-        return redirect('/ManajemenAset/DataAset');
+
+        $peminjaman = Peminjaman::where('aset_id',$id)->count();
+        if($peminjaman != 0) {
+            return redirect('/ManajemenAset/DataAset')->with('warning', 'Data Gagal Dihapus, Data Aset Sedang Digunakan!');
+        } else {
+            $DataAset->delete();
+            return redirect('/ManajemenAset/DataAset');
+        }
     }
 
     public function export() 
