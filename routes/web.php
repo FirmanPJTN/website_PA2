@@ -17,9 +17,7 @@ Route::get('/', function () {
     return view('auth.login');
 })->name('login');
 
-Route::get('/daftar', function () {
-    return view('auth.register');
-})->name('daftar');
+Route::get('/daftar', [App\Http\Controllers\Auth\RegisterController::class, 'registerView'])->name('daftar');
 
 
 

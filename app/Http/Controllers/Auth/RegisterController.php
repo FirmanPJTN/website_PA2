@@ -87,4 +87,11 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
         ]);
     }
+
+    public function registerView() {
+        $units = Unit::all();
+        return view('auth.register', [ 'units' => $units ] );
+    }
 }
+
+

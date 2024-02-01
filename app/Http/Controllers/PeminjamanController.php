@@ -257,8 +257,7 @@ class PeminjamanController extends Controller
 
         if ($request->get('btnSubmit') == 'tolak') {
             $peminjaman->status = $request->statusTolak;
-
-
+            
         } else if ($request->get('btnSubmit') == 'setuju') {
             $peminjaman->status = $request->statusSetuju;
         }

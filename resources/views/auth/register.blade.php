@@ -95,9 +95,8 @@
 
                                         <select class="form-control custom-select ml-3" name="unit_id" id="unit_id">
                                             <option value="">▼ pilih unit</option>
-                                            {{$units = DB::table('unit')->get();}}
                                             @foreach($units as $unit)
-                                            <option value="{{$unit->id}}">{{$unit->unit}}</option>
+                                            <option value="{{$unit->id}}">{{$unit->nama}}</option>
                                             @endforeach
                                         </select>
                                     </div>
